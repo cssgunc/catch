@@ -1,0 +1,20 @@
+#table {
+    display: grid;
+    grid-template-columns: 390px 390px 390px;
+    column-gap: 20px;
+    grid-template-rows: 300px 300px 300px;
+    row-gap: 130px;
+    padding-left: 120px;
+    
+
+}
+
+#images {
+    height: 350px;
+    width: 100%;
+}
+
+#title { 
+    font-size: 40px;
+    font-weight: bold;
+}
