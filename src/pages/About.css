@@ -1,3 +1,9 @@
+#text{
+  margin-top: 25px;
+  padding-left: 250px;
+  padding-right: 250px;
+}
+
 .FAQ__question {
     background: none;
     border: none;
