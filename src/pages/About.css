@@ -1,0 +1,22 @@
+.FAQ__question {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  
+  .FAQ__question:hover {
+    cursor: pointer;
+  }
+  
+  .FAQ__answer--hidden {
+    display: none;
+    
+  }
+
+  .Answer {
+    padding: 40px;
+ }
