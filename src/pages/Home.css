@@ -1,0 +1,16 @@
+.rightArrow {
+    font-size: 2rem;
+  }
+  
+.leftArrow {
+    font-size: 2rem;
+  }
+
+.carousel {
+    display: flex;
+}
+
+.carouselItem {
+  float: center;
+  width: 33.33%;
+}
