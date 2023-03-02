@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {  Component } from 'react';
 import {Container, Nav, Navbar, NavDropdown, Button, Form} from 'react-bootstrap';
 import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import Home from '../pages/Home';
@@ -13,13 +13,14 @@ import './Navbar.css'
 export default class NavBar extends Component {
   
   render() {
+    
     return (
       <Router>
-        <Navbar className="header" expand="lg">
+        <Navbar className="header" expand="lg" >
             <Navbar.Brand className="justify-content-left" id="header-logo" as={Link} to={"/"}>
               <img className="nav-logo" src={require('../images/wordlesslogo.png')} alt="" /> CATCH
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse className="collapse-nav" id="basic-navbar-nav">
                 <Nav className="ms-auto">
                 <Nav.Link className="nav-link" as={Link} to={"/"}>Home</Nav.Link>

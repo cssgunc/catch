@@ -83,7 +83,7 @@ export default function Home() {
   return (
     <>
       <hr></hr>
-      <h2>Recent Events</h2>
+      <h2 >Recent Events</h2>
       <div className="carousel">
         <div className="carouselItem">
           <p>Late Night with Toys (9.9.22)</p>
