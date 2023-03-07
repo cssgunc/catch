@@ -1,53 +1,67 @@
 import React from 'react';
 import FAQ from "./FAQ";
+import bannerImage from '../images/About/banner.jpg';
+import Banner from '../components/Banner';
+import presPic from '../images/About/thumbnail_image001[92].png';
+import vicepresPic from '../images/About/IMG_0557.jpg';
+import treasurerPic from '../images/About/thumbnail_image2.jpg';
+import secretaryPic from '../images/About/thumbnail_image1.jpg';
+import cqoPic from '../images/About/thumbnail_IMG_0796.jpg';
+import ctoPic from '../images/About/IMG_5285.jpg';
+import prchairPic from '../images/About/Katie_s Headshot.jpg';
+
 import './About.css';
+
+function ExecTile({imagePath, name, position}) {
+  return(
+    <div class>
+      <img src = {imagePath} alt = {name + '(' + position + ')'} id = 'images'  />
+      {name} ({position})
+    </div>
+  );
+}
+
+function ExecGrid() {
+  const execInfo = [
+    {image: presPic, name: 'Darci', position: 'President'},
+    {image: vicepresPic, name: 'Bryce', position: 'Vice President'},
+    {image: treasurerPic, name: 'Rohan', position: 'Treasurer'},
+    {image: secretaryPic, name: 'Chris', position: 'Secretary'},
+    {image: cqoPic, name: 'Jun', position: 'Chief Quality Officer'},
+    {image: ctoPic, name: 'Jacob', position: 'Chief Technical Officer'},
+    {image: prchairPic, name: 'Katie', position: 'PR Chair'}
+  ]
+  
+  return(
+    <>
+        {execInfo.map((execMember) => (
+          <ExecTile
+            imagePath={execMember.image}
+            name={execMember.name}
+            position={execMember.position}
+          />
+        ))}
+    </>
+  );
+}
 
 export default function About(){
 
   return(
     <div className="App">
-      <h1>About Us</h1>
+      <Banner 
+        imagePath={bannerImage}
+        title='About'
+      />
+      
       <h3>Carolina Adapts Toys for Children</h3>
-
-      <iframe class = "video" width = "750" height = "450" sandbox="allow-scripts allow-popups allow-forms allow-same-origin allow-popups-to-escape-sandbox allow-downloads allow-modals" frameborder="0" aria-label="YouTube Video, Making toys more accessible for kids" src="https://www.youtube.com/embed/LDH36tCupQQ" allowfullscreen=""></iframe>
-
+      <a id="about-video">
+      <iframe title="Intro Video" class = "video" width = "750" height = "450" sandbox="allow-scripts allow-popups allow-forms allow-same-origin allow-popups-to-escape-sandbox allow-downloads allow-modals" frameborder="0" aria-label="YouTube Video, Making toys more accessible for kids" src="https://www.youtube.com/embed/LDH36tCupQQ" allowfullscreen=""></iframe>
+      </a>
       <div id = "text">
         <p font= "font-family: Arial"><em>
           "Founded in November 2018, CATCH works to provide adapted toys to children with special needs who are unable to play with most commercially manufactured toys. Utilizing engineering, creativity, and innovation, we give back to the community, while also raising awareness about underrepresented communities and their needs."
         </em></p>
-      </div>
-      <div>
-        <div id = 'title'> Our Executive Board </div>
-          <div id = 'table'>
-          <div>
-            <img src = {require('../images/About/thumbnail_image001[92].png')} alt = 'Darci (President)' id = 'images'  />
-            Darci (President)
-          </div>
-          <div>
-            <img src = {require('../images/About/IMG_0557.jpg')} alt = 'Bryce (Vice President)' id = 'images'/>
-            Bryce (Vice President)
-          </div>
-          <div>
-            <img src = {require('../images/About/thumbnail_image2.jpg')} alt = 'Rohan (Treasurer)'id = 'images' />
-            Rohan (Treasurer)
-          </div>
-          <div>
-            <img src = {require('../images/About/thumbnail_image1.jpg')} alt = 'Chris (Secretary)' id = 'images' />
-            Chris (Secretary)
-          </div>
-          <div>
-            <img src = {require('../images/About/thumbnail_IMG_0796.jpg')} alt = 'Jun (Chief Quality Officer)' id = 'images' />
-            Jun (Chief Quality Officer)
-          </div>
-          <div>
-            <img src = {require('../images/About/IMG_5285.jpg')} alt = 'Jacob (Chief Technical Officer)' id = 'images'/>
-            Jacob (Chief Technical Officer)
-          </div>
-          <div>
-            <img src = {require('../images/About/Katie_s Headshot.jpg')} alt = 'Jacob (Chief Technical Officer)' id = 'images' />
-            Katie (PR Chair)
-          </div>
-        </div>
       </div>
       <h1>FAQ</h1>
       <FAQ>
@@ -123,6 +137,13 @@ export default function About(){
           <FAQ.Answer id="q3"> Thanks for considering donating to us! All funds go to toy purchases which we will adapt for free and donate to a series of our community partners. Check out our <a href="https://www.gofundme.com/f/carolina-adapts-toys-for-children?utm_campaign=p_cf+share-flow-1&utm_medium=copy_link&utm_source=customer">GoFundMe</a> </FAQ.Answer>
         </FAQ.QAItem>
       </FAQ>
+
+      <div>
+        <div id = 'title'> Our Executive Board </div>
+          <div id = 'table'>
+          <ExecGrid id="exec-team"/>
+        </div>
+      </div>
     </div>
   );
 }

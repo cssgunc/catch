@@ -1,0 +1,46 @@
+.footer {
+    background-color: rgb(83, 191, 181, 0.7);
+    bottom: 0%;
+    width: 100%;
+    margin-top: 100px;
+    height: 200px;
+}
+
+.footer-main {
+    display: flex;
+    font-family: Montserrat;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.footer-col {
+    flex: 1;
+    text-align: center;
+}
+
+.footer-row {
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.footer-heading {
+    margin-top: 25px;
+    font-weight: BOLD;
+}
+
+.links {
+    padding-bottom: 10px;;
+}
+
+.icon {
+    margin-right: 10px;
+    margin-left: 10px;
+    border-width: 5px;
+    border-color: blue;
+    /* color: white; */
+}
+
+.inline-icon {
+    margin-left: -30px;
+    margin-right: 14px;
+}

@@ -1,5 +1,8 @@
 import React from 'react'
 import { Card, Row, Col } from "react-bootstrap";
+import bannerImage from '../images/News/banner.jpg';
+import Banner from '../components/Banner';
+
 import './News.css';
 
 
@@ -70,7 +73,7 @@ const ArticleGrid = () => {
   ];
 
   return (
-    <Row>
+    <Row className="mx-4 mt-4">
       {articles.map((article) => (
         <ArticleCard
           key={article.id}
@@ -87,7 +90,10 @@ const ArticleGrid = () => {
 const News = () => {
   return (
     <div>
-      <h1>News</h1>
+      <Banner
+        imagePath={bannerImage} 
+        title='News'
+      />
       <ArticleGrid />
     </div>
   )

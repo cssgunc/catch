@@ -1,33 +1,91 @@
-.header {
+.navbar {
     font-family: 'Poppins';
-    background-color: #f36f39;
-    height: 60px;
+    max-height: 3.5rem;
+    z-index: 1;
+}
+
+.navbar-show {
+    transform: translateY(0);
+    transition: transform 0.3s ease-out;
+  }
+  
+.navbar-hide {
+    transform: translateY(-100%);
+}
+
+.nav-brand {
+    font-size: large;
+    color: black;
+    width: 100px;
+    font-weight: 600;
+}
+.nav-brand-alternate, .nav-brand-alternate:hover {
+    font-size: large;
     color: white;
-    padding-left: 10px;
-    padding-right: 10px;
+    width: 100px;
+    font-weight: 600;
 }
 
 .nav-logo {
-    height: 180%;
-    max-height: 40px;
-    max-width: 60px;
-}
-
-#header-logo {
-    color: white;
+    max-height: 100%;
+    max-width: 40px;
 }
 
 
-.nav-link, .nav-link:focus{
-    font-size: large;
-    font-weight: 300;
-    color: white;
+.nav-link {
+    font-size: medium;
+    font-weight: 600;
+    color: black;
+    text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
 }
 
 .nav-link:hover {
-    color: rgba(255, 255, 255, 0.782);
+    color: rgb(115, 115, 115);
+    text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
 }
 
-.collapse-nav {
-    background-color: #f36f39;
+.nav-link-active, .nav-link-active:focus {
+    font-weight: 800;
+    color: black;
+    text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
+}
+
+.nav-link-active:hover {
+    font-weight: 800;
+    color: rgb(115, 115, 115);
+    text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
+}
+
+.nav-link-alternate {
+    font-size: medium;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
+}
+
+.nav-link-alternate:hover {
+    color: rgb(235, 235, 235);
+    text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
+}
+
+.nav-link-alternate-active, .nav-link-alternate-active:focus {
+    font-weight: 800;
+    color: white;
+    text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
+}
+
+.nav-link-alternate-active:hover {
+    font-weight: 800;
+    color: rgb(235, 235, 235);
+    text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
+}
+
+.adjust-width {
+    width: 100px;
+    text-align: center;
+    padding-right: 20px;
+}
+
+.collapsed {
+    background-color: white;
 }

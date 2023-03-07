@@ -1,9 +1,8 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Slider from "../components/Slider.js";
 import { db } from '../firebase-config.js';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
 import CountUp from 'react-countup';
 
 import "./Home.css";
@@ -97,7 +96,7 @@ export default function Home() {
       setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
     }
     getToys()
-  }, [])
+  })
 
   useEffect(() => {
     const getSum = async () => {
@@ -109,6 +108,25 @@ export default function Home() {
     }
     getSum()
   }, [toys])
+
+  const addData = async () => {
+    const docData = [];
+    for (const element of docData) {
+      try {
+        await setDoc(doc(db, "toys", element), {
+          fullName: element,
+          buildURL: '',
+          description: element + " toy",
+          donated: 20,
+          imageName: element + ".jpg",
+          inventory: 0,
+          ordered: 0
+        });
+      } catch (error) {
+        console.error("Error adding document: ", error);
+      }
+    }
+  }
 
   return (
     <>
@@ -136,6 +154,7 @@ export default function Home() {
           <Slider slides={interestMeetingImages} />
         </div>
       </div>
+      {/* <button onClick={addData}>Add Data</button> */}
     </>
   )
 }

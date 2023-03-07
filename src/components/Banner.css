@@ -1,0 +1,25 @@
+.banner {
+    margin-top: -3.5rem;
+    position: relative;
+    text-align: center;
+    z-index: -1;
+    width: 100%;
+}
+
+.banner-picture {
+    margin-top: 0;
+    width: 100%;
+}
+
+.banner-text-position {
+    font-weight: bolder;
+    position: absolute;
+    top: calc(50% + 1rem);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.banner-text {
+    font-weight: bold;
+}

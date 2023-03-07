@@ -1,12 +1,13 @@
 #table {
     display: grid;
-    grid-template-columns: 390px 390px 390px;
-    column-gap: 20px;
-    grid-template-rows: 300px 300px 300px;
+    grid-template-columns: 28% 28% 28%;
+    grid-template-rows: 270px 270px 270px;
+    column-gap: 3%;
     row-gap: 130px;
-    padding-left: 120px;
-    
-
+    width: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 100px;
 }
 
 #text{

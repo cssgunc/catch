@@ -1,0 +1,10 @@
+button {
+    border: transparent;
+    background-color: transparent;
+    margin: 0;
+    padding-top: 5px;
+}
+
+#shopping-quantity {
+    font-size: 5px;
+}

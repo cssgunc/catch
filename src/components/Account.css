@@ -1,0 +1,30 @@
+.account-container {
+    position: relative;
+}
+
+.account {
+    margin: 0;
+    margin-right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.account-icon {
+    pointer-events: auto;
+}
+  
+.account:not(:hover) .account-icon {
+pointer-events: none;
+}
+
+.login-panel {
+    position: fixed;
+    top: 100%;
+    width: 10px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
