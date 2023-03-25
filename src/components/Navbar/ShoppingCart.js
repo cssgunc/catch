@@ -25,8 +25,8 @@ export default function ShoppingCart(props) {
         <CartDisplay
             order={orders} // props.order is a map with key toyName and value toyQuantity. Same order is to be stored in firestore 
         />
-        : <button onClick={handleClick}>
-                <FaShoppingCart color={props.alternate ? 'white' : 'black'} size={20}/>
+        : <button className='shopping-cart-button' onClick={handleClick}>
+                <FaShoppingCart className='shopping-cart' color={props.alternate ? 'white' : 'black'} size={25}/>
                 {props.quantity === 0 ? <></>:
                     <Badge pill bg="primary" 
                     style={badgeStyle}>

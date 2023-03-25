@@ -1,0 +1,55 @@
+.account-container {
+    position: relative;
+}
+
+.account {
+    margin: 0;
+    padding: 0;
+    margin-right: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.account-icon {
+    pointer-events: auto;
+}
+  
+.account:not(:hover) .account-icon {
+pointer-events: none;
+}
+
+.login-panel {
+    position: absolute;
+    top: 100%;
+    padding-top: 5px;
+    margin-left: -80px;
+    width: 185px;
+    height: 170px;
+    background-color: white;
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 10%;
+}
+
+.text-input {
+    margin-top: 10px;
+    width: 145px;
+    font-size: 14px;
+}
+
+.form-submit {
+    margin-top: 10px;
+    width: 145px;
+    background-color: #f36f39;
+    color: white;
+    border-color: transparent;
+    font-weight: bold;
+}
+
+.create-link {
+    margin-left: 20px;
+    width: 145px;
+    margin-top: 5px;
+    font-size: 9px;
+    text-align: right;
+}

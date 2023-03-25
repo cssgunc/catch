@@ -109,25 +109,6 @@ export default function Home() {
     getSum()
   }, [toys])
 
-  const addData = async () => {
-    const docData = [];
-    for (const element of docData) {
-      try {
-        await setDoc(doc(db, "toys", element), {
-          fullName: element,
-          buildURL: '',
-          description: element + " toy",
-          donated: 20,
-          imageName: element + ".jpg",
-          inventory: 0,
-          ordered: 0
-        });
-      } catch (error) {
-        console.error("Error adding document: ", error);
-      }
-    }
-  }
-
   return (
     <>
       <h1>Total Donated</h1>
@@ -154,7 +135,6 @@ export default function Home() {
           <Slider slides={interestMeetingImages} />
         </div>
       </div>
-      {/* <button onClick={addData}>Add Data</button> */}
     </>
   )
 }

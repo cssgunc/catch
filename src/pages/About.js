@@ -140,7 +140,7 @@ export default function About(){
 
       <div>
         <div id = 'title'> Our Executive Board </div>
-          <div id = 'table'>
+        <div id = 'table'>
           <ExecGrid id="exec-team"/>
         </div>
       </div>

@@ -1,8 +1,13 @@
-button {
+.shopping-cart-button {
     border: transparent;
     background-color: transparent;
     margin: 0;
-    padding-top: 5px;
+    padding:0;
+}
+
+.shopping-cart {
+    margin: 0;
+    padding: 0;
 }
 
 #shopping-quantity {

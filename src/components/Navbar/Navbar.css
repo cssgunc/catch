@@ -1,3 +1,9 @@
+.nav-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
 .navbar {
     font-family: 'Poppins';
     max-height: 3.5rem;
@@ -80,7 +86,7 @@
     text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
 }
 
-.adjust-width {
+.adjust-right-nav {
     width: 100px;
     text-align: center;
     padding-right: 20px;
