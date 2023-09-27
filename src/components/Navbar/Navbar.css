@@ -95,3 +95,138 @@
 .collapsed {
     background-color: white;
 }
+
+.shopping-button {
+    background-color: transparent;
+    border: none;
+    /* color: transparent; */
+}
+
+.shopping-icon {
+    background-color: transparent;
+}
+
+.shopping-cart-container {
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    z-index: 10;
+    display:flex;
+}
+
+.disable-interaction {
+    background-color: black;
+    opacity: 50%;
+    flex: 9;
+}
+
+.shopping-cart-panel {
+    background-color: white;
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+.close-cart {
+    flex: 1;
+    border-bottom: solid;
+}
+
+.cart-items {
+    overflow: scroll;
+    flex:20;
+}
+
+.checkout-container {
+    flex: 1;
+}
+
+.cart-item-container {
+    height: 25%;
+    border-bottom: solid;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.colbreak {
+    flex: 1;
+}
+
+.item-picture {
+    max-width: 75%;
+    max-height: 75%;
+    object-fit: contain;
+    border-radius: 5%;
+    margin: auto;
+    flex: 4
+}
+
+.item-details {
+    min-height:75%;
+    max-height:75%;
+    min-width:50%;
+    max-width:50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    flex: 6;
+    /* border: solid; */
+}
+
+.item-descriptors {
+    flex: 8
+}
+
+.item-title {
+    font: Montserrat;
+    font-weight: bold;
+    width:100%;
+    text-align: left;
+    font-size: medium;
+}
+
+.item-description {
+    font: Montserrat;
+    width:100%;
+    text-align: left;
+    font-size: small;
+}
+
+
+.item-buttons {
+    flex: 3;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    /* border: solid; */
+}
+
+.rowbreak {
+    flex: 20;
+}
+ 
+.checkout {
+    width: 80%;
+    border-radius: 10px;
+    background-color: rgba(243, 111, 57, 1);
+    color: white;
+    font-weight: bold;
+    margin: 5px;
+    border: none;
+}
