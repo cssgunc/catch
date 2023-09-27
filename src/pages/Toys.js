@@ -17,13 +17,26 @@ import Banner from "../components/Banner";
 import bannerImage from '../images/Toy Catolog/banner.jpg'
 
 import './Toys.css'
+import { Link } from "react-router-dom";
 
 function ToyPage(props) {
+
+  const url = props.details.buildURL;
 
   const handleClick = () => {
     props.setViewToy(false);
     props.setActiveToy(false);
   };
+
+  const handleBuildRedirect = () => {
+    if (url === ""){
+      return;
+    }
+    window.location.href = url;
+  }
+
+  
+
 
   return(
     <>
@@ -46,7 +59,7 @@ function ToyPage(props) {
               <FaPlus size={15} style={{marginRight:"10px"}}/> <span>Add to Cart</span>
             </div>
           </button>
-          <button className="build-button">
+          <button className="build-button" onClick={() =>handleBuildRedirect()}>
             <div className="button-holder">
               <FaHammer size={20} style={{marginRight:"10px"}}/> <span>Make Yourself</span>
             </div>
