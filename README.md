@@ -6,7 +6,7 @@ Task Assignments/Groups: [Spreadsheet](https://docs.google.com/spreadsheets/d/1Z
 
 #### Installing node
 1. Check if you have node and npm install by running ```node -v``` and ```npm -v```. If both are installed, skip this section.
-2. Donwload node from https://nodejs.org/en/download. Follow the steps as shown.
+2. Download node from https://nodejs.org/en/download. Follow the steps as shown.
 3. Ensure that you have everything downloaded by repeating Step 1
 
 #### Starting with React
