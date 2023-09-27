@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import Slider from "../components/Slider.js";
 import { db } from '../firebase-config.js';
-import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
+import { collection, getDocs} from 'firebase/firestore';
 import CountUp from 'react-countup';
 
 import "./Home.css";
