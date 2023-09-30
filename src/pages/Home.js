@@ -85,6 +85,7 @@ const lateNightImages = [
 
 
 export default function Home() {
+  // WORKING WITH BACKEND START
   const toysRef = collection(db, "toys"); //reference to toys collection in firestore database
   const [toys, setToys] = useState([]);
   const [donatedSum, setDonatedSum] = useState(0);
@@ -99,15 +100,16 @@ export default function Home() {
   })
 
   useEffect(() => {
-    const getSum = async () => {
+    const getTotalDonated = async () => {
       let sum = 0;
       toys.forEach(element => {
         sum += element.donated;
       });
       setDonatedSum(sum);
     }
-    getSum()
+    getTotalDonated()
   })
+  // WORKING WITH BACKEND END
 
   return (
     <>

@@ -35,3 +35,13 @@ All commands must be run inside your project terminal. For all your tasks, you w
 4. Click **Open Pull Request**
 5. Click write a description of your changes
 6. Click **Create pull request** 
+
+### Working with the Backend
+
+#### Getting Started
+1. You will need to set up your **.env** file. It should be placed in your root directory of your project. More details on that have been sent out through email.
+2. Import the database into the file you need to access it. Do by adding ```import { db } from '../firebase-config.js';``` near the top of your file. Using ```db``` will allow you to work with the collections and documents in our database
+
+#### Resources:
+- Reference **getTotalDonated** and related code in Home.js to get an idea of how to work with the database
+- [Firestore Documentation](https://firebase.google.com/docs/firestore) (our work falls under "Web modular API")
