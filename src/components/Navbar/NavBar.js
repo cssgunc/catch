@@ -9,59 +9,26 @@ import Toys from '../../pages/Toys';
 import Donations from '../../pages/Donations';
 import News from '../../pages/News';
 import ShoppingCart from './ShoppingCart';
-
-import trexImage from '../../images/Toy Catolog/trex.jpg';
-import airplaneImage from '../../images/Toy Catolog/airplane.jpg';
-import garbageTruckImage from '../../images/Toy Catolog/garbagetruck.jpg';
-import schoolBusImage from '../../images/Toy Catolog/bus.jpg';
-import snakeImage from '../../images/Toy Catolog/snake.jpg';
-import automobileImage from '../../images/Toy Catolog/dinocar.jpg';
-import firetruckImage from '../../images/Toy Catolog/firetruck.jpg';
-import tractorImage from '../../images/Toy Catolog/tractor.jpg';
-import lizardImage from '../../images/Toy Catolog/lizard.jpg';
-import penguinImage from '../../images/Toy Catolog/penguin.jpg';
-import alienImage from '../../images/Toy Catolog/alien.jpg';
-import dogImage from '../../images/Toy Catolog/dog.jpg';
-import pixieImage from '../../images/Toy Catolog/pixie.jpg';
+import { toyInfo } from '../toyInfo';
 
 import './Navbar.css';
 
 function CartItem(props) {
-  const toyInfo = {
-    "T-Rex": {description: "temp description", imagePath: trexImage, altText: 'Modfified T-Rex Toy', buildURL: 'https://docs.google.com/presentation/d/1wbJqiEVo8fUr-7MK_vaexr9-cqTBe6HjSzHXuhyEOuY/edit#slide=id.p'},
-    "Airplane": {description: "temp description", imagePath: airplaneImage, altText: 'Modfified Airplane Toy', buildURL: 'https://docs.google.com/presentation/d/1sG6zYR71rNoACMY5j51roubwaqilKjNm_EgJfxFn7VU/edit#slide=id.p'},
-    "Garbage Truck": {description: "temp description", imagePath: garbageTruckImage, altText: 'Modfified Truck Toy', buildURL: 'https://docs.google.com/presentation/d/12rRDEw87h6ICf5L7guNQBBB5o5kUtJ3QybOLMZ_QNRg/edit?usp=sharing'},
-    "School Bus": {description: "temp description", imagePath: schoolBusImage, altText: 'Modfified Bus Toy', buildURL: ''},
-    "Snake": {description: "temp description", imagePath: snakeImage, altText: 'Modfified Snake Toy', buildURL: ''},
-    "Car": {description: "temp description", imagePath: automobileImage, altText: 'Modfified Automobile Toy', buildURL: 'https://docs.google.com/presentation/d/1wNAGJYabdsUwAWgdzBGDGSQVSf8A0drX-7Vv6Ua_UU4/edit#slide=id.ge901fea6e3_0_80'},
-    "Firetruck": {description: "temp description", imagePath: firetruckImage, altText: 'Modfified Firetruck Toy', buildURL: 'https://docs.google.com/presentation/d/1rYG7PFngmJgI7uBpoO3ydhBF3RiEJJCjJ8ZIl-tqLXY/edit#slide=id.p'},
-    "Tractor": {description: "temp description", imagePath: tractorImage, altText: 'Modfified Tractor Toy', buildURL: 'https://docs.google.com/presentation/d/1wNAGJYabdsUwAWgdzBGDGSQVSf8A0drX-7Vv6Ua_UU4/edit#slide=id.p'},
-    "Lizard": {description: "temp description", imagePath: lizardImage, altText: 'Modfified Lizard Toy', buildURL: ''},
-    "Penguin": {description: "temp description", imagePath: penguinImage, altText: 'Modfified Penguin Toy', buildURL: 'https://docs.google.com/document/d/1rYR7cj2QgniXExzF7qxCrk9XsvUmf7qV7L0kWtusydA/edit'},
-    "Alien": {description: "temp description", imagePath: alienImage, altText: 'Modfified Alien Toy', buildURL: ''},
-    "Dog": {description: "temp description",  imagePath: dogImage, altText: 'Modfified Dog Toy', buildURL: ''},
-    "Pixie": {description: "temp description", imagePath: pixieImage, altText: 'Modfified Pixie Toy', buildURL: ''}
-  }
 
   const [quantity, setQuantity] = useState(props.toy.quantity)
   const [disable, setDisable] = useState(quantity === 1)
   const toyName = props.toy.name;
+  const toy = toyInfo.find(item => item.name === toyName)
 
   const addOne = () => {
-    console.log('increment');
-    console.log(props.order);
     let tempOrder = [...props.order];
-    console.log(tempOrder);
     tempOrder[props.index].quantity++;
     setQuantity(tempOrder[props.index].quantity);
     setDisable(false);
     props.setOrder(tempOrder);
-    console.log(props.order);
   };
 
   const removeOne = () => {
-    console.log('decrement')
-    console.log(props.order)
     let tempOrder = [...props.order];
     tempOrder[props.index].quantity--;
     setQuantity(tempOrder[props.index].quantity);
@@ -69,16 +36,13 @@ function CartItem(props) {
       setDisable(true)
     }
     props.setOrder(tempOrder);
-    console.log(props.order);
   };
 
   const removeItem = () => {
-    console.log(props.order);
     let tempOrder = [...props.order];
     tempOrder[props.index].quantity = 0;
     setQuantity(0);
     props.setOrder(tempOrder);
-    console.log(props.order);
   };
 
   
@@ -88,12 +52,12 @@ function CartItem(props) {
     {(quantity !== 0) && 
     <div className='cart-item-container'>
       <div className='colbreak'/>
-      <img src={toyInfo[toyName].imagePath} className='item-picture' alt={toyInfo[toyName].altText}></img>
+      <img src={toy.imagePath} className='item-picture' alt={toy.altText}></img>
       <div className='colbreak'/>
       <div className='item-details'>
         <div className="item-descriptors">
           <p className='item-title'>{toyName}</p>
-          <p className="item-description">{toyInfo[toyName].description}</p>
+          <p className="item-description">{toy.description}</p>
         </div>
       
         <div className="item-buttons" style={{display:"inline-flex"}}>

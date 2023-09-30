@@ -107,7 +107,7 @@ export default function Home() {
       setDonatedSum(sum);
     }
     getSum()
-  }, [toys])
+  })
 
   return (
     <>
