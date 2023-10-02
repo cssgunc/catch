@@ -27,7 +27,11 @@
 }
 
 .links {
-    padding-bottom: 10px;;
+    padding-bottom: 10px;
+}
+
+.links a {
+    color: rgb(28, 28, 28);
 }
 
 .icon {

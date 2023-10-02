@@ -44,11 +44,17 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div class="links">
-        <FaInstagram size={20} className='icon'/>
-        <FaFacebook size={20} className='icon'/>
-        <FaLinkedin size={20} className='icon'/>
-      </div>
+        <div class="links">
+          <a href="https://www.instagram.com/catch_unc/" target="_blank">
+            <FaInstagram size={20} className='icon'/>
+          </a>
+          <a href="https://www.facebook.com/CATCHUNC/" target="_blank">
+            <FaFacebook size={20} className='icon'/>
+          </a>
+          <a href="https://www.linkedin.com/in/carolina-adapts-toys-for-children-0b351a220/" target="_blank">
+            <FaLinkedin size={20} className='icon'/>
+          </a>
     </div>
+  </div>
   )
 }
