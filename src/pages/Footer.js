@@ -15,7 +15,7 @@ export default function Footer() {
             <div class="footer-heading">LEARN</div>
             <div class="footer-row">History</div>
             <div class="footer-row">FAQ</div>
-            <div class="footer-row">Team</div>
+            <div class="footer-row">The Team</div>
           </div>
         </div>
         <div class="footer-col">
