@@ -16,7 +16,10 @@ function ExecTile({imagePath, name, position}) {
   return(
     <div class>
       <img src = {imagePath} alt = {name + '(' + position + ')'} id = 'images'  />
-      {name} ({position})
+      <div className="exec-names">
+        <div>{name}</div>
+        <div>{position}</div>
+      </div>
     </div>
   );
 }
@@ -54,7 +57,7 @@ export default function About(){
         title='About'
       />
       
-      <h3>Carolina Adapts Toys for Children</h3>
+      <h2>Carolina Adapts Toys for Children</h2>
       <a id="about-video">
       <iframe title="Intro Video" class = "video" width = "750" height = "450" sandbox="allow-scripts allow-popups allow-forms allow-same-origin allow-popups-to-escape-sandbox allow-downloads allow-modals" frameborder="0" aria-label="YouTube Video, Making toys more accessible for kids" src="https://www.youtube.com/embed/LDH36tCupQQ" allowfullscreen=""></iframe>
       </a>
@@ -63,7 +66,7 @@ export default function About(){
           "Founded in November 2018, CATCH works to provide adapted toys to children with special needs who are unable to play with most commercially manufactured toys. Utilizing engineering, creativity, and innovation, we give back to the community, while also raising awareness about underrepresented communities and their needs."
         </em></p>
       </div>
-      <h1>FAQ</h1>
+      <h2>FAQ</h2>
       <FAQ>
         <FAQ.QAItem>
           <FAQ.Question answerId="q1">
@@ -138,8 +141,8 @@ export default function About(){
         </FAQ.QAItem>
       </FAQ>
 
-      <div>
-        <div id = 'title'> Our Executive Board </div>
+      <div className="execs">
+        <h2 id = 'title'> Our Executive Board </h2>
         <div id = 'table'>
           <ExecGrid id="exec-team"/>
         </div>
