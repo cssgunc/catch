@@ -87,6 +87,7 @@ const lateNightImages = [
 export default function Home() {
   // WORKING WITH BACKEND START
   const toysRef = collection(db, "toys"); //reference to toys collection in firestore database
+  const ordersRef = collection(db, "orders");
   const [toys, setToys] = useState([]);
   const [donatedSum, setDonatedSum] = useState(0);
   
@@ -108,6 +109,33 @@ export default function Home() {
       setDonatedSum(sum);
     }
     getTotalDonated()
+  })
+
+  useEffect(() => {
+    const completeOrder = async (documentID) => {
+      const orders = await getDocs(ordersRef);
+      const order = 0;
+      orders.forEach(element => {
+        if (element.id === documentID) {
+          order = element;
+          //TODO: set element.completed to true in db
+        }
+      })
+
+      if (order === 0) {
+        //TODO: throw invalid document ID error
+      }
+      
+      //TODO: conflict with toy amount update in placeOrder?
+      //TODO: update firebase db?
+      toys.forEach(element => {
+        let currOrderAmt = order.get(element.id);
+        if (currOrderAmt != undefined) {
+          element.donated += currOrderAmt;
+        }
+      })
+    }
+    completeOrder()
   })
   // WORKING WITH BACKEND END
 
