@@ -109,6 +109,11 @@ export default function Home() {
     }
     getTotalDonated()
   })
+
+  const completeOrder = async (orderId) => {
+    console.log("order btn clicked");
+  };
+
   // WORKING WITH BACKEND END
 
   return (
@@ -137,6 +142,8 @@ export default function Home() {
           <Slider slides={interestMeetingImages} />
         </div>
       </div>
+      <br/>
+      <button onClick={() => completeOrder("orderExample")}>Complete Order</button>
     </>
   )
 }
