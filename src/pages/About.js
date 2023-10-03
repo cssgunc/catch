@@ -2,13 +2,13 @@ import React from 'react';
 import FAQ from "./FAQ";
 import bannerImage from '../images/About/banner.jpg';
 import Banner from '../components/Banner';
-import presPic from '../images/About/thumbnail_image001[92].png';
-import vicepresPic from '../images/About/IMG_0557.jpg';
-import treasurerPic from '../images/About/thumbnail_image2.jpg';
-import secretaryPic from '../images/About/thumbnail_image1.jpg';
-import cqoPic from '../images/About/thumbnail_IMG_0796.jpg';
-import ctoPic from '../images/About/IMG_5285.jpg';
-import prchairPic from '../images/About/Katie_s Headshot.jpg';
+import presPic from '../images/About/presPic.png';
+import vicepresPic from '../images/About/vicepresPic.jpg';
+import treasurerPic from '../images/About/treasurerPic.jpg';
+import secretaryPic from '../images/About/secretary.jpg';
+import cqoPic from '../images/About/cqoPic.jpg';
+import ctoPic from '../images/About/ctoPic.jpg';
+import prchairPic from '../images/About/prchairPic.jpg';
 
 import './About.css';
 
@@ -69,7 +69,7 @@ export default function About(){
           <FAQ.Question answerId="q1">
             {(isOpen, onToggle) => {
               return (
-                <><hr></hr>
+               <><hr></hr>
                   <span>How do I join CATCH?</span>
                   <hr></hr>
                 </>
@@ -147,3 +147,5 @@ export default function About(){
     </div>
   );
 }
+
+
