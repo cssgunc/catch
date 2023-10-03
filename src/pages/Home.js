@@ -111,7 +111,16 @@ export default function Home() {
   })
 
   const completeOrder = async (orderId) => {
-    console.log("order btn clicked");
+    orderRef = doc(db, 'orders', orderId); // Replace 'orderId' with the actual document ID of the order you want to update
+    const updateData = { completed: true };
+
+    setDoc(orderRef, updateData, {merge: true})
+      .then(() => {
+        console.log('Document successfully updated!');
+      })
+      .catch((error) => {
+        console.error('Error updating document: ', error);
+    });
   };
 
   // WORKING WITH BACKEND END
