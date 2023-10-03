@@ -27,6 +27,7 @@ All commands must be run inside your project terminal. For all your tasks, you w
 #### Creating New Branch
 1. ```git branch [name]``` to create a branch with name of [name].
 2. ```git checkout [name]``` to switch to branch [name].
+3. When you've finished making your changes locally, run ```git push -u origin [name]``` to create the remote branch and push to there.
 
 #### Submit a Pull Request
 1. Navigate to the [repository page](https://github.com/cssgunc/catch).
