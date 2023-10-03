@@ -24,10 +24,26 @@
     margin-bottom: 130px;
 }
 
+.intro {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+#about-video {
+  width: 90%;
+}
+
+iframe {
+  width: 80%;
+}
+
 #text{
-  margin-top: 25px;
-  padding-left: 250px;
-  padding-right: 250px;
+  width: 80%;
+  margin-top: 1rem;
+  text-align: center;
 }
 
 h2 {
