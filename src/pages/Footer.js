@@ -29,7 +29,7 @@ export default function Footer() {
           <div style={{display: 'inline-block', textAlign: 'left'}}>
             <div class="footer-heading">SUPPORT</div>
             <div class="footer-row">GoFundMe</div>
-            <div class="footer-row">Donate a Toy</div>
+            <div class="footer-row">Donate Toys</div>
           </div>
         </div>
         <div class="footer-col">
