@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import Slider from "../components/Slider.js";
 import { db } from '../firebase-config.js';
-import { collection, getDocs} from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
 import CountUp from 'react-countup';
 
 import "./Home.css";
@@ -111,32 +111,36 @@ export default function Home() {
     getTotalDonated()
   })
 
-  useEffect(() => {
-    const completeOrder = async (documentID) => {
-      const orders = await getDocs(ordersRef);
-      const order = 0;
-      orders.forEach(element => {
-        if (element.id === documentID) {
-          order = element;
-          //TODO: set element.completed to true in db
-        }
-      })
+  const completeOrder = async (orderId) => {
+    const orderRef = doc(db, 'orders', orderId); // Replace 'orderId' with the actual document ID of the order you want to update
+    const orderData = await getDoc(orderRef);
+    if (!orderData.exists()) {
+      console.error('Error accessing document data');
+      return;
+    } /** else if (orderData.get("completed") == true) {
+      console.error('Order already completed');
+      return;
+    }*/
+    
+    const updateData = { completed: true };
 
-      if (order === 0) {
-        //TODO: throw invalid document ID error
-      }
-      
-      //TODO: conflict with toy amount update in placeOrder?
-      //TODO: update firebase db?
-      toys.forEach(element => {
-        let currOrderAmt = order.get(element.id);
-        if (currOrderAmt != undefined) {
-          element.donated += currOrderAmt;
-        }
+    setDoc(orderRef, updateData, {merge: true})
+      .then(() => {
+        console.log('Document successfully updated!');
       })
-    }
-    completeOrder()
-  })
+      .catch((error) => {
+        console.error('Error updating document: ', error);
+    });
+
+    const order = orderData.get("order");
+    toys.forEach(element => {
+      const currOrderAmt = order[element.fullName];
+      if (currOrderAmt != undefined) {
+        element.donated += currOrderAmt;
+      }
+    })
+  };
+
   // WORKING WITH BACKEND END
 
   return (
@@ -165,6 +169,8 @@ export default function Home() {
           <Slider slides={interestMeetingImages} />
         </div>
       </div>
+      <br/>
+      <button onClick={() => completeOrder("orderExample")}>Complete Order</button>
     </>
   )
 }
