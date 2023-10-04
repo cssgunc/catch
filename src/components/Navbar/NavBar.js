@@ -188,7 +188,6 @@ export default function NavBar() {
       <Router>
         <Container fluid className="nav-container">
           <Navbar className={`bg-transparent mx-3 navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg">
-            //added contact
               <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' || activeTab === '/contact' ? "nav-brand-alternate" : "nav-brand"} as={Link} to={"/"} onClick={() => handleClick('/')}>
                 <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
               </Navbar.Brand>
@@ -200,14 +199,12 @@ export default function NavBar() {
                     <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
                     <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
                     <Nav.Link className={getClassName("/news")} as={Link} to={"/news"} onClick={() => handleClick('/news')}>News</Nav.Link>
-                    //added:
                     <Nav.Link className={getClassName("/contact")} as={Link} to={"/contact"} onClick={() => handleClick('/contact')}>Contact</Nav.Link>
                   </Nav>
               </Navbar.Collapse>
               <Nav className="ml-auto justify-content-end adjust-right-nav">
                   <button onClick={() => openShoppingCart()} className="shopping-button">
                     <ShoppingCart
-                    //added contact:
                       alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' || activeTab === '/contact' ? true : false}
                       quantity={total} // will need to be dynamically updated
                     />
