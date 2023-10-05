@@ -33,3 +33,24 @@ h1, h2, h3 {
     gap: 20px;
     align-items: flex-start;
 }
+
+/* testing */
+
+@media (max-width: 768px) {
+    .sitesection {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .mobile-image {
+      /* Styles for the image container on mobile */
+      margin-bottom: 10px; /* Adjust spacing as needed */
+    }
+  
+    .text-box {
+      /* Styles for the text container on mobile */
+      text-align: center; /* Center align the text */
+    }
+  }
+  
