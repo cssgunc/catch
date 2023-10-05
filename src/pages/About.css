@@ -32,13 +32,6 @@
   width: 100%;
 }
 
-#about-video {
-  width: 90%;
-}
-
-iframe {
-  width: 80%;
-}
 
 #text{
   width: 80%;
@@ -51,9 +44,21 @@ h2 {
   margin: 2rem;
 }
 
+.video-container {
+  width: 100vw;
+}
+
+iframe {
+  width: 55%;
+}
+
 #images {
   height: 350px;
   width: 100%;
+}
+
+.about-content {
+  margin: 0 5rem;
 }
 
 .FAQ__question {
@@ -79,4 +84,14 @@ h2 {
   padding-left: 40px;
   padding-right: 40px;
   text-align: left;
+}
+
+@media (max-width: 900px) {
+  iframe {
+    width: 90%;
+  }
+
+  .about-content {
+    margin: 0 1rem;
+  }
 }
