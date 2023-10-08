@@ -11,6 +11,9 @@ import News from '../../pages/News';
 import ShoppingCart from './ShoppingCart';
 import { toyInfo } from '../toyInfo';
 
+import { db } from '../../firebase-config'; // Fixing the import path
+import { addDoc, collection, setDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore'; // importing Firestore functions
+
 import './Navbar.css';
 
 function CartItem(props) {
@@ -93,6 +96,37 @@ function ShoppingCartPanel(props) {
     }
   }, []);
 
+  const placeOrder = async (order) => {
+    // Remove toy-quantity pairs where quantity is 0
+    for (let toy in order) {
+      if (order[toy].quantity === 0) {
+        delete order[toy];
+      }
+    }
+
+    // Write to the "orders" collection
+    const orderData = {
+      completed: false,
+      orderTime: serverTimestamp(), // using Firestore server timestamp
+      order: order
+    };
+
+    try {
+      // Create new document in orders collection
+      const orderRef = await addDoc(collection(db, "orders"), orderData);
+
+      // Update the ordered field for each toy in the "toys" collection
+      for (let toyName in order) {
+        const toyRef = doc(db, "toys", toyName);
+        await updateDoc(toyRef, {
+          ordered: (currentValue) => currentValue + order[toyName].quantity
+        });
+      }
+    } catch (e) {
+      console.error("Error placing order: ", e);
+    }
+  };
+
   return(
     <div className='shopping-cart-container'>
       <div className='disable-interaction' onClick={() => closeShoppingCart()}></div>
@@ -113,7 +147,7 @@ function ShoppingCartPanel(props) {
           ))}
         </div>
         <div className='checkout-container' style={{flex: 2, display:"flex", justifyContent:"center"}}>
-          <button className='checkout'>Checkout</button>
+          <button className='checkout' onClick={() => placeOrder(props.order)}>Checkout</button>
         </div>
       </div>
     </div>
