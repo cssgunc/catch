@@ -1,5 +1,6 @@
 import React from 'react';
 import FAQ from "./FAQ";
+import './About.css';
 import bannerImage from '../images/About/banner.jpg';
 import Banner from '../components/Banner';
 import presPic from '../images/About/thumbnail_image001[92].png';
@@ -12,10 +13,10 @@ import prchairPic from '../images/About/Katie_s Headshot.jpg';
 
 import './About.css';
 
-function ExecTile({imagePath, name, position}) {
-  return(
-    <div class>
-      <img src = {imagePath} alt = {name + '(' + position + ')'} id = 'images'  />
+function ExecTile({ imagePath, name, position }) {
+  return (
+    <div className="exec-tile">
+      <img src={imagePath} alt={`${name} (${position})`} className="exec-image" />
       <div className="exec-names">
         <div>{name}</div>
         <div>{position}</div>
@@ -23,7 +24,6 @@ function ExecTile({imagePath, name, position}) {
     </div>
   );
 }
-
 function ExecGrid() {
   const execInfo = [
     {image: presPic, name: 'Darci', position: 'President'},
