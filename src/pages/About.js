@@ -14,9 +14,9 @@ import './About.css';
 
 function ExecTile({ imagePath, name, position }) {
   const imageStyle = {
-    width: '300px', // Set the width to 300px
-    height: '300px', // Set the height to 300px
-    objectFit: 'cover', // Maintain aspect ratio and cover the container
+    width: '300px', 
+    height: '300px', 
+    objectFit: 'cover', 
   };
 
   return (
@@ -25,7 +25,7 @@ function ExecTile({ imagePath, name, position }) {
         src={imagePath}
         alt={`${name} (${position})`}
         className="exec-image"
-        style={imageStyle} // Apply the image style
+        style={imageStyle}
       />
       <div className="exec-names">
         <div>{name}</div>

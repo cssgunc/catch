@@ -7,36 +7,33 @@
   margin: 0 4rem;
 }
 
-
 .exec-grid-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
 
-/* Individual executive image tile */
+
 .exec-tile {
-  flex: 1 1 calc(33.33% - 10px); /* Adjust the width as needed for your layout */
-  margin-right: 10px; /* Add some spacing between tiles */
-  margin-bottom: 20px; /* Add some vertical spacing between rows */
+  flex: 1 1 calc(33.33% - 10px); 
+  margin-right: 10px; 
+  margin-bottom: 20px; 
   box-sizing: border-box;
 }
 
-/* Ensure images remain 300px by 300px */
 .exec-image {
   width: 300px;
   height: 300px;
   object-fit: cover;
 }
 
-/* Media query for smaller screens */
 @media (max-width: 767px) {
   .exec-grid-container {
-    flex-direction: column; /* Switch to a single column layout */
+    flex-direction: column; 
   }
   .exec-tile {
-    flex: 1 1 100%; /* Full width for single column */
-    margin-right: 0; /* No margin for single column */
+    flex: 1 1 100%; 
+    margin-right: 0; 
   }
 }
 
