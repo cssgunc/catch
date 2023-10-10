@@ -72,7 +72,7 @@ function DonationBox(props) {
             src={imagePath}
             alt={`Donation to ${props.organization}`}
             style={{
-              maxWidth: "100%",
+              maxWidth: "80%",
               height: "auto",
               marginBottom: "10px",
             }}
