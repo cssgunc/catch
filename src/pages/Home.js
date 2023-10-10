@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import Slider from "../components/Slider.js";
 import { db } from '../firebase-config.js';
-import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import CountUp from 'react-countup';
 
 import "./Home.css";
@@ -87,7 +87,6 @@ const lateNightImages = [
 export default function Home() {
   // WORKING WITH BACKEND START
   const toysRef = collection(db, "toys"); //reference to toys collection in firestore database
-  const ordersRef = collection(db, "orders");
   const [toys, setToys] = useState([]);
   const [donatedSum, setDonatedSum] = useState(0);
   
@@ -129,7 +128,7 @@ export default function Home() {
     //Iterates through toys instead of order because order references toy.fullName, not toy.
     toys.forEach(async element => {
       const currOrderAmt = order[element.fullName];
-      if (currOrderAmt != undefined) {
+      if (currOrderAmt !== undefined) {
         const toyRef = doc(db, "toys", element);
         await updateDoc(toyRef, {donated: element.donated + currOrderAmt});
       }
