@@ -10,20 +10,7 @@ import secretaryPic from '../images/About/thumbnail_image1.jpg';
 import cqoPic from '../images/About/thumbnail_IMG_0796.jpg';
 import ctoPic from '../images/About/IMG_5285.jpg';
 import prchairPic from '../images/About/Katie_s Headshot.jpg';
-
 import './About.css';
-
-// function ExecTile({ imagePath, name, position }) {
-//   return (
-//     <div className="exec-tile">
-//       <img src={imagePath} alt={`${name} (${position})`} className="exec-image" />
-//       <div className="exec-names">
-//         <div>{name}</div>
-//         <div>{position}</div>
-//       </div>
-//     </div>
-//   );
-// }
 
 function ExecTile({ imagePath, name, position }) {
   const imageStyle = {
