@@ -157,12 +157,16 @@ export default function NavBar() {
     useEffect(() => {
       const handleScroll = () => {
         const currentScrollPos = window.pageYOffset;
-        setVisible((prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 170) || currentScrollPos < 30);
-        setPrevScrollPos(currentScrollPos);
+        if (currentScrollPos > 30) {
+          document.querySelector('.navbar').style.backgroundColor = 'your-desired-color';
+        } else {
+          document.querySelector('.navbar').style.backgroundColor = 'transparent';
+        }
       };
+      document.querySelector('.navbar').style.backgroundColor = 'transparent';
       window.addEventListener('scroll', handleScroll);
       return () => window.removeEventListener('scroll', handleScroll);
-    }, [prevScrollPos]);
+    }, []);
 
     useEffect(() => {
       const getTotal = () => {
