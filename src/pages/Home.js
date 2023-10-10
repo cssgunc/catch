@@ -123,20 +123,15 @@ export default function Home() {
     }*/
     
     const updateData = { completed: true };
-
-    setDoc(orderRef, updateData, {merge: true})
-      .then(() => {
-        console.log('Document successfully updated!');
-      })
-      .catch((error) => {
-        console.error('Error updating document: ', error);
-    });
+    await updateDoc(orderRef, updateData);
 
     const order = orderData.get("order");
-    toys.forEach(element => {
+    //Iterates through toys instead of order because order references toy.fullName, not toy.
+    toys.forEach(async element => {
       const currOrderAmt = order[element.fullName];
       if (currOrderAmt != undefined) {
-        element.donated += currOrderAmt;
+        const toyRef = doc(db, "toys", element);
+        await updateDoc(toyRef, {donated: element.donated + currOrderAmt});
       }
     })
   };
