@@ -1,83 +1,71 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap');
-
 * {
   font-family: 'Montserrat', sans-serif !important;
 }
 
+/* Add margin to .execs */
 .execs {
   margin: 0 4rem;
 }
 
-.exec-names {
+
+.exec-grid-container {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
+/* Individual executive image tile */
+.exec-tile {
+  flex: 1 1 calc(33.33% - 10px); /* Adjust the width as needed for your layout */
+  margin-right: 10px; /* Add some spacing between tiles */
+  margin-bottom: 20px; /* Add some vertical spacing between rows */
+  box-sizing: border-box;
+}
+
+/* Ensure images remain 300px by 300px */
 .exec-image {
   width: 300px;
   height: 300px;
-  object-fit: cover; /* Maintain aspect ratio and cover the container */
+  object-fit: cover;
 }
 
-/* Default image size */
-.exec-image {
-  width: 300px;
-  height: 300px;
-  object-fit: cover; /* Maintain aspect ratio and cover the container */
-}
-
-/* Responsive image size for screens with a max-width of 768px */
-@media (max-width: 768px) {
-  .exec-image {
-    width: 200px;
-    height: 200px;
+/* Media query for smaller screens */
+@media (max-width: 767px) {
+  .exec-grid-container {
+    flex-direction: column; /* Switch to a single column layout */
+  }
+  .exec-tile {
+    flex: 1 1 100%; /* Full width for single column */
+    margin-right: 0; /* No margin for single column */
   }
 }
 
-/* Add more media queries for different screen sizes if needed */
-
-
-
-.exec-image {
-  max-width: 100%;
-}
-
-
-@media (max-width: 480px) {
- 
-  .exec-image {
-    width: 75%; 
-  }
-}
 
 #table {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 3%;
-    row-gap: 3%;
-    width: 100%;
-    margin-bottom: 130px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 3%;
+  row-gap: 3%;
+  width: 100%;
+  margin-bottom: 130px;
 }
 
 .intro {
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
 
-
-#text{
+#text {
   width: 80%;
   margin-top: 1rem;
   text-align: center;
 }
 
 h2 {
-  font-weight:900;
+  font-weight: 900;
   margin: 2rem;
 }
 
@@ -107,14 +95,13 @@ iframe {
   padding-left: 40px;
   padding-right: 40px;
 }
-  
+
 .FAQ__question:hover {
   cursor: pointer;
 }
 
 .FAQ__answer--hidden {
   display: none;
-  
 }
 
 .FAQ__answer {

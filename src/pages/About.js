@@ -13,10 +13,33 @@ import prchairPic from '../images/About/Katie_s Headshot.jpg';
 
 import './About.css';
 
+// function ExecTile({ imagePath, name, position }) {
+//   return (
+//     <div className="exec-tile">
+//       <img src={imagePath} alt={`${name} (${position})`} className="exec-image" />
+//       <div className="exec-names">
+//         <div>{name}</div>
+//         <div>{position}</div>
+//       </div>
+//     </div>
+//   );
+// }
+
 function ExecTile({ imagePath, name, position }) {
+  const imageStyle = {
+    width: '300px', // Set the width to 300px
+    height: '300px', // Set the height to 300px
+    objectFit: 'cover', // Maintain aspect ratio and cover the container
+  };
+
   return (
     <div className="exec-tile">
-      <img src={imagePath} alt={`${name} (${position})`} className="exec-image" />
+      <img
+        src={imagePath}
+        alt={`${name} (${position})`}
+        className="exec-image"
+        style={imageStyle} // Apply the image style
+      />
       <div className="exec-names">
         <div>{name}</div>
         <div>{position}</div>
@@ -24,6 +47,9 @@ function ExecTile({ imagePath, name, position }) {
     </div>
   );
 }
+
+
+
 function ExecGrid() {
   const execInfo = [
     {image: presPic, name: 'Darci', position: 'President'},
@@ -147,13 +173,13 @@ export default function About(){
         </FAQ>
 
         <div className="execs">
-          <h2 id = 'title'> Our Executive Board </h2>
-          <div id = 'table'>
-            <ExecGrid id="exec-team"/>
+          <h2 id="title">Our Executive Board</h2>
+          <div className="exec-grid-container">
+            <ExecGrid id="exec-team" />
           </div>
         </div>
       </div>
-      
     </div>
+    
   );
 }
