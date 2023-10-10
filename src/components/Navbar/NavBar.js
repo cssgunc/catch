@@ -129,11 +129,17 @@ export default function NavBar() {
     const [total, setTotal] = useState(0);
 
     const [order, setOrder] = useState([]);
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+      setSidebarOpen(!isSidebarOpen);
+    };    
+
 
     const handleClick = (path) => {
       setActiveTab(path);
+      setSidebarOpen(false); // Close the sidebar
     };
-
     const getClassName = (path) => {
       if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news') {
         return path === activeTab ? "mx-3 nav-link-alternate-active" : "mx-3 nav-link-alternate";
@@ -181,26 +187,36 @@ export default function NavBar() {
     const changeOrder = (n) => {
       setOrder(n);
     };
+
+
     
 
     return (
       <>
       <Router>
         <Container fluid className="nav-container">
-          <Navbar className={`bg-transparent mx-3 navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg">
-              <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' ? "nav-brand-alternate" : "nav-brand"} as={Link} to={"/"} onClick={() => handleClick('/')}>
-                <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
-              </Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse className="collapse-nav" id="basic-navbar-nav">
-                  <Nav className="mx-auto">
-                    <Nav.Link className={getClassName("/")} as={Link} to={"/"} onClick={() => handleClick('/')}>Home</Nav.Link>
-                    <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
-                    <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
-                    <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
-                    <Nav.Link className={getClassName("/news")} as={Link} to={"/news"} onClick={() => handleClick('/news')}>News</Nav.Link>
-                  </Nav>
-              </Navbar.Collapse>
+          <Navbar className={`bg-transparent navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg">
+          <Navbar.Brand 
+  className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' ? "nav-brand-alternate" : "nav-brand"} 
+  as={Link} 
+  to={"/"} 
+  onClick={() => handleClick('/')}
+  style={{ marginLeft: '20px' }}
+>
+  <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
+</Navbar.Brand>
+
+              <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={toggleSidebar} />
+              <div className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`} style={{ marginLeft: '0px', marginRight: '0px' }}>
+              <button onClick={toggleSidebar} className="closebtn">&times;</button>
+              <Nav className="mx-auto" style={{ paddingLeft: '0', marginLeft: '0' }}>
+                <Nav.Link className={getClassName("/")} as={Link} to={"/"} onClick={() => handleClick('/')}>Home</Nav.Link>
+                <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
+                <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
+                <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
+                <Nav.Link className={getClassName("/news")} as={Link} to={"/news"} onClick={() => handleClick('/news')}>News</Nav.Link>
+              </Nav>
+            </div>
               <Nav className="ml-auto justify-content-end adjust-right-nav">
                   <button onClick={() => openShoppingCart()} className="shopping-button">
                     <ShoppingCart
