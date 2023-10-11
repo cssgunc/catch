@@ -7,7 +7,7 @@ import Home from '../../pages/Home';
 import About from '../../pages/About';
 import Toys from '../../pages/Toys';
 import Donations from '../../pages/Donations';
-import News from '../../pages/News';
+import MediaCoverage from '../../pages/MediaCoverage';
 import ShoppingCart from './ShoppingCart';
 import { toyInfo } from '../toyInfo';
 
@@ -135,7 +135,7 @@ export default function NavBar() {
     };
 
     const getClassName = (path) => {
-      if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news') {
+      if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage') {
         return path === activeTab ? "mx-3 nav-link-alternate-active" : "mx-3 nav-link-alternate";
       }
       else {
@@ -188,7 +188,7 @@ export default function NavBar() {
       <Router>
         <Container fluid className="nav-container">
           <Navbar className={`bg-transparent mx-3 navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg">
-              <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' ? "nav-brand-alternate" : "nav-brand"} as={Link} to={"/"} onClick={() => handleClick('/')}>
+              <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage' ? "nav-brand-alternate" : "nav-brand"} as={Link} to={"/"} onClick={() => handleClick('/')}>
                 <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -198,13 +198,13 @@ export default function NavBar() {
                     <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
                     <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
                     <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
-                    <Nav.Link className={getClassName("/news")} as={Link} to={"/news"} onClick={() => handleClick('/news')}>News</Nav.Link>
+                    <Nav.Link className={getClassName("/MediaCoverage")} as={Link} to={"/MediaCoverage"} onClick={() => handleClick('/MediaCoverage')}>Media Coverage</Nav.Link>
                   </Nav>
               </Navbar.Collapse>
               <Nav className="ml-auto justify-content-end adjust-right-nav">
                   <button onClick={() => openShoppingCart()} className="shopping-button">
                     <ShoppingCart
-                      alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' ? true : false}
+                      alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage' ? true : false}
                       quantity={total} // will need to be dynamically updated
                     />
                   </button>
@@ -217,7 +217,7 @@ export default function NavBar() {
             <Route path="/about" element={<About />} />
             <Route path="/toys" element={<Toys order={order} setOrder={changeOrder}/>} />
             <Route path="/donations" element={<Donations />} />
-            <Route path="/news" element={<News />} />
+            <Route path="/MediaCoverage" element={<MediaCoverage />} />
           </Routes>
         </div>
       </Router>
