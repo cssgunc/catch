@@ -116,10 +116,11 @@ export default function Home() {
     if (!orderData.exists()) {
       console.error('Error accessing document data');
       return;
-    } /** else if (orderData.get("completed") == true) {
+    } else if (orderData.get("completed") == true) {
+      //Production note: Comment out this code block if repeatedly testing on the same order.
       console.error('Order already completed');
       return;
-    }*/
+    }
     
     const updateData = { completed: true };
     await updateDoc(orderRef, updateData);
@@ -129,7 +130,7 @@ export default function Home() {
     toys.forEach(async element => {
       const currOrderAmt = order[element.fullName];
       if (currOrderAmt !== undefined) {
-        const toyRef = doc(db, "toys", element);
+        const toyRef = doc(db, "toys", element.id);
         await updateDoc(toyRef, {donated: element.donated + currOrderAmt});
       }
     })
