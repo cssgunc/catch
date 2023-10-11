@@ -7,12 +7,12 @@ import Home from '../../pages/Home';
 import About from '../../pages/About';
 import Toys from '../../pages/Toys';
 import Donations from '../../pages/Donations';
-import MediaCoverage from '../../pages/MediaCoverage';
+import News from '../../pages/News';
 import ShoppingCart from './ShoppingCart';
 import { toyInfo } from '../toyInfo';
 
 import { db } from '../../firebase-config'; // Fixing the import path
-import { addDoc, collection, setDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore'; // importing Firestore functions
+import { addDoc, collection, getDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore'; // importing Firestore functions
 
 import './Navbar.css';
 
@@ -98,9 +98,12 @@ function ShoppingCartPanel(props) {
 
   const placeOrder = async (order) => {
     // Remove toy-quantity pairs where quantity is 0
+    let orderFormat = {}
     for (let toy in order) {
       if (order[toy].quantity === 0) {
         delete order[toy];
+      } else {
+        orderFormat[order[toy].name] = order[toy].quantity
       }
     }
 
@@ -108,18 +111,22 @@ function ShoppingCartPanel(props) {
     const orderData = {
       completed: false,
       orderTime: serverTimestamp(), // using Firestore server timestamp
-      order: order
+      order: orderFormat
     };
-
     try {
       // Create new document in orders collection
       const orderRef = await addDoc(collection(db, "orders"), orderData);
 
       // Update the ordered field for each toy in the "toys" collection
-      for (let toyName in order) {
+      const toyNames = Object.keys(orderFormat)
+      for (let i = 0; i < toyNames.length; i++) {
+        const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
         const toyRef = doc(db, "toys", toyName);
+
+        const element = await getDoc(toyRef)
+        const toyData = {...element.data()}
         await updateDoc(toyRef, {
-          ordered: (currentValue) => currentValue + order[toyName].quantity
+          ordered: toyData.ordered + (orderFormat[toyNames[i]])
         });
       }
     } catch (e) {
@@ -169,7 +176,7 @@ export default function NavBar() {
     };
 
     const getClassName = (path) => {
-      if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage') {
+      if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news') {
         return path === activeTab ? "mx-3 nav-link-alternate-active" : "mx-3 nav-link-alternate";
       }
       else {
@@ -222,7 +229,7 @@ export default function NavBar() {
       <Router>
         <Container fluid className="nav-container">
           <Navbar className={`bg-transparent mx-3 navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg">
-              <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage' ? "nav-brand-alternate" : "nav-brand"} as={Link} to={"/"} onClick={() => handleClick('/')}>
+              <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' ? "nav-brand-alternate" : "nav-brand"} as={Link} to={"/"} onClick={() => handleClick('/')}>
                 <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -232,13 +239,13 @@ export default function NavBar() {
                     <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
                     <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
                     <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
-                    <Nav.Link className={getClassName("/MediaCoverage")} as={Link} to={"/MediaCoverage"} onClick={() => handleClick('/MediaCoverage')}>Media Coverage</Nav.Link>
+                    <Nav.Link className={getClassName("/news")} as={Link} to={"/news"} onClick={() => handleClick('/news')}>News</Nav.Link>
                   </Nav>
               </Navbar.Collapse>
               <Nav className="ml-auto justify-content-end adjust-right-nav">
                   <button onClick={() => openShoppingCart()} className="shopping-button">
                     <ShoppingCart
-                      alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage' ? true : false}
+                      alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' ? true : false}
                       quantity={total} // will need to be dynamically updated
                     />
                   </button>
@@ -251,7 +258,7 @@ export default function NavBar() {
             <Route path="/about" element={<About />} />
             <Route path="/toys" element={<Toys order={order} setOrder={changeOrder}/>} />
             <Route path="/donations" element={<Donations />} />
-            <Route path="/MediaCoverage" element={<MediaCoverage />} />
+            <Route path="/news" element={<News />} />
           </Routes>
         </div>
       </Router>
