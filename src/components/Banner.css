@@ -23,5 +23,17 @@
 .banner-text {
     font-family: Montserrat;
     font-weight: bolder;
-    font-size: 70px;
+    font-size: 50px;
+}
+
+@media screen and (max-width: 900px) {
+    .banner-text {
+        font-size: 40px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .banner-text {
+        font-size: 35px;
+    }
 }
