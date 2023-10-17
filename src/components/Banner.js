@@ -2,6 +2,7 @@ import React from 'react'
 import './Banner.css'
 
 export default function Banner(props) {
+  //Test
   return (
     <div className='banner'>
         <img
