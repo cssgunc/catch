@@ -32,9 +32,16 @@
     font-weight: 600;
 }
 
+.logo-menu-container {
+    display: flex;
+    align-items: center;
+  }
+
+
 .nav-logo {
     max-height: 100%;
     max-width: 40px;
+    order: 2;
 }
 
 
@@ -92,8 +99,17 @@
     padding-right: 20px;
 }
 
+.collapsed-menu-icon {
+    order: 1;
+    margin-right: 10px; /* Add some margin between the icon and logo */
+  }
+
 .collapsed {
     background-color: white;
+}
+
+.collapse-nav {
+  justify-content: flex-start;
 }
 
 .shopping-button {

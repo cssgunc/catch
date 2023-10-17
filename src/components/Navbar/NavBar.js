@@ -230,9 +230,9 @@ export default function NavBar() {
         <Container fluid className="nav-container">
           <Navbar className={`bg-transparent mx-3 navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg">
               <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage' ? "nav-brand-alternate" : "nav-brand"} as={Link} to={"/"} onClick={() => handleClick('/')}>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className="collapsed-menu-icon" />
                 <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
               </Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse className="collapse-nav" id="basic-navbar-nav">
                   <Nav className="mx-auto">
                     <Nav.Link className={getClassName("/")} as={Link} to={"/"} onClick={() => handleClick('/')}>Home</Nav.Link>
