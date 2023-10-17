@@ -103,7 +103,7 @@ export default function Home() {
   useEffect(() => {
     const getTotalDonated = async () => {
       const sumData = await getDoc(donateSumRef);
-      setDonatedSum(sumData.get('INSERT FIELD NAME HERE'));
+      setDonatedSum(sumData.get('totalDonated'));
     }
     getTotalDonated()
   })
@@ -124,18 +124,31 @@ export default function Home() {
     await updateDoc(orderRef, updateData);
 
     const order = orderData.get("order");
+    const orderToys = Object.keys(order);
     let sum = 0;
-    //Iterates through toys instead of order because order references toy.fullName, not toy.
-    toys.forEach(async element => {
-      const currOrderAmt = order[element.fullName];
+
+    for (let i = 0; i < orderToys.length; i++) {
+      const toyName = orderToys[i].replace(/\W/g, '').toLowerCase();
+      const toyRef = doc(db, "toys", toyName);
+
+      const currOrderAmt = order[orderToys[i]];
+
+      await updateDoc(toyRef, {donated: increment(currOrderAmt)});
+      sum += currOrderAmt;
+    }
+
+    /**
+    order.forEach(async element => {
+      const toyName = element.id.replace(/\W/g, '').toLowerCase()  
       if (currOrderAmt !== undefined) {
         const toyRef = doc(db, "toys", element.id);
         await updateDoc(toyRef, {donated: element.donated + currOrderAmt});
         sum += currOrderAmt;
       }
     })
-    
-    await updateDoc(donateSumRef, {'INSERT FIELD NAME HERE BUT WITHOUT QUOTES': increment(sum)})
+    */
+
+    await updateDoc(donateSumRef, {totalDonated: increment(sum)})
   };
 
   // WORKING WITH BACKEND END
