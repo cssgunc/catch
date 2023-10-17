@@ -7,12 +7,9 @@ import Home from '../../pages/Home';
 import About from '../../pages/About';
 import Toys from '../../pages/Toys';
 import Donations from '../../pages/Donations';
-import MediaCoverage from '../../pages/MediaCoverage';
+import News from '../../pages/MediaCoverage';
 import ShoppingCart from './ShoppingCart';
 import { toyInfo } from '../toyInfo';
-
-import { db } from '../../firebase-config'; // Fixing the import path
-import { addDoc, collection, getDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore'; // importing Firestore functions
 
 import './Navbar.css';
 
@@ -96,44 +93,6 @@ function ShoppingCartPanel(props) {
     }
   }, []);
 
-  const placeOrder = async (order) => {
-    // Remove toy-quantity pairs where quantity is 0
-    let orderFormat = {}
-    for (let toy in order) {
-      if (order[toy].quantity === 0) {
-        delete order[toy];
-      } else {
-        orderFormat[order[toy].name] = order[toy].quantity
-      }
-    }
-
-    // Write to the "orders" collection
-    const orderData = {
-      completed: false,
-      orderTime: serverTimestamp(), // using Firestore server timestamp
-      order: orderFormat
-    };
-    try {
-      // Create new document in orders collection
-      const orderRef = await addDoc(collection(db, "orders"), orderData);
-
-      // Update the ordered field for each toy in the "toys" collection
-      const toyNames = Object.keys(orderFormat)
-      for (let i = 0; i < toyNames.length; i++) {
-        const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
-        const toyRef = doc(db, "toys", toyName);
-
-        const element = await getDoc(toyRef)
-        const toyData = {...element.data()}
-        await updateDoc(toyRef, {
-          ordered: toyData.ordered + (orderFormat[toyNames[i]])
-        });
-      }
-    } catch (e) {
-      console.error("Error placing order: ", e);
-    }
-  };
-
   return(
     <div className='shopping-cart-container'>
       <div className='disable-interaction' onClick={() => closeShoppingCart()}></div>
@@ -154,7 +113,7 @@ function ShoppingCartPanel(props) {
           ))}
         </div>
         <div className='checkout-container' style={{flex: 2, display:"flex", justifyContent:"center"}}>
-          <button className='checkout' onClick={() => placeOrder(props.order)}>Checkout</button>
+          <button className='checkout'>Checkout</button>
         </div>
       </div>
     </div>
@@ -170,13 +129,19 @@ export default function NavBar() {
     const [total, setTotal] = useState(0);
 
     const [order, setOrder] = useState([]);
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+      setSidebarOpen(!isSidebarOpen);
+    };    
+
 
     const handleClick = (path) => {
       setActiveTab(path);
+      setSidebarOpen(false); // Close the sidebar
     };
-
     const getClassName = (path) => {
-      if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage') {
+      if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news') {
         return path === activeTab ? "mx-3 nav-link-alternate-active" : "mx-3 nav-link-alternate";
       }
       else {
@@ -222,43 +187,54 @@ export default function NavBar() {
     const changeOrder = (n) => {
       setOrder(n);
     };
+
+
     
 
     return (
       <>
       <Router>
-        <Container fluid className="nav-container">
-          <Navbar className={`bg-transparent mx-3 navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg">
-              <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage' ? "nav-brand-alternate" : "nav-brand"} as={Link} to={"/"} onClick={() => handleClick('/')}>
-                <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
-              </Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse className="collapse-nav" id="basic-navbar-nav">
-                  <Nav className="mx-auto">
-                    <Nav.Link className={getClassName("/")} as={Link} to={"/"} onClick={() => handleClick('/')}>Home</Nav.Link>
-                    <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
-                    <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
-                    <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
-                    <Nav.Link className={getClassName("/MediaCoverage")} as={Link} to={"/MediaCoverage"} onClick={() => handleClick('/MediaCoverage')}>Media Coverage</Nav.Link>
-                  </Nav>
-              </Navbar.Collapse>
+      <Container fluid className="nav-container">
+          <Navbar className={`bg-transparent navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Navbar.Brand 
+              className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' ? "nav-brand-alternate" : "nav-brand"} 
+              as={Link} 
+              to={"/"} 
+              onClick={() => handleClick('/')}
+              style={{ marginLeft: '20px' }}
+            >
+              <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
+            </Navbar.Brand>
+
+            <Navbar.Toggle class="toggle-button" aria-controls="basic-navbar-nav" onClick={toggleSidebar} />
+            <div className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`} style={{ marginLeft: '0px', marginRight: '0px' }}>
+              <button onClick={toggleSidebar} className="closebtn">&times;</button>
+              <Nav className="mx-auto" style={{ paddingLeft: '0', marginLeft: '0' }}>
+                <Nav.Link className={getClassName("/")} as={Link} to={"/"} onClick={() => handleClick('/')}>Home</Nav.Link>
+                <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
+                <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
+                <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
+                <Nav.Link className={getClassName("/news")} as={Link} to={"/news"} onClick={() => handleClick('/news')}>News</Nav.Link>
+                </Nav>
+              </div>
+
               <Nav className="ml-auto justify-content-end adjust-right-nav">
-                  <button onClick={() => openShoppingCart()} className="shopping-button">
-                    <ShoppingCart
-                      alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage' ? true : false}
-                      quantity={total} // will need to be dynamically updated
-                    />
-                  </button>
+                <button onClick={() => openShoppingCart()} className="shopping-button">
+                  <ShoppingCart
+                    alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' ? true : false}
+                    quantity={total}
+                  />
+                </button>
               </Nav>
-          </Navbar>
-        </Container>
+            </Navbar>
+          </Container>
         <div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/toys" element={<Toys order={order} setOrder={changeOrder}/>} />
             <Route path="/donations" element={<Donations />} />
-            <Route path="/MediaCoverage" element={<MediaCoverage />} />
+            <Route path="/news" element={<News />} />
           </Routes>
         </div>
       </Router>
