@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import Slider from "../components/Slider.js";
 import { db } from '../firebase-config.js';
-import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc, increment } from 'firebase/firestore';
 import CountUp from 'react-countup';
 
 import "./Home.css";
@@ -87,6 +87,7 @@ const lateNightImages = [
 export default function Home() {
   // WORKING WITH BACKEND START
   const toysRef = collection(db, "toys"); //reference to toys collection in firestore database
+  const donateSumRef = collection(db, 'totalDonated', 'totalDonated');
   const [toys, setToys] = useState([]);
   const [donatedSum, setDonatedSum] = useState(0);
   
@@ -101,11 +102,8 @@ export default function Home() {
 
   useEffect(() => {
     const getTotalDonated = async () => {
-      let sum = 0;
-      toys.forEach(element => {
-        sum += element.donated;
-      });
-      setDonatedSum(sum);
+      const sumData = await getDoc(donateSumRef);
+      setDonatedSum(sumData.get('INSERT FIELD NAME HERE'));
     }
     getTotalDonated()
   })
@@ -126,14 +124,18 @@ export default function Home() {
     await updateDoc(orderRef, updateData);
 
     const order = orderData.get("order");
+    let sum = 0;
     //Iterates through toys instead of order because order references toy.fullName, not toy.
     toys.forEach(async element => {
       const currOrderAmt = order[element.fullName];
       if (currOrderAmt !== undefined) {
         const toyRef = doc(db, "toys", element.id);
         await updateDoc(toyRef, {donated: element.donated + currOrderAmt});
+        sum += currOrderAmt;
       }
     })
+    
+    await updateDoc(donateSumRef, {'INSERT FIELD NAME HERE BUT WITHOUT QUOTES': increment(sum)})
   };
 
   // WORKING WITH BACKEND END
