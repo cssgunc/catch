@@ -196,17 +196,13 @@ export default function NavBar() {
       <Router>
       <Container fluid className="nav-container">
           <Navbar className={`bg-transparent navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Navbar.Brand 
-              className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' ? "nav-brand-alternate" : "nav-brand"} 
-              as={Link} 
-              to={"/"} 
-              onClick={() => handleClick('/')}
-              style={{ marginLeft: '20px' }}
-            >
+            <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' ? "nav-brand-alternate" : "nav-brand"} as={Link} to={"/"} onClick={() => handleClick('/')} style={{ marginLeft: '20px' }}>
+              {/* new navbar */}
+              <Navbar.Toggle className="collapsed-menu-icon" class="toggle-button" aria-controls="basic-navbar-nav" onClick={toggleSidebar} />
               <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
             </Navbar.Brand>
-
-            <Navbar.Toggle class="toggle-button" aria-controls="basic-navbar-nav" onClick={toggleSidebar} />
+            {/* old nav */}
+            <Navbar.Toggle className="collapsed-menu-icon" class="toggle-button" aria-controls="basic-navbar-nav" onClick={toggleSidebar} />
             <div className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`} style={{ marginLeft: '0px', marginRight: '0px' }}>
               <button onClick={toggleSidebar} className="closebtn">&times;</button>
               <Nav className="mx-auto" style={{ paddingLeft: '0', marginLeft: '0' }}>

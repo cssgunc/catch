@@ -38,7 +38,7 @@
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .toggle-button { /* Menu */
       order: 1;
       margin-right: 20px;
@@ -162,7 +162,7 @@
 
 
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 992px) {
     .sidebar {
         position: fixed;
         top: 0;
@@ -286,3 +286,8 @@
     margin: 5px;
     border: none;
 }
+
+.collapsed-menu-icon {
+    order: 1;
+    margin-right: 10px; /* Add some margin between the icon and logo */
+  }
