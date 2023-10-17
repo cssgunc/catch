@@ -132,15 +132,8 @@
     flex: 3;
     display: flex;
     flex-direction: column;
+    height: 95vh;
 }
-
-
-
-
-
-
-
-
 
 .close-cart {
     flex: 1;
@@ -149,7 +142,26 @@
 
 .cart-items {
     overflow: scroll;
-    flex:20;
+    flex: 20;
+    width:45vw;
+}
+
+/* For tablets */
+@media only screen and (max-width: 768px) {
+    .cart-items {
+        overflow: scroll;
+        flex: 20;
+        width: 85vw;
+    }
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 480px) {
+    .cart-items {
+        overflow: scroll;
+        flex: 20;
+        width: 85vw;
+    }
 }
 
 .checkout-container {

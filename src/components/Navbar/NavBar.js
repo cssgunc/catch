@@ -84,7 +84,6 @@ function CartItem(props) {
 
 function ShoppingCartPanel(props) {
 
-
   const closeShoppingCart = () => {
     props.setShoppingCartActive(false);
   };
