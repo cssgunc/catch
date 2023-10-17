@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaHammer, FaPlus, FaChevronLeft } from "react-icons/fa";
-import {toyInfo} from "../components/toyInfo";
+import {recentToys, oldToys} from "../components/toyInfo";
 import Banner from "../components/Banner";
 import bannerImage from '../images/Toy Catolog/banner.jpg'
 
@@ -41,11 +41,14 @@ function ToyPage(props) {
         </div>
         <div className="toy-buttons">
           <div className="button-break"/>
-          <button className="add-to-cart-button" onClick={() => props.addToy(props.setOrder, props.order, props.details)}>
-            <div className="button-holder">
-              <FaPlus size={15} style={{marginRight:"10px"}}/> <span>Add to Cart</span>
-            </div>
-          </button>
+          {props.isNew && (
+            <button className="add-to-cart-button" onClick={() => props.addToy(props.setOrder, props.order, props.details)}>
+              <div className="button-holder">
+                <FaPlus size={15} style={{marginRight:"10px"}}/> <span>Add to Cart</span>
+              </div>
+            </button>
+          )}
+
           <button className="build-button" onClick={() =>handleBuildRedirect()}>
             <div className="button-holder">
               <FaHammer size={20} style={{marginRight:"10px"}}/> <span>Make Yourself</span>
@@ -84,9 +87,11 @@ function Toy(props) {
       {!props.viewToy && 
       <div className="image-tile">
         <img onClick={() => handleClick()} src={props.details.imagePath} alt={props.details.altText} class="catalog-picture"/>
-        <button className="plus-toy" onClick={() => addToyToCart(props.setOrder, props.order, props.details)}>
-          <FaPlus size={10}/>
-        </button>
+        {props.isNew && (
+          <button className="plus-toy" onClick={() => addToyToCart(props.setOrder, props.order, props.details)}>
+            <FaPlus size={10}/>
+          </button>
+        )}
       </div>}
       {props.viewToy && activeToy &&
       <ToyPage 
@@ -102,17 +107,37 @@ function Toy(props) {
 
 }
 
-function ToyGrid(props) {
+function ToyGrid_new(props) {
 
   return (
     <div id="catalog">
-      {toyInfo.map((toy) => (
+      {recentToys.map((toy) => (
         <Toy
           details={toy}
           viewToy={props.viewToy}
           setViewToy={props.setViewToy}
           order={props.order}
           setOrder={props.setOrder}
+          isNew = {true}
+        />
+      ))}
+    </div>
+  );
+}
+
+
+function ToyGrid_old(props) {
+
+  return (
+    <div id="catalog">
+      {oldToys.map((toy) => (
+        <Toy
+          details={toy}
+          viewToy={props.viewToy}
+          setViewToy={props.setViewToy}
+          order={props.order}
+          setOrder={props.setOrder}
+          isNew = {false}
         />
       ))}
     </div>
@@ -130,13 +155,17 @@ export default function Toys(props) {
 
       {!viewToy && <h3 id="catalog-title">Adapted Toys</h3>}
 
-      <ToyGrid order={props.order} setOrder={props.setOrder} viewToy={viewToy} setViewToy={setViewToy}/>
+      <ToyGrid_new order={props.order} setOrder={props.setOrder} viewToy={viewToy} setViewToy={setViewToy}/>
+
+      {!viewToy && <h3 id="catalog-title">Last Season's Toys</h3>}
+      <ToyGrid_old order={props.order} setOrder={props.setOrder} viewToy={viewToy} setViewToy={setViewToy}/>
 
       {!viewToy && <img
         src={require("../images/logo.png")}
         class="catch-logo"
         alt="CATCH Logo"
       />}
+      <p>Photo credits: Hieu</p>
     </>
   );
 }

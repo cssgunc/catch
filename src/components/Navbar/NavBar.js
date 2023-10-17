@@ -9,7 +9,7 @@ import Toys from '../../pages/Toys';
 import Donations from '../../pages/Donations';
 import News from '../../pages/News';
 import ShoppingCart from './ShoppingCart';
-import { toyInfo } from '../toyInfo';
+import { recentToys } from '../toyInfo';
 
 import './Navbar.css';
 
@@ -18,7 +18,7 @@ function CartItem(props) {
   const [quantity, setQuantity] = useState(props.toy.quantity)
   const [disable, setDisable] = useState(quantity === 1)
   const toyName = props.toy.name;
-  const toy = toyInfo.find(item => item.name === toyName)
+  const toy = recentToys.find(item => item.name === toyName)
 
   const addOne = () => {
     let tempOrder = [...props.order];
