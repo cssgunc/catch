@@ -9,6 +9,7 @@ h1, h2, h3 {
 #gfm-form {
     width: 50vh;
 }
+
 @media (min-width:1291px) {
   .sitesection {
       display: flex;
@@ -72,6 +73,6 @@ h1, h2, h3 {
       padding-left: 10%;
       padding-top: 3%;
       align-items: flex-start;
-  }
+    }
   }
   
