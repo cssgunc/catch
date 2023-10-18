@@ -138,17 +138,6 @@ export default function Home() {
       sum += currOrderAmt;
     }
 
-    /**
-    order.forEach(async element => {
-      const toyName = element.id.replace(/\W/g, '').toLowerCase()  
-      if (currOrderAmt !== undefined) {
-        const toyRef = doc(db, "toys", element.id);
-        await updateDoc(toyRef, {donated: element.donated + currOrderAmt});
-        sum += currOrderAmt;
-      }
-    })
-    */
-
     //Ensure that the totalDonated field is defined as an integer, or its current value will be replaced by sum.  
     await updateDoc(donateSumRef, {totalDonated: increment(sum)})
   };
