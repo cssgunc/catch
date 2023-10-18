@@ -87,7 +87,7 @@ const lateNightImages = [
 export default function Home() {
   // WORKING WITH BACKEND START
   const toysRef = collection(db, "toys"); //reference to toys collection in firestore database
-  const donateSumRef = collection(db, 'totalDonated', 'totalDonated');
+  const donateSumRef = doc(db, 'totalDonated', 'totalDonated');
   const [toys, setToys] = useState([]);
   const [donatedSum, setDonatedSum] = useState(0);
   
@@ -114,12 +114,13 @@ export default function Home() {
     if (!orderData.exists()) {
       console.error('Error accessing document data');
       return;
-    } else if (orderData.get("completed") == true) {
-      //Production note: Comment out this code block if repeatedly testing on the same order.
+    } 
+    
+    //Development note: Comment out this code block if repeatedly testing on the same order; revert to K & R style with above if statement for production
+    else if (orderData.get("completed") == true) {
       console.error('Order already completed');
       return;
     }
-    
     const updateData = { completed: true };
     await updateDoc(orderRef, updateData);
 
@@ -148,6 +149,7 @@ export default function Home() {
     })
     */
 
+    //Ensure that the totalDonated field is defined as an integer, or its current value will be replaced by sum.  
     await updateDoc(donateSumRef, {totalDonated: increment(sum)})
   };
 
