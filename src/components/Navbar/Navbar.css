@@ -38,6 +38,26 @@
 }
 
 
+@media (max-width: 992px) {
+    .toggle-button { /* Menu */
+      order: 1;
+      margin-right: 20px;
+    }
+
+    .brand-logo { /* Logo */
+      order: 2;
+      margin-left: 10px;
+      margin-right: auto;
+    }
+
+    .adjust-right-nav { /* Shopping Cart */
+      order: 3;
+      margin-left: auto;
+    }
+}
+
+  
+
 .nav-link {
     font-size: medium;
     font-weight: 600;
@@ -136,11 +156,47 @@
 
 
 
+.closebtn {
+    display: none;
+  }
 
 
 
-
-
+  @media screen and (max-width: 992px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px; /* Adjusted to the sidebar's actual width */
+        height: 100vh;
+        width: 250px; /* Set this to your desired width */
+        background-color: #f1f1f1; /* Changed color */
+        overflow-x: hidden;
+        transition: 0.5s;
+      }
+      
+      .sidebar-open {
+        left: 0;
+      }
+      
+      .sidebar a {
+        padding: 15px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+      }
+      
+      .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+        border: 0;
+        color: #818181; /* You can adjust the color */
+        display: block;
+      }
+}
 
 .close-cart {
     flex: 1;
@@ -230,3 +286,9 @@
     margin: 5px;
     border: none;
 }
+
+.collapsed-menu-icon {
+    order: 1;
+    margin-right: 10px; /* Add some margin between the icon and logo */
+  }
+
