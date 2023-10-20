@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import Slider from "../components/Slider.js";
 import { db } from '../firebase-config.js';
-import { collection, getDocs} from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import CountUp from 'react-countup';
 
 import "./Home.css";
@@ -109,6 +109,33 @@ export default function Home() {
     }
     getTotalDonated()
   })
+
+  const completeOrder = async (orderId) => {
+    const orderRef = doc(db, 'orders', orderId); // Replace 'orderId' with the actual document ID of the order you want to update
+    const orderData = await getDoc(orderRef);
+    if (!orderData.exists()) {
+      console.error('Error accessing document data');
+      return;
+    } else if (orderData.get("completed") == true) {
+      //Production note: Comment out this code block if repeatedly testing on the same order.
+      console.error('Order already completed');
+      return;
+    }
+    
+    const updateData = { completed: true };
+    await updateDoc(orderRef, updateData);
+
+    const order = orderData.get("order");
+    //Iterates through toys instead of order because order references toy.fullName, not toy.
+    toys.forEach(async element => {
+      const currOrderAmt = order[element.fullName];
+      if (currOrderAmt !== undefined) {
+        const toyRef = doc(db, "toys", element.id);
+        await updateDoc(toyRef, {donated: element.donated + currOrderAmt});
+      }
+    })
+  };
+
   // WORKING WITH BACKEND END
 
   return (
@@ -137,6 +164,8 @@ export default function Home() {
           <Slider slides={interestMeetingImages} />
         </div>
       </div>
+      <br/>
+      <button onClick={() => completeOrder("orderExample")}>Complete Order</button>
     </>
   )
 }

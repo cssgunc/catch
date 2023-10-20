@@ -7,6 +7,7 @@ import { FaEnvelope } from 'react-icons/fa'
 import './Footer.css'
 
 export default function Footer() {
+  
   return (
     <div class="footer">
       <div class="footer-main">
@@ -58,3 +59,5 @@ export default function Footer() {
   </div>
   )
 }
+
+
