@@ -89,24 +89,25 @@ export default function Home() {
   const toysRef = collection(db, "toys"); //reference to toys collection in firestore database
   const donateSumRef = doc(db, 'totalDonated', 'totalDonated');
   const [toys, setToys] = useState([]);
-  const [donatedSum, setDonatedSum] = useState(0);
+  const [donatedSum, setDonatedSum] = useState(362);
   
 
-  useEffect(() => {
-    const getToys = async () => {
-      const data = await getDocs(toysRef);
-      setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-    }
-    getToys()
-  })
+  // useEffect(() => {
+  //   const getToys = async () => {
+  //     const data = await getDocs(toysRef);
+  //     setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+  //   }
+  //   getToys()
+  // })
 
-  useEffect(() => {
-    const getTotalDonated = async () => {
-      const sumData = await getDoc(donateSumRef);
-      setDonatedSum(sumData.get('totalDonated'));
-    }
-    getTotalDonated()
-  })
+  // useEffect(() => {
+  //   const getTotalDonated = async () => {
+  //     const sumData = await getDoc(donateSumRef);
+  //     setDonatedSum(sumData.get('totalDonated'));
+  //   }
+  //   getTotalDonated()
+  // })
+  // WORKING WITH BACKEND END
 
   const completeOrder = async (orderId) => {
     const orderRef = doc(db, 'orders', orderId); // Replace 'orderId' with the actual document ID of the order you want to update
