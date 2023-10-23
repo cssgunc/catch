@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { FaHammer, FaPlus, FaChevronLeft } from "react-icons/fa";
 import {recentToys, oldToys} from "../components/toyInfo";
 import Banner from "../components/Banner";
-import bannerImage from '../images/Toy Catolog/banner.jpg'
+//import bannerImage from '../images/Toy Catolog/banner.jpg'
+import bannerImage from '../images/Toy Catolog/toy_catolog_banner_color.jpeg'
 
 import './Toys.css'
 
