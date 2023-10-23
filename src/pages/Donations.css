@@ -1,8 +1,10 @@
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-family: 'Roboto', sans-serif;
 }
 
-*{
+* {
     font-family: 'Montserrat';
 }
 
@@ -32,4 +34,16 @@ h1, h2, h3 {
     text-align: start;
     gap: 20px;
     align-items: flex-start;
+}
+
+@media screen and (max-width: 992px) {
+    .column {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
 }
