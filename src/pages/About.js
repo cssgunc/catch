@@ -1,6 +1,6 @@
 import React from 'react';
 import FAQ from "./FAQ";
-import bannerImage from '../images/About/banner.jpg';
+//import bannerImage from '../images/About/banner.jpg';
 import Banner from '../components/Banner';
 import presPic from '../images/About/thumbnail_image001[92].png';
 import vicepresPic from '../images/About/IMG_0557.jpg';
@@ -12,10 +12,10 @@ import prchairPic from '../images/About/Katie_s Headshot.jpg';
 
 import './About.css';
 
-function ExecTile({imagePath, name, position}) {
-  return(
+function ExecTile({ imagePath, name, position }) {
+  return (
     <div class>
-      <img src = {imagePath} alt = {name + '(' + position + ')'} id = 'images'  />
+      <img src={imagePath} alt={name + '(' + position + ')'} id='images' />
       {name} ({position})
     </div>
   );
@@ -23,43 +23,43 @@ function ExecTile({imagePath, name, position}) {
 
 function ExecGrid() {
   const execInfo = [
-    {image: presPic, name: 'Darci', position: 'President'},
-    {image: vicepresPic, name: 'Bryce', position: 'Vice President'},
-    {image: treasurerPic, name: 'Rohan', position: 'Treasurer'},
-    {image: secretaryPic, name: 'Chris', position: 'Secretary'},
-    {image: cqoPic, name: 'Jun', position: 'Chief Quality Officer'},
-    {image: ctoPic, name: 'Jacob', position: 'Chief Technical Officer'},
-    {image: prchairPic, name: 'Katie', position: 'PR Chair'}
+    { image: presPic, name: 'Darci', position: 'President' },
+    { image: vicepresPic, name: 'Bryce', position: 'Vice President' },
+    { image: treasurerPic, name: 'Rohan', position: 'Treasurer' },
+    { image: secretaryPic, name: 'Chris', position: 'Secretary' },
+    { image: cqoPic, name: 'Jun', position: 'Chief Quality Officer' },
+    { image: ctoPic, name: 'Jacob', position: 'Chief Technical Officer' },
+    { image: prchairPic, name: 'Katie', position: 'PR Chair' }
   ]
-  
-  return(
+
+  return (
     <>
-        {execInfo.map((execMember) => (
-          <ExecTile
-            imagePath={execMember.image}
-            name={execMember.name}
-            position={execMember.position}
-          />
-        ))}
+      {execInfo.map((execMember) => (
+        <ExecTile
+          imagePath={execMember.image}
+          name={execMember.name}
+          position={execMember.position}
+        />
+      ))}
     </>
   );
 }
 
-export default function About(){
+export default function About() {
 
-  return(
+  return (
     <div className="App">
-      <Banner 
-        imagePath={bannerImage}
+      <Banner
+        color="blue"
         title='About'
       />
-      
+
       <h3>Carolina Adapts Toys for Children</h3>
       <a id="about-video">
-      <iframe title="Intro Video" class = "video" width = "750" height = "450" sandbox="allow-scripts allow-popups allow-forms allow-same-origin allow-popups-to-escape-sandbox allow-downloads allow-modals" frameborder="0" aria-label="YouTube Video, Making toys more accessible for kids" src="https://www.youtube.com/embed/LDH36tCupQQ" allowfullscreen=""></iframe>
+        <iframe title="Intro Video" class="video" width="750" height="450" sandbox="allow-scripts allow-popups allow-forms allow-same-origin allow-popups-to-escape-sandbox allow-downloads allow-modals" frameborder="0" aria-label="YouTube Video, Making toys more accessible for kids" src="https://www.youtube.com/embed/LDH36tCupQQ" allowfullscreen=""></iframe>
       </a>
-      <div id = "text">
-        <p font= "font-family: Arial"><em>
+      <div id="text">
+        <p font="font-family: Arial"><em>
           "Founded in November 2018, CATCH works to provide adapted toys to children with special needs who are unable to play with most commercially manufactured toys. Utilizing engineering, creativity, and innovation, we give back to the community, while also raising awareness about underrepresented communities and their needs."
         </em></p>
       </div>
@@ -76,7 +76,7 @@ export default function About(){
               );
             }}
           </FAQ.Question>
-          <FAQ.Answer  id="q1">Anyone (in any major) can join CATCH at any point in the year. Just come to one of our meetings to start adapting! (To become an active member, there are certain requirements like GBM attendance.)</FAQ.Answer>
+          <FAQ.Answer id="q1">Anyone (in any major) can join CATCH at any point in the year. Just come to one of our meetings to start adapting! (To become an active member, there are certain requirements like GBM attendance.)</FAQ.Answer>
         </FAQ.QAItem>
         <FAQ.QAItem>
           <FAQ.Question answerId="q2">
@@ -106,7 +106,7 @@ export default function About(){
           </FAQ.Question>
           <FAQ.Answer id="q3"> We meet every Tuesday from 6:30 PM to 8:00 PM.</FAQ.Answer>
         </FAQ.QAItem>
-        
+
         <FAQ.QAItem>
           <FAQ.Question answerId="q3">
             {(isOpen, onToggle) => {
@@ -139,9 +139,9 @@ export default function About(){
       </FAQ>
 
       <div>
-        <div id = 'title'> Our Executive Board </div>
-        <div id = 'table'>
-          <ExecGrid id="exec-team"/>
+        <div id='title'> Our Executive Board </div>
+        <div id='table'>
+          <ExecGrid id="exec-team" />
         </div>
       </div>
     </div>
