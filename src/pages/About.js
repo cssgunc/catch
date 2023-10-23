@@ -1,7 +1,8 @@
 import React from 'react';
 import FAQ from "./FAQ";
 import './About.css';
-import bannerImage from '../images/About/banner.jpg';
+//import bannerImage from '../images/About/banner.jpg';
+import bannerImage from '../images/About/about_banner_color.jpeg';
 import Banner from '../components/Banner';
 import presPic from '../images/About/thumbnail_image001[92].png';
 import vicepresPic from '../images/About/IMG_0557.jpg';
