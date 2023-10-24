@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import Slider from "../components/Slider.js";
 import { db } from '../firebase-config.js';
-import { collection, doc, getDoc, getDocs, updateDoc, increment } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc, increment, serverTimestamp} from 'firebase/firestore';
 import CountUp from 'react-countup';
 
 import "./Home.css";
@@ -85,19 +85,26 @@ const lateNightImages = [
 
 // WORKING WITH BACKEND START
 export default function Home() {
+  const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
   const toysRef = collection(db, "toys"); //reference to toys collection in firestore database
   const donateSumRef = doc(db, 'totalDonated', 'totalDonated');
+  const [toysTime, setToysTime] = useState()
   const [toys, setToys] = useState([]);
   const [donatedSum, setDonatedSum] = useState();
   
-// Commented out to prevent excessive database reads during development
-  // useEffect(() => {
-  //   const getToys = async () => {
-  //     const data = await getDocs(toysRef);
-  //     setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-  //   }
-  //   getToys()
-  // })
+  useEffect(() => {
+    const getToys = async () => {
+      const timeData = await getDoc(toysUpdateRef)
+      const lastUpdated = timeData.get('toysLastUpdated');
+
+      if (toysTime === undefined || !lastUpdated.isEqual(toysTime)) {
+        const data = await getDocs(toysRef);
+        setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+        setToysTime(lastUpdated);
+      }
+    }
+    getToys()
+  })
 
   useEffect(() => {
     const getTotalDonated = async () => {
@@ -119,7 +126,7 @@ export default function Home() {
     } 
     
     //Development note: Comment out this code block if repeatedly testing on the same order; revert to K & R style with above if statement for production
-    else if (orderData.get("completed") == true) {
+    else if (orderData.get("completed") === true) {
       console.error('Order already completed');
       return;
     }
@@ -140,8 +147,10 @@ export default function Home() {
       sum += currOrderAmt;
     }
 
+    await updateDoc(toysUpdateRef, {toysLastUpdated: serverTimestamp()});
+
     //Ensure that the totalDonated field is defined as an integer, or its current value will be replaced by sum.  
-    await updateDoc(donateSumRef, {totalDonated: increment(sum)})
+    await updateDoc(donateSumRef, {totalDonated: increment(sum)});
   };
 
   // WORKING WITH BACKEND END
@@ -173,8 +182,7 @@ export default function Home() {
         </div>
       </div>
       <br/>
-      {/* Button is disabled to prevent excessive reads during development */}
-      <button disabled onClick={() => completeOrder("orderExample")}>Complete Order</button>
+      <button onClick={() => completeOrder("orderExample")}>Complete Order</button>
     </>
   )
 }
