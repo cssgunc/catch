@@ -99,13 +99,16 @@ export default function Home() {
   //   getToys()
   // })
 
-  // useEffect(() => {
-  //   const getTotalDonated = async () => {
-  //     const sumData = await getDoc(donateSumRef);
-  //     setDonatedSum(sumData.get('totalDonated'));
-  //   }
-  //   getTotalDonated()
-  // })
+  useEffect(() => {
+    const getTotalDonated = async () => {
+      const sumData = await getDoc(donateSumRef);
+      const currSum = sumData.get('totalDonated');
+      if (currSum !== donatedSum) {
+        setDonatedSum(currSum);
+      }
+    }
+    getTotalDonated()
+  })
 
   const completeOrder = async (orderId) => {
     const orderRef = doc(db, 'orders', orderId); // Replace 'orderId' with the actual document ID of the order you want to update
