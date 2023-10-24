@@ -8,6 +8,11 @@
     padding: 25px;
 }
 
+#catalog-subtitle {
+    font-style: italic;
+    padding: 25px;
+}
+
 #catalog {
     padding-left: 5%;
     padding-right: 5%;

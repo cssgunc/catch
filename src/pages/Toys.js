@@ -152,8 +152,10 @@ export default function Toys(props) {
         title='Toy Catalog'
       />}
 
-      {!viewToy && <h3 id="catalog-title">Adapted Toys</h3>}
+      {!viewToy && <h3 id="catalog-title">Current Toys</h3>}
 
+      {!viewToy && <p id="catalog-subtitle">Click the photos for more information</p>}
+      
       <ToyGrid_new order={props.order} setOrder={props.setOrder} viewToy={viewToy} setViewToy={setViewToy}/>
 
       {!viewToy && <h3 id="catalog-title">Last Season's Toys</h3>}
