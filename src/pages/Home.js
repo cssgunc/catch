@@ -83,15 +83,14 @@ const lateNightImages = [
   {image: require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-027A.JPG")}
 ]
 
-
+// WORKING WITH BACKEND START
 export default function Home() {
-  // WORKING WITH BACKEND START
   const toysRef = collection(db, "toys"); //reference to toys collection in firestore database
   const donateSumRef = doc(db, 'totalDonated', 'totalDonated');
   const [toys, setToys] = useState([]);
-  const [donatedSum, setDonatedSum] = useState(362);
+  const [donatedSum, setDonatedSum] = useState();
   
-
+// Commented out to prevent excessive database reads during development
   // useEffect(() => {
   //   const getToys = async () => {
   //     const data = await getDocs(toysRef);
@@ -107,7 +106,6 @@ export default function Home() {
   //   }
   //   getTotalDonated()
   // })
-  // WORKING WITH BACKEND END
 
   const completeOrder = async (orderId) => {
     const orderRef = doc(db, 'orders', orderId); // Replace 'orderId' with the actual document ID of the order you want to update
@@ -172,7 +170,8 @@ export default function Home() {
         </div>
       </div>
       <br/>
-      <button onClick={() => completeOrder("orderExample")}>Complete Order</button>
+      {/* Button is disabled to prevent excessive reads during development */}
+      <button disabled onClick={() => completeOrder("orderExample")}>Complete Order</button>
     </>
   )
 }
