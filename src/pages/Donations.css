@@ -36,14 +36,35 @@ h3 {
     align-items: flex-start;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (min-width: 1291px) {
     .column {
-        width: 50%;
+        width: 100%;
+    }
+
+    .description {
+        padding-right: 15px;
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1290px) {
     .column {
-        width: 100%;
+        width: 50%;
+    }
+
+    .mobile-section {
+        text-align: center;
+        margin: 200px;
+    }
+
+    .pic {
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .description {
+        padding: 15px;
+        text-align: justify;
     }
 }

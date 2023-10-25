@@ -15,6 +15,15 @@ import "./Donations.css";
 <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500|Roboto:300,400,500,700|Source+Code+Pro:400,700&display=swap"></link>;
 
 function DonationBox(props) {
+  var screenWidth = window.screen.width;
+  return (
+    <div>
+      {screenWidth >= 1290 ? <DonationBoxDesktop desktop={props} /> : <DonationBoxMobile mobile={props} />}
+    </div>
+  );
+}
+
+function DonationBoxDesktop(props) {
   return (
     <div className="sitesection">
       <div
@@ -24,29 +33,67 @@ function DonationBox(props) {
         }}
       >
         <h3>
-          <b>{props.organization}</b>
+          <b>{props.desktop.organization}</b>
         </h3>
-        {props.description !== '' &&
-          <div class="description">
-            {props.description}
+
+        {props.desktop.description !== '' &&
+          <div className="description">
+            {props.desktop.description}
           </div>
         }
+
         <div>
-          <strong>Total Toys Donated: </strong>{props.total}
+          <strong>Total Toys Donated: </strong>{props.desktop.total}
         </div>
+
         <div>
-          <strong>Total Donation: </strong>{props.donations}
+          <strong>Total Donation: </strong>{props.desktop.donations}
         </div>
+
       </div>
       <img
-        src={props.imagePath}
-        className="pictures"
-        alt={"Donation to " + props.organization}
+        src={props.desktop.imagePath}
+        className="pic"
+        alt={"Donation to " + props.desktop.organization}
         style={{
           maxWidth: "40%",
           maxHeight: "auto",
+          borderRadius: "25px"
         }}
       />
+    </div>
+  );
+}
+
+function DonationBoxMobile(props) {
+  return (
+    <div className="mobile-section">
+      <h3 className="org-name">
+        <b>{props.mobile.organization}</b>
+      </h3>
+      <div className="pic">
+        <img
+          src={props.mobile.imagePath}
+          className="pictures"
+          alt={"Donation to " + props.mobile.organization}
+          style={{
+            maxWidth: "40%",
+            maxHeight: "auto",
+            borderRadius: "15px"
+          }}
+        />
+      </div>
+      {props.mobile.description !== '' &&
+        <div className="description">
+          {props.mobile.description}
+        </div>
+      }
+      <div>
+        <strong>Total Toys Donated: </strong>{props.mobile.total}
+      </div>
+      <div>
+        <strong>Total Donation: </strong>{props.mobile.donations}
+      </div>
     </div>
   );
 }
