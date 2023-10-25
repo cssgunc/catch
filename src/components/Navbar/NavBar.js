@@ -129,6 +129,8 @@ function ShoppingCartPanel(props) {
           ordered: toyData.ordered + (orderFormat[toyNames[i]])
         });
       }
+      
+      await updateDoc(toysUpdateRef, {toysLastUpdated: serverTimestamp()});
     } catch (e) {
       console.error("Error placing order: ", e);
     }
