@@ -154,8 +154,6 @@
     flex-direction: column;
 }
 
-
-
 .closebtn {
     display: none;
   }
@@ -205,7 +203,26 @@
 
 .cart-items {
     overflow: scroll;
-    flex:20;
+    flex: 20;
+    width:400px;
+}
+
+/* For tablets */
+@media only screen and (max-width: 768px) {
+    .cart-items {
+        overflow: scroll;
+        flex: 20;
+        width: 85vw;
+    }
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 480px) {
+    .cart-items {
+        overflow: scroll;
+        flex: 20;
+        width: 85vw;
+    }
 }
 
 .checkout-container {
