@@ -10,6 +10,7 @@ import Donations from '../../pages/Donations';
 import MediaCoverage from '../../pages/MediaCoverage';
 import ShoppingCart from './ShoppingCart';
 import { recentToys } from '../toyInfo';
+import formatAndFetchString from '../../helper-functions/lowercase-and-remove-non-alph';
 
 import { db } from '../../firebase-config'; // Fixing the import path
 import { addDoc, collection, getDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore'; // importing Firestore functions
@@ -119,8 +120,9 @@ function ShoppingCartPanel(props) {
       // Update the ordered field for each toy in the "toys" collection
       const toyNames = Object.keys(orderFormat)
       for (let i = 0; i < toyNames.length; i++) {
-        const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
-        const toyRef = doc(db, "toys", toyName);
+        // const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
+        // const toyRef = doc(db, "toys", toyName);
+        const toyRef = formatAndFetchString(toyNames[i]);
 
         const element = await getDoc(toyRef)
         const toyData = {...element.data()}

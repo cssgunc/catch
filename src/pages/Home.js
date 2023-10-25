@@ -4,6 +4,7 @@ import Slider from "../components/Slider.js";
 import { db } from '../firebase-config.js';
 import { collection, doc, getDoc, getDocs, updateDoc, increment } from 'firebase/firestore';
 import CountUp from 'react-countup';
+import formatAndFetchString from '../helper-functions/lowercase-and-remove-non-alph.js'
 
 import "./Home.css";
 
@@ -128,8 +129,9 @@ export default function Home() {
     let sum = 0;
 
     for (let i = 0; i < orderToys.length; i++) {
-      const toyName = orderToys[i].replace(/\W/g, '').toLowerCase();
-      const toyRef = doc(db, "toys", toyName);
+      const toyRef = formatAndFetchString(orderToys[i]);
+      // const toyName = orderToys[i].replace(/\W/g, '').toLowerCase();
+      // const toyRef = doc(db, "toys", toyName);
 
       const currOrderAmt = order[orderToys[i]];
 
