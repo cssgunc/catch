@@ -127,6 +127,7 @@ export default function NavBar() {
     const [visible, setVisible] = useState(true);
     const [shoppingCartActive, setShoppingCartActive] = useState(false);
     const [total, setTotal] = useState(0);
+    const [scrolling, setScrolling] = useState(false);
 
     const [order, setOrder] = useState([]);
 
@@ -158,15 +159,26 @@ export default function NavBar() {
       const handleScroll = () => {
         const currentScrollPos = window.pageYOffset;
         if (currentScrollPos > 30) {
-          document.querySelector('.navbar').style.backgroundColor = 'your-desired-color';
+          setScrolling(true);
         } else {
-          document.querySelector('.navbar').style.backgroundColor = 'transparent';
+          setScrolling(false);
         }
       };
-      document.querySelector('.navbar').style.backgroundColor = 'transparent';
       window.addEventListener('scroll', handleScroll);
       return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    useEffect(() => {
+      if (scrolling) {
+        document.querySelector('.nav-container').style.backgroundColor = 'white';
+        document.querySelector('.nav-brand-alternate').style.color = 'black';
+        document.querySelector('.shopping-cart').style.color = 'black';
+      } else {
+        document.querySelector('.nav-container').style.backgroundColor = '';
+        document.querySelector('.nav-brand-alternate').style.color = 'white';
+        document.querySelector('.shopping-cart').style.color = 'white';
+      }
+    }, [scrolling]);
 
     useEffect(() => {
       const getTotal = () => {
@@ -185,13 +197,12 @@ export default function NavBar() {
     const changeOrder = (n) => {
       setOrder(n);
     };
-    
 
     return (
       <>
       <Router>
         <Container fluid className="nav-container">
-          <Navbar className={`bg-transparent mx-3 navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg">
+          <Navbar className={`bg-transparent mx-3 navbar ${scrolling ? 'navbar-scrolled' : ''}`} expand="lg">
               <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' ? "nav-brand-alternate" : "nav-brand"} as={Link} to={"/"} onClick={() => handleClick('/')}>
                 <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
               </Navbar.Brand>
@@ -206,7 +217,7 @@ export default function NavBar() {
                   </Nav>
               </Navbar.Collapse>
               <Nav className="ml-auto justify-content-end adjust-right-nav">
-                  <button onClick={() => openShoppingCart()} className="shopping-button">
+                  <button onClick={() => openShoppingCart()} className="shopping-cart-button">
                     <ShoppingCart
                       alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' ? true : false}
                       quantity={total} // will need to be dynamically updated
