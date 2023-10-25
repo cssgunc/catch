@@ -83,6 +83,10 @@ iframe {
   margin: 0 5rem;
 }
 
+.Banner {
+  color: #f0554d
+}
+
 .FAQ__question {
   background: none;
   border: none;

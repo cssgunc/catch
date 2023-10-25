@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Row, Col } from "react-bootstrap";
-import bannerImage from '../images/MediaCoverage/banner.jpg';
+import bannerImage from '../images/MediaCoverage/media_coverage_banner_color.jpeg';
 import Banner from '../components/Banner';
 
 import './MediaCoverage.css';

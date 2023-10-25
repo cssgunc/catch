@@ -8,6 +8,11 @@
     padding: 25px;
 }
 
+#catalog-subtitle {
+    font-style: italic;
+    padding: 25px;
+}
+
 #catalog {
     padding-left: 5%;
     padding-right: 5%;
@@ -165,3 +170,20 @@
     background-color: rgba(243, 111, 57, 1);
     color: white;
 }
+
+@media (max-width: 767px) {
+    .exec-grid-container {
+      flex-direction: column; 
+    }
+    .exec-tile {
+      flex: 1 1 100%; 
+      margin-right: 0; 
+    }
+  }
+  
+
+  @media (max-width: 767px) {
+    #catalog {
+      grid-template-columns: 1fr; /* Display as a single column */
+    }
+  }
