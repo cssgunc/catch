@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import Slider from "../components/Slider.js";
 import { db } from '../firebase-config.js';
-import { collection, getDocs} from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc, increment } from 'firebase/firestore';
 import CountUp from 'react-countup';
 
 import "./Home.css";
@@ -83,32 +83,64 @@ const lateNightImages = [
   {image: require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-027A.JPG")}
 ]
 
-
+// WORKING WITH BACKEND START
 export default function Home() {
-  // WORKING WITH BACKEND START
   const toysRef = collection(db, "toys"); //reference to toys collection in firestore database
+  const donateSumRef = doc(db, 'totalDonated', 'totalDonated');
   const [toys, setToys] = useState([]);
-  const [donatedSum, setDonatedSum] = useState(0);
+  const [donatedSum, setDonatedSum] = useState();
   
+// Commented out to prevent excessive database reads during development
+  // useEffect(() => {
+  //   const getToys = async () => {
+  //     const data = await getDocs(toysRef);
+  //     setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+  //   }
+  //   getToys()
+  // })
 
-  useEffect(() => {
-    const getToys = async () => {
-      const data = await getDocs(toysRef);
-      setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-    }
-    getToys()
-  })
+  // useEffect(() => {
+  //   const getTotalDonated = async () => {
+  //     const sumData = await getDoc(donateSumRef);
+  //     setDonatedSum(sumData.get('totalDonated'));
+  //   }
+  //   getTotalDonated()
+  // })
 
-  useEffect(() => {
-    const getTotalDonated = async () => {
-      let sum = 0;
-      toys.forEach(element => {
-        sum += element.donated;
-      });
-      setDonatedSum(sum);
+  const completeOrder = async (orderId) => {
+    const orderRef = doc(db, 'orders', orderId); // Replace 'orderId' with the actual document ID of the order you want to update
+    const orderData = await getDoc(orderRef);
+    if (!orderData.exists()) {
+      console.error('Error accessing document data');
+      return;
+    } 
+    
+    //Development note: Comment out this code block if repeatedly testing on the same order; revert to K & R style with above if statement for production
+    else if (orderData.get("completed") == true) {
+      console.error('Order already completed');
+      return;
     }
-    getTotalDonated()
-  })
+    const updateData = { completed: true };
+    await updateDoc(orderRef, updateData);
+
+    const order = orderData.get("order");
+    const orderToys = Object.keys(order);
+    let sum = 0;
+
+    for (let i = 0; i < orderToys.length; i++) {
+      const toyName = orderToys[i].replace(/\W/g, '').toLowerCase();
+      const toyRef = doc(db, "toys", toyName);
+
+      const currOrderAmt = order[orderToys[i]];
+
+      await updateDoc(toyRef, {donated: increment(currOrderAmt)});
+      sum += currOrderAmt;
+    }
+
+    //Ensure that the totalDonated field is defined as an integer, or its current value will be replaced by sum.  
+    await updateDoc(donateSumRef, {totalDonated: increment(sum)})
+  };
+
   // WORKING WITH BACKEND END
 
   return (
@@ -137,6 +169,9 @@ export default function Home() {
           <Slider slides={interestMeetingImages} />
         </div>
       </div>
+      <br/>
+      {/* Button is disabled to prevent excessive reads during development */}
+      <button disabled onClick={() => completeOrder("orderExample")}>Complete Order</button>
     </>
   )
 }
