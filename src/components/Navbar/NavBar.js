@@ -183,7 +183,7 @@ export default function NavBar() {
       setSidebarOpen(false); // Close the sidebar
     };
     const getClassName = (path) => {
-      if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage') {
+      if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage') {
         return path === activeTab ? "mx-3 nav-link-alternate-active" : "mx-3 nav-link-alternate";
       }
       else {
@@ -236,34 +236,28 @@ export default function NavBar() {
     return (
       <>
       <Router>
-      <Container fluid className="nav-container">
-          <Navbar className={`bg-transparent navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
-          
-            <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage' ? "nav-brand-alternate" : "nav-brand"} style={{ marginLeft: '20px' }}>
-              {/* new navbar */}
-              <Navbar.Toggle className="collapsed-menu-icon" class="toggle-button" aria-controls="basic-navbar-nav" onClick={(e) => { e.stopPropagation(); toggleSidebar(); }} />
-
-              <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
-            </Navbar.Brand>
-            {/* old nav */}
-            <div className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`} style={{ marginLeft: '0px', marginRight: '0px' }}>
-              <button onClick={toggleSidebar} className="closebtn">&times;</button>
-              <Nav className="mx-auto" style={{ paddingLeft: '0', marginLeft: '0' }}>
-                <Nav.Link className={getClassName("/")} as={Link} to={"/"} onClick={() => handleClick('/')}>Home</Nav.Link>
-                <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
-                <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
-                <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
-                <Nav.Link className={getClassName("/mediacoverage")} as={Link} to={"/mediacoverage"} onClick={() => handleClick('/mediacoverage')}>Media Coverage</Nav.Link>
-                </Nav>
-              </div>
-
+        <Container fluid className="nav-container">
+          <Navbar className={`bg-transparent mx-3 navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg">
+              <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage' ? "nav-brand-alternate" : "nav-brand"} as={Link} to={"/"} onClick={() => handleClick('/')}>
+                <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
+              </Navbar.Brand>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse className="collapse-nav" id="basic-navbar-nav">
+                  <Nav className="mx-auto">
+                    <Nav.Link className={getClassName("/")} as={Link} to={"/"} onClick={() => handleClick('/')}>Home</Nav.Link>
+                    <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
+                    <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
+                    <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
+                    <Nav.Link className={getClassName("/MediaCoverage")} as={Link} to={"/MediaCoverage"} onClick={() => handleClick('/MediaCoverage')}>Media Coverage</Nav.Link>
+                  </Nav>
+              </Navbar.Collapse>
               <Nav className="ml-auto justify-content-end adjust-right-nav">
-                <button onClick={() => openShoppingCart()} className="shopping-button">
-                  <ShoppingCart
-                    alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage' ? true : false}
-                    quantity={total}
-                  />
-                </button>
+                  <button onClick={() => openShoppingCart()} className="shopping-button">
+                    <ShoppingCart
+                      alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage' ? true : false}
+                      quantity={total} // will need to be dynamically updated
+                    />
+                  </button>
               </Nav>
             </Navbar>
           </Container>
@@ -273,7 +267,7 @@ export default function NavBar() {
             <Route path="/about" element={<About />} />
             <Route path="/toys" element={<Toys order={order} setOrder={changeOrder}/>} />
             <Route path="/donations" element={<Donations />} />
-            <Route path="/mediacoverage" element={<MediaCoverage />} />
+            <Route path="/MediaCoverage" element={<MediaCoverage />} />
           </Routes>
         </div>
       </Router>
