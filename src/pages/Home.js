@@ -91,24 +91,24 @@ export default function Home() {
   const [donatedSum, setDonatedSum] = useState(0);
   
 
-  useEffect(() => {
-    const getToys = async () => {
-      const data = await getDocs(toysRef);
-      setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-    }
-    getToys()
-  })
+  // useEffect(() => {
+  //   const getToys = async () => {
+  //     const data = await getDocs(toysRef);
+  //     setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+  //   }
+  //   getToys()
+  // })
 
-  useEffect(() => {
-    const getTotalDonated = async () => {
-      let sum = 0;
-      toys.forEach(element => {
-        sum += element.donated;
-      });
-      setDonatedSum(sum);
-    }
-    getTotalDonated()
-  })
+  // useEffect(() => {
+  //   const getTotalDonated = async () => {
+  //     let sum = 0;
+  //     toys.forEach(element => {
+  //       sum += element.donated;
+  //     });
+  //     setDonatedSum(sum);
+  //   }
+  //   getTotalDonated()
+  // })
 
   const completeOrder = async (orderId) => {
     const orderRef = doc(db, 'orders', orderId); // Replace 'orderId' with the actual document ID of the order you want to update
@@ -165,7 +165,7 @@ export default function Home() {
         </div>
       </div>
       <br/>
-      <button onClick={() => completeOrder("orderExample")}>Complete Order</button>
+      <button disabled onClick={() => completeOrder("orderExample")}>Complete Order</button>
     </>
   )
 }
