@@ -116,7 +116,7 @@ function ShoppingCartPanel(props) {
     try {
       // Create new document in orders collection
       const orderRef = await addDoc(collection(db, "orders"), orderData);
-
+      const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
       // Update the ordered field for each toy in the "toys" collection
       const toyNames = Object.keys(orderFormat)
       for (let i = 0; i < toyNames.length; i++) {

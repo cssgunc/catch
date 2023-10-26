@@ -92,30 +92,30 @@ export default function Home() {
   const [toys, setToys] = useState([]);
   const [donatedSum, setDonatedSum] = useState();
   
-  useEffect(() => {
-    const getToys = async () => {
-      const timeData = await getDoc(toysUpdateRef)
-      const lastUpdated = timeData.get('toysLastUpdated');
+  // useEffect(() => {
+  //   const getToys = async () => {
+  //     const timeData = await getDoc(toysUpdateRef)
+  //     const lastUpdated = timeData.get('toysLastUpdated');
 
-      if (toysTime === undefined || !lastUpdated.isEqual(toysTime)) {
-        const data = await getDocs(toysRef);
-        setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-        setToysTime(lastUpdated);
-      }
-    }
-    getToys()
-  })
+  //     if (toysTime === undefined || !lastUpdated.isEqual(toysTime)) {
+  //       const data = await getDocs(toysRef);
+  //       setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+  //       setToysTime(lastUpdated);
+  //     }
+  //   }
+  //   getToys()
+  // })
 
-  useEffect(() => {
-    const getTotalDonated = async () => {
-      const sumData = await getDoc(donateSumRef);
-      const currSum = sumData.get('totalDonated');
-      if (currSum !== donatedSum) {
-        setDonatedSum(currSum);
-      }
-    }
-    getTotalDonated()
-  })
+  // useEffect(() => {
+  //   const getTotalDonated = async () => {
+  //     const sumData = await getDoc(donateSumRef);
+  //     const currSum = sumData.get('totalDonated');
+  //     if (currSum !== donatedSum) {
+  //       setDonatedSum(currSum);
+  //     }
+  //   }
+  //   getTotalDonated()
+  // })
 
   const completeOrder = async (orderId) => {
     const orderRef = doc(db, 'orders', orderId); // Replace 'orderId' with the actual document ID of the order you want to update
@@ -182,7 +182,7 @@ export default function Home() {
         </div>
       </div>
       <br/>
-      <button onClick={() => completeOrder("orderExample")}>Complete Order</button>
+      <button disabled onClick={() => completeOrder("orderExample")}>Complete Order</button>
     </>
   )
 }
