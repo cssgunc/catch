@@ -9,7 +9,11 @@ import Toys from '../../pages/Toys';
 import Donations from '../../pages/Donations';
 import MediaCoverage from '../../pages/MediaCoverage';
 import ShoppingCart from './ShoppingCart';
-import { toyInfo } from '../toyInfo';
+import { recentToys } from '../toyInfo';
+import formatAndFetchString from '../../helper-functions/lowercase-and-remove-non-alph';
+
+import { db } from '../../firebase-config'; // Fixing the import path
+import { addDoc, collection, getDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore'; // importing Firestore functions
 
 import './Navbar.css';
 
@@ -18,7 +22,7 @@ function CartItem(props) {
   const [quantity, setQuantity] = useState(props.toy.quantity)
   const [disable, setDisable] = useState(quantity === 1)
   const toyName = props.toy.name;
-  const toy = toyInfo.find(item => item.name === toyName)
+  const toy = recentToys.find(item => item.name === toyName)
 
   const addOne = () => {
     let tempOrder = [...props.order];
@@ -81,7 +85,6 @@ function CartItem(props) {
 
 function ShoppingCartPanel(props) {
 
-
   const closeShoppingCart = () => {
     props.setShoppingCartActive(false);
   };
@@ -92,6 +95,45 @@ function ShoppingCartPanel(props) {
         window.removeEventListener("scroll", closeShoppingCart); // clean up
     }
   }, []);
+
+  const placeOrder = async (order) => {
+    // Remove toy-quantity pairs where quantity is 0
+    let orderFormat = {}
+    for (let toy in order) {
+      if (order[toy].quantity === 0) {
+        delete order[toy];
+      } else {
+        orderFormat[order[toy].name] = order[toy].quantity
+      }
+    }
+
+    // Write to the "orders" collection
+    const orderData = {
+      completed: false,
+      orderTime: serverTimestamp(), // using Firestore server timestamp
+      order: orderFormat
+    };
+    try {
+      // Create new document in orders collection
+      const orderRef = await addDoc(collection(db, "orders"), orderData);
+
+      // Update the ordered field for each toy in the "toys" collection
+      const toyNames = Object.keys(orderFormat)
+      for (let i = 0; i < toyNames.length; i++) {
+        // const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
+        // const toyRef = doc(db, "toys", toyName);
+        const toyRef = formatAndFetchString(toyNames[i]);
+
+        const element = await getDoc(toyRef)
+        const toyData = {...element.data()}
+        await updateDoc(toyRef, {
+          ordered: toyData.ordered + (orderFormat[toyNames[i]])
+        });
+      }
+    } catch (e) {
+      console.error("Error placing order: ", e);
+    }
+  };
 
   return(
     <div className='shopping-cart-container'>
@@ -113,7 +155,7 @@ function ShoppingCartPanel(props) {
           ))}
         </div>
         <div className='checkout-container' style={{flex: 2, display:"flex", justifyContent:"center"}}>
-          <button className='checkout'>Checkout</button>
+          <button className='checkout'  onClick={() => placeOrder(props.order)}>Checkout</button>
         </div>
       </div>
     </div>
@@ -129,11 +171,17 @@ export default function NavBar() {
     const [total, setTotal] = useState(0);
 
     const [order, setOrder] = useState([]);
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+      setSidebarOpen(!isSidebarOpen);
+    };    
+
 
     const handleClick = (path) => {
       setActiveTab(path);
+      setSidebarOpen(false); // Close the sidebar
     };
-
     const getClassName = (path) => {
       if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage') {
         return path === activeTab ? "mx-3 nav-link-alternate-active" : "mx-3 nav-link-alternate";
@@ -181,6 +229,8 @@ export default function NavBar() {
     const changeOrder = (n) => {
       setOrder(n);
     };
+
+
     
 
     return (
@@ -209,8 +259,8 @@ export default function NavBar() {
                     />
                   </button>
               </Nav>
-          </Navbar>
-        </Container>
+            </Navbar>
+          </Container>
         <div>
           <Routes>
             <Route path="/" element={<Home />} />

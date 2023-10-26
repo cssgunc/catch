@@ -25,8 +25,20 @@ Task Assignments/Groups: [Spreadsheet](https://docs.google.com/spreadsheets/d/1Z
 All commands must be run inside your project terminal. For all your tasks, you will need to create a branch for your team and submit a pull request once you are done.
 
 #### Creating New Branch
+
+**Option 1: Creating a branch on GitHub**
+1. Click the branch button on the github page of our repo. It should be right underneath the repo name and say "master"
+2. Type in the name of the branch you want to create.
+3. Click **Create Branch: [branch name]**
+4. Open up your project
+5. Run ```git pull``` in the terminal to update your branches
+6. Run ```git checkout [branch name]``` or ```git switch [branch name]``` to switch to the newly created branch
+7. Double check that you are in the correct repository by running ```git branch -a```
+8. Make your changes and push as normal while working within your branch
+**Option 2: Creating a branch locally**
 1. ```git branch [name]``` to create a branch with name of [name].
 2. ```git checkout [name]``` to switch to branch [name].
+3. When you've finished making your changes locally, run ```git push -u origin [name]``` to create the remote branch and push to there.
 
 #### Submit a Pull Request
 1. Navigate to the [repository page](https://github.com/cssgunc/catch).
