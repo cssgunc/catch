@@ -26,10 +26,6 @@
     color: black !important;
     text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
 }
-  
-.navbar-scrolled .nav-brand {
-    color: black !important;
-}
 
 .navbar-not-scrolled {
     background-color: transparent;
@@ -38,6 +34,10 @@
 .navbar-not-scrolled .nav-link {
     color: white;
     text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-scrolled .nav-brand {
+    color: black !important;
 }
   
 .navbar-not-scrolled .nav-brand {
@@ -50,6 +50,7 @@
     width: 100px;
     font-weight: 600;
 }
+
 .nav-brand-alternate, .nav-brand-alternate:hover {
     font-size: large;
     color: white;

@@ -203,7 +203,7 @@ export default function NavBar() {
       <Router>
         <Container fluid className="nav-container">
           <Navbar className={`bg-transparent mx-3 navbar ${scrolling ? 'navbar-scrolled' : ''}`} expand="lg">
-              <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/news' ? "nav-brand-alternate" : "nav-brand"} as={Link} to={"/"} onClick={() => handleClick('/')}>
+              <Navbar.Brand className="nav-brand-alternate" as={Link} to={"/"} onClick={() => handleClick('/')}>
                 <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
