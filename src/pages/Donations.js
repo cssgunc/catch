@@ -94,9 +94,9 @@ export default function Donations() {
   return (
     <>
       <Banner imagePath={bannerImage} title="Donations" />
-      <h1>
-        <b>Donations</b>
-      </h1>
+      <h2>
+        Donations
+      </h2>
       <iframe
         src={gofundmeform}
         id="gfm-form"
