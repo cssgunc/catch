@@ -100,6 +100,8 @@ const MediaCoverage = () => {
         imagePath={bannerImage} 
         title='Media Coverage'
       />
+      <p style={{paddingTop: 20, marginBottom: -40}}>We are always looking to spread the word and the CATCH mission. 
+        For news inquiries, please contact our PR Chair at kchai@unc.edu!</p>
       <ArticleGrid />
     </div>
   )
