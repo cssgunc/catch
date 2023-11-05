@@ -17,26 +17,59 @@ import { db } from '../firebase-config';
 
 const toysRef = collection(db, 'toys'); 
 
-const toyInfo = [
-];
+// const toyInfo = [
+// ];
 
-async function getToyInfo() {
+// async function getToyInfo() {
+//   const toys = [];
+
+//     try {
+//       const querySnapshot = await getDocs(toysRef);
+//       querySnapshot.forEach((doc) => {
+//         toys.push(doc.data());
+//       });
+//     } catch (error) {
+//       console.error("Error fetching data:", error);
+//     }
+//     return toys
+//   }
+  
+//   const dynamicToyInfo = getToyInfo()
+
+async function getDynamicRecentToys() {
   const toys = [];
 
     try {
       const querySnapshot = await getDocs(toysRef);
       querySnapshot.forEach((doc) => {
-        toys.push(doc.data());
+        if (doc.data().current) {
+          toys.push(doc.data());
+        }
       });
     } catch (error) {
       console.error("Error fetching data:", error);
     }
     return toys
   }
+
+  async function getDynamicOldToys() {
+    const toys = [];
   
-  const dynamicToyInfo = getToyInfo()
+      try {
+        const querySnapshot = await getDocs(toysRef);
+        querySnapshot.forEach((doc) => {
+          if (!doc.data().current) {
+            toys.push(doc.data());
+          }
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+      return toys
+    }
 
-
+export const dynamicRecentToys = getDynamicRecentToys()
+export const dynamicOldToys = getDynamicOldToys()
 
 export const recentToys = [
     {description: "temp description", name: "T-Rex", imagePath: trexImage, altText: 'Modfified T-Rex Toy', buildURL: 'https://docs.google.com/presentation/d/1wbJqiEVo8fUr-7MK_vaexr9-cqTBe6HjSzHXuhyEOuY/edit#slide=id.p'},
@@ -56,3 +89,7 @@ export const oldToys = [
     {description: "temp description", name: "Alien", imagePath: alienImage, altText: 'Modfified Alien Toy', buildURL: ''},
     {description: "temp description", name: "Dog", imagePath: dogImage, altText: 'Modfified Dog Toy', buildURL: ''}
 ]
+
+
+console.log(recentToys)
+console.log(oldToys)
