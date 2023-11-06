@@ -170,6 +170,7 @@ export default function NavBar() {
     const [visible, setVisible] = useState(true);
     const [shoppingCartActive, setShoppingCartActive] = useState(false);
     const [total, setTotal] = useState(0);
+    const [scrolling, setScrolling] = useState(false);
 
     const [order, setOrder] = useState([]);
     const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -206,12 +207,27 @@ export default function NavBar() {
     useEffect(() => {
       const handleScroll = () => {
         const currentScrollPos = window.pageYOffset;
-        setVisible((prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 170) || currentScrollPos < 30);
-        setPrevScrollPos(currentScrollPos);
+        if (currentScrollPos > 30) {
+          setScrolling(true);
+        } else {
+          setScrolling(false);
+        }
       };
       window.addEventListener('scroll', handleScroll);
       return () => window.removeEventListener('scroll', handleScroll);
-    }, [prevScrollPos]);
+    }, []);
+
+    useEffect(() => {
+      if (scrolling) {
+        document.querySelector('.nav-container').style.backgroundColor = 'white';
+        document.querySelector('.nav-brand-alternate').style.color = 'black';
+        document.querySelector('.shopping-cart').style.color = 'black';
+      } else {
+        document.querySelector('.nav-container').style.backgroundColor = '';
+        document.querySelector('.nav-brand-alternate').style.color = 'white';
+        document.querySelector('.shopping-cart').style.color = 'white';
+      }
+    }, [scrolling]);
 
     useEffect(() => {
       const getTotal = () => {
@@ -231,14 +247,11 @@ export default function NavBar() {
       setOrder(n);
     };
 
-
-    
-
     return (
       <>
       <Router>
       <Container fluid className="nav-container">
-          <Navbar className={`bg-transparent navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Navbar className={`bg-transparent mx-3 navbar ${visible ? 'navbar-show' : 'navbar-hide'} ${scrolling ? 'navbar-scrolled' : ''}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
           
             <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage' ? "nav-brand-alternate" : "nav-brand"} style={{ marginLeft: '20px' }}>
               {/* new navbar */}

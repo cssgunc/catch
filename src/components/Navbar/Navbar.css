@@ -2,12 +2,15 @@
     margin: 0;
     padding: 0;
     width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 .navbar {
     font-family: 'Poppins';
     max-height: 3.5rem;
-    z-index: 1;
+    z-index: 1000;
 }
 
 .navbar-show {
@@ -19,12 +22,35 @@
     transform: translateY(-100%);
 }
 
+.navbar-scrolled .nav-link {
+    color: black !important;
+    text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-not-scrolled {
+    background-color: transparent;
+}
+  
+.navbar-not-scrolled .nav-link {
+    color: white;
+    text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-scrolled .nav-brand {
+    color: black !important;
+}
+  
+.navbar-not-scrolled .nav-brand {
+    color: white;
+}
+
 .nav-brand {
     font-size: large;
-    color: black;
+    color: white;
     width: 100px;
     font-weight: 600;
 }
+
 .nav-brand-alternate, .nav-brand-alternate:hover {
     font-size: large;
     color: white;
@@ -36,7 +62,6 @@
     max-height: 100%;
     max-width: 40px;
 }
-
 
 @media (max-width: 992px) {
     .toggle-button { /* Menu */
@@ -56,12 +81,10 @@
     }
 }
 
-  
-
 .nav-link {
     font-size: medium;
     font-weight: 600;
-    color: black;
+    color: white;
     text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
 }
 
@@ -119,7 +142,6 @@
 .shopping-button {
     background-color: transparent;
     border: none;
-    /* color: transparent; */
 }
 
 .shopping-icon {
@@ -153,8 +175,6 @@
     display: flex;
     flex-direction: column;
 }
-
-
 
 .closebtn {
     display: none;
