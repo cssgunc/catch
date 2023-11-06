@@ -35,9 +35,9 @@ export default function Checkout() {
                         Quantity: {item.quantity}
                       </Card.Text>
                       {/* Add functionality to buttons as required */}
-                      <Button variant="outline-secondary">-</Button>
+                      <Button className="mx-2" variant="outline-secondary">-</Button>
                       <span>{item.quantity}</span>
-                      <Button variant="outline-secondary">+</Button>
+                      <Button className="mx-2" variant="outline-secondary">+</Button>
                     </Col>
                   </Row>
                 </Card.Body>
@@ -48,22 +48,22 @@ export default function Checkout() {
             <h2>Enter your Information:</h2>
             <Form>
               <Form.Group className="mb-3" controlId="formName">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>Name:</Form.Label>
                 <Form.Control type="text" placeholder="Enter your full name" />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formEmail">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>Email:</Form.Label>
                 <Form.Control type="email" placeholder="Enter your email" />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formAddress">
-                <Form.Label>Address</Form.Label>
+                <Form.Label>Address:</Form.Label>
                 <Form.Control placeholder="Street address, City, State, Zip code" />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formNotes">
-                <Form.Label>Additional Notes</Form.Label>
+                <Form.Label>Additional Notes:</Form.Label>
                 <Form.Control as="textarea" rows={3} placeholder="Anything else you'd like to add?" />
               </Form.Group>
 
