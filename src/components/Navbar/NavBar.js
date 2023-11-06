@@ -278,7 +278,7 @@ export default function NavBar() {
             <Route path="/toys" element={<Toys order={order} setOrder={changeOrder}/>} />
             <Route path="/donations" element={<Donations />} />
             <Route path="/mediacoverage" element={<MediaCoverage />} />
-            <Route path="/checkout" element={<MediaCoverage />} />
+            <Route path="/checkout" element={<Checkout />} />
 
           </Routes>
         </div>
