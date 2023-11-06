@@ -2,13 +2,13 @@
 import React from 'react';
 import { Col, Row, Container, Button, Form, Card } from 'react-bootstrap';
 
-import imageSrc from '../images/logo.png' // Adjust the path as needed
+import imageSrcTest from '../images/logo.png' // Adjust the path as needed
 
 
 export default function Checkout() {
   const cartItems = [
-    { id: 1, name: 'Item 1', quantity: 2 },
-    { id: 2, name: 'Item 2', quantity: 1 },
+    { id: 1, name: 'Item 1', quantity: 2, imageSrc: imageSrcTest },
+    { id: 2, name: 'Item 2', quantity: 1, imageSrc: imageSrcTest },
   ];
 
   return (
@@ -24,7 +24,7 @@ export default function Checkout() {
                   <Row>
                     <Col sm={4}>
                       {/* Replace with actual item image */}
-                      <Card.Img variant="top" src={imageSrc} />
+                      <Card.Img variant="top" src={item.imageSrc} />
                     </Col>
                     <Col sm={8}>
                       <Card.Title>{item.name}</Card.Title>
