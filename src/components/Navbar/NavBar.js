@@ -6,6 +6,7 @@ import { GrClose } from 'react-icons/gr'
 import Home from '../../pages/Home';
 import About from '../../pages/About';
 import Toys from '../../pages/Toys';
+import Checkout from '../../pages/Checkout';
 import Donations from '../../pages/Donations';
 import MediaCoverage from '../../pages/MediaCoverage';
 import ShoppingCart from './ShoppingCart';
@@ -255,6 +256,8 @@ export default function NavBar() {
                 <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
                 <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
                 <Nav.Link className={getClassName("/mediacoverage")} as={Link} to={"/mediacoverage"} onClick={() => handleClick('/mediacoverage')}>Media Coverage</Nav.Link>
+                <Nav.Link className={getClassName("/checkout")} as={Link} to={"/checkout"} onClick={() => handleClick('/checkout')}>Checkout</Nav.Link>
+
                 </Nav>
               </div>
 
@@ -275,6 +278,8 @@ export default function NavBar() {
             <Route path="/toys" element={<Toys order={order} setOrder={changeOrder}/>} />
             <Route path="/donations" element={<Donations />} />
             <Route path="/mediacoverage" element={<MediaCoverage />} />
+            <Route path="/checkout" element={<MediaCoverage />} />
+
           </Routes>
         </div>
       </Router>
