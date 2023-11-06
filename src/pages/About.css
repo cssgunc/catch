@@ -1,52 +1,122 @@
-#table {
-    display: grid;
-    grid-template-columns: 28% 28% 28%;
-    grid-template-rows: 270px 270px 270px;
-    column-gap: 3%;
-    row-gap: 130px;
-    width: 100%;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: 100px;
+* {
+  font-family: 'Montserrat', sans-serif !important;
 }
 
-#text{
-  margin-top: 25px;
-  padding-left: 250px;
-  padding-right: 250px;
+/* Add margin to .execs */
+.execs {
+  margin: 0 4rem;
+}
+
+.exec-grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+
+.exec-tile {
+  flex: 1 1 calc(33.33% - 10px); 
+  margin-right: 10px; 
+  margin-bottom: 20px; 
+  box-sizing: border-box;
+}
+
+.exec-image {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+@media (max-width: 767px) {
+  .exec-grid-container {
+    flex-direction: column; 
+  }
+  .exec-tile {
+    flex: 1 1 100%; 
+    margin-right: 0; 
+  }
+}
+
+
+#table {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 3%;
+  row-gap: 3%;
+  width: 100%;
+  margin-bottom: 130px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+#text {
+  width: 80%;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+h2 {
+  font-weight: 700;
+  margin: 2rem;
+}
+
+.video-container {
+  width: 100vw;
+}
+
+iframe {
+  width: 55%;
 }
 
 #images {
-    height: 350px;
-    width: 100%;
+  height: 350px;
+  width: 100%;
 }
 
-#title { 
-    font-size: 40px;
-    font-weight: bold;
+.about-content {
+  margin: 0 5rem;
+}
+
+.Banner {
+  color: #f0554d
 }
 
 .FAQ__question {
-    background: none;
-    border: none;
-    width: 100%;
-    text-align: left;
-    font-size: 20px;
-    padding-left: 40px;
-    padding-right: 40px;
-  }
-  
-  .FAQ__question:hover {
-    cursor: pointer;
-  }
-  
-  .FAQ__answer--hidden {
-    display: none;
-    
-  }
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-size: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.FAQ__question:hover {
+  cursor: pointer;
+}
+
+.FAQ__answer--hidden {
+  display: none;
+}
 
 .FAQ__answer {
-    padding-left: 40px;
-    padding-right: 40px;
-    text-align: left;
+  padding-left: 40px;
+  padding-right: 40px;
+  text-align: left;
+}
+
+@media (max-width: 900px) {
+  iframe {
+    width: 90%;
   }
+
+  .about-content {
+    margin: 0 1rem;
+  }
+}

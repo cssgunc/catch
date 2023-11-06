@@ -1,5 +1,6 @@
 import React from "react";
-import bannerImage from "../images/Donations/banner.jpg";
+//import bannerImage from "../images/Donations/banner.jpg";
+import bannerImage from "../images/Donations/donations_banner_color.jpeg";
 import Banner from "../components/Banner";
 import org1Image from '../images/Donations/donation1.jpg';
 import org2Image from '../images/Donations/donation2.jpg';
@@ -93,9 +94,9 @@ export default function Donations() {
   return (
     <>
       <Banner imagePath={bannerImage} title="Donations" />
-      <h1>
-        <b>Donations</b>
-      </h1>
+      <h2>
+        Donations
+      </h2>
       <iframe
         src={gofundmeform}
         id="gfm-form"
