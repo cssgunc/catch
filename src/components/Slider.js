@@ -15,7 +15,7 @@ const Slider = ({ slides }) => {
   };
 
   return (
-    <StyledSlider style={{ position: "relative", maxHeight: "80vh" }}>
+    <StyledSlider>
       <FaChevronLeft className="leftArrow" onClick={prevSlide} />
       {slides.map((slide, index) => {
         return (
