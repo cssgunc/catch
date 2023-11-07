@@ -1,7 +1,8 @@
 import React from 'react';
 import FAQ from "./FAQ";
 import './About.css';
-import bannerImage from '../images/About/banner.jpg';
+//import bannerImage from '../images/About/banner.jpg';
+import bannerImage from '../images/About/about_banner_color.jpeg';
 import Banner from '../components/Banner';
 import presPic from '../images/About/thumbnail_image001[92].png';
 import vicepresPic from '../images/About/IMG_0557.jpg';
@@ -90,10 +91,18 @@ export default function About(){
             <FAQ.Question answerId="q1">
               {(isOpen, onToggle) => {
                 return (
-                  <><hr></hr>
-                    <span>How do I join CATCH?</span>
-                    <hr></hr>
-                  </>
+                  <div>
+                    <div className={`faq-question-content ${isOpen ? "open" : ""}`} onClick={onToggle}>
+                      <hr></hr>
+                      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                      <span>How do I join CATCH?</span>
+                      <svg className={`faq-arrow ${isOpen ? "open" : ""}`} width="20" height="20" viewBox="0 0 20 20">
+                      <path d={isOpen ? "M18.59 16.41L20 15l-8-8-8 8 1.41 1.41L12 9.83" : "M5.41 7.59L4 9l8 8 8-8-1.41-1.41L12 14.17"} />
+                      </svg>
+                      </div>
+                      <hr></hr>
+                    </div>
+                  </div>
                 );
               }}
             </FAQ.Question>
@@ -104,10 +113,17 @@ export default function About(){
               {(isOpen, onToggle) => {
                 return (
                   <>
-                    {isOpen ? "" : ""}
-                    <span>Do I need any experience to join CATCH?</span>
+                  <div className={`faq-question-content ${isOpen ? "open" : ""}`} onClick={onToggle}>
                     <hr></hr>
-                  </>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <span>Do I need any experience to join CATCH?</span>
+                    <svg className={`faq-arrow ${isOpen ? "open" : ""}`} width="20" height="20" viewBox="0 0 20 20">
+                    <path d={isOpen ? "M18.59 16.41L20 15l-8-8-8 8 1.41 1.41L12 9.83" : "M5.41 7.59L4 9l8 8 8-8-1.41-1.41L12 14.17"} />
+                    </svg>
+                    </div>
+                    <hr></hr>
+                  </div>
+                </>
                 );
               }}
             </FAQ.Question>
@@ -118,10 +134,17 @@ export default function About(){
               {(isOpen, onToggle) => {
                 return (
                   <>
-                    {isOpen ? "" : ""}
-                    <span>When are the meetings?</span>
+                  <div className={`faq-question-content ${isOpen ? "open" : ""}`} onClick={onToggle}>
                     <hr></hr>
-                  </>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <span>When are the meetings?</span>
+                    <svg className={`faq-arrow ${isOpen ? "open" : ""}`} width="20" height="20" viewBox="0 0 20 20">
+                    <path d={isOpen ? "M18.59 16.41L20 15l-8-8-8 8 1.41 1.41L12 9.83" : "M5.41 7.59L4 9l8 8 8-8-1.41-1.41L12 14.17"} />
+                    </svg>
+                    </div>
+                    <hr></hr>
+                  </div>
+                </>
                 );
               }}
             </FAQ.Question>
@@ -133,10 +156,17 @@ export default function About(){
               {(isOpen, onToggle) => {
                 return (
                   <>
-                    {isOpen ? "" : ""}
-                    <span>Where are the meetings?</span>
+                  <div className={`faq-question-content ${isOpen ? "open" : ""}`} onClick={onToggle}>
                     <hr></hr>
-                  </>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <span>Where are the meetings?</span>
+                    <svg className={`faq-arrow ${isOpen ? "open" : ""}`} width="20" height="20" viewBox="0 0 20 20">
+                    <path d={isOpen ? "M18.59 16.41L20 15l-8-8-8 8 1.41 1.41L12 9.83" : "M5.41 7.59L4 9l8 8 8-8-1.41-1.41L12 14.17"} />
+                    </svg>
+                    </div>
+                    <hr></hr>
+                  </div>
+                </>
                 );
               }}
             </FAQ.Question>
@@ -148,10 +178,17 @@ export default function About(){
               {(isOpen, onToggle) => {
                 return (
                   <>
-                    {isOpen ? "" : ""}
-                    <span>How can I donate?</span>
+                  <div className={`faq-question-content ${isOpen ? "open" : ""}`} onClick={onToggle}>
                     <hr></hr>
-                  </>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <span>How can I donate?</span>
+                    <svg className={`faq-arrow ${isOpen ? "open" : ""}`} width="20" height="20" viewBox="0 0 20 20">
+                    <path d={isOpen ? "M18.59 16.41L20 15l-8-8-8 8 1.41 1.41L12 9.83" : "M5.41 7.59L4 9l8 8 8-8-1.41-1.41L12 14.17"} />
+                    </svg>
+                    </div>
+                    <hr></hr>
+                  </div>
+                </>
                 );
               }}
             </FAQ.Question>

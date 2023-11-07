@@ -2,8 +2,9 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import Slider from "../components/Slider.js";
 import { db } from '../firebase-config.js';
-import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc, increment, serverTimestamp} from 'firebase/firestore';
 import CountUp from 'react-countup';
+import formatAndFetchString from '../helper-functions/lowercase-and-remove-non-alph.js'
 
 import "./Home.css";
 
@@ -83,29 +84,36 @@ const lateNightImages = [
   {image: require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-027A.JPG")}
 ]
 
-
+// WORKING WITH BACKEND START
 export default function Home() {
-  // WORKING WITH BACKEND START
+  const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
   const toysRef = collection(db, "toys"); //reference to toys collection in firestore database
+  const donateSumRef = doc(db, 'totalDonated', 'totalDonated');
+  const [toysTime, setToysTime] = useState()
   const [toys, setToys] = useState([]);
-  const [donatedSum, setDonatedSum] = useState(0);
+  const [donatedSum, setDonatedSum] = useState();
   
-
   // useEffect(() => {
   //   const getToys = async () => {
-  //     const data = await getDocs(toysRef);
-  //     setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+  //     const timeData = await getDoc(toysUpdateRef)
+  //     const lastUpdated = timeData.get('toysLastUpdated');
+  //     if (toysTime === undefined || !lastUpdated.isEqual(toysTime)) {
+  //       const data = await getDocs(toysRef);
+  //       setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+  //       setToysTime(lastUpdated);
+  //     }
   //   }
   //   getToys()
   // })
 
   // useEffect(() => {
   //   const getTotalDonated = async () => {
-  //     let sum = 0;
-  //     toys.forEach(element => {
-  //       sum += element.donated;
-  //     });
-  //     setDonatedSum(sum);
+
+  //     const sumData = await getDoc(donateSumRef);
+  //     const currSum = sumData.get('totalDonated');
+  //     if (currSum !== donatedSum) {
+  //       setDonatedSum(currSum);
+  //     }
   //   }
   //   getTotalDonated()
   // })
@@ -116,24 +124,35 @@ export default function Home() {
     if (!orderData.exists()) {
       console.error('Error accessing document data');
       return;
-    } else if (orderData.get("completed") == true) {
-      //Production note: Comment out this code block if repeatedly testing on the same order.
+    } 
+    
+    //Development note: Comment out this code block if repeatedly testing on the same order; revert to K & R style with above if statement for production
+    else if (orderData.get("completed") === true) {
       console.error('Order already completed');
       return;
     }
-    
     const updateData = { completed: true };
     await updateDoc(orderRef, updateData);
 
     const order = orderData.get("order");
-    //Iterates through toys instead of order because order references toy.fullName, not toy.
-    toys.forEach(async element => {
-      const currOrderAmt = order[element.fullName];
-      if (currOrderAmt !== undefined) {
-        const toyRef = doc(db, "toys", element.id);
-        await updateDoc(toyRef, {donated: element.donated + currOrderAmt});
-      }
-    })
+    const orderToys = Object.keys(order);
+    let sum = 0;
+
+    for (let i = 0; i < orderToys.length; i++) {
+      const toyRef = formatAndFetchString(orderToys[i]);
+      // const toyName = orderToys[i].replace(/\W/g, '').toLowerCase();
+      // const toyRef = doc(db, "toys", toyName);
+
+      const currOrderAmt = order[orderToys[i]];
+
+      await updateDoc(toyRef, {donated: increment(currOrderAmt)});
+      sum += currOrderAmt;
+    }
+
+    await updateDoc(toysUpdateRef, {toysLastUpdated: serverTimestamp()});
+
+    //Ensure that the totalDonated field is defined as an integer, or its current value will be replaced by sum.  
+    await updateDoc(donateSumRef, {totalDonated: increment(sum)});
   };
 
   // WORKING WITH BACKEND END
