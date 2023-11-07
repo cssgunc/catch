@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 //import bannerImage from "../images/Donations/banner.jpg";
 import bannerImage from "../images/Donations/donations_banner_color.jpeg";
 import Banner from "../components/Banner";
@@ -93,18 +93,18 @@ function GetDonationsInfo() {
 }
 
 function DonationDisplay (props) {
-  // const donationsInfo = [
-  //   {side: true, imagePath: org1Image, organization: 'Carolina Institute for Developmental Disabilities', total: 20, donations: 2, description: "The Carolina Institute for Developmental Disabilities is a comprehensive program for services, research, and training relevant to individuals with developmental disabilities and their families. The Carolina Institute provides a continuum of clinical services from complex, interdisciplinary evaluations on-site to more limited and selected clinical services and training in all 100 counties in North Carolina. The Institute brings together state-of-the-art research and clinical practice to ensure the best possible care for citizens of North Carolina."},
-  //   {side: false, imagePath: org2Image, organization: 'UNC Center for Rehabilitative Care', total: 14, donations: 2, description: 'The mission of the UNC Inpatient Rehabilitation Center is to improve, restore and maintain functional abilities and maximize quality of life in patients with disabilities; educate health care professionals in rehabilitation care and services; and advance rehabilitation research. Rehabilitative care provides persons served with the skills and support necessary to function in an environment with as much independence and choice and as little supervision and restriction as possible. The totality of this care spans the rehabilitation continuum to optimize the functionality and quality of life and prevent and or treat conditions of physically disabled persons.'},
-  //   {side: true, imagePath: org3Image, organization: "Levine Children's Hospital", total: 16, donations: 2, description: ''},
-  //   {side: false, imagePath: org4Image, organization: 'Novant Health', total: 10, donations: 1, description: ''},
-  //   {side: true, imagePath: org5Image, organization: 'Barton Pond Elementary School', total: 10, donations: 1, description: ''},
-  //   {side: false, imagePath: org6Image, organization: 'Aversboro Elementary School', total: 10, donations: 1, description: ''}
-  // ]
+  const donationsInfo = [
+    {side: true, imagePath: org1Image, organization: 'Carolina Institute for Developmental Disabilities', total: 20, donations: 2, description: "The Carolina Institute for Developmental Disabilities is a comprehensive program for services, research, and training relevant to individuals with developmental disabilities and their families. The Carolina Institute provides a continuum of clinical services from complex, interdisciplinary evaluations on-site to more limited and selected clinical services and training in all 100 counties in North Carolina. The Institute brings together state-of-the-art research and clinical practice to ensure the best possible care for citizens of North Carolina."},
+    {side: false, imagePath: org2Image, organization: 'UNC Center for Rehabilitative Care', total: 14, donations: 2, description: 'The mission of the UNC Inpatient Rehabilitation Center is to improve, restore and maintain functional abilities and maximize quality of life in patients with disabilities; educate health care professionals in rehabilitation care and services; and advance rehabilitation research. Rehabilitative care provides persons served with the skills and support necessary to function in an environment with as much independence and choice and as little supervision and restriction as possible. The totality of this care spans the rehabilitation continuum to optimize the functionality and quality of life and prevent and or treat conditions of physically disabled persons.'},
+    {side: true, imagePath: org3Image, organization: "Levine Children's Hospital", total: 16, donations: 2, description: ''},
+    {side: false, imagePath: org4Image, organization: 'Novant Health', total: 10, donations: 1, description: ''},
+    {side: true, imagePath: org5Image, organization: 'Barton Pond Elementary School', total: 10, donations: 1, description: ''},
+    {side: false, imagePath: org6Image, organization: 'Aversboro Elementary School', total: 10, donations: 1, description: ''}
+  ]
 
   return (
     <>
-      {GetDonationsInfo().map((donation) => (
+      {donationsInfo.map((donation) => (
           <DonationBox
             imagePath={donation.imagePath}
             organization={donation.organization}
