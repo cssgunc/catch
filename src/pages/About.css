@@ -74,7 +74,7 @@
 }
 
 h2 {
-  font-weight: 900;
+  font-weight: 700;
   margin: 2rem;
 }
 
@@ -93,6 +93,10 @@ iframe {
 
 .about-content {
   margin: 0 5rem;
+}
+
+.Banner {
+  color: #f0554d
 }
 
 .FAQ__question {
