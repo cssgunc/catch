@@ -30,7 +30,7 @@ h2 {
 }
 
 .landing {
-  height: 100vh;
+
   background-color: #2EA397;
   display: flex;
   flex-direction: row;
@@ -47,22 +47,22 @@ h2 {
 }
 
 .tagline h1 {
-  font-size: 96px;
+  font-size: 6.5vw;
   font-weight: 800;
-  line-height: 117px;
   letter-spacing: 0em;
   text-align: left;
   color: #FFFFFF;
 }
 
 .tagline p {
-  font-size: 50px;
+  font-size: 3vw;
   font-weight: 600;
-  line-height: 61px;
   letter-spacing: 0em;
   text-align: left;
   color: #FFFFFF;
+  padding-bottom: 1rem;
 }
+
 .car-logo {
   background: url('../images/General/car_logo.png') no-repeat;
   width: 45%;
@@ -75,7 +75,7 @@ button {
 }
 
 #introduction, #recent-events {
-  padding: 5rem 5rem 0 5rem;
+  padding: 3rem 5rem 0 5rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -85,4 +85,21 @@ button {
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
+}
+
+@media screen and (max-width: 900px) {
+  .landing {
+    height: auto;
+    background-color: #2EA397;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .tagline {
+    width: 100%;
+  }
+
+  .tagline p {
+    font-size: 5vw;
+  }
 }
