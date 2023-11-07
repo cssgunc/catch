@@ -1,7 +1,7 @@
 # UNC-CH CATCH Website
 
 Original Website: https://www.catch-inc.com/ \
-Task Assignments/Groups: [Spreadsheet](https://docs.google.com/spreadsheets/d/1ZMkJfXMy0VQy0TjdEZhFANyOBkIurNOH7tZcdBJ0vyA/edit?usp=sharing)
+Task Assignments/Groups: [Spreadsheet](https://docs.google.com/spreadsheets/d/1ZMkJfXMy0VQy0TjdEZhFANyOBkIurNOH7tZcdBJ0vyA/edit?usp=sharing) \
 UI/UX Designs on Figma: https://www.figma.com/team_invite/redeem/2jU23us2UTjx6DWOcZmhFQ
 ### Getting Started
 
