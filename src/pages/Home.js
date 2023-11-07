@@ -6,6 +6,8 @@ import { db } from '../firebase-config.js';
 import { collection, doc, getDoc, getDocs, updateDoc, increment, serverTimestamp} from 'firebase/firestore';
 import CountUp from 'react-countup';
 import formatAndFetchString from '../helper-functions/lowercase-and-remove-non-alph.js'
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 import './Home.css'
 
 const interestMeetingImages = [
@@ -84,6 +86,26 @@ const lateNightImages = [
   {image: require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-027A.JPG")}
 ]
 
+const toyCatalog = [
+  require("../images/Toy Catolog/airplane.jpg"),
+  require("../images/Toy Catolog/alien.jpg"),
+  require("../images/Toy Catolog/banner.jpeg"),
+  require("../images/Toy Catolog/bus.jpg"),
+  require("../images/Toy Catolog/dinocar.jpg"),
+  require("../images/Toy Catolog/dinocar2.jpg"),
+  require("../images/Toy Catolog/dog.jpg"),
+  require("../images/Toy Catolog/firetruck.jpg"),
+  require("../images/Toy Catolog/garbagetruck.jpg"),
+  require("../images/Toy Catolog/lizard.jpg"),
+  require("../images/Toy Catolog/penguin.jpg"),
+  require("../images/Toy Catolog/pixie.jpg"),
+  require("../images/Toy Catolog/school-bus.jpg"),
+  require("../images/Toy Catolog/snake.jpg"),
+  require("../images/Toy Catolog/toy_catolog_banner_color.jpeg"),
+  require("../images/Toy Catolog/tractor.jpg"),
+  require("../images/Toy Catolog/trex.jpg"),
+]
+
 // WORKING WITH BACKEND START
 export default function Home() {
   const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
@@ -118,6 +140,8 @@ export default function Home() {
   //   getTotalDonated()
   // })
 
+  // Click and scroll
+
   const intro = useRef(null);
   const events = useRef(null)
 
@@ -126,6 +150,26 @@ export default function Home() {
   };
   const goToEvents = () => {
     events.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Carousel
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      slidesToSlide: 3 // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2 // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 664, min: 0 },
+      items: 1,
+      slidesToSlide: 1 // optional, default to 1.
+    }
   };
 
   const completeOrder = async (orderId) => {
@@ -183,20 +227,31 @@ export default function Home() {
         </div>
         <div className="car-logo"></div>
       </div>
+
       
       <div id="introduction" ref={intro}>
         <h2>With the press of a button...</h2>
         <p>Carolina Adapts Toys for Children (CATCH) strives to "catch" the children who fall through the cracks of the mainstream toy market.</p>
-        <div className="carousel">
-          <div className="carouselItem">
-            <Slider slides={lateNightImages} />
-          </div>
-          <div className="carouselItem">
-            <Slider slides={firstMeetingImages} />
-          </div>
-          <div className="carouselItem">
-            <Slider slides={interestMeetingImages} />
-          </div>
+        <div className="carousel-container">
+          <Carousel
+            swipeable={true}
+            draggable={false}
+            showDots={true}
+            responsive={responsive}
+            infinite={true}
+            keyBoardControl={true}
+            customTransition="transform 300ms ease-in-out"
+            transitionDuration={500}
+            containerClass="carousel-container"
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+          >
+            {toyCatalog.map((imagePath, index) => (
+              <div key={index}>
+                <img className="carousel-image" src={process.env.PUBLIC_URL + imagePath} alt={`Image ${index + 1}`} />
+              </div>
+            ))}
+          </Carousel>
         </div>
         <button onClick={goToEvents}>
             <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 138 138" fill="none">
