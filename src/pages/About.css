@@ -2,9 +2,8 @@
   font-family: 'Montserrat', sans-serif !important;
 }
 
-/* Add margin to .execs */
 .execs {
-  margin: 0 4rem;
+  margin: 0 1rem;
 }
 
 .exec-grid-container {
@@ -13,27 +12,40 @@
   justify-content: flex-start;
 }
 
-
 .exec-tile {
-  flex: 1 1 calc(33.33% - 10px); 
-  margin-right: 10px; 
-  margin-bottom: 20px; 
+  flex: 1 1 calc(33.33% - 10px);
+  margin-right: 10px;
+  margin-bottom: 20px;
   box-sizing: border-box;
 }
 
 .exec-image {
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
   object-fit: cover;
+  border-radius: 2%;
+  margin-bottom: -10px;
 }
 
+.exec-names {
+  font-weight: bold;
+  padding: 20px;
+  font-size: 85%;
+}
+
+#title {
+  padding-bottom: 30px;
+}
+
+/*Mobile compatibility not done*/
 @media (max-width: 767px) {
   .exec-grid-container {
-    flex-direction: column; 
+    flex-direction: column;
   }
+
   .exec-tile {
-    flex: 1 1 100%; 
-    margin-right: 0; 
+    flex: 1 1 100%;
+    margin-right: 10px;
   }
 }
 
