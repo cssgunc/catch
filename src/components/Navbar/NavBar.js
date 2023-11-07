@@ -165,7 +165,7 @@ function ShoppingCartPanel(props) {
 }
 
 export default function NavBar() {
-    const [activeTab, setActiveTab] = useState('');
+    const [activeTab, setActiveTab] = useState('/');
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [visible, setVisible] = useState(true);
     const [shoppingCartActive, setShoppingCartActive] = useState(false);
