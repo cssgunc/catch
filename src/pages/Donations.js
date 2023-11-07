@@ -1,5 +1,7 @@
-import React from "react";
-import bannerImage from "../images/Donations/banner.jpg";
+
+import React, { useEffect, useState } from "react";
+//import bannerImage from "../images/Donations/banner.jpg";
+import bannerImage from "../images/Donations/donations_banner_color.jpeg";
 import Banner from "../components/Banner";
 import org1Image from '../images/Donations/donation1.jpg';
 import org2Image from '../images/Donations/donation2.jpg';
@@ -7,6 +9,9 @@ import org3Image from '../images/Donations/donation3.jpg';
 import org4Image from '../images/Donations/donation4.jpg';
 import org5Image from '../images/Donations/donation5.jpg';
 import org6Image from '../images/Donations/donation6.jpg';
+import { db } from '../firebase-config'
+import { collection, getDocs } from '@firebase/firestore'; // importing Firestore functions
+
 
 import "./Donations.css";
 
@@ -58,6 +63,35 @@ function DonationBox(props) {
   );
 }
 
+function GetDonationsInfo() {
+  const [donationsInfo, setDonationsInfo] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const donationsRef = collection(db, "donations");
+      const snapshot = await getDocs(donationsRef);
+
+      const donationsData = [];
+      let alternateSide = true;
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        donationsData.push({
+          side: alternateSide,
+          imagePath: data.imageName,
+          organization: data.orgName,
+          total: data.totalDonated,
+          donations: data.numDonations,
+          description: data.description,
+        });
+        alternateSide = !alternateSide;
+      });
+      setDonationsInfo(donationsData);
+    };
+
+    fetchData();
+  }, []);
+  return donationsInfo
+}
+
 function DonationDisplay (props) {
   const donationsInfo = [
     {side: true, imagePath: org1Image, organization: 'Carolina Institute for Developmental Disabilities', total: 20, donations: 2, description: "The Carolina Institute for Developmental Disabilities is a comprehensive program for services, research, and training relevant to individuals with developmental disabilities and their families. The Carolina Institute provides a continuum of clinical services from complex, interdisciplinary evaluations on-site to more limited and selected clinical services and training in all 100 counties in North Carolina. The Institute brings together state-of-the-art research and clinical practice to ensure the best possible care for citizens of North Carolina."},
@@ -93,9 +127,9 @@ export default function Donations() {
   return (
     <>
       <Banner imagePath={bannerImage} title="Donations" />
-      <h1>
-        <b>Donations</b>
-      </h1>
+      <h2>
+        Donations
+      </h2>
       <iframe
         src={gofundmeform}
         id="gfm-form"

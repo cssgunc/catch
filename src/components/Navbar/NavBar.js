@@ -8,8 +8,9 @@ import About from '../../pages/About';
 import Toys from '../../pages/Toys';
 import Donations from '../../pages/Donations';
 import MediaCoverage from '../../pages/MediaCoverage';
+import Admin from '../../pages/Admin';
 import ShoppingCart from './ShoppingCart';
-import { toyInfo } from '../toyInfo';
+import { recentToys } from '../toyInfo';
 
 import { db } from '../../firebase-config'; // Fixing the import path
 import { addDoc, collection, getDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore'; // importing Firestore functions
@@ -21,7 +22,7 @@ function CartItem(props) {
   const [quantity, setQuantity] = useState(props.toy.quantity)
   const [disable, setDisable] = useState(quantity === 1)
   const toyName = props.toy.name;
-  const toy = toyInfo.find(item => item.name === toyName)
+  const toy = recentToys.find(item => item.name === toyName)
 
   const addOne = () => {
     let tempOrder = [...props.order];
@@ -84,7 +85,6 @@ function CartItem(props) {
 
 function ShoppingCartPanel(props) {
 
-
   const closeShoppingCart = () => {
     props.setShoppingCartActive(false);
   };
@@ -116,7 +116,7 @@ function ShoppingCartPanel(props) {
     try {
       // Create new document in orders collection
       const orderRef = await addDoc(collection(db, "orders"), orderData);
-
+      const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
       // Update the ordered field for each toy in the "toys" collection
       const toyNames = Object.keys(orderFormat)
       for (let i = 0; i < toyNames.length; i++) {
@@ -129,6 +129,8 @@ function ShoppingCartPanel(props) {
           ordered: toyData.ordered + (orderFormat[toyNames[i]])
         });
       }
+      
+      await updateDoc(toysUpdateRef, {toysLastUpdated: serverTimestamp()});
     } catch (e) {
       console.error("Error placing order: ", e);
     }
