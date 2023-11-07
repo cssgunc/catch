@@ -1,12 +1,12 @@
 import React from 'react';
+import { useRef } from 'react';
 import { useEffect, useState } from 'react';
 import Slider from "../components/Slider.js";
 import { db } from '../firebase-config.js';
 import { collection, doc, getDoc, getDocs, updateDoc, increment, serverTimestamp} from 'firebase/firestore';
 import CountUp from 'react-countup';
 import formatAndFetchString from '../helper-functions/lowercase-and-remove-non-alph.js'
-
-import "./Home.css";
+import './Home.css'
 
 const interestMeetingImages = [
   {image: require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_8690.JPEG")},
@@ -118,6 +118,16 @@ export default function Home() {
   //   getTotalDonated()
   // })
 
+  const intro = useRef(null);
+  const events = useRef(null)
+
+  const goToIntro = () => {
+    intro.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+  const goToEvents = () => {
+    events.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const completeOrder = async (orderId) => {
     const orderRef = doc(db, 'orders', orderId); // Replace 'orderId' with the actual document ID of the order you want to update
     const orderData = await getDoc(orderRef);
@@ -159,32 +169,69 @@ export default function Home() {
 
   return (
     <>
-      <h1>Total Donated</h1>
-      <h1>
-        <CountUp
-          duration={2}
-          end={donatedSum}
-          useEasing={true}
-        />
-      </h1>
-      <hr></hr>
-      <h2>Recent Events</h2>
-      <div className="carousel">
-        <div className="carouselItem">
-          <p>Late Night with Toys (9.9.22)</p>
-          <Slider slides={lateNightImages} />
+      <div className="landing">
+        <div className="tagline">
+          <h1>Welcome to CATCH...</h1>
+          <p>where we make toys accessible for kids with special needs!</p>
+          <button onClick={goToIntro}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 138 138" fill="none">
+              <circle cx="69" cy="69" r="69" fill="white" fill-opacity="0.3"/>
+              <path d="M42.1127 68.321C39.2958 65.5024 39.2958 60.9325 42.1127 58.1139C44.9296 55.2954 49.4967 55.2954 52.3137 58.1139L73.7812 79.5942C76.5981 82.4128 76.5981 86.9826 73.7812 89.8012C70.9642 92.6198 66.3971 92.6198 63.5802 89.8012L42.1127 68.321Z" fill="white"/>
+              <path d="M85.6863 58.1988C88.5033 55.3802 93.0704 55.3802 95.8873 58.1988C98.7042 61.0174 98.7042 65.5872 95.8873 68.4058L74.4198 89.8861C71.6029 92.7047 67.0358 92.7046 64.2188 89.8861C61.4019 87.0675 61.4019 82.4976 64.2188 79.679L85.6863 58.1988Z" fill="white"/>
+            </svg>
+          </button>
         </div>
-        <div className="carouselItem">
-          <p>First Meeting (9.13.22)</p>
-          <Slider slides={firstMeetingImages} />
-        </div>
-        <div className="carouselItem">
-          <p>Interest Meeting (8.30.22)</p>
-          <Slider slides={interestMeetingImages} />
-        </div>
+        <div className="car-logo"></div>
       </div>
-      <br/>
-      <button disabled onClick={() => completeOrder("orderExample")}>Complete Order</button>
+      
+      <div id="introduction" ref={intro}>
+        <h2>With the press of a button...</h2>
+        <p>Carolina Adapts Toys for Children (CATCH) strives to "catch" the children who fall through the cracks of the mainstream toy market.</p>
+        <div className="carousel">
+          <div className="carouselItem">
+            <Slider slides={lateNightImages} />
+          </div>
+          <div className="carouselItem">
+            <Slider slides={firstMeetingImages} />
+          </div>
+          <div className="carouselItem">
+            <Slider slides={interestMeetingImages} />
+          </div>
+        </div>
+        <button onClick={goToEvents}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 138 138" fill="none">
+              <circle cx="69" cy="69" r="69" fill="#2EA397" fill-opacity="0.5"/>
+              <path d="M42.1127 68.321C39.2958 65.5024 39.2958 60.9325 42.1127 58.1139C44.9296 55.2954 49.4967 55.2954 52.3137 58.1139L73.7812 79.5942C76.5981 82.4128 76.5981 86.9826 73.7812 89.8012C70.9642 92.6198 66.3971 92.6198 63.5802 89.8012L42.1127 68.321Z" fill="white"/>
+              <path d="M85.6863 58.1988C88.5033 55.3802 93.0704 55.3802 95.8873 58.1988C98.7042 61.0174 98.7042 65.5872 95.8873 68.4058L74.4198 89.8861C71.6029 92.7047 67.0358 92.7046 64.2188 89.8861C61.4019 87.0675 61.4019 82.4976 64.2188 79.679L85.6863 58.1988Z" fill="white"/>
+            </svg>
+        </button>
+      </div>
+
+      <div id="recent-events" ref={events}>
+        <h2>Recent Events</h2>
+        <div className="carousel">
+          <div className="carouselItemWide">
+            <p>Interest Meeting (8.30.22)</p>
+            <Slider slides={interestMeetingImages} />
+          </div>
+          <div className="carouselItemWide">
+            <p>Interest Meeting (8.30.22)</p>
+            <Slider slides={interestMeetingImages} />
+          </div>
+        </div>
+        <div className="carousel">
+          <div className="carouselItemWide">
+            <p>Late Night with Toys (9.9.22)</p>
+            <Slider slides={lateNightImages} />
+          </div>
+          <div className="carouselItemWide">
+            <p>First Meeting (9.13.22)</p>
+            <Slider slides={firstMeetingImages} />
+          </div>
+        </div>
+        <button disabled onClick={() => completeOrder("orderExample")}>Complete Order</button>
+      </div>
+      
     </>
   )
 }

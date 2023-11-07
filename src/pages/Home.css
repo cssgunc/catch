@@ -1,3 +1,11 @@
+* {
+  font-family: 'Montserrat', 'sans-serif';
+}
+
+h2 {
+  margin: 0;
+}
+
 .rightArrow {
     font-size: 2rem;
   }
@@ -8,9 +16,73 @@
 
 .carousel {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .carouselItem {
   float: center;
   width: 33.33%;
+}
+
+.carouselItemWide {
+  float: center;
+  width: 50%;
+}
+
+.landing {
+  height: 100vh;
+  background-color: #2EA397;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 5rem;
+  justify-content: space-between;
+}
+
+.tagline {
+  width: 45%;
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.tagline h1 {
+  font-size: 96px;
+  font-weight: 800;
+  line-height: 117px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #FFFFFF;
+}
+
+.tagline p {
+  font-size: 50px;
+  font-weight: 600;
+  line-height: 61px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #FFFFFF;
+}
+.car-logo {
+  background: url('../images/General/car_logo.png') no-repeat;
+  width: 45%;
+  background-size: contain;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+#introduction, #recent-events {
+  padding: 5rem 5rem 0 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+#introduction p {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
 }
