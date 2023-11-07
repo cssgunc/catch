@@ -19,12 +19,10 @@
     transform: translateY(-100%);
 }
 
-.nav-brand {
-    font-size: large;
-    color: black;
-    width: 100px;
-    font-weight: 600;
+.home-page-navbar {
+    background-color: #F0554D;
 }
+  
 .nav-brand-alternate, .nav-brand-alternate:hover {
     font-size: large;
     color: white;
@@ -61,7 +59,7 @@
 .nav-link {
     font-size: medium;
     font-weight: 600;
-    color: black;
+    color: white;
     text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
 }
 
@@ -72,7 +70,7 @@
 
 .nav-link-active, .nav-link-active:focus {
     font-weight: 800;
-    color: black;
+    color: White;
     text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
 }
 

@@ -213,6 +213,14 @@ export default function Home() {
 
   return (
     <>
+          {/* <h1>Total Donated</h1>
+      <h1>
+        <CountUp
+          duration={2}
+          end={donatedSum}
+          useEasing={true}
+        />
+      </h1> */}
       <div className="landing">
         <div className="tagline">
           <h1>Welcome to CATCH...</h1>
