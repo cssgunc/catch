@@ -8,6 +8,7 @@ import About from '../../pages/About';
 import Toys from '../../pages/Toys';
 import Donations from '../../pages/Donations';
 import MediaCoverage from '../../pages/MediaCoverage';
+import Admin from '../../pages/Admin';
 import ShoppingCart from './ShoppingCart';
 import { recentToys } from '../toyInfo';
 
@@ -274,6 +275,7 @@ export default function NavBar() {
             <Route path="/toys" element={<Toys order={order} setOrder={changeOrder}/>} />
             <Route path="/donations" element={<Donations />} />
             <Route path="/mediacoverage" element={<MediaCoverage />} />
+            <Route path="/8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918" element={<Admin />} />
           </Routes>
         </div>
       </Router>
