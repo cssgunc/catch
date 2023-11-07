@@ -97,7 +97,6 @@ export default function Home() {
   //   const getToys = async () => {
   //     const timeData = await getDoc(toysUpdateRef)
   //     const lastUpdated = timeData.get('toysLastUpdated');
-
   //     if (toysTime === undefined || !lastUpdated.isEqual(toysTime)) {
   //       const data = await getDocs(toysRef);
   //       setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
@@ -109,6 +108,7 @@ export default function Home() {
 
   // useEffect(() => {
   //   const getTotalDonated = async () => {
+
   //     const sumData = await getDoc(donateSumRef);
   //     const currSum = sumData.get('totalDonated');
   //     if (currSum !== donatedSum) {
