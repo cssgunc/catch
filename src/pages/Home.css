@@ -17,20 +17,20 @@ h2 {
 .carousel {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
 }
 
 .carouselItem {
-  float: center;
-  width: 33.33%;
+  width: 30%;
 }
 
 .carouselItemWide {
-  float: center;
-  width: 50%;
+  width: 45%;
 }
 
 .landing {
-
   background-color: #2EA397;
   display: flex;
   flex-direction: row;
@@ -93,6 +93,18 @@ button {
     background-color: #2EA397;
     display: flex;
     flex-direction: column-reverse;
+  }
+
+  .landing, #introduction, #recent-events {
+    padding: 3rem;
+  }
+  .landing svg {
+    width: 12vw;
+    height: 12vw;
+  }
+
+  .carousel {
+    flex-direction: column;
   }
 
   .tagline {

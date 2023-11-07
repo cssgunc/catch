@@ -16,7 +16,7 @@ const Slider = ({ slides }) => {
 
   return (
     <StyledSlider>
-      <StyledButton><FaChevronLeft className="leftArrow" onClick={prevSlide} /></StyledButton>      
+      <StyledButton onClick={prevSlide}><FaChevronLeft className="leftArrow" /></StyledButton>      
       {slides.map((slide, index) => {
         return (
           <div key={index}>
@@ -24,7 +24,7 @@ const Slider = ({ slides }) => {
           </div>
         );
       })}
-      <StyledButton><FaChevronRight className="rightArrow" onClick={nextSlide} /></StyledButton>
+      <StyledButton onClick={nextSlide}><FaChevronRight className="rightArrow" /></StyledButton>
       
     </StyledSlider>
   );
