@@ -33,22 +33,26 @@
 }
 
 .back-button {
-    position: absolute;
-    top: 3%;
-    left: 2%;
     background-color: transparent;
     border: none;
+    display:flex;
+    align-items: flex-start;
+    padding-bottom: 2rem;
+}
+
+.toy-text {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    margin: 2rem;
 }
 
 .toy-details {
-    min-height:75vh;
-    max-height:75vh;
-    min-width:75vh;
-    max-width:75vh;
-    border-radius: 5%;
-    margin: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height:100%;
 }
 
 .toy-descriptors {
@@ -133,16 +137,15 @@
 
 .toy-container {
     position: absolute;
-    min-width: 100vw;
-    min-height: 100vh;
-    max-width: 100vw;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     top: 0;
     left: 0;
     background-color: white;
     z-index: 10;
     display:flex;
+    flex-direction: column;
+    padding: 3rem;
 }
 
 .image-tile {
@@ -172,8 +175,12 @@
         grid-template-columns: 1fr;
     }
 
+    .toy-text {
+        width: 100%;
+    }
+
     .toy-container {
-        flex-direction: column;
+        padding: 1rem;
     }
 
     .main-picture {
@@ -182,15 +189,6 @@
         margin: 15px auto;
     }
 
-    .toy-details {
-        width: 90%;
-        margin: auto;
-        max-height: none;
-        min-width: none;
-        max-width: none;
-    }
-
-    .toy-descriptors,
     .toy-buttons {
         padding: 0 10px;
     }
@@ -200,4 +198,9 @@
         width: 80%;
         margin: 5px auto;
     }
+
+    .footer {
+        display: none;
+    }
+
 }
