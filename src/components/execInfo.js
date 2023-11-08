@@ -7,6 +7,46 @@ import coChiefQualityOfficerImage1 from '../images/About/execf23/thumbnail_IMG_0
 import coChiefQualityOfficerImage2 from '../images/About/execf23/nal-headshot.png'
 import marketingLead from '../images/About/execf23/IMG_4904.jpg'
 import outreachChair from '../images/About/execf23/IMG_3924.jpg'
+import { collection, getDocs } from '@firebase/firestore';
+import { db } from '../firebase-config';
+
+const execRef = collection(db, 'exec'); 
+
+
+async function getDynamicRecentExecInfo() {
+    const execs = [];
+  
+      try {
+        const querySnapshot = await getDocs(execRef);
+        querySnapshot.forEach((doc) => {
+          if (doc.data().current) {
+            execs.push(doc.data());
+          }
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+      return execs
+    }
+  
+    async function getDynamicOldExecInfo() {
+      const execs = [];
+    
+        try {
+          const querySnapshot = await getDocs(execRef);
+          querySnapshot.forEach((doc) => {
+            if (!doc.data().current) {
+              execs.push(doc.data());
+            }
+          });
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+        return execs
+      }
+  
+  export const dynamicRecentExecInfo = getDynamicRecentExecInfo()
+  export const dynamicOldExecInfo = getDynamicOldExecInfo()
 
 
 export const execInfo = [
@@ -20,3 +60,6 @@ export const execInfo = [
     {image: marketingLead, name: "Maddy Vinal", position: "Marketing Lead"},
     {image: outreachChair, name: "Bryce Womble", position: "Outreach Chair"}
 ]
+
+console.log(dynamicRecentExecInfo)
+console.log(dynamicOldExecInfo)
