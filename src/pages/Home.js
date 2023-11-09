@@ -86,6 +86,7 @@ const lateNightImages = [
   {image: require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-027A.JPG")}
 ]
 
+// Replace with getToyInfo()
 const toyCatalog = [
   require("../images/Toy Catolog/airplane.jpg"),
   require("../images/Toy Catolog/alien.jpg"),

@@ -235,7 +235,7 @@ export default function NavBar() {
       <Container fluid className="nav-container">
       <Navbar className={` navbar ${visible ? 'navbar-show' : 'navbar-hide'} ${activeTab === '/' ? 'home-page-navbar' : ''}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
           
-          <Navbar.Brand className="nav-brand-alternate" style={{ marginLeft: '20px' }}>
+          <Navbar.Brand className="nav-brand" style={{ marginLeft: '20px' }}>
               {/* new navbar */}
               <Navbar.Toggle className="collapsed-menu-icon" class="toggle-button" aria-controls="basic-navbar-nav" onClick={(e) => { e.stopPropagation(); toggleSidebar(); }} />
 
@@ -256,7 +256,6 @@ export default function NavBar() {
               <Nav className="ml-auto justify-content-end adjust-right-nav">
                 <button onClick={() => openShoppingCart()} className="shopping-button">
                   <ShoppingCart
-                    alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage' ? true : false}
                     quantity={total}
                   />
                 </button>
