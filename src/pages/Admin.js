@@ -32,17 +32,17 @@ export default function Admin() {
         </div>
         <div className="right">
           {currUserName}  
-          <img src={ExitImg} className="exit" onClick={logout()}/>
+          <img src={ExitImg} className="exit" onClick={logout}/>
         </div>
       </div>
 
       <div className="body">
         <div className="left-body">
           <div className="title">Dashboard</div>
-          <div className="menu-button-current" onClick={change_tab("Executives")}>Executives</div>
-          <div className="menu-button" onClick={change_tab("Toys")}>Toys</div>
-          <div className="menu-button" onClick={change_tab("Donations")}>Donations</div>
-          <div className="menu-button" onClick={change_tab("Media")}>Media</div>
+          <div className="menu-button-current" onClick={() => change_tab("Executives")}>Executives</div>
+          <div className="menu-button" onClick={() => change_tab("Toys")}>Toys</div>
+          <div className="menu-button" onClick={() => change_tab("Donations")}>Donations</div>
+          <div className="menu-button" onClick={() => change_tab("Media")}>Media</div>
         </div>
         <div className="right-body">
           Insert table here

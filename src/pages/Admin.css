@@ -61,6 +61,10 @@
     margin-bottom: 4px;
 }
 
+.menu-button:hover {
+    cursor: pointer;
+}
+
 .menu-button-current {
     padding-left: 20px;
     padding-top: 3px;
@@ -70,4 +74,8 @@
     border-right: 3px solid #EF574E;
     border-top-left-radius: 10%;
     border-bottom-left-radius: 10%;
+}
+
+.menu-button-current:hover {
+    cursor: default;
 }
