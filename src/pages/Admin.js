@@ -1,28 +1,63 @@
 import React from 'react';
+import { useState } from 'react';
 //import { getAuth } from 'firebase/auth';
 import ExitImg from '../images/Toy Catolog/firetruck.jpg';
 
 import './Admin.css';
 
-//const currUserName = getAuth().currentUser.displayName;
-const currUserName = "John Doe";
-let currName = "Executives";
-
-function change_tab(tab) {
-  //Insert code here
-  if (currName == tab) {
-    console.log("User is already in " + tab);
-  } else {
-    console.log("User is currently switching to " + tab);
-  }
-}
-
-function logout() {
-  //Insert code here
-  console.log("This is where I would put a logout method if I had one");
-}
-
 export default function Admin() {
+  //const currUserName = getAuth().currentUser.displayName;
+  const currUserName = "John Doe";
+  const [currTab, setCurrTab] = useState("Executives");
+  
+  function logout() {
+    //Insert code here
+    console.log("This is where I would put a logout method if I had one");
+  }
+  
+  function change_tab(tab) {
+    //Insert code here
+    console.log("User is currently switching to " + tab);
+    setCurrTab(tab);
+  }
+  
+  function Tab({ tabName }) {
+    if (tabName === currTab) {
+      return (
+        <div className="menu-button-current">{tabName}</div>
+      );
+    } else {
+      return (
+        <div className="menu-button" onClick={() => change_tab(tabName)}>{tabName}</div>
+      )
+    }
+  }
+
+  function RightView() {
+    switch (currTab) {
+      case "Executives":
+        return (
+          <p>Insert Executives Table Here</p>
+        )
+      case "Toys":
+        return (
+          <p>Insert Toys View Here</p>
+        )
+      case "Donations":
+        return (
+          <p>Insert Donations View Here</p>
+        )
+      case "Media":
+        return (
+          <p>Insert Media View Here</p>
+        )
+      default:
+        return (
+          <p>Valid Tab Name not found</p>
+        )
+
+    }
+  }
 
   return (
     <div className="App">
@@ -32,20 +67,20 @@ export default function Admin() {
         </div>
         <div className="right">
           {currUserName}  
-          <img src={ExitImg} className="exit" onClick={logout}/>
+          <img src={ExitImg} alt="Log Out" className="exit" onClick={logout}/>
         </div>
       </div>
 
       <div className="body">
         <div className="left-body">
           <div className="title">Dashboard</div>
-          <div className="menu-button-current" onClick={() => change_tab("Executives")}>Executives</div>
-          <div className="menu-button" onClick={() => change_tab("Toys")}>Toys</div>
-          <div className="menu-button" onClick={() => change_tab("Donations")}>Donations</div>
-          <div className="menu-button" onClick={() => change_tab("Media")}>Media</div>
+          <Tab tabName="Executives" />
+          <Tab tabName="Toys" />
+          <Tab tabName="Donations" />
+          <Tab tabName="Media" />
         </div>
         <div className="right-body">
-          Insert table here
+          <RightView />
         </div>
       </div>
     </div>
