@@ -15,7 +15,7 @@ import "./Donations.css";
 <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500|Roboto:300,400,500,700|Source+Code+Pro:400,700&display=swap"></link>;
 
 function DonationBox(props) {
-  var screenWidth = window.screen.width;
+  var screenWidth = window.innerWidth;
   return (
     <div>
       {screenWidth >= 1290 ? <DonationBoxDesktop desktop={props} /> : <DonationBoxMobile mobile={props} />}
@@ -56,7 +56,7 @@ function DonationBoxDesktop(props) {
         className="pic"
         alt={"Donation to " + props.desktop.organization}
         style={{
-          maxWidth: "40%",
+          maxWidth: "45%",
           maxHeight: "auto",
           borderRadius: "25px"
         }}
@@ -77,7 +77,7 @@ function DonationBoxMobile(props) {
           className="pictures"
           alt={"Donation to " + props.mobile.organization}
           style={{
-            maxWidth: "40%",
+            maxWidth: "80%",
             maxHeight: "auto",
             borderRadius: "15px"
           }}
@@ -169,6 +169,7 @@ export default function Donations() {
       >
         <h1 style={{ marginTop: "25px" }}>Donation Forms</h1>
         <div
+          className="donation-forms-container"
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -176,18 +177,18 @@ export default function Donations() {
             width: "80%",
           }}
         >
-          <div style={{ width: "50%" }}>
+          <div className="donation-form" style={{ width: "80%" }}>
             <h2 style={{ marginBottom: "15px" }}>Want to Get:</h2>
             <iframe
-              title='Donation Form 1'
+              title="Donation Form 1"
               src={formUrl1}
               style={{ width: "100%", height: "350px", border: "none" }}
             />
           </div>
-          <div style={{ width: "50%" }}>
+          <div className="donation-form" style={{ width: "80%" }}>
             <h2 style={{ marginBottom: "15px" }}>Want to Give:</h2>
             <iframe
-              title={'Donation Form 2'}
+              title={"Donation Form 2"}
               src={formUrl2}
               style={{ width: "100%", height: "350px", border: "none" }}
             />
