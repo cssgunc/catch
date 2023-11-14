@@ -165,7 +165,7 @@ function ShoppingCartPanel(props) {
 }
 
 export default function NavBar() {
-    const [activeTab, setActiveTab] = useState('');
+    const [activeTab, setActiveTab] = useState('/');
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [visible, setVisible] = useState(true);
     const [shoppingCartActive, setShoppingCartActive] = useState(false);
@@ -184,12 +184,7 @@ export default function NavBar() {
       setSidebarOpen(false); // Close the sidebar
     };
     const getClassName = (path) => {
-      if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage') {
-        return path === activeTab ? "mx-3 nav-link-alternate-active" : "mx-3 nav-link-alternate";
-      }
-      else {
-        return path === activeTab ? "mx-3 nav-link-active" : "mx-3 nav-link";
-      }
+      return path === activeTab ? "mx-3 nav-link-active" : "mx-3 nav-link";
     };
 
     useEffect(() => {
@@ -238,9 +233,9 @@ export default function NavBar() {
       <>
       <Router>
       <Container fluid className="nav-container">
-          <Navbar className={`bg-transparent navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Navbar className={` navbar ${visible ? 'navbar-show' : 'navbar-hide'} ${activeTab === '/' ? 'home-page-navbar' : ''}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
           
-            <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage' ? "nav-brand-alternate" : "nav-brand"} style={{ marginLeft: '20px' }}>
+          <Navbar.Brand className="nav-brand" style={{ marginLeft: '20px' }}>
               {/* new navbar */}
               <Navbar.Toggle className="collapsed-menu-icon" class="toggle-button" aria-controls="basic-navbar-nav" onClick={(e) => { e.stopPropagation(); toggleSidebar(); }} />
 
@@ -261,7 +256,6 @@ export default function NavBar() {
               <Nav className="ml-auto justify-content-end adjust-right-nav">
                 <button onClick={() => openShoppingCart()} className="shopping-button">
                   <ShoppingCart
-                    alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage' ? true : false}
                     quantity={total}
                   />
                 </button>
