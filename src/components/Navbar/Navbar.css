@@ -155,14 +155,11 @@
     height: 95vh;
 }
 
-
 .closebtn {
     display: none;
   }
 
-
-
-  @media screen and (max-width: 992px) {
+@media screen and (max-width: 992px) {
     .sidebar {
         position: fixed;
         top: 0;
