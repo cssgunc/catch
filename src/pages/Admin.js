@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 //import { getAuth } from 'firebase/auth';
-import ExitImg from '../images/Toy Catolog/firetruck.jpg';
+import ExitImg from '../images/General/exitDoor.png';
 
 import './Admin.css';
 
@@ -9,18 +9,18 @@ export default function Admin() {
   //const currUserName = getAuth().currentUser.displayName;
   const currUserName = "John Doe";
   const [currTab, setCurrTab] = useState("Executives");
-  
+
   function logout() {
     //Insert code here
     console.log("This is where I would put a logout method if I had one");
   }
-  
+
   function change_tab(tab) {
     //Insert code here
     console.log("User is currently switching to " + tab);
     setCurrTab(tab);
   }
-  
+
   function Tab({ tabName }) {
     if (tabName === currTab) {
       return (
@@ -66,8 +66,8 @@ export default function Admin() {
           <b>CATCH Admin</b>
         </div>
         <div className="right">
-          {currUserName}  
-          <img src={ExitImg} alt="Log Out" className="exit" onClick={logout}/>
+          {currUserName}
+          <img src={ExitImg} alt="Log Out" className="exit" onClick={logout} />
         </div>
       </div>
 
