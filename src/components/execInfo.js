@@ -48,7 +48,6 @@ async function getDynamicRecentExecInfo() {
   export const dynamicRecentExecInfo = getDynamicRecentExecInfo()
   // export const dynamicOldExecInfo = getDynamicOldExecInfo()
 
-
 export const execInfo = [
   {image: presidentImage, name: "Bryce Menichella", position: "President"},
   {image: vicePresidentImage, name: "Katie Chai", position: "Vice President"},

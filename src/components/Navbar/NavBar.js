@@ -49,7 +49,6 @@ function CartItem(props) {
     props.setOrder(tempOrder);
   };
 
-  
 
   return(
     <>

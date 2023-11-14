@@ -23,8 +23,6 @@ function ExecTile({ imagePath, name, position }) {
   );
 }
 
-
-
 function ExecGrid() {
   return (
     <>
