@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Row, Col } from "react-bootstrap";
-import bannerImage from '../images/MediaCoverage/banner.jpg';
+import bannerImage from '../images/MediaCoverage/media_coverage_banner_color.jpeg';
 import Banner from '../components/Banner';
 
 import './MediaCoverage.css';
@@ -9,8 +9,8 @@ import './MediaCoverage.css';
 
 const ArticleCard = ({ image, title, caption, link }) => {
   return (
-    <Col md={6} className="mb-4">
-      <Card>
+    <Col md={6} className="mb-4 mt-3" >
+      <Card className="mx-2" style={{minHeight:"100%"}}>
         <Card.Img variant="top" src={image} alt={title} />
         <Card.Body>
           <Card.Title>{title}</Card.Title>
@@ -79,7 +79,7 @@ const ArticleGrid = () => {
   ];
 
   return (
-    <Row className="mx-4 mt-4">
+    <Row className="mx-5 mt-5">
       {articles.map((article) => (
         <ArticleCard
           key={article.id}
@@ -98,8 +98,10 @@ const MediaCoverage = () => {
     <div>
       <Banner
         imagePath={bannerImage} 
-        title='MediaCoverage'
+        title='Media Coverage'
       />
+      <p style={{paddingTop: 20, marginBottom: -40}}>We are always looking to spread the word and the CATCH mission. 
+        For news inquiries, please contact our PR Chair at kchai@unc.edu!</p>
       <ArticleGrid />
     </div>
   )

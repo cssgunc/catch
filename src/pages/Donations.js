@@ -1,5 +1,7 @@
-import React from "react";
-import bannerImage from "../images/Donations/banner.jpg";
+
+import React, { useEffect, useState } from "react";
+//import bannerImage from "../images/Donations/banner.jpg";
+import bannerImage from "../images/Donations/donations_banner_color.jpeg";
 import Banner from "../components/Banner";
 import org1Image from '../images/Donations/donation1.jpg';
 import org2Image from '../images/Donations/donation2.jpg';
@@ -9,6 +11,8 @@ import org5Image from '../images/Donations/donation5.jpg';
 import org6Image from '../images/Donations/donation6.jpg';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
+import { db } from '../firebase-config'
+import { collection, getDocs } from '@firebase/firestore'; // importing Firestore functions
 
 import "./Donations.css";
 
@@ -99,6 +103,36 @@ function DonationBoxMobile(props) {
 }
 
 function DonationDisplay() {
+function GetDonationsInfo() {
+  const [donationsInfo, setDonationsInfo] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const donationsRef = collection(db, "donations");
+      const snapshot = await getDocs(donationsRef);
+
+      const donationsData = [];
+      let alternateSide = true;
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        donationsData.push({
+          side: alternateSide,
+          imagePath: data.imageName,
+          organization: data.orgName,
+          total: data.totalDonated,
+          donations: data.numDonations,
+          description: data.description,
+        });
+        alternateSide = !alternateSide;
+      });
+      setDonationsInfo(donationsData);
+    };
+
+    fetchData();
+  }, []);
+  return donationsInfo
+}
+
+function DonationDisplay (props) {
   const donationsInfo = [
     { imagePath: org1Image, organization: 'Carolina Institute for Developmental Disabilities', total: 20, donations: 2, description: "The Carolina Institute for Developmental Disabilities is a comprehensive program for services, research, and training relevant to individuals with developmental disabilities and their families. The Carolina Institute provides a continuum of clinical services from complex, interdisciplinary evaluations on-site to more limited and selected clinical services and training in all 100 counties in North Carolina. The Institute brings together state-of-the-art research and clinical practice to ensure the best possible care for citizens of North Carolina." },
     { imagePath: org2Image, organization: 'UNC Center for Rehabilitative Care', total: 14, donations: 2, description: 'The mission of the UNC Inpatient Rehabilitation Center is to improve, restore and maintain functional abilities and maximize quality of life in patients with disabilities; educate health care professionals in rehabilitation care and services; and advance rehabilitation research. Rehabilitative care provides persons served with the skills and support necessary to function in an environment with as much independence and choice and as little supervision and restriction as possible. The totality of this care spans the rehabilitation continuum to optimize the functionality and quality of life and prevent and or treat conditions of physically disabled persons.' },
@@ -133,9 +167,9 @@ export default function Donations() {
   return (
     <>
       <Banner imagePath={bannerImage} title="Donations" />
-      <h1>
-        <b>Donations</b>
-      </h1>
+      <h2>
+        Donations
+      </h2>
       <iframe
         src={gofundmeform}
         id="gfm-form"

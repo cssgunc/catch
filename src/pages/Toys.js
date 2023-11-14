@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { FaHammer, FaPlus, FaChevronLeft } from "react-icons/fa";
 import {recentToys, oldToys} from "../components/toyInfo";
 import Banner from "../components/Banner";
-import bannerImage from '../images/Toy Catolog/banner.jpg'
+//import bannerImage from '../images/Toy Catolog/banner.jpg'
+import bannerImage from '../images/Toy Catolog/toy_catolog_banner_color.jpeg'
 
 import './Toys.css'
 
@@ -151,11 +152,13 @@ export default function Toys(props) {
         title='Toy Catalog'
       />}
 
-      {!viewToy && <h3 id="catalog-title">Adapted Toys</h3>}
+      {!viewToy && <h2>Current Toys</h2>}
 
+      {!viewToy && <p id="catalog-subtitle">Click the photos for more information</p>}
+      
       <ToyGrid_new order={props.order} setOrder={props.setOrder} viewToy={viewToy} setViewToy={setViewToy}/>
 
-      {!viewToy && <h3 id="catalog-title">Last Season's Toys</h3>}
+      {!viewToy && <h2 id="catalog-title">Last Season's Toys</h2>}
       <ToyGrid_old order={props.order} setOrder={props.setOrder} viewToy={viewToy} setViewToy={setViewToy}/>
 
       {!viewToy && <img

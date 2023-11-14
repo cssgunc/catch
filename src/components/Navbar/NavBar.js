@@ -8,6 +8,7 @@ import About from '../../pages/About';
 import Toys from '../../pages/Toys';
 import Donations from '../../pages/Donations';
 import MediaCoverage from '../../pages/MediaCoverage';
+import Admin from '../../pages/Admin';
 import ShoppingCart from './ShoppingCart';
 import { recentToys } from '../toyInfo';
 
@@ -84,7 +85,6 @@ function CartItem(props) {
 
 function ShoppingCartPanel(props) {
 
-
   const closeShoppingCart = () => {
     props.setShoppingCartActive(false);
   };
@@ -116,7 +116,7 @@ function ShoppingCartPanel(props) {
     try {
       // Create new document in orders collection
       const orderRef = await addDoc(collection(db, "orders"), orderData);
-
+      const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
       // Update the ordered field for each toy in the "toys" collection
       const toyNames = Object.keys(orderFormat)
       for (let i = 0; i < toyNames.length; i++) {
@@ -129,6 +129,8 @@ function ShoppingCartPanel(props) {
           ordered: toyData.ordered + (orderFormat[toyNames[i]])
         });
       }
+      
+      await updateDoc(toysUpdateRef, {toysLastUpdated: serverTimestamp()});
     } catch (e) {
       console.error("Error placing order: ", e);
     }
@@ -273,6 +275,7 @@ export default function NavBar() {
             <Route path="/toys" element={<Toys order={order} setOrder={changeOrder}/>} />
             <Route path="/donations" element={<Donations />} />
             <Route path="/mediacoverage" element={<MediaCoverage />} />
+            <Route path="/8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918" element={<Admin />} />
           </Routes>
         </div>
       </Router>
