@@ -102,35 +102,33 @@ function DonationBoxMobile(props) {
   );
 }
 
-function DonationDisplay() {
-function GetDonationsInfo() {
-  const [donationsInfo, setDonationsInfo] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const donationsRef = collection(db, "donations");
-      const snapshot = await getDocs(donationsRef);
+// function DonationDisplay() {
+// function GetDonationsInfo() {
+//   const [donationsInfo, setDonationsInfo] = useState([]);
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       const donationsRef = collection(db, "donations");
+//       const snapshot = await getDocs(donationsRef);
 
-      const donationsData = [];
-      let alternateSide = true;
-      snapshot.forEach((doc) => {
-        const data = doc.data();
-        donationsData.push({
-          side: alternateSide,
-          imagePath: data.imageName,
-          organization: data.orgName,
-          total: data.totalDonated,
-          donations: data.numDonations,
-          description: data.description,
-        });
-        alternateSide = !alternateSide;
-      });
-      setDonationsInfo(donationsData);
-    };
+//       const donationsData = [];
+//       snapshot.forEach((doc) => {
+//         const data = doc.data();
+//         donationsData.push({
+//           imagePath: data.imageName,
+//           organization: data.orgName,
+//           total: data.totalDonated,
+//           donations: data.numDonations,
+//           description: data.description,
+//         });
+//       });
+//       setDonationsInfo(donationsData);
+//     };
 
-    fetchData();
-  }, []);
-  return donationsInfo
-}
+//     fetchData();
+//   }, []);
+//   return donationsInfo
+// }
+// }
 
 function DonationDisplay (props) {
   const donationsInfo = [
@@ -151,7 +149,6 @@ function DonationDisplay (props) {
           total={donation.total}
           donations={donation.donations}
           description={donation.description}
-          side={donation.side}
         />
       ))}
     </Slide>
