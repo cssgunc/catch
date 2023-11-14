@@ -55,8 +55,9 @@ h3 {
     }
 
     .mobile-section {
-        text-align: center;
-        margin: 50px;
+        display: flex;
+        flex-direction: column;
+        padding: 25px;
     }
 
     .pic {
