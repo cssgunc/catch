@@ -157,6 +157,7 @@
     display: none;
   }
 
+
 @media screen and (max-width: 992px) {
     .sidebar {
         position: fixed;
@@ -303,7 +304,6 @@
 
 .collapsed-menu-icon {
     order: 1;
-
     margin-right: 10px; /* Add some margin between the icon and logo */
     border: none;
     padding: 1px;
