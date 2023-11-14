@@ -1,1 +1,27 @@
+.transparent-button {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    
+}
 
+.transparent-button:hover {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+}
+
+.text-left {
+    text-align: left;
+}
+
+h2 {
+    padding: 0;
+    margin: 0;
+}
+
+.btn-block {
+    width: 100%;
+    font-weight: bold;
+}

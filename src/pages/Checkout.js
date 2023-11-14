@@ -3,12 +3,15 @@ import React from 'react';
 import { Col, Row, Container, Button, Form, Card } from 'react-bootstrap';
 
 import imageSrcTest from '../images/logo.png' // Adjust the path as needed
+import "./Checkout.css"
+import { FaTrashAlt } from "react-icons/fa";
+
 
 
 export default function Checkout() {
   const cartItems = [
-    { id: 1, name: 'Item 1', quantity: 2, imageSrc: imageSrcTest },
-    { id: 2, name: 'Item 2', quantity: 1, imageSrc: imageSrcTest },
+    { id: 1, name: 'Item 1', quantity: 2, imageSrc: imageSrcTest, description: 'Description for Item 1' },
+    { id: 2, name: 'Item 2', quantity: 1, imageSrc: imageSrcTest, description: 'Description for Item 2' },
   ];
 
   return (
@@ -16,28 +19,26 @@ export default function Checkout() {
       <Container>
         <Row className="my-4">
           <Col md={6}>
-            <h2>Cart</h2>
-            <p>Please check your cart before proceeding</p>
+            <h2 className='text-left'>Cart</h2>
+            <p className='text-left'>Please check your cart before proceeding</p>
             {cartItems.map((item) => (
               <Card key={item.id} className="mb-3">
                 <Card.Body>
                   <Row>
                     <Col sm={4}>
-                      {/* Replace with actual item image */}
                       <Card.Img variant="top" src={item.imageSrc} />
                     </Col>
                     <Col sm={8}>
-                      <Card.Title>{item.name}</Card.Title>
-                      <Card.Text>
+                      <Card.Title className="text-left">{item.name}</Card.Title>
+                      <Card.Text className="text-left">
                         {item.description}
                       </Card.Text>
-                      <Card.Text>
-                        Quantity: {item.quantity}
-                      </Card.Text>
-                      {/* Add functionality to buttons as required */}
-                      <Button className="mx-2" variant="outline-secondary">-</Button>
-                      <span>{item.quantity}</span>
-                      <Button className="mx-2" variant="outline-secondary">+</Button>
+                      <div className="text-left">
+                        <FaTrashAlt />
+                        <Button className="transparent-button">-</Button>
+                        <span>{item.quantity}</span>
+                        <Button className="transparent-button">+</Button>
+                      </div>
                     </Col>
                   </Row>
                 </Card.Body>
@@ -45,29 +46,30 @@ export default function Checkout() {
             ))}
           </Col>
           <Col md={6}>
-            <h2>Enter your Information:</h2>
+            <h2 className='text-left'>Enter your Information:</h2>
+            <br></br>
             <Form>
-              <Form.Group className="mb-3" controlId="formName">
+              <Form.Group className="mb-3 text-left" controlId="formName">
                 <Form.Label>Name:</Form.Label>
                 <Form.Control type="text" placeholder="Enter your full name" />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formEmail">
+              <Form.Group className="mb-3 text-left" controlId="formEmail">
                 <Form.Label>Email:</Form.Label>
                 <Form.Control type="email" placeholder="Enter your email" />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formAddress">
+              <Form.Group className="mb-3 text-left" controlId="formAddress">
                 <Form.Label>Address:</Form.Label>
                 <Form.Control placeholder="Street address, City, State, Zip code" />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formNotes">
+              <Form.Group className="mb-3 text-left" controlId="formNotes">
                 <Form.Label>Additional Notes:</Form.Label>
                 <Form.Control as="textarea" rows={3} placeholder="Anything else you'd like to add?" />
               </Form.Group>
 
-              <Button variant="success" type="submit" size="lg">
+              <Button variant="success" type="submit" size="lg" className="btn-block">
                 Submit Order
               </Button>
             </Form>
