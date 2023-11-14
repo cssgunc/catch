@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { FaHammer, FaPlus, FaChevronLeft } from "react-icons/fa";
-import {toyInfo} from "../components/toyInfo";
+import {recentToys, oldToys} from "../components/toyInfo";
 import Banner from "../components/Banner";
-import bannerImage from '../images/Toy Catolog/banner.jpg'
+//import bannerImage from '../images/Toy Catolog/banner.jpg'
+import bannerImage from '../images/Toy Catolog/toy_catolog_banner_color.jpeg'
 
 import './Toys.css'
 
@@ -101,17 +102,37 @@ function Toy(props) {
 
 }
 
-function ToyGrid(props) {
+function ToyGrid_new(props) {
 
   return (
     <div id="catalog">
-      {toyInfo.map((toy) => (
+      {recentToys.map((toy) => (
         <Toy
           details={toy}
           viewToy={props.viewToy}
           setViewToy={props.setViewToy}
           order={props.order}
           setOrder={props.setOrder}
+          isNew = {true}
+        />
+      ))}
+    </div>
+  );
+}
+
+
+function ToyGrid_old(props) {
+
+  return (
+    <div id="catalog">
+      {oldToys.map((toy) => (
+        <Toy
+          details={toy}
+          viewToy={props.viewToy}
+          setViewToy={props.setViewToy}
+          order={props.order}
+          setOrder={props.setOrder}
+          isNew = {false}
         />
       ))}
     </div>
@@ -127,15 +148,21 @@ export default function Toys(props) {
         title='Toy Catalog'
       />}
 
-      {!viewToy && <h3 id="catalog-title">Adapted Toys</h3>}
+      {!viewToy && <h2>Current Toys</h2>}
 
-      <ToyGrid order={props.order} setOrder={props.setOrder} viewToy={viewToy} setViewToy={setViewToy}/>
+      {!viewToy && <p id="catalog-subtitle">Click the photos for more information</p>}
+      
+      <ToyGrid_new order={props.order} setOrder={props.setOrder} viewToy={viewToy} setViewToy={setViewToy}/>
+
+      {!viewToy && <h2 id="catalog-title">Last Season's Toys</h2>}
+      <ToyGrid_old order={props.order} setOrder={props.setOrder} viewToy={viewToy} setViewToy={setViewToy}/>
 
       {!viewToy && <img
         src={require("../images/logo.png")}
         className="catch-logo"
         alt="CATCH Logo"
       />}
+      <p>Photo credits: Hieu</p>
     </>
   );
 }

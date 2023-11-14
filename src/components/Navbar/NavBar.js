@@ -8,8 +8,9 @@ import About from '../../pages/About';
 import Toys from '../../pages/Toys';
 import Donations from '../../pages/Donations';
 import MediaCoverage from '../../pages/MediaCoverage';
+import Admin from '../../pages/Admin';
 import ShoppingCart from './ShoppingCart';
-import { toyInfo } from '../toyInfo';
+import { recentToys } from '../toyInfo';
 
 import { db } from '../../firebase-config'; // Fixing the import path
 import { addDoc, collection, getDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore'; // importing Firestore functions
@@ -21,7 +22,7 @@ function CartItem(props) {
   const [quantity, setQuantity] = useState(props.toy.quantity)
   const [disable, setDisable] = useState(quantity === 1)
   const toyName = props.toy.name;
-  const toy = toyInfo.find(item => item.name === toyName)
+  const toy = recentToys.find(item => item.name === toyName)
 
   const addOne = () => {
     let tempOrder = [...props.order];
@@ -115,7 +116,7 @@ function ShoppingCartPanel(props) {
     try {
       // Create new document in orders collection
       const orderRef = await addDoc(collection(db, "orders"), orderData);
-
+      const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
       // Update the ordered field for each toy in the "toys" collection
       const toyNames = Object.keys(orderFormat)
       for (let i = 0; i < toyNames.length; i++) {
@@ -128,6 +129,8 @@ function ShoppingCartPanel(props) {
           ordered: toyData.ordered + (orderFormat[toyNames[i]])
         });
       }
+      
+      await updateDoc(toysUpdateRef, {toysLastUpdated: serverTimestamp()});
     } catch (e) {
       console.error("Error placing order: ", e);
     }
@@ -153,7 +156,7 @@ function ShoppingCartPanel(props) {
           ))}
         </div>
         <div className='checkout-container' style={{flex: 2, display:"flex", justifyContent:"center"}}>
-          <button className='checkout' onClick={() => placeOrder(props.order)}>Checkout</button>
+          <button className='checkout'  onClick={() => placeOrder(props.order)}>Checkout</button>
         </div>
       </div>
     </div>
@@ -169,13 +172,19 @@ export default function NavBar() {
     const [total, setTotal] = useState(0);
 
     const [order, setOrder] = useState([]);
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+      setSidebarOpen(!isSidebarOpen);
+    };    
+
 
     const handleClick = (path) => {
       setActiveTab(path);
+      setSidebarOpen(false); // Close the sidebar
     };
-
     const getClassName = (path) => {
-      if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage') {
+      if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage') {
         return path === activeTab ? "mx-3 nav-link-alternate-active" : "mx-3 nav-link-alternate";
       }
       else {
@@ -221,43 +230,52 @@ export default function NavBar() {
     const changeOrder = (n) => {
       setOrder(n);
     };
+
+
     
 
     return (
       <>
       <Router>
-        <Container fluid className="nav-container">
-          <Navbar className={`bg-transparent mx-3 navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg">
-              <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage' ? "nav-brand-alternate" : "nav-brand"} as={Link} to={"/"} onClick={() => handleClick('/')}>
-                <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
-              </Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse className="collapse-nav" id="basic-navbar-nav">
-                  <Nav className="mx-auto">
-                    <Nav.Link className={getClassName("/")} as={Link} to={"/"} onClick={() => handleClick('/')}>Home</Nav.Link>
-                    <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
-                    <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
-                    <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
-                    <Nav.Link className={getClassName("/MediaCoverage")} as={Link} to={"/MediaCoverage"} onClick={() => handleClick('/MediaCoverage')}>Media Coverage</Nav.Link>
-                  </Nav>
-              </Navbar.Collapse>
+      <Container fluid className="nav-container">
+          <Navbar className={`bg-transparent navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
+          
+            <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage' ? "nav-brand-alternate" : "nav-brand"} style={{ marginLeft: '20px' }}>
+              {/* new navbar */}
+              <Navbar.Toggle className="collapsed-menu-icon" class="toggle-button" aria-controls="basic-navbar-nav" onClick={(e) => { e.stopPropagation(); toggleSidebar(); }} />
+
+              <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
+            </Navbar.Brand>
+            {/* old nav */}
+            <div className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`} style={{ marginLeft: '0px', marginRight: '0px' }}>
+              <button onClick={toggleSidebar} className="closebtn">&times;</button>
+              <Nav className="mx-auto" style={{ paddingLeft: '0', marginLeft: '0' }}>
+                <Nav.Link className={getClassName("/")} as={Link} to={"/"} onClick={() => handleClick('/')}>Home</Nav.Link>
+                <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
+                <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
+                <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
+                <Nav.Link className={getClassName("/mediacoverage")} as={Link} to={"/mediacoverage"} onClick={() => handleClick('/mediacoverage')}>Media Coverage</Nav.Link>
+                </Nav>
+              </div>
+
               <Nav className="ml-auto justify-content-end adjust-right-nav">
-                  <button onClick={() => openShoppingCart()} className="shopping-button">
-                    <ShoppingCart
-                      alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/MediaCoverage' ? true : false}
-                      quantity={total} // will need to be dynamically updated
-                    />
-                  </button>
+                <button onClick={() => openShoppingCart()} className="shopping-button">
+                  <ShoppingCart
+                    alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage' ? true : false}
+                    quantity={total}
+                  />
+                </button>
               </Nav>
-          </Navbar>
-        </Container>
+            </Navbar>
+          </Container>
         <div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/toys" element={<Toys order={order} setOrder={changeOrder}/>} />
             <Route path="/donations" element={<Donations />} />
-            <Route path="/MediaCoverage" element={<MediaCoverage />} />
+            <Route path="/mediacoverage" element={<MediaCoverage />} />
+            <Route path="/8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918" element={<Admin />} />
           </Routes>
         </div>
       </Router>
