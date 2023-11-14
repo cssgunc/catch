@@ -242,7 +242,7 @@ export default function NavBar() {
           
             <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage' ? "nav-brand-alternate" : "nav-brand"} style={{ marginLeft: '20px' }}>
               {/* new navbar */}
-              <Navbar.Toggle className="collapsed-menu-icon" class="toggle-button" aria-controls="basic-navbar-nav" onClick={(e) => { e.stopPropagation(); toggleSidebar(); }} />
+              <Navbar.Toggle id="collapsed-menu-icon" className="toggle-button" aria-controls="basic-navbar-nav" onClick={(e) => { e.stopPropagation(); toggleSidebar(); }} />
 
               <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
             </Navbar.Brand>
