@@ -1,8 +1,10 @@
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-family: 'Roboto', sans-serif;
 }
 
-*{
+* {
     font-family: 'Montserrat';
 }
 
@@ -20,7 +22,6 @@ h1, h2, h3 {
 #pastpartnersection {
     display: flex;
     flex-direction: column;
-    padding-left: 10%;
     padding-top: 3%;
     align-items: flex-start;
 }
@@ -32,4 +33,62 @@ h1, h2, h3 {
     text-align: start;
     gap: 20px;
     align-items: flex-start;
+}
+
+@media screen and (min-width: 1291px) {
+    .column {
+        width: 100%;
+    }
+
+    .description {
+        padding-right: 15px;
+    }
+
+    #pastpartnersection {
+        padding-left: 10%;
+    }
+}
+
+@media screen and (max-width: 1290px) {
+    .column {
+        width: 50%;
+    }
+
+    .mobile-section {
+        display: flex;
+        flex-direction: column;
+        padding: 25px;
+    }
+
+    .pic {
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .description {
+        padding: 15px;
+        text-align: justify;
+    }
+
+    #pastpartnersection {
+        display: flex;
+        flex-direction: column;
+        padding-top: 3%;
+        align-items: center;
+        text-align: justify;
+    }
+    
+    .donation-forms-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .donation-form {
+        width: 100%;
+        align-items: center;
+    }
 }
