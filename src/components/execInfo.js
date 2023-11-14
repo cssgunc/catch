@@ -1,12 +1,12 @@
 import treasurerImage from '../images/About/execf23/mel-headshot.png';
-import presidentImage from '../images/About/IMG_0557.jpg';
+import presidentImage from '../images/About/execf23/bryce-headshot.jpg';
 import coChiefQualityOfficerImage2 from '../images/About/execf23/nal-headshot.png';
 import secretaryImage from '../images/About/execf23/IMG_4302.jpg';
 import marketingLeadImage from '../images/About/execf23/IMG_4904.jpg';
 import outreachChairImage from '../images/About/execf23/IMG_3924.jpg';
 import coChiefQualityOfficerImage1 from '../images/About/thumbnail_IMG_0796.jpg';
 import chiefTechnicalOfficerImage from '../images/About/IMG_5285.jpg';
-import vicePresidentImage from '../images/About/Katie_s Headshot.jpg';
+import vicePresidentImage from '../images/About/execf23/katieHeadshot.jpg';
 import { collection, getDocs } from '@firebase/firestore';
 import { db } from '../firebase-config';
 
