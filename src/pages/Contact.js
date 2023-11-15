@@ -3,6 +3,8 @@ import React from 'react';
 import Banner from '../components/Banner';
 import { FaInstagram } from 'react-icons/fa'
 import { FaFacebook } from 'react-icons/fa'
+import '../pages/Contact.css'
+
 import context from 'react-bootstrap/esm/AccordionContext';
 
 
@@ -14,19 +16,19 @@ export default function Contact() {
   return (
     <div className="App">
       <Banner bannerColor={red} title='Contact'/>
-      <div style={{display: "flex", justifyContent: "grid", flexDirection: "row"}}>
-        <div style={{flexDirection: "column", alignItems: "center"}}>
+      <div id='mainContainer'>
+        <div id='leftCol'>
           
-          <iframe src={addressMap} style={{ marginTop: "100px", marginLeft: "100px", width: "100%", height: "450px", style: "border:0;", allowfullscreen: "", loading: "lazy", referrerpolicy: "no-referrer-when-downgrade"}}/>
+          <iframe src={addressMap} style={{ marginTop: "100px", width: "100%", height: "450px", style: "border:0;", allowfullscreen: "", loading: "lazy", referrerpolicy: "no-referrer-when-downgrade"}}/>
 
           <iframe srcdoc="<div style='text-align: center; margin-top: 10px;'>
                           <h3 style='font-family: monserrat; font-weight: normal'>The University of North Carolina - Phillips Hall</h3>
                           <h3 style='font-family: monserrat; font-weight: normal'>120 E Cameron Ave, Chapel Hill, NC 27514</h3>
                           <h3 style='font-family: monserrat; font-weight: normal'>Room 19B (Basement)</h3>
                           <h3 style='font-family: monserrat; font-weight: normal'>catchUNC@gmail.com</h3>
-                          </div>" style={{ width: "130%", height: "20%"}}/>
+                          </div>" style={{ width: "100%", height: "20%"}}/>
 
-          <div class="socialLinks" style={{ display: "flex", justifyContent: "right", marginRight: "115px"}}>
+          <div class="socialLinks" style={{ display: "flex", justifyContent: "center"}}>
             <a href="https://www.google.com/url?q=https%3A%2F%2Fheellife.unc.edu%2Forganization%2Fcatch&sa=D&sntz=1&usg=AOvVaw1nxSQeb3m8ASiGOrObjuDm" target="_blank">
               <img src={require("../images/Contact/heellife.jpg")} alt="Heel Life" style={{ width: "50px", height: "50px", marginRight: "20px" }} />
             </a>
@@ -41,13 +43,13 @@ export default function Contact() {
             </a>
           </div>
 
-          <div class="logo" style={{ display: "flex", marginTop:"40px", justifyContent: "right", marginRight: "150px"}}>
+          <div class="logo" style={{ display: "flex", marginTop:"40px", justifyContent: "center"}}>
             <img src={require("../images/logo.png")} style={{width: "40%", height: "40%"}}></img>
           </div>
         </div>
 
-        <div>
-          <iframe title='Contact Form' src={formUrl1} style={{ marginTop: "100px", marginLeft: "200px", width: "600px", height: "935px", border: "none"}} />
+        <div id='rightCol'>
+          <iframe title='Contact Form' src={formUrl1} style={{ marginTop: "100px", width: "600px", height: "935px", border: "none"}} />
         </div>
       </div>
     </div>
