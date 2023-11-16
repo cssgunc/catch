@@ -249,6 +249,16 @@ export default function NavBar() {
                 <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
                 <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
                 <Nav.Link className={getClassName("/mediacoverage")} as={Link} to={"/mediacoverage"} onClick={() => handleClick('/mediacoverage')}>Media Coverage</Nav.Link>
+                <Nav.Link className={getClassName("/admin")} as={Link} to={"/admin"}>Admin Login</Nav.Link>
+                </Nav>
+              </div>
+
+              <Nav className="ml-auto justify-content-end adjust-right-nav">
+                <button onClick={() => openShoppingCart()} className="shopping-button">
+                  <ShoppingCart
+                    quantity={total}
+                  />
+                </button>
               </Nav>
             </div>
 
@@ -268,6 +278,7 @@ export default function NavBar() {
             <Route path="/toys" element={<Toys order={order} setOrder={changeOrder} />} />
             <Route path="/donations" element={<Donations />} />
             <Route path="/mediacoverage" element={<MediaCoverage />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </div>
       </Router>
