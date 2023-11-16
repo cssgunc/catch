@@ -113,5 +113,14 @@ input {
     width: 80px;
     margin-left: 20px;
     border-radius: 10%;
+}
 
+.add-button {
+    color: white;
+    background-color: #EF574E;
+    border-color: #EF574E;
+    width: 30px;
+    height: 30px;
+    margin-left: 85%;
+    border-radius: 10%;
 }
