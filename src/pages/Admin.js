@@ -11,7 +11,13 @@ export default function Admin() {
   //const currUserName = getAuth().currentUser.displayName;
   const currUserName = "John Doe";
   const [currTab, setCurrTab] = useState("Executives");
+
   const execRef = collection(db, 'Executives');
+
+  const [execData, setExecData] = useState([
+    { id: 1, name: 'Jane Doe', position: 'President', image: 'https://example.com/johndoe.jpg' },
+    { id: 2, name: 'John Doe', position: 'Vice President', image: 'https://example.com/janedoe.jpg' },
+  ]);
 
   function logout() {
     //Insert code here
@@ -33,6 +39,7 @@ export default function Admin() {
       )
     }
   }
+
 
   const handleEdit = (index, data, setEditIndex, setEditedData) => {
     setEditIndex(index);
@@ -68,12 +75,6 @@ export default function Admin() {
  
  
   function ExecTable() {
-    const [data, setData] = useState([
-      { id: 1, name: 'Jane Doe', position: 'President', image: 'https://example.com/johndoe.jpg' },
-      { id: 2, name: 'John Doe', position: 'Vice President', image: 'https://example.com/janedoe.jpg' },
-      // Add more rows as needed
-    ]);
- 
     const [editIndex, setEditIndex] = useState(null);
     const [editedData, setEditedData] = useState({ name: '', position: '', image: '' });
 
@@ -97,41 +98,44 @@ export default function Admin() {
           </tr>
         </thead>
         <tbody>
-          {data.map((row, index) => (
+          {execData.map((row, index) => (
             <tr key={row.id}>
               <td>{editIndex === index ? <input type="text" value={editedData.name} onChange={(e) => execHandleChange('name', e.target.value)} /> : row.name}</td>
               <td>{editIndex === index ? <input type="text" value={editedData.position} onChange={(e) => execHandleChange('position', e.target.value)} /> : row.position}</td>
               <td>{editIndex === index ? <input type="text" value={editedData.image} onChange={(e) => execHandleChange('image', e.target.value)} /> : row.image}</td>
               <td>
                 {editIndex === index ? (
-                  <button onClick={() => handleSave(index, data, editedData, setData, setEditIndex)} className="view-button">Save</button>
+                  <>
+                    <button onClick={() => handleSave(index, execData, editedData, setExecData, setEditIndex)} className="view-button">Save</button>
+                    <button onClick={() => handleCancel(setEditIndex)} className="view-button">Cancel</button>
+                  </>
                 ) : (
                   <>
-                  <button onClick={() => handleEdit(index, data, setEditIndex, setEditedData)} className="view-button">Edit</button>
-                  <button onClick={() => handleDelete(index, data, setData)} className="view-button">Delete</button>
+                    <button onClick={() => handleEdit(index, execData, setEditIndex, setEditedData)} className="view-button">Edit</button>
+                    <button onClick={() => handleDelete(index, execData, setExecData)} className="view-button">Delete</button>
+                  </>
+                )}
+              </td>
+            </tr>
+          ))}
+          {editIndex === 'plus' ? (
+            <tr>
+              <td><input type="text" value={editedData.name} onChange={(e) => execHandleChange('name', e.target.value)} /></td>
+              <td><input type="text" value={editedData.position} onChange={(e) => execHandleChange('position', e.target.value)} /></td>
+              <td><input type="text" value={editedData.image} onChange={(e) => execHandleChange('image', e.target.value)} /></td>
+              <td>
+                <>
+                  <button onClick={() => handleAdd(execData, editedData, setExecData, setEditIndex)} className="view-button">Add</button>
+                  <button onClick={() => handleCancel(setEditIndex)} className="view-button">Cancel</button>
                 </>
-              )}
-            </td>
-          </tr>
-        ))}
-        {editIndex === 'plus' ? (
-          <tr>
-            <td><input type="text" value={editedData.name} onChange={(e) => execHandleChange('name', e.target.value)} /></td>
-            <td><input type="text" value={editedData.position} onChange={(e) => execHandleChange('position', e.target.value)} /></td>
-            <td><input type="text" value={editedData.image} onChange={(e) => execHandleChange('image', e.target.value)} /></td>
-            <td>
-              <>
-                <button onClick={() => handleAdd(data, editedData, setData, setEditIndex)} className="view-button">Add</button>
-                <button onClick={() => handleCancel(setEditIndex)} className="view-button">Cancel</button>
-              </>
-            </td>
-          </tr> 
-        ) : (
-          <tr>
-            <td /> <td /> <td /> <td><button onClick={() => execHandleAddInit()} className="add-button">+</button></td>
-          </tr>
-        )}
-       </tbody>
+              </td>
+            </tr> 
+          ) : (
+            <tr>
+              <td /> <td /> <td /> <td><button onClick={() => execHandleAddInit()} className="add-button">+</button></td>
+            </tr>
+          )}
+        </tbody>
       </table>
     );
   };
@@ -145,7 +149,7 @@ export default function Admin() {
         )
       case "Main Slideshow":
         return (
-          <p>Insert Main Slideshow View Here</p>
+          <p>Insert Main Slideshow View here</p>
         )
       case "Recent Events":
         return (
