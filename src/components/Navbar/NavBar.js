@@ -253,15 +253,6 @@ export default function NavBar() {
                 </Nav>
               </div>
 
-              <Nav className="ml-auto justify-content-end adjust-right-nav">
-                <button onClick={() => openShoppingCart()} className="shopping-button">
-                  <ShoppingCart
-                    quantity={total}
-                  />
-                </button>
-              </Nav>
-            </div>
-
             <Nav className="ml-auto justify-content-end adjust-right-nav">
               <button onClick={() => openShoppingCart()} className="shopping-button">
                 <ShoppingCart
