@@ -213,6 +213,7 @@
     overflow: scroll;
     flex: 20;
     width: 30vw;
+    height: 30;
 }
 
 /* For tablets */
@@ -238,7 +239,7 @@
 }
 
 .cart-item-container {
-    height: 25%;
+    height: 35%;
     border-bottom: solid;
     width: 100%;
     margin: 0;

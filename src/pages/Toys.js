@@ -84,9 +84,9 @@ function Toy(props) {
       {!props.viewToy && 
       <div className="image-tile">
         <img onClick={() => handleClick()} src={props.details.imagePath} alt={props.details.altText} className="catalog-picture"/>
-        <button className="plus-toy" onClick={() => addToyToCart(props.setOrder, props.order, props.details)}>
-          <FaPlus size={10}/>
-        </button>
+        {props.isNew && <button className="plus-toy" onClick={() => addToyToCart(props.setOrder, props.order, props.details)}>
+          <FaPlus size={18} style={{display:"flex", width:"100%", border:"transparent"}}/>
+        </button>}
       </div>}
       {props.viewToy && activeToy &&
       <ToyPage 
