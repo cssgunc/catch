@@ -212,7 +212,7 @@
 .cart-items {
     overflow: scroll;
     flex: 20;
-    width: 45vw;
+    width: 30vw;
 }
 
 /* For tablets */
