@@ -9,6 +9,7 @@ import Toys from '../../pages/Toys';
 import Donations from '../../pages/Donations';
 import MediaCoverage from '../../pages/MediaCoverage';
 import Admin from '../../pages/Admin';
+import Contact from '../../pages/Contact';
 import ShoppingCart from './ShoppingCart';
 import { recentToys } from '../toyInfo';
 
@@ -249,6 +250,7 @@ export default function NavBar() {
                 <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
                 <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
                 <Nav.Link className={getClassName("/mediacoverage")} as={Link} to={"/mediacoverage"} onClick={() => handleClick('/mediacoverage')}>Media Coverage</Nav.Link>
+                <Nav.Link className={getClassName("/contact")} as={Link} to={"/contact"} onClick={() => handleClick('/contact')}>Contact</Nav.Link>
                 <Nav.Link className={getClassName("/admin")} as={Link} to={"/admin"}>Admin Login</Nav.Link>
                 </Nav>
               </div>
@@ -270,6 +272,7 @@ export default function NavBar() {
             <Route path="/donations" element={<Donations />} />
             <Route path="/mediacoverage" element={<MediaCoverage />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
       </Router>
