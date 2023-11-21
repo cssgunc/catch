@@ -49,7 +49,7 @@ export default function Contact() {
 </div>
 
 <div id='rightCol'>
-<iframe title='Contact Form' src={formUrl1} style={{ marginTop: "100px", width: "600px", height: "935px", border: "none"}} />
+<iframe id='cont-form' title='Contact Form' src={formUrl1} />
 </div>
 </div>
 </div>
