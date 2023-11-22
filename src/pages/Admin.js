@@ -19,9 +19,32 @@ export default function Admin() {
     { id: 2, name: 'John Doe', position: 'Vice President', image: 'https://example.com/janedoe.jpg' },
   ]);
   const [slideshowData, setSlideshowData] = useState([
-    { id: 1, imageId: '8437132145', altText: 'Building a Dinosaur!'},
-    { id: 2, imageId: '1834972562', altText: 'Group Photo'},
+    { id: 1, imageId: '8437132145', altText: 'Building a Dinosaur!' },
+    { id: 2, imageId: '1834972562', altText: 'Group Photo' },
   ]);
+  const [recentEvents, setRecentEvents] = useState(['Name of Event 1', 'Name of Event 2', 'Name of Event 3', 'Name of Event 4']);
+  const [selectedEvent, setSelectedEvent] = useState(recentEvents[0]);
+  const [recentEventsData, setRecentEventsData] = useState({
+    'Name of Event 1': [
+      { id: 1, imageId: 'event1_image1' },
+      { id: 2, imageId: 'event1_image2' },
+    ],
+    'Name of Event 2': [
+      { id: 1, imageId: 'event2_image1' },
+      { id: 2, imageId: 'event2_image2' },
+    ],
+    'Name of Event 3': [
+      { id: 1, imageId: 'event3_image1' },
+      { id: 2, imageId: 'event3_image2' },
+    ],
+    'Name of Event 4': [
+      { id: 1, imageId: 'event4_image1' },
+      { id: 2, imageId: 'event4_image2' },
+    ],
+  });
+  const handleEventChange = (event) => {
+    setSelectedEvent(event);
+  };
   const [recentToysData, setRecentToysData] = useState([
     { id: 1, description: 'temp airplane description', name: 'Airplane', imageId: 'airplane', altText: 'Modified Airplane Toy', buildUrl: 'https://docs.google.com/presentation/d/1sG6zYR71rNoACMY5j51roubwaqilKjNm_EgJfxFn7VU/edit#slide=id.p' },
     { id: 2, description: 'temp bus description', name: 'School Bus', imageId: 'bus', altText: 'Modified Bus Toy', buildUrl: 'bus URL' },
@@ -41,7 +64,6 @@ export default function Admin() {
 
 
   function logout() {
-    //Insert code here
     console.log("This is where I would put a logout method if I had one");
   }
 
@@ -66,14 +88,14 @@ export default function Admin() {
     setEditIndex(index);
     setEditedData({ ...data[index] });
   };
- 
+
   const handleSave = (index, data, editedData, setData, setEditIndex) => {
     const newData = [...data];
     newData[index] = editedData;
     setData(newData);
     setEditIndex(null);
   };
- 
+
   const handleDelete = (index, data, setData) => {
     const newData = [...data];
     newData.splice(index, 1);
@@ -89,11 +111,11 @@ export default function Admin() {
   const handleCancel = (setEditIndex) => {
     setEditIndex(null);
   }
- 
+
   const handleInputChange = (field, value, setEditedData) => {
     setEditedData((prevData) => ({ ...prevData, [field]: value }));
   };
- 
+
 
   function Table(props) {
     const initial_state = props.initial_state;
@@ -115,7 +137,7 @@ export default function Admin() {
       console.log(value);
       return handleInputChange(field, value, setEditedData);
     };
- 
+
     return (
       <table className="view-table">
         <thead>
@@ -156,10 +178,10 @@ export default function Admin() {
                   <button onClick={() => handleCancel(setEditIndex)} className="view-button">Cancel</button>
                 </>
               </td>
-            </tr> 
+            </tr>
           ) : (
             <tr>
-              {init_keys.map((field) => <td key={field}/>)}
+              {init_keys.map((field) => <td key={field} />)}
               <td><button onClick={handleAddInit} className="add-button">+</button></td>
             </tr>
           )}
@@ -168,10 +190,147 @@ export default function Admin() {
     );
   };
 
+  function TableRecentEvents({
+    initial_state,
+    data,
+    setData,
+    headers,
+    selectedEvent,
+    setEditIndex,
+    setEditedData,
+  }) {
+    const [editIndex, setEditIndexLocal] = useState(null);
+    const [editedData, setEditedDataLocal] = useState(initial_state);
+
+    const handleAddInit = () => {
+      setEditIndexLocal('plus');
+      setEditedDataLocal(initial_state);
+    };
+
+    const handleChange = (field, value) => {
+      setEditedDataLocal((prevData) => ({ ...prevData, [field]: value }));
+    };
+
+    const handleSave = (index) => {
+      const newData = [...data];
+      newData[index] = editedData;
+      setData((prevData) => ({ ...prevData, [selectedEvent]: newData }));
+      setEditIndexLocal(null);
+    };
+
+    const handleDelete = (index) => {
+      const newData = [...data];
+      newData.splice(index, 1);
+      setData((prevData) => ({ ...prevData, [selectedEvent]: newData }));
+    };
+
+    const handleAdd = () => {
+      const newData = [...data, editedData];
+      setData((prevData) => ({ ...prevData, [selectedEvent]: newData }));
+      setEditIndexLocal(null);
+    };
+
+    const handleCancel = () => {
+      setEditIndexLocal(null);
+    };
+
+    const handleEdit = (index) => {
+      setEditIndexLocal(index);
+      setEditedDataLocal({ ...data[index] });
+    };
+
+    return (
+      <table className="view-table">
+        <thead>
+          <tr>
+            {headers.map((header) => (
+              <th key={header}>{header}</th>
+            ))}
+            <th />
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, index) => (
+            <tr key={row.id}>
+              {Object.keys(initial_state).map((field) => (
+                <td key={field}>
+                  {editIndex === index ? (
+                    <input
+                      type="text"
+                      value={editedData[field]}
+                      onChange={(e) => handleChange(field, e.target.value)}
+                    />
+                  ) : (
+                    row[field]
+                  )}
+                </td>
+              ))}
+              <td>
+                {editIndex === index ? (
+                  <>
+                    <button onClick={() => handleSave(index)} className="view-button">
+                      Save
+                    </button>
+                    <button onClick={handleCancel} className="view-button">
+                      Cancel
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button onClick={() => handleEdit(index)} className="view-button">
+                      Edit
+                    </button>
+                    <button onClick={() => handleDelete(index)} className="view-button">
+                      Delete
+                    </button>
+                  </>
+                )}
+              </td>
+            </tr>
+          ))}
+          {editIndex === 'plus' ? (
+            <tr>
+              {Object.keys(initial_state).map((field) => (
+                <td key={field}>
+                  <input
+                    type="text"
+                    value={editedData[field]}
+                    onChange={(e) => handleChange(field, e.target.value)}
+                  />
+                </td>
+              ))}
+              <td>
+                <>
+                  <button onClick={handleAdd} className="view-button">
+                    Add
+                  </button>
+                  <button onClick={handleCancel} className="view-button">
+                    Cancel
+                  </button>
+                </>
+              </td>
+            </tr>
+          ) : (
+            <tr>
+              {Object.keys(initial_state).map((field) => (
+                <td key={field} />
+              ))}
+              <td>
+                <button onClick={handleAddInit} className="add-button">
+                  +
+                </button>
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    );
+  }
+
 
   function RightView() {
     const initializeVals = (obj) => {
-      let newObj = {...obj};
+      let newObj = { ...obj };
       delete newObj.id;
       for (const field of Object.keys(newObj)) {
         if ((typeof obj[field]) === "string") {
@@ -183,48 +342,81 @@ export default function Admin() {
         }
       }
       return newObj;
-    } 
+    }
+
+    const [editIndex, setEditIndex] = useState(null);
+    const [editedData, setEditedData] = useState(initializeVals({}));
+
     switch (currTab) {
       case "Executives":
         const execInit = initializeVals(execData[0]);
         console.log(execInit);
         const execHeaders = ['Name', 'Position', 'Picture'];
         return (
-          <Table initial_state={execInit} data={execData}  setData={setExecData} headers={execHeaders} />
+          <Table initial_state={execInit} data={execData} setData={setExecData} headers={execHeaders} />
         )
       case "Main Slideshow":
         const slideInit = initializeVals(slideshowData[0]);
         const slideHeaders = ['Image ID', 'Alternate Text'];
         return (
-          <Table initial_state={slideInit} data={slideshowData}  setData={setSlideshowData} headers={slideHeaders} />
+          <Table initial_state={slideInit} data={slideshowData} setData={setSlideshowData} headers={slideHeaders} />
         )
       case "Recent Events":
+        const recentEventsInit = initializeVals({ id: 1, imageId: '' });
+        const recentEventsHeaders = ['Image ID'];
+
         return (
-          <p>Insert Recent Events View Here</p>
-        )
+          <div>
+            <div class="event-selector">
+              <select
+                class="event-selector-select"
+                id="eventSelector"
+                value={selectedEvent}
+                onChange={(e) => handleEventChange(e.target.value)}
+              >
+                {recentEvents.map((event) => (
+                  <option key={event} value={event}>
+                    {event}
+                  </option>
+                ))}
+              </select>
+              <br></br>
+              <h3 class="selected-event-name">{selectedEvent}</h3>
+            </div>
+            <TableRecentEvents
+              initial_state={recentEventsInit}
+              data={recentEventsData[selectedEvent]}
+              setData={setRecentEventsData}
+              headers={recentEventsHeaders}
+              selectedEvent={selectedEvent}
+              setEditIndex={setEditIndex}
+              setEditedData={setEditedData}
+            />
+          </div>
+        );
       case "Recent Toys":
         const recentToysInit = initializeVals(recentToysData[0]);
         const recentToysHeaders = ['Description', 'Name', 'Image ID', 'Alternate Text', 'Build URL'];
         return (
-          <Table initial_state={recentToysInit} data={recentToysData}  setData={setRecentToysData} headers={recentToysHeaders} />
+          <Table initial_state={recentToysInit} data={recentToysData} setData={setRecentToysData} headers={recentToysHeaders} />
         )
       case "Old Toys":
         const oldToysInit = initializeVals(oldToysData[0]);
         const oldToysHeaders = ['Description', 'Name', 'Image ID', 'Alternate Text', 'Build URL'];
         return (
-          <Table initial_state={oldToysInit} data={oldToysData}  setData={setOldToysData} headers={oldToysHeaders} />
+          <Table initial_state={oldToysInit} data={oldToysData} setData={setOldToysData} headers={oldToysHeaders} />
         )
       case "Donations":
         const donationsInit = initializeVals(donationsData[0]);
         const donationsHeaders = ['Image ID', 'Alternate Text', 'Organization', 'Total Donations', 'Number of Donations', 'Description'];
         return (
-          <Table initial_state={donationsInit} data={donationsData}  setData={setDonationsData} headers={donationsHeaders} />
+          <Table initial_state={donationsInit} data={donationsData} setData={setDonationsData} headers={donationsHeaders} />
         )
       case "Media":
         const mediaInit = initializeVals(mediaData[0]);
         const mediaHeaders = ['Image ID', 'Alternate Text', 'Header', 'Description', 'Article URL'];
         return (
-          <Table initial_state={mediaInit} data={mediaData}  setData={setMediaData} headers={mediaHeaders} />
+          <Table initial_state={mediaInit} data={mediaData} setData={setMediaData} headers={mediaHeaders} />
         )
       default:
         return (

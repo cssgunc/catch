@@ -50,6 +50,21 @@
     align-content: center;
 }
 
+.event-selector {
+    align-content: left;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.event-selector-select {
+    float: left;
+    margin-bottom: 10px;
+}
+
+.selected-event-name {
+    font-size: 26px;
+}
+
 .title {
     font-weight: bold;
     font-size: 20px;
@@ -109,18 +124,31 @@ input {
 .view-button {
     color: #EF574E;
     background-color: white;
+    box-shadow: none;
+    border: solid;
     border-color: #EF574E;
     width: 80px;
     margin-left: 20px;
-    border-radius: 10%;
+    outline: none;
+}
+
+.view-button:hover {
+    background-color: #f4dfdf;
 }
 
 .add-button {
     color: white;
     background-color: #EF574E;
+    border: solid;
     border-color: #EF574E;
     width: 30px;
     height: 30px;
     margin-left: 85%;
     border-radius: 10%;
+    outline: none;
+}
+
+.add-button:hover {
+    background-color: #d6453e;
+    border-color: #d6453e;
 }
