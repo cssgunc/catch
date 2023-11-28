@@ -6,12 +6,14 @@ import { GrClose } from 'react-icons/gr'
 import Home from '../../pages/Home';
 import About from '../../pages/About';
 import Toys from '../../pages/Toys';
+import Checkout from '../../pages/Checkout';
 import Donations from '../../pages/Donations';
 import MediaCoverage from '../../pages/MediaCoverage';
 import Admin from '../../pages/Admin';
 import Contact from '../../pages/Contact';
 import ShoppingCart from './ShoppingCart';
 import { recentToys } from '../toyInfo';
+import formatAndFetchString from '../../helper-functions/lowercase-and-remove-non-alph';
 
 import { db } from '../../firebase-config'; // Fixing the import path
 import { addDoc, collection, getDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore'; // importing Firestore functions
@@ -120,8 +122,9 @@ function ShoppingCartPanel(props) {
       // Update the ordered field for each toy in the "toys" collection
       const toyNames = Object.keys(orderFormat)
       for (let i = 0; i < toyNames.length; i++) {
-        const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
-        const toyRef = doc(db, "toys", toyName);
+        // const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
+        // const toyRef = doc(db, "toys", toyName);
+        const toyRef = formatAndFetchString(toyNames[i]);
 
         const element = await getDoc(toyRef)
         const toyData = { ...element.data() }
@@ -155,8 +158,8 @@ function ShoppingCartPanel(props) {
             />
           ))}
         </div>
-        <div className='checkout-container' style={{ flex: 2, display: "flex", justifyContent: "center" }}>
-          <button className='checkout' onClick={() => placeOrder(props.order)}>Checkout</button>
+        <div className='checkout-container' style={{flex: 2, display:"flex", justifyContent:"center"}}>
+        <button className='checkout'  onClick={() => placeOrder(props.order)}>Checkout</button>
         </div>
       </div>
     </div>
@@ -271,6 +274,7 @@ export default function NavBar() {
             <Route path="/toys" element={<Toys order={order} setOrder={changeOrder} />} />
             <Route path="/donations" element={<Donations />} />
             <Route path="/mediacoverage" element={<MediaCoverage />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
