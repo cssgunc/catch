@@ -8,13 +8,11 @@
 }
 
 #cont-form { 
-    margin-top: 100px;
     width: 600px;
     height: 935px;
     border: none;
 }
 #address-map {
-    margin-top: 100px; 
     width: 100%;
     height: 450px; 
 }
@@ -23,6 +21,7 @@
 
     #cont-form { 
         width: 90vw;
+        margin-top: 100px;
     }
     #address-map {
         width: 90vw;

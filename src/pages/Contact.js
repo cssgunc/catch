@@ -16,6 +16,7 @@ export default function Contact() {
         imagePath={bannerImage}
         title='Contact'
       />
+      <h2>Reach Out to Us!</h2>
 <div id='mainContainer'>
   <div id='leftCol'>
 
