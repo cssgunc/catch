@@ -6,6 +6,7 @@ import { collection } from 'firebase/firestore';
 import ExitImg from '../images/General/exitDoor.png';
 
 import './Admin.css';
+import { FaChevronCircleDown } from 'react-icons/fa';
 
 export default function Admin() {
   //const currUserName = getAuth().currentUser.displayName;
@@ -69,6 +70,7 @@ export default function Admin() {
 
   function change_tab(tab) {
     setCurrTab(tab);
+    setDropdownOpen(false)
   }
 
   function Tab({ tabName }) {
@@ -443,7 +445,7 @@ export default function Admin() {
 
       <div className="mobile-tabs">
         <div className="title">Dashboard</div>
-        <button className="dropdown-button" onClick={toggleDropdown}>☰</button>
+        <button className="dropdown-button" onClick={toggleDropdown}>{currTab} <FaChevronCircleDown></FaChevronCircleDown> </button>
         {isDropdownOpen &&
           <div>
             <Tab tabName="Executives" />

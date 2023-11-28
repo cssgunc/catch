@@ -50,7 +50,7 @@
     width: 80%;
     padding-top: 60px;
     padding-left: 50px;
-    padding-right: 60px;
+    padding-right: 50px;
     align-content: center;
 }
 
@@ -169,18 +169,19 @@ input {
 .mobile-tabs {
     display: none;
     text-align: left;
-    padding-left: 50px;
-    padding-top: 30px;
+    margin: 30px 50px 0px 50px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(202, 202, 202);
 }
 
 .dropdown-button {
     border: 2px solid #EF574E;
-    border-radius: 10%;
+    border-radius: 5px;
     background-color: white;
     color: #EF574E;
 }
 
-.dropdown-button:hover {
+.dropdown-button:hover, .dropdown-button:active {
     color: white;
     background-color: #EF574E;
 }
@@ -196,5 +197,6 @@ input {
     
     .right-body {
         width: 100%;
+        padding-top:30px;
     }
   }
