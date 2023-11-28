@@ -116,6 +116,11 @@ export default function Admin() {
     setEditedData((prevData) => ({ ...prevData, [field]: value }));
   };
 
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  }
 
   function Table(props) {
     const initial_state = props.initial_state;
@@ -436,6 +441,20 @@ export default function Admin() {
         </div>
       </div>
 
+      <div className="mobile-tabs">
+        <div className="title">Dashboard</div>
+        <button className="dropdown-button" onClick={toggleDropdown}>☰</button>
+        {isDropdownOpen &&
+          <div>
+            <Tab tabName="Executives" />
+            <Tab tabName="Main Slideshow" />
+            <Tab tabName="Recent Events" />
+            <Tab tabName="Recent Toys" />
+            <Tab tabName="Old Toys" />
+            <Tab tabName="Donations" />
+            <Tab tabName="Media" />
+          </div>}
+      </div>
       <div className="body">
         <div className="left-body">
           <div className="title">Dashboard</div>
