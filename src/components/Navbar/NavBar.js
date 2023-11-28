@@ -157,7 +157,7 @@ function ShoppingCartPanel(props) {
           ))}
         </div>
         <div className='checkout-container' style={{flex: 2, display:"flex", justifyContent:"center"}}>
-          <button className='checkout'  onClick={() => placeOrder(props.order)}>Checkout</button>
+        <button className='checkout'  onClick={() => placeOrder(props.order)}>Checkout</button>
         </div>
       </div>
     </div>
@@ -256,8 +256,6 @@ export default function NavBar() {
                 <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
                 <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
                 <Nav.Link className={getClassName("/mediacoverage")} as={Link} to={"/mediacoverage"} onClick={() => handleClick('/mediacoverage')}>Media Coverage</Nav.Link>
-                <Nav.Link className={getClassName("/checkout")} as={Link} to={"/checkout"} onClick={() => handleClick('/checkout')}>Checkout</Nav.Link>
-
                 </Nav>
               </div>
 
