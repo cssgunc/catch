@@ -59,6 +59,16 @@ export default function Checkout() {
                 <Form.Control type="email" placeholder="Enter your email" />
               </Form.Group>
 
+              <Form.Group className="mb-3 text-left" controlId="formOrg">
+                <Form.Label>Organization:</Form.Label>
+                <Form.Control type="text" placeholder="Enter your organization's name" />
+              </Form.Group>
+
+              <Form.Group className="mb-3 text-left" controlId="formNumber">
+              <Form.Label>Number of Buttons for Toys:</Form.Label>
+              <Form.Control type="number" placeholder="MAX 2 PER 3 TOYS" />
+              </Form.Group>
+
               <Form.Group className="mb-3 text-left" controlId="formAddress">
                 <Form.Label>Address:</Form.Label>
                 <Form.Control placeholder="Street address, City, State, Zip code" />
