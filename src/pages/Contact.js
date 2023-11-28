@@ -19,7 +19,7 @@ export default function Contact() {
 <div id='mainContainer'>
   <div id='leftCol'>
 
-    <iframe src={addressMap} style={{ marginTop: "100px", width: "100%", height: "450px", style: "border:0;", allowfullscreen: "", loading: "lazy", referrerpolicy: "no-referrer-when-downgrade"}}/>
+    <iframe src={addressMap} id='address-map' style={{ style: "border:0;", allowfullscreen: "", loading: "lazy", referrerpolicy: "no-referrer-when-downgrade"}}/>
 
     <iframe srcdoc="<div style='text-align: center; margin-top: 10px;'>
                     <h3 style='font-family: monserrat; font-weight: normal'>The University of North Carolina - Phillips Hall</h3>
