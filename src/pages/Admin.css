@@ -97,6 +97,11 @@
     cursor: default;
 }
 
+.table-container {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
 .view-table {
     width: 100%;
     margin: auto;
@@ -108,13 +113,18 @@ tr {
 }
 
 th {
-    padding-bottom: 10px;
+    padding: 0px 10px 10px 10px;
 }
 
 td {
     width: 18%;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding: 25px 10px;
+}
+
+.wrap-cell {
+    max-width: 100px;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 input {
@@ -143,7 +153,6 @@ input {
     border-color: #EF574E;
     width: 30px;
     height: 30px;
-    margin-left: 85%;
     border-radius: 10%;
     outline: none;
 }

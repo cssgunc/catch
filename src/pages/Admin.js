@@ -139,54 +139,55 @@ export default function Admin() {
     };
 
     return (
-      <table className="view-table">
-        <thead>
-          <tr>
-            {headers.map(header => <th key={header}>{header}</th>)}
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, index) => (
-            <tr key={row.id}>
-              {init_keys.map((field) => (
-                <td key={field}>{editIndex === index ? <input type="text" value={editedData[field]} onChange={(e) => handleChange(field, e.target.value)} /> : row[field]}</td>
-              ))}
-              <td>
-                {editIndex === index ? (
+      <div className="table-container">
+        <table className="view-table">
+          <thead>
+            <tr>
+              {headers.map(header => <th key={header}>{header}</th>)}
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, index) => (
+              <tr key={row.id}>
+                {init_keys.map((field) => (
+                  <td key={field} className="wrap-cell">{editIndex === index ? <input type="text" value={editedData[field]} onChange={(e) => handleChange(field, e.target.value)} /> : row[field]}</td>
+                ))}
+                <td>
+                  {editIndex === index ? (
+                    <>
+                      <button onClick={() => handleSave(index, data, editedData, setData, setEditIndex)} className="view-button">Save</button>
+                      <button onClick={() => handleCancel(setEditIndex)} className="view-button">Cancel</button>
+                    </>
+                  ) : (
+                    <>
+                      <button onClick={() => handleEdit(index, data, setEditIndex, setEditedData)} className="view-button">Edit</button>
+                      <button onClick={() => handleDelete(index, data, setData)} className="view-button">Delete</button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+            {editIndex === 'plus' ? (
+              <tr>
+                {init_keys.map((field) => (
+                  <td key={field}><input type="text" value={editedData[field]} onChange={(e) => handleChange(field, e.target.value)} /></td>
+                ))}
+                <td>
                   <>
-                    <button onClick={() => handleSave(index, data, editedData, setData, setEditIndex)} className="view-button">Save</button>
+                    <button onClick={() => handleAdd(data, editedData, setData, setEditIndex)} className="view-button">Add</button>
                     <button onClick={() => handleCancel(setEditIndex)} className="view-button">Cancel</button>
                   </>
-                ) : (
-                  <>
-                    <button onClick={() => handleEdit(index, data, setEditIndex, setEditedData)} className="view-button">Edit</button>
-                    <button onClick={() => handleDelete(index, data, setData)} className="view-button">Delete</button>
-                  </>
-                )}
-              </td>
-            </tr>
-          ))}
-          {editIndex === 'plus' ? (
-            <tr>
-              {init_keys.map((field) => (
-                <td key={field}><input type="text" value={editedData[field]} onChange={(e) => handleChange(field, e.target.value)} /></td>
-              ))}
-              <td>
-                <>
-                  <button onClick={() => handleAdd(data, editedData, setData, setEditIndex)} className="view-button">Add</button>
-                  <button onClick={() => handleCancel(setEditIndex)} className="view-button">Cancel</button>
-                </>
-              </td>
-            </tr>
-          ) : (
-            <tr>
-              {init_keys.map((field) => <td key={field} />)}
-              <td><button onClick={handleAddInit} className="add-button">+</button></td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+                </td>
+              </tr>
+            ) : (
+              <tr>
+                <td><button onClick={handleAddInit} className="add-button">+</button></td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     );
   };
 
@@ -312,9 +313,6 @@ export default function Admin() {
             </tr>
           ) : (
             <tr>
-              {Object.keys(initial_state).map((field) => (
-                <td key={field} />
-              ))}
               <td>
                 <button onClick={handleAddInit} className="add-button">
                   +
