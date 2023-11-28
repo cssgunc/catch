@@ -70,6 +70,7 @@
     font: Montserrat;
     width:100%;
     text-align: left;
+    font-size: larger;
 }
 
 .toy-buttons {
@@ -154,13 +155,13 @@
 }
 .plus-toy {
     position: absolute;
-    width: 20px;
-    height:20px;
+    width: 30px;
+    height:30px;
     bottom: 2%;
     right: 2%;
     border-radius: 100%;
     border: none;
-    background-color: rgba(243, 111, 57, 0.5);
+    background-color: rgb(243, 110, 57);
     display: flex;
     align-items: center;
 }
