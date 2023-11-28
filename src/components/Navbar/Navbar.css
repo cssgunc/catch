@@ -16,8 +16,8 @@
 .navbar-show {
     transform: translateY(0);
     transition: transform 0.3s ease-out;
-  }
-  
+}
+
 .navbar-hide {
     transform: translateY(-100%);
 }
@@ -64,20 +64,23 @@
 }
 
 @media (max-width: 992px) {
-    .toggle-button { /* Menu */
-      order: 1;
-      margin-right: 20px;
+    .toggle-button {
+        /* Menu */
+        order: 1;
+        margin-right: 20px;
     }
 
-    .brand-logo { /* Logo */
-      order: 2;
-      margin-left: 10px;
-      margin-right: auto;
+    .brand-logo {
+        /* Logo */
+        order: 2;
+        margin-left: 10px;
+        margin-right: auto;
     }
 
-    .adjust-right-nav { /* Shopping Cart */
-      order: 3;
-      margin-left: auto;
+    .adjust-right-nav {
+        /* Shopping Cart */
+        order: 3;
+        margin-left: auto;
     }
 }
 
@@ -93,9 +96,10 @@
     text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
 }
 
-.nav-link-active, .nav-link-active:focus {
+.nav-link-active,
+.nav-link-active:focus {
     font-weight: 800;
-    color: black;
+    color: White;
     text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
 }
 
@@ -117,7 +121,8 @@
     text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
 }
 
-.nav-link-alternate-active, .nav-link-alternate-active:focus {
+.nav-link-alternate-active,
+.nav-link-alternate-active:focus {
     font-weight: 800;
     color: white;
     text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
@@ -160,7 +165,7 @@
     left: 0;
     background-color: transparent;
     z-index: 10;
-    display:flex;
+    display: flex;
 }
 
 .disable-interaction {
@@ -174,48 +179,52 @@
     flex: 3;
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 .closebtn {
     display: none;
-  }
+}
 
 
-
-  @media screen and (max-width: 992px) {
+@media screen and (max-width: 992px) {
     .sidebar {
         position: fixed;
         top: 0;
-        left: -250px; /* Adjusted to the sidebar's actual width */
+        left: -250px;
+        /* Adjusted to the sidebar's actual width */
         height: 100vh;
-        width: 250px; /* Set this to your desired width */
-        background-color: #f1f1f1; /* Changed color */
+        width: 250px;
+        /* Set this to your desired width */
+        background-color: #f1f1f1;
+        /* Changed color */
         overflow-x: hidden;
         transition: 0.5s;
-      }
-      
-      .sidebar-open {
+    }
+
+    .sidebar-open {
         left: 0;
-      }
-      
-      .sidebar a {
+    }
+
+    .sidebar a {
         padding: 15px;
         text-decoration: none;
         font-size: 25px;
         color: #818181;
         display: block;
-      }
-      
-      .closebtn {
+    }
+
+    .closebtn {
         position: absolute;
         top: 0;
         right: 25px;
         font-size: 36px;
         margin-left: 50px;
         border: 0;
-        color: #818181; /* You can adjust the color */
+        color: #818181;
+        /* You can adjust the color */
         display: block;
-      }
+    }
 }
 
 .close-cart {
@@ -225,7 +234,27 @@
 
 .cart-items {
     overflow: scroll;
-    flex:20;
+    flex: 20;
+    width: 30vw;
+    height: 30;
+}
+
+/* For tablets */
+@media only screen and (max-width: 768px) {
+    .cart-items {
+        overflow: scroll;
+        flex: 20;
+        width: 85vw;
+    }
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 480px) {
+    .cart-items {
+        overflow: scroll;
+        flex: 20;
+        width: 85vw;
+    }
 }
 
 .checkout-container {
@@ -233,13 +262,14 @@
 }
 
 .cart-item-container {
-    height: 25%;
+    height: 35%;
     border-bottom: solid;
     width: 100%;
     margin: 0;
     padding: 0;
     display: flex;
 }
+
 .colbreak {
     flex: 1;
 }
@@ -254,10 +284,10 @@
 }
 
 .item-details {
-    min-height:75%;
-    max-height:75%;
-    min-width:50%;
-    max-width:50%;
+    min-height: 75%;
+    max-height: 75%;
+    min-width: 50%;
+    max-width: 50%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -272,14 +302,14 @@
 .item-title {
     font: Montserrat;
     font-weight: bold;
-    width:100%;
+    width: 100%;
     text-align: left;
     font-size: medium;
 }
 
 .item-description {
     font: Montserrat;
-    width:100%;
+    width: 100%;
     text-align: left;
     font-size: small;
 }
@@ -296,7 +326,7 @@
 .rowbreak {
     flex: 20;
 }
- 
+
 .checkout {
     width: 80%;
     border-radius: 10px;
@@ -307,7 +337,10 @@
     border: none;
 }
 
-.collapsed-menu-icon {
+#collapsed-menu-icon {
     order: 1;
-    margin-right: 10px; /* Add some margin between the icon and logo */
-  }
+    margin-right: 10px;
+    /* Add some margin between the icon and logo */
+    border: none;
+    padding: 1px;
+}

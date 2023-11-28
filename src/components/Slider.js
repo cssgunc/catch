@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SlideImage, StyledSlider } from "./SlideImage";
+import { SlideImage, StyledSlider, StyledButton } from "./SlideImage";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 
 const Slider = ({ slides }) => {
@@ -17,6 +17,7 @@ const Slider = ({ slides }) => {
   return (
     <StyledSlider style={{ position: "relative", maxHeight: "80vh" }}>
       <FaChevronLeft className="leftArrow" onClick={prevSlide} />
+
       {slides.map((slide, index) => {
         return (
           <div key={index}>
@@ -24,7 +25,8 @@ const Slider = ({ slides }) => {
           </div>
         );
       })}
-      <FaChevronRight className="rightArrow" onClick={nextSlide} />
+      <StyledButton onClick={nextSlide}><FaChevronRight className="rightArrow" /></StyledButton>
+      
     </StyledSlider>
   );
 };
