@@ -20,7 +20,9 @@
 }
 
 .home-page-navbar {
-    background-color: #F0554D;
+    background-color: #2EA397;
+    border-bottom: red;
+    border-width: thick;
 }
 
 .nav-brand,
