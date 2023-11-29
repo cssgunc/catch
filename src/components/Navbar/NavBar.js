@@ -189,20 +189,6 @@ export default function NavBar() {
     return path === activeTab ? "mx-3 nav-link-active" : "mx-3 nav-link";
   };
 
-
-  const handleClick = (path) => {
-    setActiveTab(path);
-    setSidebarOpen(false); // Close the sidebar
-  };
-  const getClassName = (path) => {
-    if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage') {
-      return path === activeTab ? "mx-3 nav-link-alternate-active" : "mx-3 nav-link-alternate";
-    }
-    else {
-      return path === activeTab ? "mx-3 nav-link-active" : "mx-3 nav-link";
-    }
-  };
-
   useEffect(() => {
     const storedActiveTab = localStorage.getItem('activeTab');
     if (storedActiveTab) {

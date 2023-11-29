@@ -1,68 +1,141 @@
-import React from 'react';
-import { useState } from 'react';
+import React from "react";
+import { useState } from "react";
 //import { getAuth } from 'firebase/auth';
-import { db } from '../firebase-config.js';
-import { collection } from 'firebase/firestore';
-import ExitImg from '../images/General/exitDoor.png';
+import { db } from "../firebase-config.js";
+import { collection } from "firebase/firestore";
+import ExitImg from "../images/General/exitDoor.png";
 
-import './Admin.css';
-import { FaChevronCircleDown } from 'react-icons/fa';
+import "./Admin.css";
+import { FaChevronCircleDown } from "react-icons/fa";
 
 export default function Admin() {
   //const currUserName = getAuth().currentUser.displayName;
   const currUserName = "John Doe";
   const [currTab, setCurrTab] = useState("Executives");
 
-  const execRef = collection(db, 'Executives');
+  const execRef = collection(db, "Executives");
 
   const [execData, setExecData] = useState([
-    { id: 1, name: 'Jane Doe', position: 'President', image: 'https://example.com/johndoe.jpg' },
-    { id: 2, name: 'John Doe', position: 'Vice President', image: 'https://example.com/janedoe.jpg' },
+    {
+      id: 1,
+      name: "Jane Doe",
+      position: "President",
+      image: "https://example.com/johndoe.jpg",
+    },
+    {
+      id: 2,
+      name: "John Doe",
+      position: "Vice President",
+      image: "https://example.com/janedoe.jpg",
+    },
   ]);
   const [slideshowData, setSlideshowData] = useState([
-    { id: 1, imageId: '8437132145', altText: 'Building a Dinosaur!' },
-    { id: 2, imageId: '1834972562', altText: 'Group Photo' },
+    { id: 1, imageId: "8437132145", altText: "Building a Dinosaur!" },
+    { id: 2, imageId: "1834972562", altText: "Group Photo" },
   ]);
-  const [recentEvents, setRecentEvents] = useState(['Name of Event 1', 'Name of Event 2', 'Name of Event 3', 'Name of Event 4']);
+  const [recentEvents, setRecentEvents] = useState([
+    "Name of Event 1",
+    "Name of Event 2",
+    "Name of Event 3",
+    "Name of Event 4",
+  ]);
   const [selectedEvent, setSelectedEvent] = useState(recentEvents[0]);
   const [recentEventsData, setRecentEventsData] = useState({
-    'Name of Event 1': [
-      { id: 1, imageId: 'event1_image1' },
-      { id: 2, imageId: 'event1_image2' },
+    "Name of Event 1": [
+      { id: 1, imageId: "event1_image1" },
+      { id: 2, imageId: "event1_image2" },
     ],
-    'Name of Event 2': [
-      { id: 1, imageId: 'event2_image1' },
-      { id: 2, imageId: 'event2_image2' },
+    "Name of Event 2": [
+      { id: 1, imageId: "event2_image1" },
+      { id: 2, imageId: "event2_image2" },
     ],
-    'Name of Event 3': [
-      { id: 1, imageId: 'event3_image1' },
-      { id: 2, imageId: 'event3_image2' },
+    "Name of Event 3": [
+      { id: 1, imageId: "event3_image1" },
+      { id: 2, imageId: "event3_image2" },
     ],
-    'Name of Event 4': [
-      { id: 1, imageId: 'event4_image1' },
-      { id: 2, imageId: 'event4_image2' },
+    "Name of Event 4": [
+      { id: 1, imageId: "event4_image1" },
+      { id: 2, imageId: "event4_image2" },
     ],
   });
   const handleEventChange = (event) => {
     setSelectedEvent(event);
   };
   const [recentToysData, setRecentToysData] = useState([
-    { id: 1, description: 'temp airplane description', name: 'Airplane', imageId: 'airplane', altText: 'Modified Airplane Toy', buildUrl: 'https://docs.google.com/presentation/d/1sG6zYR71rNoACMY5j51roubwaqilKjNm_EgJfxFn7VU/edit#slide=id.p' },
-    { id: 2, description: 'temp bus description', name: 'School Bus', imageId: 'bus', altText: 'Modified Bus Toy', buildUrl: 'bus URL' },
+    {
+      id: 1,
+      description: "temp airplane description",
+      name: "Airplane",
+      imageId: "airplane",
+      altText: "Modified Airplane Toy",
+      buildUrl:
+        "https://docs.google.com/presentation/d/1sG6zYR71rNoACMY5j51roubwaqilKjNm_EgJfxFn7VU/edit#slide=id.p",
+    },
+    {
+      id: 2,
+      description: "temp bus description",
+      name: "School Bus",
+      imageId: "bus",
+      altText: "Modified Bus Toy",
+      buildUrl: "bus URL",
+    },
   ]);
   const [oldToysData, setOldToysData] = useState([
-    { id: 1, description: 'temp alien description', name: 'Alien', imageId: 'alien', altText: 'Modified Alien Toy', buildUrl: 'alien URL' },
-    { id: 2, description: 'temp dog description', name: 'Dog', imageId: 'dog', altText: 'Modified Dog Toy', buildUrl: 'dog URL' },
+    {
+      id: 1,
+      description: "temp alien description",
+      name: "Alien",
+      imageId: "alien",
+      altText: "Modified Alien Toy",
+      buildUrl: "alien URL",
+    },
+    {
+      id: 2,
+      description: "temp dog description",
+      name: "Dog",
+      imageId: "dog",
+      altText: "Modified Dog Toy",
+      buildUrl: "dog URL",
+    },
   ]);
   const [donationsData, setDonationsData] = useState([
-    { id: 1, imageId: 'org6image', altText: 'aversboro alt text', organization: 'Aversboro Elementary School', totalDonations: 10, donationNumber: 1, description: 'aversboro description' },
-    { id: 2, imageId: 'org3image', altText: 'levine alt text', organization: "Levine Children's Hospital", totalDonations: 32, donationNumber: 2, description: 'levine description' },
+    {
+      id: 1,
+      imageId: "org6image",
+      altText: "aversboro alt text",
+      organization: "Aversboro Elementary School",
+      totalDonations: 10,
+      donationNumber: 1,
+      description: "aversboro description",
+    },
+    {
+      id: 2,
+      imageId: "org3image",
+      altText: "levine alt text",
+      organization: "Levine Children's Hospital",
+      totalDonations: 32,
+      donationNumber: 2,
+      description: "levine description",
+    },
   ]);
   const [mediaData, setMediaData] = useState([
-    { id: 1, imageId: 'image id 1', altText: 'alt text 1', header: 'header 1', description: 'description 1', articleUrl: 'article URL 1' },
-    { id: 2, imageId: 'image id 2', altText: 'alt text 2', header: 'header 2', description: 'description 2', articleUrl: 'article URL 2' },
+    {
+      id: 1,
+      imageId: "image id 1",
+      altText: "alt text 1",
+      header: "header 1",
+      description: "description 1",
+      articleUrl: "article URL 1",
+    },
+    {
+      id: 2,
+      imageId: "image id 2",
+      altText: "alt text 2",
+      header: "header 2",
+      description: "description 2",
+      articleUrl: "article URL 2",
+    },
   ]);
-
 
   function logout() {
     console.log("This is where I would put a logout method if I had one");
@@ -70,21 +143,20 @@ export default function Admin() {
 
   function change_tab(tab) {
     setCurrTab(tab);
-    setDropdownOpen(false)
+    setDropdownOpen(false);
   }
 
   function Tab({ tabName }) {
     if (tabName === currTab) {
-      return (
-        <div className="menu-button-current">{tabName}</div>
-      );
+      return <div className="menu-button-current">{tabName}</div>;
     } else {
       return (
-        <div className="menu-button" onClick={() => change_tab(tabName)}>{tabName}</div>
-      )
+        <div className="menu-button" onClick={() => change_tab(tabName)}>
+          {tabName}
+        </div>
+      );
     }
   }
-
 
   const handleEdit = (index, data, setEditIndex, setEditedData) => {
     setEditIndex(index);
@@ -108,11 +180,11 @@ export default function Admin() {
     const newData = [...data, editedData];
     setData(newData);
     setEditIndex(null);
-  }
+  };
 
   const handleCancel = (setEditIndex) => {
     setEditIndex(null);
-  }
+  };
 
   const handleInputChange = (field, value, setEditedData) => {
     setEditedData((prevData) => ({ ...prevData, [field]: value }));
@@ -122,7 +194,7 @@ export default function Admin() {
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
-  }
+  };
 
   function Table(props) {
     const initial_state = props.initial_state;
@@ -135,9 +207,9 @@ export default function Admin() {
     const init_keys = Object.keys(initial_state);
 
     const handleAddInit = () => {
-      setEditIndex('plus');
+      setEditIndex("plus");
       setEditedData(initial_state);
-    }
+    };
 
     const handleChange = (field, value) => {
       console.log(field);
@@ -150,7 +222,9 @@ export default function Admin() {
         <table className="view-table">
           <thead>
             <tr>
-              {headers.map(header => <th key={header}>{header}</th>)}
+              {headers.map((header) => (
+                <th key={header}>{header}</th>
+              ))}
               <th />
             </tr>
           </thead>
@@ -158,45 +232,107 @@ export default function Admin() {
             {data.map((row, index) => (
               <tr key={row.id}>
                 {init_keys.map((field) => (
-                  <td key={field} className="wrap-cell">{editIndex === index ? <input type="text" value={editedData[field]} onChange={(e) => handleChange(field, e.target.value)} /> : row[field]}</td>
+                  <td key={field} className="wrap-cell">
+                    {editIndex === index ? (
+                      <input
+                        type="text"
+                        value={editedData[field]}
+                        onChange={(e) => handleChange(field, e.target.value)}
+                      />
+                    ) : (
+                      row[field]
+                    )}
+                  </td>
                 ))}
                 <td>
                   {editIndex === index ? (
                     <>
-                      <button onClick={() => handleSave(index, data, editedData, setData, setEditIndex)} className="view-button">Save</button>
-                      <button onClick={() => handleCancel(setEditIndex)} className="view-button">Cancel</button>
+                      <button
+                        onClick={() =>
+                          handleSave(
+                            index,
+                            data,
+                            editedData,
+                            setData,
+                            setEditIndex
+                          )
+                        }
+                        className="view-button"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={() => handleCancel(setEditIndex)}
+                        className="view-button"
+                      >
+                        Cancel
+                      </button>
                     </>
                   ) : (
                     <>
-                      <button onClick={() => handleEdit(index, data, setEditIndex, setEditedData)} className="view-button">Edit</button>
-                      <button onClick={() => handleDelete(index, data, setData)} className="view-button">Delete</button>
+                      <button
+                        onClick={() =>
+                          handleEdit(index, data, setEditIndex, setEditedData)
+                        }
+                        className="view-button"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(index, data, setData)}
+                        className="view-button"
+                      >
+                        Delete
+                      </button>
                     </>
                   )}
                 </td>
               </tr>
             ))}
-            {editIndex === 'plus' ? (
+            {editIndex === "plus" ? (
               <tr>
                 {init_keys.map((field) => (
-                  <td key={field}><input type="text" value={editedData[field]} onChange={(e) => handleChange(field, e.target.value)} /></td>
+                  <td key={field}>
+                    <input
+                      type="text"
+                      value={editedData[field]}
+                      onChange={(e) => handleChange(field, e.target.value)}
+                    />
+                  </td>
                 ))}
                 <td>
                   <>
-                    <button onClick={() => handleAdd(data, editedData, setData, setEditIndex)} className="view-button">Add</button>
-                    <button onClick={() => handleCancel(setEditIndex)} className="view-button">Cancel</button>
+                    <button
+                      onClick={() =>
+                        handleAdd(data, editedData, setData, setEditIndex)
+                      }
+                      className="view-button"
+                    >
+                      Add
+                    </button>
+                    <button
+                      onClick={() => handleCancel(setEditIndex)}
+                      className="view-button"
+                    >
+                      Cancel
+                    </button>
                   </>
                 </td>
               </tr>
             ) : (
               <tr>
-                <td><button onClick={handleAddInit} className="add-button">+</button></td>
+                <td>
+                  <button onClick={handleAddInit} className="add-button">
+                    +
+                  </button>
+                </td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
     );
-  };
+  }
 
   function TableRecentEvents({
     initial_state,
@@ -211,7 +347,7 @@ export default function Admin() {
     const [editedData, setEditedDataLocal] = useState(initial_state);
 
     const handleAddInit = () => {
-      setEditIndexLocal('plus');
+      setEditIndexLocal("plus");
       setEditedDataLocal(initial_state);
     };
 
@@ -276,7 +412,10 @@ export default function Admin() {
               <td>
                 {editIndex === index ? (
                   <>
-                    <button onClick={() => handleSave(index)} className="view-button">
+                    <button
+                      onClick={() => handleSave(index)}
+                      className="view-button"
+                    >
                       Save
                     </button>
                     <button onClick={handleCancel} className="view-button">
@@ -285,10 +424,16 @@ export default function Admin() {
                   </>
                 ) : (
                   <>
-                    <button onClick={() => handleEdit(index)} className="view-button">
+                    <button
+                      onClick={() => handleEdit(index)}
+                      className="view-button"
+                    >
                       Edit
                     </button>
-                    <button onClick={() => handleDelete(index)} className="view-button">
+                    <button
+                      onClick={() => handleDelete(index)}
+                      className="view-button"
+                    >
                       Delete
                     </button>
                   </>
@@ -296,7 +441,7 @@ export default function Admin() {
               </td>
             </tr>
           ))}
-          {editIndex === 'plus' ? (
+          {editIndex === "plus" ? (
             <tr>
               {Object.keys(initial_state).map((field) => (
                 <td key={field}>
@@ -332,22 +477,21 @@ export default function Admin() {
     );
   }
 
-
   function RightView() {
     const initializeVals = (obj) => {
       let newObj = { ...obj };
       delete newObj.id;
       for (const field of Object.keys(newObj)) {
-        if ((typeof obj[field]) === "string") {
-          newObj[field] = '';
-        } else if ((typeof obj[field]) === "number") {
+        if (typeof obj[field] === "string") {
+          newObj[field] = "";
+        } else if (typeof obj[field] === "number") {
           newObj[field] = 0;
         } else {
           newObj[field] = null;
         }
       }
       return newObj;
-    }
+    };
 
     const [editIndex, setEditIndex] = useState(null);
     const [editedData, setEditedData] = useState(initializeVals({}));
@@ -356,19 +500,29 @@ export default function Admin() {
       case "Executives":
         const execInit = initializeVals(execData[0]);
         console.log(execInit);
-        const execHeaders = ['Name', 'Position', 'Picture'];
+        const execHeaders = ["Name", "Position", "Picture"];
         return (
-          <Table initial_state={execInit} data={execData} setData={setExecData} headers={execHeaders} />
-        )
+          <Table
+            initial_state={execInit}
+            data={execData}
+            setData={setExecData}
+            headers={execHeaders}
+          />
+        );
       case "Main Slideshow":
         const slideInit = initializeVals(slideshowData[0]);
-        const slideHeaders = ['Image ID', 'Alternate Text'];
+        const slideHeaders = ["Image ID", "Alternate Text"];
         return (
-          <Table initial_state={slideInit} data={slideshowData} setData={setSlideshowData} headers={slideHeaders} />
-        )
+          <Table
+            initial_state={slideInit}
+            data={slideshowData}
+            setData={setSlideshowData}
+            headers={slideHeaders}
+          />
+        );
       case "Recent Events":
-        const recentEventsInit = initializeVals({ id: 1, imageId: '' });
-        const recentEventsHeaders = ['Image ID'];
+        const recentEventsInit = initializeVals({ id: 1, imageId: "" });
+        const recentEventsHeaders = ["Image ID"];
 
         return (
           <div>
@@ -401,33 +555,75 @@ export default function Admin() {
         );
       case "Recent Toys":
         const recentToysInit = initializeVals(recentToysData[0]);
-        const recentToysHeaders = ['Description', 'Name', 'Image ID', 'Alternate Text', 'Build URL'];
+        const recentToysHeaders = [
+          "Description",
+          "Name",
+          "Image ID",
+          "Alternate Text",
+          "Build URL",
+        ];
         return (
-          <Table initial_state={recentToysInit} data={recentToysData} setData={setRecentToysData} headers={recentToysHeaders} />
-        )
+          <Table
+            initial_state={recentToysInit}
+            data={recentToysData}
+            setData={setRecentToysData}
+            headers={recentToysHeaders}
+          />
+        );
       case "Old Toys":
         const oldToysInit = initializeVals(oldToysData[0]);
-        const oldToysHeaders = ['Description', 'Name', 'Image ID', 'Alternate Text', 'Build URL'];
+        const oldToysHeaders = [
+          "Description",
+          "Name",
+          "Image ID",
+          "Alternate Text",
+          "Build URL",
+        ];
         return (
-          <Table initial_state={oldToysInit} data={oldToysData} setData={setOldToysData} headers={oldToysHeaders} />
-        )
+          <Table
+            initial_state={oldToysInit}
+            data={oldToysData}
+            setData={setOldToysData}
+            headers={oldToysHeaders}
+          />
+        );
       case "Donations":
         const donationsInit = initializeVals(donationsData[0]);
-        const donationsHeaders = ['Image ID', 'Alternate Text', 'Organization', 'Total Donations', 'Number of Donations', 'Description'];
+        const donationsHeaders = [
+          "Image ID",
+          "Alternate Text",
+          "Organization",
+          "Total Donations",
+          "Number of Donations",
+          "Description",
+        ];
         return (
-          <Table initial_state={donationsInit} data={donationsData} setData={setDonationsData} headers={donationsHeaders} />
-        )
+          <Table
+            initial_state={donationsInit}
+            data={donationsData}
+            setData={setDonationsData}
+            headers={donationsHeaders}
+          />
+        );
       case "Media":
         const mediaInit = initializeVals(mediaData[0]);
-        const mediaHeaders = ['Image ID', 'Alternate Text', 'Header', 'Description', 'Article URL'];
+        const mediaHeaders = [
+          "Image ID",
+          "Alternate Text",
+          "Header",
+          "Description",
+          "Article URL",
+        ];
         return (
-          <Table initial_state={mediaInit} data={mediaData} setData={setMediaData} headers={mediaHeaders} />
-        )
+          <Table
+            initial_state={mediaInit}
+            data={mediaData}
+            setData={setMediaData}
+            headers={mediaHeaders}
+          />
+        );
       default:
-        return (
-          <p>Valid Tab Name not found</p>
-        )
-
+        return <p>Valid Tab Name not found</p>;
     }
   }
 
@@ -445,8 +641,10 @@ export default function Admin() {
 
       <div className="mobile-tabs">
         <div className="title">Dashboard</div>
-        <button className="dropdown-button" onClick={toggleDropdown}>{currTab} <FaChevronCircleDown></FaChevronCircleDown> </button>
-        {isDropdownOpen &&
+        <button className="dropdown-button" onClick={toggleDropdown}>
+          {currTab} <FaChevronCircleDown></FaChevronCircleDown>{" "}
+        </button>
+        {isDropdownOpen && (
           <div>
             <Tab tabName="Executives" />
             <Tab tabName="Main Slideshow" />
@@ -455,7 +653,8 @@ export default function Admin() {
             <Tab tabName="Old Toys" />
             <Tab tabName="Donations" />
             <Tab tabName="Media" />
-          </div>}
+          </div>
+        )}
       </div>
       <div className="body">
         <div className="left-body">
@@ -473,7 +672,5 @@ export default function Admin() {
         </div>
       </div>
     </div>
-  )
-
-
-export default Admin;
+  );
+}
