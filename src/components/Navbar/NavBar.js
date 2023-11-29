@@ -11,6 +11,7 @@ import Donations from '../../pages/Donations';
 import MediaCoverage from '../../pages/MediaCoverage';
 import Admin from '../../pages/Admin';
 import Contact from '../../pages/Contact';
+import Login from '../../pages/Login';
 import ShoppingCart from './ShoppingCart';
 import { recentToys } from '../toyInfo';
 import formatAndFetchString from '../../helper-functions/lowercase-and-remove-non-alph';
@@ -275,8 +276,9 @@ export default function NavBar() {
             <Route path="/donations" element={<Donations />} />
             <Route path="/mediacoverage" element={<MediaCoverage />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/admin" element={<Admin />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </div>
       </Router>
