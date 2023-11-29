@@ -217,11 +217,11 @@
 }
 
 /* For tablets */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 980px) {
     .cart-items {
         overflow: scroll;
         flex: 20;
-        width: 85vw;
+        width: 65vw;
     }
 }
 
