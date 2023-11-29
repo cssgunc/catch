@@ -13,6 +13,7 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import { db } from '../firebase-config'
 import { collection, getDocs } from '@firebase/firestore'; // importing Firestore functions
+import { donationsInfoTemp } from '../components/donationInfo.js';
 
 import "./Donations.css";
 
@@ -34,6 +35,7 @@ function DonationBoxDesktop(props) {
         className="text-box"
         style={{
           paddingLeft: "3%",
+          paddingRight: "3%",
         }}
       >
         <h3>
@@ -131,26 +133,48 @@ function DonationBoxMobile(props) {
 // }
 
 function DonationDisplay (props) {
-  const donationsInfo = [
-    { imagePath: org1Image, organization: 'Carolina Institute for Developmental Disabilities', total: 20, donations: 2, description: "The Carolina Institute for Developmental Disabilities is a comprehensive program for services, research, and training relevant to individuals with developmental disabilities and their families. The Carolina Institute provides a continuum of clinical services from complex, interdisciplinary evaluations on-site to more limited and selected clinical services and training in all 100 counties in North Carolina. The Institute brings together state-of-the-art research and clinical practice to ensure the best possible care for citizens of North Carolina." },
-    { imagePath: org2Image, organization: 'UNC Center for Rehabilitative Care', total: 14, donations: 2, description: 'The mission of the UNC Inpatient Rehabilitation Center is to improve, restore and maintain functional abilities and maximize quality of life in patients with disabilities; educate health care professionals in rehabilitation care and services; and advance rehabilitation research. Rehabilitative care provides persons served with the skills and support necessary to function in an environment with as much independence and choice and as little supervision and restriction as possible. The totality of this care spans the rehabilitation continuum to optimize the functionality and quality of life and prevent and or treat conditions of physically disabled persons.' },
-    { imagePath: org3Image, organization: "Levine Children's Hospital", total: 16, donations: 2, description: '' },
-    { imagePath: org4Image, organization: 'Novant Health', total: 10, donations: 1, description: '' },
-    { imagePath: org5Image, organization: 'Barton Pond Elementary School', total: 10, donations: 1, description: '' },
-    { imagePath: org6Image, organization: 'Aversboro Elementary School', total: 10, donations: 1, description: '' }
-  ]
+  // const [donationsInfo, setDonationsInfo] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchDonations = async () => {
+  //     const donationData = await getDonationInfo();
+  //     setDonationsInfo(donationData);
+  //   };
+
+  //   fetchDonations();
+  // }, []);
+
+  // const donationsInfoTemp = [
+  //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: 'Carolina Institute for Developmental Disabilities', total: 20, donations: 2, description: "The Carolina Institute for Developmental Disabilities is a comprehensive program for services, research, and training relevant to individuals with developmental disabilities and their families. The Carolina Institute provides a continuum of clinical services from complex, interdisciplinary evaluations on-site to more limited and selected clinical services and training in all 100 counties in North Carolina. The Institute brings together state-of-the-art research and clinical practice to ensure the best possible care for citizens of North Carolina." },
+  //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: 'UNC Center for Rehabilitative Care', total: 14, donations: 2, description: 'The mission of the UNC Inpatient Rehabilitation Center is to improve, restore and maintain functional abilities and maximize quality of life in patients with disabilities; educate health care professionals in rehabilitation care and services; and advance rehabilitation research. Rehabilitative care provides persons served with the skills and support necessary to function in an environment with as much independence and choice and as little supervision and restriction as possible. The totality of this care spans the rehabilitation continuum to optimize the functionality and quality of life and prevent and or treat conditions of physically disabled persons.' },
+  //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: "Levine Children's Hospital", total: 16, donations: 2, description: '' },
+  //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: 'Novant Health', total: 10, donations: 1, description: '' },
+  //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: 'Barton Pond Elementary School', total: 10, donations: 1, description: '' },
+  //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: 'Aversboro Elementary School', total: 10, donations: 1, description: '' }
+  // ]
+
+  const [donationsInfo, setDonationsInfo] = useState([]);
+  donationsInfoTemp.then((data) => {
+    setDonationsInfo(data)
+  });
 
   return (
     <Slide>
-      {donationsInfo.map((donation) => (
-        <DonationBox
-          imagePath={donation.imagePath}
-          organization={donation.organization}
-          total={donation.total}
-          donations={donation.donations}
-          description={donation.description}
-        />
-      ))}
+      {donationsInfo.length > 0 ? (
+        donationsInfo.map((donation) => (
+          <DonationBox
+            key={donation.imagePath}
+            organization={donation.organization}
+            total={donation.total}
+            donations={donation.donations}
+            description={donation.description}
+            imagePath={`https://drive.google.com/uc?export=view&id=${donation.imagePath}`}
+          />
+        ))
+      ) : (
+        // Loading indicator
+        <p>Loading...</p>
+      )}
     </Slide>
   );
 }
