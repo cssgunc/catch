@@ -6,11 +6,14 @@ import { GrClose } from 'react-icons/gr'
 import Home from '../../pages/Home';
 import About from '../../pages/About';
 import Toys from '../../pages/Toys';
+import Checkout from '../../pages/Checkout';
 import Donations from '../../pages/Donations';
 import MediaCoverage from '../../pages/MediaCoverage';
 import Admin from '../../pages/Admin';
+import Contact from '../../pages/Contact';
 import ShoppingCart from './ShoppingCart';
 import { recentToys } from '../toyInfo';
+import formatAndFetchString from '../../helper-functions/lowercase-and-remove-non-alph';
 
 import { db } from '../../firebase-config'; // Fixing the import path
 import { addDoc, collection, getDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore'; // importing Firestore functions
@@ -48,8 +51,6 @@ function CartItem(props) {
     setQuantity(0);
     props.setOrder(tempOrder);
   };
-
-
 
   return (
     <>
@@ -120,8 +121,9 @@ function ShoppingCartPanel(props) {
       // Update the ordered field for each toy in the "toys" collection
       const toyNames = Object.keys(orderFormat)
       for (let i = 0; i < toyNames.length; i++) {
-        const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
-        const toyRef = doc(db, "toys", toyName);
+        // const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
+        // const toyRef = doc(db, "toys", toyName);
+        const toyRef = formatAndFetchString(toyNames[i]);
 
         const element = await getDoc(toyRef)
         const toyData = { ...element.data() }
@@ -156,7 +158,8 @@ function ShoppingCartPanel(props) {
           ))}
         </div>
         <div className='checkout-container' style={{ flex: 2, display: "flex", justifyContent: "center" }}>
-          <button className='checkout' onClick={() => placeOrder(props.order)}>Checkout</button>
+        <button className='checkout' onClick={() => placeOrder(props.order)}>Checkout</button>
+
         </div>
       </div>
     </div>
@@ -165,7 +168,7 @@ function ShoppingCartPanel(props) {
 }
 
 export default function NavBar() {
-  const [activeTab, setActiveTab] = useState('');
+  const [activeTab, setActiveTab] = useState(window.location.pathname);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const [shoppingCartActive, setShoppingCartActive] = useState(false);
@@ -176,6 +179,14 @@ export default function NavBar() {
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleClick = (path) => {
+    setActiveTab(path);
+    setSidebarOpen(false); // Close the sidebar
+  };
+  const getClassName = (path) => {
+    return path === activeTab ? "mx-3 nav-link-active" : "mx-3 nav-link";
   };
 
 
@@ -239,11 +250,11 @@ export default function NavBar() {
       <Router>
         { window.location.pathname !== '/admin' &&
         <Container fluid className="nav-container">
-          <Navbar className={`bg-transparent navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Navbar className={` navbar ${visible ? 'navbar-show' : 'navbar-hide'} ${activeTab === '/' ? 'home-page-navbar' : ''}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
 
-            <Navbar.Brand className={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage' ? "nav-brand-alternate" : "nav-brand"} style={{ marginLeft: '20px' }}>
+            <Navbar.Brand className="nav-brand" style={{ marginLeft: '20px' }}>
               {/* new navbar */}
-              <Navbar.Toggle className="collapsed-menu-icon" class="toggle-button" aria-controls="basic-navbar-nav" onClick={(e) => { e.stopPropagation(); toggleSidebar(); }} />
+              <Navbar.Toggle id="collapsed-menu-icon" className="toggle-button" aria-controls="basic-navbar-nav" onClick={(e) => { e.stopPropagation(); toggleSidebar(); }} />
 
               <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
             </Navbar.Brand>
@@ -255,14 +266,14 @@ export default function NavBar() {
                 <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
                 <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
                 <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
-                <Nav.Link className={getClassName("/mediacoverage")} as={Link} to={"/mediacoverage"} onClick={() => handleClick('/mediacoverage')}>Media Coverage</Nav.Link>
-              </Nav>
-            </div>
+
+                <Nav.Link className={getClassName("/contact")} as={Link} to={"/contact"} onClick={() => handleClick('/contact')}>Contact</Nav.Link>
+                </Nav>
+              </div>
 
             <Nav className="ml-auto justify-content-end adjust-right-nav">
               <button onClick={() => openShoppingCart()} className="shopping-button">
                 <ShoppingCart
-                  alternate={activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage' ? true : false}
                   quantity={total}
                 />
               </button>
@@ -277,7 +288,9 @@ export default function NavBar() {
             <Route path="/toys" element={<Toys order={order} setOrder={changeOrder} />} />
             <Route path="/donations" element={<Donations />} />
             <Route path="/mediacoverage" element={<MediaCoverage />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
       </Router>

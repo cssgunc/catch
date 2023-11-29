@@ -474,4 +474,6 @@ export default function Admin() {
       </div>
     </div>
   )
-}
+
+
+export default Admin;

@@ -10,7 +10,7 @@ export default function ShoppingCart(props) {
     
     return (
         <>
-            <FaShoppingCart style={{backgroundColor:"transparent"}} className='shopping-cart' color={props.alternate ? 'white' : 'black'} size={25}/>
+            <FaShoppingCart style={{backgroundColor:"transparent"}} className='shopping-cart' color='white' size={25}/>
             {props.quantity === 0 ? <></>:
                 <Badge pill bg="primary" 
                 style={badgeStyle}>

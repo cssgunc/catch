@@ -4,13 +4,7 @@ import './About.css';
 //import bannerImage from '../images/About/banner.jpg';
 import bannerImage from '../images/About/about_banner_color.jpeg';
 import Banner from '../components/Banner';
-import presPic from '../images/About/thumbnail_image001[92].png';
-import vicepresPic from '../images/About/IMG_0557.jpg';
-import treasurerPic from '../images/About/thumbnail_image2.jpg';
-import secretaryPic from '../images/About/thumbnail_image1.jpg';
-import cqoPic from '../images/About/thumbnail_IMG_0796.jpg';
-import ctoPic from '../images/About/IMG_5285.jpg';
-import prchairPic from '../images/About/Katie_s Headshot.jpg';
+import  { execInfo } from "../components/execInfo";
 import './About.css';
 
 function ExecTile({ imagePath, name, position }) {
@@ -29,19 +23,7 @@ function ExecTile({ imagePath, name, position }) {
   );
 }
 
-
-
 function ExecGrid() {
-  const execInfo = [
-    { image: presPic, name: 'Darci', position: 'President' },
-    { image: vicepresPic, name: 'Bryce', position: 'Vice President' },
-    { image: treasurerPic, name: 'Rohan', position: 'Treasurer' },
-    { image: secretaryPic, name: 'Chris', position: 'Secretary' },
-    { image: cqoPic, name: 'Jun', position: 'Chief Quality Officer' },
-    { image: ctoPic, name: 'Jacob', position: 'Chief Technical Officer' },
-    { image: prchairPic, name: 'Katie', position: 'PR Chair' }
-  ]
-
   return (
     <>
       {execInfo.map((execMember) => (
