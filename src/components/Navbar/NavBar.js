@@ -52,7 +52,6 @@ function CartItem(props) {
     props.setOrder(tempOrder);
   };
 
-
   return (
     <>
       {(quantity !== 0) &&
@@ -158,8 +157,9 @@ function ShoppingCartPanel(props) {
             />
           ))}
         </div>
-        <div className='checkout-container' style={{flex: 2, display:"flex", justifyContent:"center"}}>
-        <button className='checkout'  onClick={() => placeOrder(props.order)}>Checkout</button>
+        <div className='checkout-container' style={{ flex: 2, display: "flex", justifyContent: "center" }}>
+        <button className='checkout' onClick={() => placeOrder(props.order)}>Checkout</button>
+
         </div>
       </div>
     </div>
@@ -187,6 +187,20 @@ export default function NavBar() {
   };
   const getClassName = (path) => {
     return path === activeTab ? "mx-3 nav-link-active" : "mx-3 nav-link";
+  };
+
+
+  const handleClick = (path) => {
+    setActiveTab(path);
+    setSidebarOpen(false); // Close the sidebar
+  };
+  const getClassName = (path) => {
+    if (activeTab === '/about' || activeTab === '/toys' || activeTab === '/donations' || activeTab === '/mediacoverage') {
+      return path === activeTab ? "mx-3 nav-link-alternate-active" : "mx-3 nav-link-alternate";
+    }
+    else {
+      return path === activeTab ? "mx-3 nav-link-active" : "mx-3 nav-link";
+    }
   };
 
   useEffect(() => {
@@ -234,6 +248,7 @@ export default function NavBar() {
   return (
     <>
       <Router>
+        { window.location.pathname !== '/admin' &&
         <Container fluid className="nav-container">
           <Navbar className={` navbar ${visible ? 'navbar-show' : 'navbar-hide'} ${activeTab === '/' ? 'home-page-navbar' : ''}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
 
@@ -251,9 +266,8 @@ export default function NavBar() {
                 <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
                 <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
                 <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
-                <Nav.Link className={getClassName("/mediacoverage")} as={Link} to={"/mediacoverage"} onClick={() => handleClick('/mediacoverage')}>Media Coverage</Nav.Link>
+
                 <Nav.Link className={getClassName("/contact")} as={Link} to={"/contact"} onClick={() => handleClick('/contact')}>Contact</Nav.Link>
-                <Nav.Link className={getClassName("/admin")} as={Link} to={"/admin"}>Admin Login</Nav.Link>
                 </Nav>
               </div>
 
@@ -266,6 +280,7 @@ export default function NavBar() {
             </Nav>
           </Navbar>
         </Container>
+        }
         <div>
           <Routes>
             <Route path="/" element={<Home />} />
