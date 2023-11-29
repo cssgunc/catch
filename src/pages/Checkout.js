@@ -1,6 +1,6 @@
 // !!! There is some code for checkout that was written in navbar JS that is copied at the bottom of this file and commented out
 // in case backend people want to repurpose it for this new page dedicated to placing an order
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row, Container, Button, Form, Card } from 'react-bootstrap';
 
 import imageSrcTest from '../images/logo.png' // Adjust the path as needed
@@ -10,22 +10,29 @@ import { FaTrashAlt } from "react-icons/fa";
 
 
 export default function Checkout() {
-  console.log("checkout page loaded!");
-  var cartItems = [
-    { id: 1, name: 'Item 1', quantity: 2, imageSrc: imageSrcTest, description: 'Description for Item 1' },
-    { id: 2, name: 'Item 2', quantity: 1, imageSrc: imageSrcTest, description: 'Description for Item 2' },
-  ];
-  try {
-    const storedJsonString = localStorage.getItem('cartObject');
-    if (storedJsonString) {
-      const storedObject = JSON.parse(storedJsonString);
-      // Do something with the retrieved object, such as updating state
-      console.log(storedObject);
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    try {
+      const storedJsonString = localStorage.getItem('cartObject');
+      if (storedJsonString) {
+        const storedObject = JSON.parse(storedJsonString);
+        let idCounter = 1;
+        const newCartItems = storedObject.map(item => ({
+          id: idCounter++,
+          name: item.name,
+          quantity: item.quantity,
+          imageSrc: imageSrcTest,
+          description: `Description for ${item.name}`
+        }));
+        setCartItems(newCartItems);
+      }
+    } catch (error) {
+      console.error('Error retrieving data from local storage:', error);
+      // Handle the error appropriately (e.g., log it, notify the user, etc.)
     }
-  } catch (error) {
-    console.error('Error retrieving data from local storage:', error);
-    // Handle the error appropriately (e.g., log it, notify the user, etc.)
-  }
+  }, []); // Empty dependency array to run this effect only once on component mount
+
 
   return (
     <>
