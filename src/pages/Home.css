@@ -7,19 +7,19 @@ h2 {
 }
 
 .rightArrow {
-    font-size: 2rem;
-  }
-  
+  font-size: 2rem;
+}
+
 .leftArrow {
-    font-size: 2rem;
-  }
+  font-size: 2rem;
+}
 
 .carousel {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 .carouselItem {
@@ -28,6 +28,8 @@ h2 {
 
 .carouselItemWide {
   width: 45%;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
 }
 
 .landing {
@@ -41,7 +43,7 @@ h2 {
 
 .tagline {
   width: 45%;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
@@ -74,7 +76,8 @@ button {
   border: none;
 }
 
-#introduction, #recent-events {
+#introduction,
+#recent-events {
   padding: 3rem 5rem 0 5rem;
   display: flex;
   flex-direction: column;
@@ -93,6 +96,61 @@ button {
   object-fit: cover;
 }
 
+.get-involved {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: auto;
+  background-color: #F36F38;
+  font-weight: 800;
+  color: black;
+  padding: 8rem 0 0;
+  margin: 5rem 0 0;
+}
+
+.get-involved button {
+  background-color: #D9D9D9;
+  width: 322px;
+  height: 67px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 50px;
+  padding-top: 5px;
+}
+
+.button-group {
+  padding-top: 40px;
+}
+
+.get-involved h3 {
+  padding-top: 10px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.button-container .button-group {
+  margin: 1em auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-container p {
+  margin-bottom: 5px;
+}
+
+.button-container button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 900px) {
   .landing {
     height: auto;
@@ -101,9 +159,12 @@ button {
     flex-direction: column-reverse;
   }
 
-  .landing, #introduction, #recent-events {
+  .landing,
+  #introduction,
+  #recent-events {
     padding: 3rem;
   }
+
   .landing svg {
     width: 12vw;
     height: 12vw;
