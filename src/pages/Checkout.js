@@ -1,4 +1,5 @@
-
+// !!! There is some code for checkout that was written in navbar JS that is copied at the bottom of this file and commented out
+// in case backend people want to repurpose it for this new page dedicated to placing an order
 import React from 'react';
 import { Col, Row, Container, Button, Form, Card } from 'react-bootstrap';
 
@@ -9,10 +10,22 @@ import { FaTrashAlt } from "react-icons/fa";
 
 
 export default function Checkout() {
-  const cartItems = [
+  console.log("checkout page loaded!");
+  var cartItems = [
     { id: 1, name: 'Item 1', quantity: 2, imageSrc: imageSrcTest, description: 'Description for Item 1' },
     { id: 2, name: 'Item 2', quantity: 1, imageSrc: imageSrcTest, description: 'Description for Item 2' },
   ];
+  try {
+    const storedJsonString = localStorage.getItem('cartObject');
+    if (storedJsonString) {
+      const storedObject = JSON.parse(storedJsonString);
+      // Do something with the retrieved object, such as updating state
+      console.log(storedObject);
+    }
+  } catch (error) {
+    console.error('Error retrieving data from local storage:', error);
+    // Handle the error appropriately (e.g., log it, notify the user, etc.)
+  }
 
   return (
     <>
@@ -89,3 +102,43 @@ export default function Checkout() {
     </>
   );
 }
+
+
+    // Remove toy-quantity pairs where quantity is 0
+    // let orderFormat = {}
+    // for (let toy in order) {
+    //   if (order[toy].quantity === 0) {
+    //     delete order[toy];
+    //   } else {
+    //     orderFormat[order[toy].name] = order[toy].quantity
+    //   }
+    // }
+
+    // // Write to the "orders" collection
+    // const orderData = {
+    //   completed: false,
+    //   orderTime: serverTimestamp(), // using Firestore server timestamp
+    //   order: orderFormat
+    // };
+    // try {
+    //   // Create new document in orders collection
+    //   const orderRef = await addDoc(collection(db, "orders"), orderData);
+    //   const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
+    //   // Update the ordered field for each toy in the "toys" collection
+    //   const toyNames = Object.keys(orderFormat)
+    //   for (let i = 0; i < toyNames.length; i++) {
+    //     // const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
+    //     // const toyRef = doc(db, "toys", toyName);
+    //     const toyRef = formatAndFetchString(toyNames[i]);
+
+    //     const element = await getDoc(toyRef)
+    //     const toyData = { ...element.data() }
+    //     await updateDoc(toyRef, {
+    //       ordered: toyData.ordered + (orderFormat[toyNames[i]])
+    //     });
+    //   }
+
+    //   await updateDoc(toysUpdateRef, { toysLastUpdated: serverTimestamp() });
+    // } catch (e) {
+    //   console.error("Error placing order: ", e);
+    // }
