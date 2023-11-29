@@ -11,6 +11,7 @@ import { FaTrashAlt } from "react-icons/fa";
 
 export default function Checkout() {
   const [cartItems, setCartItems] = useState([]);
+  const [orderSubmitted, setOrderSubmitted] = useState(false);
 
   useEffect(() => {
     try {
@@ -23,7 +24,7 @@ export default function Checkout() {
           name: item.name,
           quantity: item.quantity,
           imageSrc: imageSrcTest,
-          description: `Description for ${item.name}`
+          description: `Description for ${item.name}`,
         }));
         setCartItems(newCartItems);
       }
@@ -31,8 +32,20 @@ export default function Checkout() {
       console.error('Error retrieving data from local storage:', error);
       // Handle the error appropriately (e.g., log it, notify the user, etc.)
     }
-  }, []); // Empty dependency array to run this effect only once on component mount
+  }, []);
 
+
+  const handleOrderSubmit = (e) => {
+    e.preventDefault(); // Prevents the default form submission behavior
+
+    // Remove items from the cart
+    setCartItems([]);
+    // Optionally, you can clear the localStorage here as well
+    localStorage.removeItem('cartObject');
+
+    // Set orderSubmitted to true to display the success message
+    setOrderSubmitted(true);
+  };
 
   return (
     <>
@@ -68,7 +81,7 @@ export default function Checkout() {
           <Col md={6}>
             <h2 className='text-left'>Enter your Information:</h2>
             <br></br>
-            <Form>
+            <Form onSubmit={handleOrderSubmit}>
               <Form.Group className="mb-3 text-left" controlId="formName">
                 <Form.Label>Name:</Form.Label>
                 <Form.Control type="text" placeholder="Enter your full name" />
