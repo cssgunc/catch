@@ -153,12 +153,15 @@ function DonationDisplay (props) {
   //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: 'Aversboro Elementary School', total: 10, donations: 1, description: '' }
   // ]
 
-  console.log("Donations Info:", donationsInfoTemp); // Add this console log
+  const [donationsInfo, setDonationsInfo] = useState([]);
+  donationsInfoTemp.then((data) => {
+    setDonationsInfo(data)
+  });
 
   return (
     <Slide>
-      {donationsInfoTemp.length > 0 ? (
-        donationsInfoTemp.map((donation) => (
+      {donationsInfo.length > 0 ? (
+        donationsInfo.map((donation) => (
           <DonationBox
             key={donation.imagePath}
             organization={donation.organization}

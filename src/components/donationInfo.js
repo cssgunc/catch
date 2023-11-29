@@ -24,8 +24,7 @@ const donationsRef = collection(db, 'donations');
 //   return donationArray;
 // }
 
-
-export const getDonationInfo = async () => {
+async function getDonationInfo() {
   const donationArray = [];
 
   try {
@@ -49,7 +48,7 @@ export const getDonationInfo = async () => {
   }
   return donationArray;
 };
-  
+
 export const donationsInfoTemp = getDonationInfo();
 
 export const donationsInfo = [
