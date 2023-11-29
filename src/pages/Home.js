@@ -411,6 +411,7 @@ export default function Home() {
             src={require("../images/logo.png")}
             className="catch-logo"
             alt="CATCH Logo"
+            style={{ width: '120px', height: 'auto', marginBottom: '20px' }}
           /></center>
       </div>
 

@@ -124,10 +124,20 @@ button {
 
 .get-involved h3 {
   padding-top: 10px;
+  font-weight: 600;
+  font-size: 40px;
 }
+
+.get-involved h2 {
+  font-weight: 800;
+  font-size: 70px;
+}
+
+
 
 .button-container {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -142,12 +152,17 @@ button {
 
 .button-container p {
   margin-bottom: 5px;
+  font-weight: 600;
+  font-size: 25px;
+  display: flex;
+  text-align: center;
+  max-width: 350px;
 }
 
 .button-container button {
   margin: 5px;
   padding: 10px;
-  font-size: 16px;
+  line-height: 43px;
   cursor: pointer;
 }
 
@@ -178,7 +193,30 @@ button {
     width: 100%;
   }
 
-  .tagline p {
+  .tagline p {}
+
+  .get-involved button {
     font-size: 5vw;
+  }
+
+  .get-involved h3 {
+    font-size: 5vw;
+  }
+
+  .get-involved h2 {
+    font-size: 5vw;
+  }
+
+  .button-container p {
+    font-size: 5vw;
+    max-width: 80%;
+  }
+
+  .get-involved button {
+    max-width: 40%;
+    height: 25px;
+    font-weight: 800;
+    font-size: 5vw;
+    line-height: 3px;
   }
 }
