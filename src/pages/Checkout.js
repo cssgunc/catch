@@ -45,6 +45,7 @@ export default function Checkout() {
 
     // Set orderSubmitted to true to display the success message
     setOrderSubmitted(true);
+    window.alert("Thank You for Ordering! CATCH will review your order soon and let you know when it is confirmed!");
   };
 
   return (
