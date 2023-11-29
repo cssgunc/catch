@@ -237,6 +237,7 @@ export default function NavBar() {
   return (
     <>
       <Router>
+        { window.location.pathname !== '/admin' &&
         <Container fluid className="nav-container">
           <Navbar className={`bg-transparent navbar ${visible ? 'navbar-show' : 'navbar-hide'}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
 
@@ -268,6 +269,7 @@ export default function NavBar() {
             </Nav>
           </Navbar>
         </Container>
+        }
         <div>
           <Routes>
             <Route path="/" element={<Home />} />
