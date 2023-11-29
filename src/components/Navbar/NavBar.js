@@ -181,7 +181,6 @@ export default function NavBar() {
     setSidebarOpen(!isSidebarOpen);
   };
 
-
   const handleClick = (path) => {
     setActiveTab(path);
     setSidebarOpen(false); // Close the sidebar
