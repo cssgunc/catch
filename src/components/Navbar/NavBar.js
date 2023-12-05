@@ -98,22 +98,26 @@ function ShoppingCartPanel(props) {
     }
   }, []);
 
-  const placeOrder = async (order) => {
-    // Remove toy-quantity pairs where quantity is 0
-    let orderFormat = {}
+  const placeOrder = async (order, userData) => {
+    let orderFormat = {};
     for (let toy in order) {
       if (order[toy].quantity === 0) {
         delete order[toy];
       } else {
-        orderFormat[order[toy].name] = order[toy].quantity
+        orderFormat[order[toy].name] = order[toy].quantity;
       }
     }
-
-    // Write to the "orders" collection
+  
     const orderData = {
       completed: false,
       orderTime: serverTimestamp(), // using Firestore server timestamp
-      order: orderFormat
+      order: orderFormat,
+      name: userData.name,
+      email: userData.email,
+      organization: userData.organization,
+      buttonQuantity: userData.buttonQuantity,
+      address: userData.address,
+      notes: userData.notes
     };
     try {
       // Create new document in orders collection
@@ -288,3 +292,48 @@ export default function NavBar() {
     </>
   );
 }
+
+export const placeOrder = async (order, userData) => {
+    let orderFormat = {};
+    for (let toy in order) {
+      if (order[toy].quantity === 0) {
+        delete order[toy];
+      } else {
+        orderFormat[order[toy].name] = order[toy].quantity;
+      }
+    }
+  
+    const orderData = {
+      completed: false,
+      orderTime: serverTimestamp(), // using Firestore server timestamp
+      order: orderFormat,
+      name: userData.name,
+      email: userData.email,
+      organization: userData.organization,
+      buttonQuantity: userData.buttonQuantity,
+      address: userData.address,
+      notes: userData.notes
+    };
+    try {
+      // Create new document in orders collection
+      const orderRef = await addDoc(collection(db, "orders"), orderData);
+      const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
+      // Update the ordered field for each toy in the "toys" collection
+      const toyNames = Object.keys(orderFormat)
+      for (let i = 0; i < toyNames.length; i++) {
+        // const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
+        // const toyRef = doc(db, "toys", toyName);
+        const toyRef = formatAndFetchString(toyNames[i]);
+
+        const element = await getDoc(toyRef)
+        const toyData = { ...element.data() }
+        await updateDoc(toyRef, {
+          ordered: toyData.ordered + (orderFormat[toyNames[i]])
+        });
+      }
+
+      await updateDoc(toysUpdateRef, { toysLastUpdated: serverTimestamp() });
+    } catch (e) {
+      console.error("Error placing order: ", e);
+    }
+  };
