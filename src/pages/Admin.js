@@ -12,26 +12,32 @@ export default function Admin() {
   //const currUserName = getAuth().currentUser.displayName;
   const currUserName = "John Doe";
   const [currTab, setCurrTab] = useState("Executives");
+  const docIdString = "documentId";
 
-  const execRef = collection(db, "Executives");
+  const execRef = collection(db, "exec");
+  const toysRef = collection(db, "toys");
+  const donationsRef = collection(db, "donations");
+  const mediaRef = collection(db, "media");
 
   const [execData, setExecData] = useState([
     {
       id: 1,
-      name: "Jane Doe",
+      documentId: "president",
+      name: "Bryce Menichella",
       position: "President",
-      image: "https://example.com/johndoe.jpg",
+      image: "president.jpg",
     },
     {
       id: 2,
-      name: "John Doe",
+      documentId: "vicePresident",
+      name: "Katie Chai",
       position: "Vice President",
-      image: "https://example.com/janedoe.jpg",
+      image: "vp.jpg",
     },
   ]);
   const [slideshowData, setSlideshowData] = useState([
-    { id: 1, imageId: "8437132145", altText: "Building a Dinosaur!" },
-    { id: 2, imageId: "1834972562", altText: "Group Photo" },
+    { id: 1, documentId: "AAmkOF7cLS4Lwjzkw5U0", imageId: "8437132145", altText: "Building a Dinosaur!" },
+    { id: 2, documentId: "AaGzXdI3bZmwRnaJS5Dp", imageId: "1834972562", altText: "Group Photo" },
   ]);
   const [recentEvents, setRecentEvents] = useState([
     "Name of Event 1",
@@ -58,82 +64,96 @@ export default function Admin() {
       { id: 2, imageId: "event4_image2" },
     ],
   });
+  const [recentEventsIds, setRecentEventsIds] = useState({
+    "Name of Event 1": "event1",
+    "Name of Event 2": "event2",
+    "Name of Event 3": "event3",
+    "Name of Event 4": "event4"
+  })
   const handleEventChange = (event) => {
     setSelectedEvent(event);
   };
   const [recentToysData, setRecentToysData] = useState([
     {
       id: 1,
-      description: "temp airplane description",
-      name: "Airplane",
-      imageId: "airplane",
+      documentId: "airplane",
+      description: "Up, up and away we go! This plane lights up and moves at the push of a button!",
+      fullName: "Airplane",
+      imageID: "1B3L40nGH9ySizfE_NkBl_vQj8fdY0Nhl",
       altText: "Modified Airplane Toy",
-      buildUrl:
+      buildURL:
         "https://docs.google.com/presentation/d/1sG6zYR71rNoACMY5j51roubwaqilKjNm_EgJfxFn7VU/edit#slide=id.p",
     },
     {
       id: 2,
-      description: "temp bus description",
-      name: "School Bus",
-      imageId: "bus",
+      documentId: "bus",
+      description: "Want to see the bus go round and round? With this toy, you can! At the push of a button, this school bus will DRIVE!",
+      fullName: "School Bus",
+      imageID: "1lg24yPkPHhcp5G3oXpu54riojgWebgQW",
       altText: "Modified Bus Toy",
-      buildUrl: "bus URL",
+      buildURL: "",
     },
   ]);
   const [oldToysData, setOldToysData] = useState([
     {
       id: 1,
-      description: "temp alien description",
-      name: "Alien",
-      imageId: "alien",
+      documentId: "alien",
+      description: "temp description",
+      fullName: "Alien",
+      imageID: "1Mnn9Yn-CQRAtSQ-xBBad3-6vyIMtxeFE",
       altText: "Modified Alien Toy",
-      buildUrl: "alien URL",
+      buildURL: "",
     },
     {
       id: 2,
-      description: "temp dog description",
-      name: "Dog",
-      imageId: "dog",
+      documentId: "dog",
+      description: "temp description",
+      fullName: "Dog",
+      imageID: "18qJcQ0HD36rQHOCP41r7fvAe78D-XxHz",
       altText: "Modified Dog Toy",
-      buildUrl: "dog URL",
+      buildUrl: "",
     },
   ]);
   const [donationsData, setDonationsData] = useState([
     {
       id: 1,
-      imageId: "org6image",
+      documentId: "Aversboro Elementary School",
+      imageID: "1Y0HTYgreITQunWmhzlCuEYwz149zvvLl",
       altText: "aversboro alt text",
-      organization: "Aversboro Elementary School",
-      totalDonations: 10,
-      donationNumber: 1,
-      description: "aversboro description",
+      orgName: "Aversboro Elementary School",
+      totalDonated: 10,
+      numDonations: 1,
+      description: "",
     },
     {
       id: 2,
-      imageId: "org3image",
+      documentId: "Levine Children's Hospital",
+      imageID: "10uFPO5F8QR44Zoqjm3wiF-UaWRFwvZO5",
       altText: "levine alt text",
-      organization: "Levine Children's Hospital",
-      totalDonations: 32,
-      donationNumber: 2,
+      orgName: "Levine Children's Hospital",
+      totalDonated: 32,
+      numDonations: 2,
       description: "levine description",
     },
   ]);
   const [mediaData, setMediaData] = useState([
     {
       id: 1,
-      imageId: "image id 1",
-      altText: "alt text 1",
-      header: "header 1",
-      description: "description 1",
-      articleUrl: "article URL 1",
+      documentId: "AaGzXdI3bZmwRnaJS5Dp",
+      imageID: "MediaCoverage_1.jpg",
+      alt: "UNC students presenting the toys they made to the children.",
+      title: "It's a rewarding experience': Children with disabilities get toys modified for them by UNC students",
+      caption: "The students work all year holding bake sales and community benefit nights to make the money to buy the toys.",
+      link: "https://abc11.com/children-disabilities-toys-modified-unc-engineer-students/12602887/",
     },
     {
       id: 2,
-      imageId: "image id 2",
-      altText: "alt text 2",
-      header: "header 2",
-      description: "description 2",
-      articleUrl: "article URL 2",
+      documentId: "L91Cm4SkCbs8827QReOt",
+      imageID: "iMediaCoverage_2.jpg",
+      alt: "Student in the process of making and testing a toy.",
+      title: "Making more accessible toys | UNC-Chapel Hill",
+      caption: "The Tar Heels behind the CATCH student organization modify toys for children with disabilities and donate them to local medical facilities for children who need them.",
+      link: "https://www.unc.edu/discover/making-more-accessible-toys/",
     },
   ]);
 
@@ -161,25 +181,6 @@ export default function Admin() {
   const handleEdit = (index, data, setEditIndex, setEditedData) => {
     setEditIndex(index);
     setEditedData({ ...data[index] });
-  };
-
-  const handleSave = (index, data, editedData, setData, setEditIndex) => {
-    const newData = [...data];
-    newData[index] = editedData;
-    setData(newData);
-    setEditIndex(null);
-  };
-
-  const handleDelete = (index, data, setData) => {
-    const newData = [...data];
-    newData.splice(index, 1);
-    setData(newData);
-  };
-
-  const handleAdd = (data, editedData, setData, setEditIndex) => {
-    const newData = [...data, editedData];
-    setData(newData);
-    setEditIndex(null);
   };
 
   const handleCancel = (setEditIndex) => {
@@ -212,9 +213,26 @@ export default function Admin() {
     };
 
     const handleChange = (field, value) => {
-      console.log(field);
-      console.log(value);
       return handleInputChange(field, value, setEditedData);
+    };
+
+    const handleSave = (index) => {
+      const newData = [...data];
+      newData[index] = editedData;
+      setData(newData);
+      setEditIndex(null);
+    };
+  
+    const handleDelete = (index) => {
+      const newData = [...data];
+      newData.splice(index, 1);
+      setData(newData);
+    };
+  
+    const handleAdd = () => {
+      const newData = [...data, editedData];
+      setData(newData);
+      setEditIndex(null);
     };
 
     return (
@@ -340,26 +358,24 @@ export default function Admin() {
     setData,
     headers,
     selectedEvent,
-    setEditIndex,
-    setEditedData,
   }) {
-    const [editIndex, setEditIndexLocal] = useState(null);
-    const [editedData, setEditedDataLocal] = useState(initial_state);
+    const [editIndex, setEditIndex] = useState(null);
+    const [editedData, setEditedData] = useState(initial_state);
 
     const handleAddInit = () => {
-      setEditIndexLocal("plus");
-      setEditedDataLocal(initial_state);
+      setEditIndex("plus");
+      setEditedData(initial_state);
     };
 
     const handleChange = (field, value) => {
-      setEditedDataLocal((prevData) => ({ ...prevData, [field]: value }));
+      return handleInputChange(field, value, setEditedData);
     };
 
     const handleSave = (index) => {
       const newData = [...data];
       newData[index] = editedData;
       setData((prevData) => ({ ...prevData, [selectedEvent]: newData }));
-      setEditIndexLocal(null);
+      setEditIndex(null);
     };
 
     const handleDelete = (index) => {
@@ -371,16 +387,7 @@ export default function Admin() {
     const handleAdd = () => {
       const newData = [...data, editedData];
       setData((prevData) => ({ ...prevData, [selectedEvent]: newData }));
-      setEditIndexLocal(null);
-    };
-
-    const handleCancel = () => {
-      setEditIndexLocal(null);
-    };
-
-    const handleEdit = (index) => {
-      setEditIndexLocal(index);
-      setEditedDataLocal({ ...data[index] });
+      setEditIndex(null);
     };
 
     return (
@@ -418,14 +425,14 @@ export default function Admin() {
                     >
                       Save
                     </button>
-                    <button onClick={handleCancel} className="view-button">
+                    <button onClick={() => handleCancel(setEditIndex)} className="view-button">
                       Cancel
                     </button>
                   </>
                 ) : (
                   <>
                     <button
-                      onClick={() => handleEdit(index)}
+                      onClick={() => handleEdit(index, data, setEditIndex, setEditedData)}
                       className="view-button"
                     >
                       Edit
@@ -481,6 +488,7 @@ export default function Admin() {
     const initializeVals = (obj) => {
       let newObj = { ...obj };
       delete newObj.id;
+      delete newObj.documentId;
       for (const field of Object.keys(newObj)) {
         if (typeof obj[field] === "string") {
           newObj[field] = "";
@@ -492,9 +500,6 @@ export default function Admin() {
       }
       return newObj;
     };
-
-    const [editIndex, setEditIndex] = useState(null);
-    const [editedData, setEditedData] = useState(initializeVals({}));
 
     switch (currTab) {
       case "Executives":
@@ -521,7 +526,7 @@ export default function Admin() {
           />
         );
       case "Recent Events":
-        const recentEventsInit = initializeVals({ id: 1, imageId: "" });
+        const recentEventsInit = initializeVals({ id: 1, documentId: "none", imageId: "" });
         const recentEventsHeaders = ["Image ID"];
 
         return (
@@ -548,8 +553,6 @@ export default function Admin() {
               setData={setRecentEventsData}
               headers={recentEventsHeaders}
               selectedEvent={selectedEvent}
-              setEditIndex={setEditIndex}
-              setEditedData={setEditedData}
             />
           </div>
         );
