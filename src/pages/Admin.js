@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 //import { getAuth } from 'firebase/auth';
 import { db } from "../firebase-config.js";
-import { collection } from "firebase/firestore";
+import { collection, doc, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import ExitImg from "../images/General/exitDoor.png";
 
 import "./Admin.css";
@@ -12,12 +12,15 @@ export default function Admin() {
   //const currUserName = getAuth().currentUser.displayName;
   const currUserName = "John Doe";
   const [currTab, setCurrTab] = useState("Executives");
-  const docIdString = "documentId";
 
-  const execRef = collection(db, "exec");
-  const toysRef = collection(db, "toys");
-  const donationsRef = collection(db, "donations");
-  const mediaRef = collection(db, "media");
+  const [deletedIds, setDeletedIds] = useState([]);
+  const [addedIds, setAddedIds] = useState([]);
+  const [editedIds, setEditedIds] = useState([]);
+
+  const execRef = "exec";
+  const toysRef = "toys";
+  const donationsRef = "donations";
+  const mediaRef = "media";
 
   const [execData, setExecData] = useState([
     {
@@ -164,6 +167,9 @@ export default function Admin() {
   function change_tab(tab) {
     setCurrTab(tab);
     setDropdownOpen(false);
+    setDeletedIds([]);
+    setAddedIds([]);
+    setEditedIds([]);
   }
 
   function Tab({ tabName }) {
@@ -202,6 +208,7 @@ export default function Admin() {
     const data = props.data;
     const setData = props.setData;
     const headers = props.headers;
+    const dataRef = props.dataRef;
 
     const [editIndex, setEditIndex] = useState(null);
     const [editedData, setEditedData] = useState(initial_state);
@@ -216,24 +223,108 @@ export default function Admin() {
       return handleInputChange(field, value, setEditedData);
     };
 
-    const handleSave = (index) => {
+    const handleSave = (ind) => {
+      const editRow = {...data[ind]};
+      const editId = editRow.documentId;
+      if (editId === "" || (!addedIds.some(value => {return value === editId}) && !editedIds.some(value => {return value === editId}))) {
+        setEditedIds([...editedIds, editId]);
+        console.log("Adding " + editId + " to setEditedIds");
+        console.log(editedIds);
+      }
+
       const newData = [...data];
-      newData[index] = editedData;
+      newData[ind] = editedData;
       setData(newData);
       setEditIndex(null);
     };
   
-    const handleDelete = (index) => {
+    const handleDelete = (ind) => {
+      const deleteRow = {...data[ind]};
+      const deleteId = deleteRow.documentId;
+      let idInd = -1;
+      if (addedIds.some((value, index) => {idInd = index; return value === deleteId})) {
+        const newAddedIds = [...addedIds]
+        newAddedIds.splice(idInd, 1);
+        setAddedIds(newAddedIds);
+      } else if (editedIds.some((value, index) => {idInd = index; return value === deleteId})) {
+        const newEditedIds = [...editedIds]
+        newEditedIds.splice(idInd, 1);
+        setEditedIds(newEditedIds);
+        setDeletedIds([...deletedIds, deleteId]);
+      } else {
+        setDeletedIds([...deletedIds, deleteId]);
+      }
+
       const newData = [...data];
-      newData.splice(index, 1);
+      newData.splice(ind, 1);
       setData(newData);
     };
   
     const handleAdd = () => {
-      const newData = [...data, editedData];
+      const addId = data[data.length - 1].id + 1;
+      console.log("addId: " + addId);
+      let addDocId = "";
+      if (currTab === "Donations") {
+        addDocId = editedData.orgName;
+        console.log("Donations ID: " + addDocId);
+      } else if (currTab === "Executives") {
+        addDocId = editedData.position;
+        addDocId = addDocId.replace(/\s+/g, '');
+        addDocId = addDocId.charAt(0).toLowerCase() + addDocId.slice(1);
+        console.log("Executive ID: " + addDocId);
+      } else if (currTab === "Recent Toys" || currTab === "Old Toys") {
+        addDocId = editedData.fullName;
+        addDocId = addDocId.replace(/\s+/g, '').toLowerCase;
+        console.log("Toy ID: " + addDocId);
+      }
+
+      if (addDocId !== "") {
+        setAddedIds([...addedIds, addDocId]);
+      }
+
+      //const newEditedData = {...editedData, id: addId, documentId: addDocId};
+      //setEditedData(newEditedData);
+      const newData = [...data, {...editedData, id: addId, documentId: addDocId}];
       setData(newData);
       setEditIndex(null);
+      //console.log(newEditedData);
+      console.log(newData);
     };
+
+    const setInfo = async () => {
+      if (currTab === "Main Slideshow") {
+        console.log("No equivalent database currently exists; Pretend the necessary database functions work.");
+        setDeletedIds([]);
+        setAddedIds([]);
+        setEditedIds([]);
+      } else {
+        for (const id in deletedIds) {
+          console.log("Deleting document with the id: " + deletedIds[id]);
+        }
+        setDeletedIds([]);
+        
+        if (currTab === "Media") {
+          for (const newDoc in data.filter(value => {return value.documentId === ""})) {
+            console.log("Adding random id document: ");
+            console.log(newDoc);
+            //const docRef = await addDoc(collection(db, dataRef), newDoc);
+            //console.log("Document added with id " + docRef);
+          }
+        } else {
+          for (const id in addedIds) {
+            console.log("Adding document with an id of: " + addedIds[id]);
+          }
+          setAddedIds([]);
+        }
+
+        for (const id in editedIds) {
+          console.log("Editing document with an id of: " + editedIds[id]);
+        }
+        setEditedIds([]);
+
+        //TODO: Fetch current data from firestore and call setData().
+      }
+    }
 
     return (
       <div className="table-container">
@@ -348,6 +439,11 @@ export default function Admin() {
             )}
           </tbody>
         </table>
+        <div className="save-div">
+          <button onClick={setInfo} className="save-button">
+            Save Changes
+          </button>
+        </div>
       </div>
     );
   }
@@ -504,7 +600,6 @@ export default function Admin() {
     switch (currTab) {
       case "Executives":
         const execInit = initializeVals(execData[0]);
-        console.log(execInit);
         const execHeaders = ["Name", "Position", "Picture"];
         return (
           <Table
@@ -512,6 +607,7 @@ export default function Admin() {
             data={execData}
             setData={setExecData}
             headers={execHeaders}
+            dataRef={execRef}
           />
         );
       case "Main Slideshow":
@@ -523,6 +619,7 @@ export default function Admin() {
             data={slideshowData}
             setData={setSlideshowData}
             headers={slideHeaders}
+            dataRef={null}
           />
         );
       case "Recent Events":
@@ -571,6 +668,7 @@ export default function Admin() {
             data={recentToysData}
             setData={setRecentToysData}
             headers={recentToysHeaders}
+            dataRef={toysRef}
           />
         );
       case "Old Toys":
@@ -588,6 +686,7 @@ export default function Admin() {
             data={oldToysData}
             setData={setOldToysData}
             headers={oldToysHeaders}
+            dataRef={toysRef}
           />
         );
       case "Donations":
@@ -606,6 +705,7 @@ export default function Admin() {
             data={donationsData}
             setData={setDonationsData}
             headers={donationsHeaders}
+            dataRef={donationsRef}
           />
         );
       case "Media":
@@ -623,6 +723,7 @@ export default function Admin() {
             data={mediaData}
             setData={setMediaData}
             headers={mediaHeaders}
+            dataRef={mediaRef}
           />
         );
       default:
