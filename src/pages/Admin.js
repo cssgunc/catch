@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 //import { getAuth } from 'firebase/auth';
 import { db } from "../firebase-config.js";
-import { collection, doc, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { collection, doc, addDoc, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import ExitImg from "../images/General/exitDoor.png";
 
 import "./Admin.css";
@@ -152,7 +152,7 @@ export default function Admin() {
     {
       id: 2,
       documentId: "L91Cm4SkCbs8827QReOt",
-      imageID: "iMediaCoverage_2.jpg",
+      imageID: "MediaCoverage_2.jpg",
       alt: "Student in the process of making and testing a toy.",
       title: "Making more accessible toys | UNC-Chapel Hill",
       caption: "The Tar Heels behind the CATCH student organization modify toys for children with disabilities and donate them to local medical facilities for children who need them.",
@@ -160,16 +160,70 @@ export default function Admin() {
     },
   ]);
 
+  const [prevData, setPrevData] = useState(execData);
+
   function logout() {
     console.log("This is where I would put a logout method if I had one");
   }
 
   function change_tab(tab) {
+    switch (currTab) {
+      case "Executives":
+        setExecData(prevData);
+        break;
+      case "Main Slideshow":
+        setSlideshowData(prevData);
+        break;
+      case "Recent Events":
+        setRecentEventsData(prevData);
+        break;
+      case "Recent Toys":
+        setRecentToysData(prevData);
+        break;
+      case "Old Toys":
+        setOldToysData(prevData);
+        break;
+      case "Donations":
+        setDonationsData(prevData);
+        break;
+      case "Media":
+        setMediaData(prevData);
+        break;
+      default:
+        console.log(tab + " is not mapped to a dataset in change_tab()");
+    }
+    
     setCurrTab(tab);
     setDropdownOpen(false);
     setDeletedIds([]);
     setAddedIds([]);
     setEditedIds([]);
+
+    switch (tab) {
+      case "Executives":
+        setPrevData(execData);
+        break;
+      case "Main Slideshow":
+        setPrevData(slideshowData);
+        break;
+      case "Recent Events":
+        setPrevData(recentEventsData);
+        break;
+      case "Recent Toys":
+        setPrevData(recentToysData);
+        break;
+      case "Old Toys":
+        setPrevData(oldToysData);
+        break;
+      case "Donations":
+        setPrevData(donationsData);
+        break;
+      case "Media":
+        setPrevData(mediaData);
+        break;
+      default:
+        console.log(tab + " is not mapped to a dataset in change_tab()");
+    }
   }
 
   function Tab({ tabName }) {
@@ -228,8 +282,6 @@ export default function Admin() {
       const editId = editRow.documentId;
       if (editId === "" || (!addedIds.some(value => {return value === editId}) && !editedIds.some(value => {return value === editId}))) {
         setEditedIds([...editedIds, editId]);
-        console.log("Adding " + editId + " to setEditedIds");
-        console.log(editedIds);
       }
 
       const newData = [...data];
@@ -262,33 +314,33 @@ export default function Admin() {
   
     const handleAdd = () => {
       const addId = data[data.length - 1].id + 1;
-      console.log("addId: " + addId);
       let addDocId = "";
       if (currTab === "Donations") {
         addDocId = editedData.orgName;
-        console.log("Donations ID: " + addDocId);
       } else if (currTab === "Executives") {
         addDocId = editedData.position;
         addDocId = addDocId.replace(/\s+/g, '');
         addDocId = addDocId.charAt(0).toLowerCase() + addDocId.slice(1);
-        console.log("Executive ID: " + addDocId);
       } else if (currTab === "Recent Toys" || currTab === "Old Toys") {
         addDocId = editedData.fullName;
-        addDocId = addDocId.replace(/\s+/g, '').toLowerCase;
-        console.log("Toy ID: " + addDocId);
+        addDocId = addDocId.replace(/\s+/g, '').toLowerCase();
       }
 
       if (addDocId !== "") {
         setAddedIds([...addedIds, addDocId]);
       }
 
-      //const newEditedData = {...editedData, id: addId, documentId: addDocId};
-      //setEditedData(newEditedData);
       const newData = [...data, {...editedData, id: addId, documentId: addDocId}];
       setData(newData);
       setEditIndex(null);
-      //console.log(newEditedData);
-      console.log(newData);
+    };
+
+    const findDoc = (docId) => {
+      const docu = data.find(object => {return object.documentId === docId});
+      let newDoc = {...docu};
+      delete newDoc.id;
+      delete newDoc.documentId;
+      return newDoc;
     };
 
     const setInfo = async () => {
@@ -297,32 +349,37 @@ export default function Admin() {
         setDeletedIds([]);
         setAddedIds([]);
         setEditedIds([]);
+        setPrevData(data);
       } else {
         for (const id in deletedIds) {
-          console.log("Deleting document with the id: " + deletedIds[id]);
+          await deleteDoc(doc(db, dataRef, deletedIds[id]))
         }
         setDeletedIds([]);
         
         if (currTab === "Media") {
-          for (const newDoc in data.filter(value => {return value.documentId === ""})) {
-            console.log("Adding random id document: ");
-            console.log(newDoc);
-            //const docRef = await addDoc(collection(db, dataRef), newDoc);
-            //console.log("Document added with id " + docRef);
+          const newRows = data.filter(object => {return object.documentId === ""})
+          for (const id in newRows) {
+            let newDoc = {...newRows[id]}
+            delete newDoc.documentId;
+            await addDoc(collection(db, dataRef), newDoc);
           }
         } else {
           for (const id in addedIds) {
-            console.log("Adding document with an id of: " + addedIds[id]);
+            const newDoc = findDoc(addedIds[id]);
+            await setDoc(doc(db, dataRef, addedIds[id]), newDoc);
           }
           setAddedIds([]);
         }
 
         for (const id in editedIds) {
-          console.log("Editing document with an id of: " + editedIds[id]);
+          const newDoc = findDoc(editedIds[id]);
+          await updateDoc(doc(db, dataRef, editedIds[id]), newDoc);
         }
         setEditedIds([]);
 
-        //TODO: Fetch current data from firestore and call setData().
+        // TODO: Fetch current data from firestore and call setData().
+        //   Alternatively, when adding files to Media, update the documentId to match.
+        setPrevData(data);
       }
     }
 
@@ -581,6 +638,7 @@ export default function Admin() {
   }
 
   function RightView() {
+    // Note: May have to delete the initializeVals() function and manually create the initial_state in each tab, e.g. headers
     const initializeVals = (obj) => {
       let newObj = { ...obj };
       delete newObj.id;
