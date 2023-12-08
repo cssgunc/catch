@@ -244,8 +244,8 @@ export default function Home() {
       </h1> */}
       <div className="landing">
         <div className="tagline">
-          <h1>Welcome to CATCH...</h1>
-          <p>where we make toys accessible for kids with special needs!</p>
+          <h1>Hi! We're CATCH!</h1>
+          <p>Where we strive to "catch" the children who fall through the cracks of the mainstream toy market.</p>
           <button onClick={goToIntro}>
             <svg xmlns="http://www.w3.org/2000/svg" width="7vw" height="7vw" viewBox="0 0 138 138" fill="none">
               <circle cx="69" cy="69" r="69" fill="white" fill-opacity="0.3" />
@@ -414,7 +414,6 @@ export default function Home() {
             style={{ width: '120px', height: 'auto', marginBottom: '20px' }}
           /></center>
       </div> */}
-
     </>
   )
 }
