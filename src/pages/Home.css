@@ -23,13 +23,11 @@ h2 {
 }
 
 .carouselItem {
-  width: 30%;
+  width: 100%;
 }
 
 .carouselItemWide {
   width: 45%;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
 }
 
 .landing {
@@ -96,7 +94,7 @@ button {
   object-fit: cover;
 }
 
-.get-involved {
+/* .get-involved {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -164,7 +162,7 @@ button {
   padding: 10px;
   line-height: 43px;
   cursor: pointer;
-}
+} */
 
 @media screen and (max-width: 900px) {
   .landing {
@@ -187,6 +185,13 @@ button {
 
   .carousel {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 80vw;
+  }
+
+  .carouselItemWide {
+    width: 100%;
   }
 
   .tagline {

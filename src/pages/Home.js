@@ -389,7 +389,7 @@ export default function Home() {
         {/* <button disabled onClick={() => completeOrder("orderExample")}>Complete Order</button> */}
       </div >
 
-      <div className="get-involved">
+      {/* <div className="get-involved">
         <h2>Want to get involved?</h2>
         <h3>Here are some ways you can make an impact!</h3>
 
@@ -413,7 +413,7 @@ export default function Home() {
             alt="CATCH Logo"
             style={{ width: '120px', height: 'auto', marginBottom: '20px' }}
           /></center>
-      </div>
+      </div> */}
 
     </>
   )
