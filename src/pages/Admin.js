@@ -344,13 +344,6 @@ export default function Admin() {
     };
 
     const setInfo = async () => {
-      if (currTab === "Main Slideshow") {
-        console.log("No equivalent database currently exists; Pretend the necessary database functions work.");
-        setDeletedIds([]);
-        setAddedIds([]);
-        setEditedIds([]);
-        setPrevData(data);
-      } else {
         for (const id in deletedIds) {
           await deleteDoc(doc(db, dataRef, deletedIds[id]))
         }
@@ -380,7 +373,6 @@ export default function Admin() {
         // TODO: Fetch current data from firestore and call setData().
         //   Alternatively, when adding files to Media, update the documentId to match.
         setPrevData(data);
-      }
     }
 
     return (
@@ -658,7 +650,7 @@ export default function Admin() {
     switch (currTab) {
       case "Executives":
         const execInit = initializeVals(execData[0]);
-        const execHeaders = ["Name", "Position", "Picture"];
+        const execHeaders = ["Name", "Position", "Image ID (PNG/JPEG)"];
         return (
           <Table
             initial_state={execInit}
@@ -670,7 +662,7 @@ export default function Admin() {
         );
       case "Main Slideshow":
         const slideInit = initializeVals(slideshowData[0]);
-        const slideHeaders = ["Image ID", "Alternate Text"];
+        const slideHeaders = ["Image ID (PNG/JPEG)", "Alternate Text"];
         return (
           <Table
             initial_state={slideInit}
@@ -682,7 +674,7 @@ export default function Admin() {
         );
       case "Recent Events":
         const recentEventsInit = initializeVals({ id: 1, documentId: "none", imageId: "" });
-        const recentEventsHeaders = ["Image ID"];
+        const recentEventsHeaders = ["Image ID (PNG/JPEG)"];
 
         return (
           <div>
@@ -716,7 +708,7 @@ export default function Admin() {
         const recentToysHeaders = [
           "Description",
           "Name",
-          "Image ID",
+          "Image ID (PNG/JPEG)",
           "Alternate Text",
           "Build URL",
         ];
@@ -734,7 +726,7 @@ export default function Admin() {
         const oldToysHeaders = [
           "Description",
           "Name",
-          "Image ID",
+          "Image ID (PNG/JPEG)",
           "Alternate Text",
           "Build URL",
         ];
@@ -750,7 +742,7 @@ export default function Admin() {
       case "Donations":
         const donationsInit = initializeVals(donationsData[0]);
         const donationsHeaders = [
-          "Image ID",
+          "Image ID (PNG/JPEG)",
           "Alternate Text",
           "Organization",
           "Total Donations",
@@ -769,7 +761,7 @@ export default function Admin() {
       case "Media":
         const mediaInit = initializeVals(mediaData[0]);
         const mediaHeaders = [
-          "Image ID",
+          "Image ID (PNG/JPEG)",
           "Alternate Text",
           "Header",
           "Description",
