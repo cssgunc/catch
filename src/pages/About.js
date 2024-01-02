@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import FAQ from "./FAQ";
 import './About.css';
 //import bannerImage from '../images/About/banner.jpg';
 import bannerImage from '../images/About/about_banner_color.jpeg';
 import Banner from '../components/Banner';
-import  { execInfo } from "../components/execInfo";
+import  { getDynamicRecentExecInfo } from "../components/execInfo";
 import './About.css';
 
 function ExecTile({ imagePath, name, position }) {
@@ -24,6 +24,18 @@ function ExecTile({ imagePath, name, position }) {
 }
 
 function ExecGrid() {
+
+  const [execInfo, setexecInfo] = useState([]);
+
+  useEffect(() => {
+    const fetchExecs = async () => {
+      const execData = await getDynamicRecentExecInfo();
+      setexecInfo(execData);
+    };
+
+    fetchExecs();
+  }, []);
+
   return (
     <>
       {execInfo.map((execMember) => (

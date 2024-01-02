@@ -12,7 +12,7 @@ const ArticleCard = ({ image, title, caption, link }) => {
     <Col md={6} className="mb-4 mt-3" >
       <Card className="mx-2" style={{minHeight:"100%"}}>
         <Card.Img variant="top" src={image} alt={title} />
-        <Card.Body>
+        <Card.Body className="text-left p-3">
           <Card.Title>{title}</Card.Title>
           <Card.Text>{caption}</Card.Text>
           <a href={link} target="_blank" rel="noreferrer">
