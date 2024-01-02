@@ -253,7 +253,7 @@ export default function NavBar() {
                 <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
                 <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
                 <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
-
+                <Nav.Link className={getClassName("/mediacoverage")} as={Link} to={"/mediacoverage"} onClick={() => handleClick('/mediacoverage')}>Media</Nav.Link>
                 <Nav.Link className={getClassName("/contact")} as={Link} to={"/contact"} onClick={() => handleClick('/contact')}>Contact</Nav.Link>
                 </Nav>
               </div>

@@ -13,16 +13,19 @@ import { db } from '../firebase-config';
 const execRef = collection(db, 'exec'); 
 
 
-async function getDynamicRecentExecInfo() {
+export async function getDynamicRecentExecInfo() {
     const execs = [];
   
       try {
         const querySnapshot = await getDocs(execRef);
         querySnapshot.forEach((doc) => {
           if (!doc.data().current) {
-            execs.push(doc.data());
+            let data = doc.data();
+            data.image = `https://drive.google.com/uc?export=view&id=${data.imageID}`
+            execs.push(data);
           }
         });
+        execs.sort((a, b) => a.id - b.id);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -45,20 +48,18 @@ async function getDynamicRecentExecInfo() {
     //     return execs
     //   }
   
-  export const dynamicRecentExecInfo = getDynamicRecentExecInfo()
   // export const dynamicOldExecInfo = getDynamicOldExecInfo()
 
-export const execInfo = [
-  {image: presidentImage, name: "Bryce Menichella", position: "President"},
-  {image: vicePresidentImage, name: "Katie Chai", position: "Vice President"},
-  {image: treasurerImage, name: "Melanie Gall", position: "Treasurer"},
-  {image: secretaryImage, name: "Hieu Doan", position: "Secretary"},
-  {image: chiefTechnicalOfficerImage, name: "Jacob Ewoldt", position: "Chief Technical Officer"},
-  {image: coChiefQualityOfficerImage1, name: "Jun Ikeda", position: "Co-Chief Quality Officer"},
-  {image: coChiefQualityOfficerImage2, name: "Nalaya Giraud", position: "Co-Chief Quality Officer"},
-  {image: marketingLeadImage, name: "Maddy Vinal", position: "Marketing Lead"},
-  {image: outreachChairImage, name: "Bryce Womble", position: "Outreach Chair"}
-]
+// export const execInfo = [
+//   {image: presidentImage, name: "Bryce Menichella", position: "President"},
+//   {image: vicePresidentImage, name: "Katie Chai", position: "Vice President"},
+//   {image: treasurerImage, name: "Melanie Gall", position: "Treasurer"},
+//   {image: secretaryImage, name: "Hieu Doan", position: "Secretary"},
+//   {image: chiefTechnicalOfficerImage, name: "Jacob Ewoldt", position: "Chief Technical Officer"},
+//   {image: coChiefQualityOfficerImage1, name: "Jun Ikeda", position: "Co-Chief Quality Officer"},
+//   {image: coChiefQualityOfficerImage2, name: "Nalaya Giraud", position: "Co-Chief Quality Officer"},
+//   {image: marketingLeadImage, name: "Maddy Vinal", position: "Marketing Lead"},
+//   {image: outreachChairImage, name: "Bryce Womble", position: "Outreach Chair"}
+// ]
 
-console.log(dynamicRecentExecInfo)
 // console.log(dynamicOldExecInfo)
