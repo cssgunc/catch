@@ -1,15 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row, Container, Button, Form, Card } from 'react-bootstrap';
 import imageSrcTest from '../images/logo.png';
 import { placeOrder } from '../components/Navbar/NavBar.js';
 import "./Checkout.css";
 import { FaTrashAlt } from "react-icons/fa";
 
+// New component to handle quantity adjustments
+const QuantitySelector = ({ quantity, onDecrease, onIncrease }) => {
+  return (
+    <div>
+      <Button className="transparent-button" onClick={onDecrease}>
+        -
+      </Button>
+      <span>{quantity}</span>
+      <Button className="transparent-button" onClick={onIncrease}>
+        +
+      </Button>
+    </div>
+  );
+};
+
 export default function Checkout() {
-  const cartItems = [
-    { id: 1, name: 'Item 1', quantity: 2, imageSrc: imageSrcTest, description: 'Description for Item 1' },
-    { id: 2, name: 'Item 2', quantity: 1, imageSrc: imageSrcTest, description: 'Description for Item 2' },
-  ];
+  const [cartItems, setCartItems] = useState([]);
+  const [orderSubmitted, setOrderSubmitted] = useState(false);
+
+  useEffect(() => {
+    try {
+      const storedJsonString = localStorage.getItem('cartObject');
+      if (storedJsonString) {
+        const storedObject = JSON.parse(storedJsonString);
+        let idCounter = 1;
+        const newCartItems = storedObject.map(item => ({
+          id: idCounter++,
+          name: item.name,
+          quantity: item.quantity,
+          imageSrc: imageSrcTest,
+          description: `Description for ${item.name}`,
+        }));
+        setCartItems(newCartItems);
+      }
+    } catch (error) {
+      console.error('Error retrieving data from local storage:', error);
+      // Handle the error appropriately (e.g., log it, notify the user, etc.)
+    }
+  }, []);
 
   const [userData, setUserData] = useState({
     name: '',
@@ -27,11 +61,42 @@ export default function Checkout() {
       [id]: value
     }));
   }
+
+    // Function to handle quantity decrease
+    const handleDecreaseQuantity = (itemId) => {
+      setCartItems(prevItems => prevItems.map(item => {
+        if (item.id === itemId && item.quantity > 1) {
+          return { ...item, quantity: item.quantity - 1 };
+        }
+        return item;
+      }));
+    };
   
+    // Function to handle quantity increase
+    const handleIncreaseQuantity = (itemId) => {
+      setCartItems(prevItems => prevItems.map(item => {
+        if (item.id === itemId) {
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      }));
+    };
+
+  // Function to remove an item from the cart
+  const handleRemoveItem = (itemId) => {
+    setCartItems(prevItems => prevItems.filter(item => item.id !== itemId));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     placeOrder(cartItems, userData);
+    setCartItems([]);
+    // Optionally, you can clear the localStorage here as well
+    localStorage.removeItem('cartObject');
+
+    // Set orderSubmitted to true to display the success message
+    setOrderSubmitted(true);
+    window.alert("Thank You for Ordering! CATCH will review your order soon and let you know when it is confirmed!");
   }
 
   return (
@@ -53,11 +118,14 @@ export default function Checkout() {
                       <Card.Text className="text-left">
                         {item.description}
                       </Card.Text>
-                      <div className="text-left">
-                        <FaTrashAlt />
-                        <Button className="transparent-button">-</Button>
-                        <span>{item.quantity}</span>
-                        <Button className="transparent-button">+</Button>
+                      <div className="text-left d-flex align-items-center">
+                        <FaTrashAlt className="mr-2" onClick={() => handleRemoveItem(item.id)} />
+                        {/* Use QuantitySelector component for quantity adjustments */}
+                        <QuantitySelector
+                          quantity={item.quantity}
+                          onDecrease={() => handleDecreaseQuantity(item.id)}
+                          onIncrease={() => handleIncreaseQuantity(item.id)}
+                        />
                       </div>
                     </Col>
                   </Row>

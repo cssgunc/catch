@@ -98,49 +98,14 @@ function ShoppingCartPanel(props) {
     }
   }, []);
 
-  const placeOrder = async (order, userData) => {
-    let orderFormat = {};
-    for (let toy in order) {
-      if (order[toy].quantity === 0) {
-        delete order[toy];
-      } else {
-        orderFormat[order[toy].name] = order[toy].quantity;
-      }
-    }
-  
-    const orderData = {
-      completed: false,
-      orderTime: serverTimestamp(), // using Firestore server timestamp
-      order: orderFormat,
-      name: userData.name,
-      email: userData.email,
-      organization: userData.organization,
-      buttonQuantity: userData.buttonQuantity,
-      address: userData.address,
-      notes: userData.notes
-    };
-    try {
-      // Create new document in orders collection
-      const orderRef = await addDoc(collection(db, "orders"), orderData);
-      const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
-      // Update the ordered field for each toy in the "toys" collection
-      const toyNames = Object.keys(orderFormat)
-      for (let i = 0; i < toyNames.length; i++) {
-        // const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
-        // const toyRef = doc(db, "toys", toyName);
-        const toyRef = formatAndFetchString(toyNames[i]);
-
-        const element = await getDoc(toyRef)
-        const toyData = { ...element.data() }
-        await updateDoc(toyRef, {
-          ordered: toyData.ordered + (orderFormat[toyNames[i]])
-        });
-      }
-
-      await updateDoc(toysUpdateRef, { toysLastUpdated: serverTimestamp() });
-    } catch (e) {
-      console.error("Error placing order: ", e);
-    }
+  const placeOrder = async (order) => {
+      console.log("here is the order: ");
+      console.log(order);
+      // Convert the object representing all cart items to JSON string
+      const orderString = JSON.stringify(order);
+      // Store the stringified JSON object in local storage under the key 'myObject'
+      localStorage.setItem('cartObject', orderString);
+      window.location.href = "/checkout";
   };
 
   return (
@@ -257,7 +222,7 @@ export default function NavBar() {
                 <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
                 <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
                 <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
-
+                <Nav.Link className={getClassName("/mediacoverage")} as={Link} to={"/mediacoverage"} onClick={() => handleClick('/mediacoverage')}>Media</Nav.Link>
                 <Nav.Link className={getClassName("/contact")} as={Link} to={"/contact"} onClick={() => handleClick('/contact')}>Contact</Nav.Link>
                 </Nav>
               </div>
@@ -294,46 +259,46 @@ export default function NavBar() {
 }
 
 export const placeOrder = async (order, userData) => {
-    let orderFormat = {};
-    for (let toy in order) {
-      if (order[toy].quantity === 0) {
-        delete order[toy];
-      } else {
-        orderFormat[order[toy].name] = order[toy].quantity;
-      }
+  let orderFormat = {};
+  for (let toy in order) {
+    if (order[toy].quantity === 0) {
+      delete order[toy];
+    } else {
+      orderFormat[order[toy].name] = order[toy].quantity;
     }
-  
-    const orderData = {
-      completed: false,
-      orderTime: serverTimestamp(), // using Firestore server timestamp
-      order: orderFormat,
-      name: userData.name,
-      email: userData.email,
-      organization: userData.organization,
-      buttonQuantity: userData.buttonQuantity,
-      address: userData.address,
-      notes: userData.notes
-    };
-    try {
-      // Create new document in orders collection
-      const orderRef = await addDoc(collection(db, "orders"), orderData);
-      const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
-      // Update the ordered field for each toy in the "toys" collection
-      const toyNames = Object.keys(orderFormat)
-      for (let i = 0; i < toyNames.length; i++) {
-        // const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
-        // const toyRef = doc(db, "toys", toyName);
-        const toyRef = formatAndFetchString(toyNames[i]);
+  }
 
-        const element = await getDoc(toyRef)
-        const toyData = { ...element.data() }
-        await updateDoc(toyRef, {
-          ordered: toyData.ordered + (orderFormat[toyNames[i]])
-        });
-      }
-
-      await updateDoc(toysUpdateRef, { toysLastUpdated: serverTimestamp() });
-    } catch (e) {
-      console.error("Error placing order: ", e);
-    }
+  const orderData = {
+    completed: false,
+    orderTime: serverTimestamp(), // using Firestore server timestamp
+    order: orderFormat,
+    name: userData.name,
+    email: userData.email,
+    organization: userData.organization,
+    buttonQuantity: userData.buttonQuantity,
+    address: userData.address,
+    notes: userData.notes
   };
+  try {
+    // Create new document in orders collection
+    const orderRef = await addDoc(collection(db, "orders"), orderData);
+    const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
+    // Update the ordered field for each toy in the "toys" collection
+    const toyNames = Object.keys(orderFormat)
+    for (let i = 0; i < toyNames.length; i++) {
+      // const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
+      // const toyRef = doc(db, "toys", toyName);
+      const toyRef = formatAndFetchString(toyNames[i]);
+
+      const element = await getDoc(toyRef)
+      const toyData = { ...element.data() }
+      await updateDoc(toyRef, {
+        ordered: toyData.ordered + (orderFormat[toyNames[i]])
+      });
+    }
+
+    await updateDoc(toysUpdateRef, { toysLastUpdated: serverTimestamp() });
+  } catch (e) {
+    console.error("Error placing order: ", e);
+  }
+};
