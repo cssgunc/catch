@@ -27,6 +27,7 @@ export default function Checkout() {
   useEffect(() => {
     try {
       const storedJsonString = localStorage.getItem('cartObject');
+      console.log(storedJsonString)
       if (storedJsonString) {
         const storedObject = JSON.parse(storedJsonString);
         let idCounter = 1;
@@ -34,8 +35,8 @@ export default function Checkout() {
           id: idCounter++,
           name: item.name,
           quantity: item.quantity,
-          imageSrc: imageSrcTest,
-          description: `Description for ${item.name}`,
+          imageSrc: item.imagePath,
+          description: item.description,
         }));
         setCartItems(newCartItems);
       }

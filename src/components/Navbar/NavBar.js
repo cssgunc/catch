@@ -13,7 +13,6 @@ import Admin from '../../pages/Admin';
 import Contact from '../../pages/Contact';
 import Login from '../../pages/Login';
 import ShoppingCart from './ShoppingCart';
-import { recentToys } from '../toyInfo';
 import formatAndFetchString from '../../helper-functions/lowercase-and-remove-non-alph';
 
 import { db } from '../../firebase-config'; // Fixing the import path
@@ -22,10 +21,17 @@ import { addDoc, collection, getDoc, doc, updateDoc, serverTimestamp } from '@fi
 import './Navbar.css';
 
 function CartItem(props) {
-
+  const [recentToys, setRecentToys] = useState(JSON.parse(localStorage.getItem('recentToys')));
   const [quantity, setQuantity] = useState(props.toy.quantity)
   const [disable, setDisable] = useState(quantity === 1)
   const toyName = props.toy.name;
+  // useEffect(() => {
+  //   const storedRecentToysString = localStorage.getItem('recentToys')
+  //   if (storedRecentToysString) {
+  //     setRecentToys(JSON.parse(storedRecentToysString))
+  //   }
+  // }, []);
+
   const toy = recentToys.find(item => item.name === toyName)
 
   const addOne = () => {
@@ -99,8 +105,6 @@ function ShoppingCartPanel(props) {
   }, []);
 
   const placeOrder = async (order) => {
-      console.log("here is the order: ");
-      console.log(order);
       // Convert the object representing all cart items to JSON string
       const orderString = JSON.stringify(order);
       // Store the stringified JSON object in local storage under the key 'myObject'

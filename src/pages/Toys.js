@@ -75,7 +75,7 @@ function Toy(props) {
         return;
       }
     }
-    tempOrder.push({"name": props.details.name, "quantity": 1});
+    tempOrder.push({"name": props.details.name, "quantity": 1, "imagePath": props.details.imagePath, "description": props.details.description});
     props.setOrder(tempOrder);
   }
 
@@ -114,6 +114,9 @@ function ToyGrid_new(props) {
 
     fetchToys();
   }, []);
+
+  const recentToysString = JSON.stringify(recentToys);
+  localStorage.setItem('recentToys', recentToysString);
 
   return (
     <div id="catalog">

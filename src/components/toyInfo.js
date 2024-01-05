@@ -43,9 +43,11 @@ export const getDynamicRecentToys = async () => {
     try {
       const querySnapshot = await getDocs(toysRef);
       querySnapshot.forEach((doc) => {
-        let data = doc.data();
-        data.imagePath = `https://drive.google.com/uc?export=view&id=${data.imageID}`
-        toys.push(data);
+        if (doc.data().current) {
+          let data = doc.data();
+          data.imagePath = `https://drive.google.com/uc?export=view&id=${data.imageID}`
+          toys.push(data);
+        }
       });
     } catch (error) {
       console.error("Error fetching media data:", error);
@@ -60,18 +62,17 @@ export const getDynamicRecentToys = async () => {
     try {
       const querySnapshot = await getDocs(toysRef);
       querySnapshot.forEach((doc) => {
-        let data = doc.data();
-        data.imagePath = `https://drive.google.com/uc?export=view&id=${data.imageID}`
-        toys.push(data);
+        if (!doc.data().current) {
+          let data = doc.data();
+          data.imagePath = `https://drive.google.com/uc?export=view&id=${data.imageID}`
+          toys.push(data);
+        }
       });
     } catch (error) {
       console.error("Error fetching media data:", error);
     }
     return toys;
     }
-
-export const recentToys = getDynamicRecentToys()
-export const oldToys = getDynamicOldToys()
 
 // export const recentToys = [
 //     {description: "Who said you need Jurassic Park to see a real-life dinosaur? The Robo-Alive Attacking T-Rex Dinosaur can stomp, walk, bite, and roar – all at a push of a button!", name: "Attacking T-Rex Dinosaur", imagePath: trexImage, altText: 'Modfified T-Rex Toy', buildURL: 'https://docs.google.com/presentation/d/1wbJqiEVo8fUr-7MK_vaexr9-cqTBe6HjSzHXuhyEOuY/edit#slide=id.p'},
@@ -93,5 +94,5 @@ export const oldToys = getDynamicOldToys()
 // ]
 
 
-console.log(recentToys)
-console.log(oldToys)
+// console.log(recentToys)
+// console.log(oldToys)
