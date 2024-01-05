@@ -21,16 +21,10 @@ import { addDoc, collection, getDoc, doc, updateDoc, serverTimestamp } from '@fi
 import './Navbar.css';
 
 function CartItem(props) {
-  const [recentToys, setRecentToys] = useState(JSON.parse(localStorage.getItem('recentToys')));
+  const recentToys = JSON.parse(localStorage.getItem('recentToys'));
   const [quantity, setQuantity] = useState(props.toy.quantity)
   const [disable, setDisable] = useState(quantity === 1)
   const toyName = props.toy.name;
-  // useEffect(() => {
-  //   const storedRecentToysString = localStorage.getItem('recentToys')
-  //   if (storedRecentToysString) {
-  //     setRecentToys(JSON.parse(storedRecentToysString))
-  //   }
-  // }, []);
 
   const toy = recentToys.find(item => item.name === toyName)
 
