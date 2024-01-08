@@ -8,88 +8,13 @@ import CountUp from 'react-countup';
 import formatAndFetchString from '../helper-functions/lowercase-and-remove-non-alph.js';
 import Carousel from 'react-multi-carousel';
 import  { getSlideshowImages } from "../components/mainSlideshowInfo.js";
+import  { getRecentEvents1Info } from "../components/recentEvents1Info.js";
+import  { getRecentEvents2Info } from "../components/recentEvents2Info.js";
+import  { getRecentEvents3Info } from "../components/recentEvents3Info.js";
+import  { getRecentEvents4Info } from "../components/recentEvents4Info.js";
 import 'react-multi-carousel/lib/styles.css';
 import './Home.css';
 
-const interestMeetingImages = [
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_8690.JPEG"),
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_8691.JPEG"),
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_8696.JPEG"),
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_8697.JPEG"),
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_8698.JPEG"),
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_8695.JPEG"),
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_8700.JPEG"),
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_8701.JPEG"),
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_8694.JPEG"),
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_8702.JPEG"),
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_8703.JPEG"),
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_9964.HEIC"),
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_9965.HEIC"),
-  require("../images/Home/Interest Meeting (8.30.22)/Copy of IMG_9966.HEIC")
-]
-
-
-
-const firstMeetingImages = [
-  require("../images/Home/First Meeting (9.13.22)/catch1.jpg"),
-  require("../images/Home/First Meeting (9.13.22)/catch2.jpg"),
-  require("../images/Home/First Meeting (9.13.22)/catch3.jpg"),
-  require("../images/Home/First Meeting (9.13.22)/catch4.jpg"),
-  require("../images/Home/First Meeting (9.13.22)/catch5.jpg"),
-  require("../images/Home/First Meeting (9.13.22)/catch6.jpg")
-]
-
-const lateNightImages = [
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1748.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1749.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1750.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1751.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1752.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1753.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1754.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1755.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1756.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1757.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1758.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1759.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1760.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1761.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1762.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1763.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1764.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1765.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1766.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of IMG_1767.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-001A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-002A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-003A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-004A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-005A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-006A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-007A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-008A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-009A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-010A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-011A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-012A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-013A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-014A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-015A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-016A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-017A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-018A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-019A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-020A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-021A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-022A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-023A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-024A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-025A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-026A.JPG"),
-  require("../images/Home/Late Night with Toys (9.9.22)/Copy of R1-07720-027A.JPG")
-]
-
-// Replace with getToyInfo()
 function MainSlideshow() {
   const [mainSlideshow, setMainSlideshow] = useState([]);
   const [isMounted, setIsMounted] = useState(true);
@@ -169,32 +94,49 @@ export default function Home() {
   const [toys, setToys] = useState([]);
   const [donatedSum, setDonatedSum] = useState();
 
-  // useEffect(() => {
-  //   const getToys = async () => {
-  //     const timeData = await getDoc(toysUpdateRef)
-  //     const lastUpdated = timeData.get('toysLastUpdated');
-  //     if (toysTime === undefined || !lastUpdated.isEqual(toysTime)) {
-  //       const data = await getDocs(toysRef);
-  //       setToys(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-  //       setToysTime(lastUpdated);
-  //     }
-  //   }
-  //   getToys()
-  // })
+  const [recentEvents1, setrecentEvents1] = useState([]);
 
-  // useEffect(() => {
-  //   const getTotalDonated = async () => {
+  useEffect(() => {
+    const fetchRecentEvents1 = async () => {
+      const recentEventData = await getRecentEvents1Info();
+      setrecentEvents1(recentEventData);
+    };
 
-  //     const sumData = await getDoc(donateSumRef);
-  //     const currSum = sumData.get('totalDonated');
-  //     if (currSum !== donatedSum) {
-  //       setDonatedSum(currSum);
-  //     }
-  //   }
-  //   getTotalDonated()
-  // })
+    fetchRecentEvents1();
+  }, []);
 
-  // Click and scroll
+  const [recentEvents2, setrecentEvents2] = useState([]);
+
+  useEffect(() => {
+    const fetchRecentEvents2 = async () => {
+      const recentEventData = await getRecentEvents2Info();
+      setrecentEvents2(recentEventData);
+    };
+
+    fetchRecentEvents2();
+  }, []);
+
+  const [recentEvents3, setrecentEvents3] = useState([]);
+
+  useEffect(() => {
+    const fetchRecentEvents3 = async () => {
+      const recentEventData = await getRecentEvents3Info();
+      setrecentEvents3(recentEventData);
+    };
+
+    fetchRecentEvents3();
+  }, []);
+
+  const [recentEvents4, setrecentEvents4] = useState([]);
+
+  useEffect(() => {
+    const fetchRecentEvents4 = async () => {
+      const recentEventData = await getRecentEvents4Info();
+      setrecentEvents4(recentEventData);
+    };
+
+    fetchRecentEvents4();
+  }, []);
 
   const intro = useRef(null);
   const events = useRef(null)
@@ -204,26 +146,6 @@ export default function Home() {
   };
   const goToEvents = () => {
     events.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  // Carousel
-
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      slidesToSlide: 3 // optional, default to 1.
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      slidesToSlide: 2 // optional, default to 1.
-    },
-    mobile: {
-      breakpoint: { max: 664, min: 0 },
-      items: 1,
-      slidesToSlide: 1 // optional, default to 1.
-    }
   };
 
   const responsiveEvents = {
@@ -328,7 +250,7 @@ export default function Home() {
         <h2>Recent Events</h2>
         <div className="carousel">
           <div className="carouselItemWide">
-            <p>Interest Meeting (8.30.22)</p>
+            <p>Recent Event 1</p>
             <Carousel
               swipeable={true}
               draggable={false}
@@ -342,15 +264,15 @@ export default function Home() {
               dotListClass="custom-dot-list-style"
               itemClass="carousel-item-padding-40-px"
             >
-              {interestMeetingImages.map((imagePath, index) => (
+              {recentEvents1.map((image, index) => (
                 <div key={index}>
-                  <img className="carousel-image" src={process.env.PUBLIC_URL + imagePath} alt={`Image ${index + 1}`} />
+                  <img className="carousel-image" src={image.image} alt={`Image ${index + 1}`} />
                 </div>
               ))}
             </Carousel>
           </div>
           <div className="carouselItemWide">
-            <p>Interest Meeting (8.30.22)</p>
+            <p>Recent Event 2</p>
             <Carousel
               swipeable={true}
               draggable={false}
@@ -364,9 +286,9 @@ export default function Home() {
               dotListClass="custom-dot-list-style"
               itemClass="carousel-item-padding-40-px"
             >
-              {interestMeetingImages.map((imagePath, index) => (
+              {recentEvents2.map((image, index) => (
                 <div key={index}>
-                  <img className="carousel-image" src={process.env.PUBLIC_URL + imagePath} alt={`Image ${index + 1}`} />
+                  <img className="carousel-image" src={image.image} alt={`Image ${index + 1}`} />
                 </div>
               ))}
             </Carousel>
@@ -374,7 +296,7 @@ export default function Home() {
         </div>
         <div className="carousel">
           <div className="carouselItemWide">
-            <p>Late Night with Toys (9.9.22)</p>
+            <p>Recent Event 3</p>
             <Carousel
               swipeable={true}
               draggable={false}
@@ -388,15 +310,15 @@ export default function Home() {
               dotListClass="custom-dot-list-style"
               itemClass="carousel-item-padding-40-px"
             >
-              {lateNightImages.map((imagePath, index) => (
+              {recentEvents3.map((image, index) => (
                 <div key={index}>
-                  <img className="carousel-image" src={process.env.PUBLIC_URL + imagePath} alt={`Image ${index + 1}`} />
+                  <img className="carousel-image" src={image.image} alt={`Image ${index + 1}`} />
                 </div>
               ))}
             </Carousel>
           </div>
           <div className="carouselItemWide">
-            <p>First Meeting (9.13.22)</p>
+            <p>Recent Event 4</p>
             <Carousel
               swipeable={true}
               draggable={false}
@@ -410,9 +332,9 @@ export default function Home() {
               dotListClass="custom-dot-list-style"
               itemClass="carousel-item-padding-40-px"
             >
-              {firstMeetingImages.map((imagePath, index) => (
+              {recentEvents4.map((image, index) => (
                 <div key={index}>
-                  <img className="carousel-image" src={process.env.PUBLIC_URL + imagePath} alt={`Image ${index + 1}`} />
+                  <img className="carousel-image" src={image.image} alt={`Image ${index + 1}`} />
                 </div>
               ))}
             </Carousel>
