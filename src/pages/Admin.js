@@ -28,50 +28,50 @@ export default function Admin() {
       documentId: "president",
       name: "Bryce Menichella",
       position: "President",
-      image: "president.jpg",
+      imageID: "president.jpg",
     },
     {
       id: 2,
       documentId: "vicePresident",
       name: "Katie Chai",
       position: "Vice President",
-      image: "vp.jpg",
+      imageID: "vp.jpg",
     },
   ]);
   const [slideshowData, setSlideshowData] = useState([
-    { id: 1, documentId: "AAmkOF7cLS4Lwjzkw5U0", imageId: "8437132145", altText: "Building a Dinosaur!" },
-    { id: 2, documentId: "AaGzXdI3bZmwRnaJS5Dp", imageId: "1834972562", altText: "Group Photo" },
+    { id: 1, documentId: "AAmkOF7cLS4Lwjzkw5U0", imageID: "8437132145" },
+    { id: 2, documentId: "AaGzXdI3bZmwRnaJS5Dp", imageID: "1834972562" },
   ]);
   const [recentEvents, setRecentEvents] = useState([
-    "Name of Event 1",
-    "Name of Event 2",
-    "Name of Event 3",
-    "Name of Event 4",
+    "Recent Event 1",
+    "Recent Event 2",
+    "Recent Event 3",
+    "Recent Event 4",
   ]);
   const [selectedEvent, setSelectedEvent] = useState(recentEvents[0]);
   const [recentEventsData, setRecentEventsData] = useState({
-    "Name of Event 1": [
-      { id: 1, imageId: "event1_image1" },
-      { id: 2, imageId: "event1_image2" },
+    "Recent Event 1": [
+      { id: 1, documentId: "64fNazZj2gT1uE4nsVBr", imageID: "event1_image1" },
+      { id: 2, documentId: "EN75BnhRQB7qO5013ZJI", imageID: "event1_image2" },
     ],
-    "Name of Event 2": [
-      { id: 1, imageId: "event2_image1" },
-      { id: 2, imageId: "event2_image2" },
+    "Recent Event 2": [
+      { id: 1, documentId: "21", imageID: "event2_image1" },
+      { id: 2, documentId: "22", imageID: "event2_image2" },
     ],
-    "Name of Event 3": [
-      { id: 1, imageId: "event3_image1" },
-      { id: 2, imageId: "event3_image2" },
+    "Recent Event 3": [
+      { id: 1, documentId: "31", imageID: "event3_image1" },
+      { id: 2, documentId: "32", imageID: "event3_image2" },
     ],
-    "Name of Event 4": [
-      { id: 1, imageId: "event4_image1" },
-      { id: 2, imageId: "event4_image2" },
+    "Recent Event 4": [
+      { id: 1, documentId: "41", imageID: "event4_image1" },
+      { id: 2, documentId: "42", imageID: "event4_image2" },
     ],
   });
-  const [recentEventsIds, setRecentEventsIds] = useState({
-    "Name of Event 1": "event1",
-    "Name of Event 2": "event2",
-    "Name of Event 3": "event3",
-    "Name of Event 4": "event4"
+  const [recentEventsRefs, setRecentEventsRefs] = useState({
+    "Recent Event 1": "recentEvents1",
+    "Recent Event 2": "recentEvents2",
+    "Recent Event 3": "recentEvents3",
+    "Recent Event 4": "recentEvents4"
   })
   const handleEventChange = (event) => {
     setSelectedEvent(event);
@@ -122,7 +122,6 @@ export default function Admin() {
       id: 1,
       documentId: "Aversboro Elementary School",
       imageID: "1Y0HTYgreITQunWmhzlCuEYwz149zvvLl",
-      altText: "aversboro alt text",
       orgName: "Aversboro Elementary School",
       totalDonated: 10,
       numDonations: 1,
@@ -132,7 +131,6 @@ export default function Admin() {
       id: 2,
       documentId: "Levine Children's Hospital",
       imageID: "10uFPO5F8QR44Zoqjm3wiF-UaWRFwvZO5",
-      altText: "levine alt text",
       orgName: "Levine Children's Hospital",
       totalDonated: 32,
       numDonations: 2,
@@ -662,7 +660,7 @@ export default function Admin() {
         );
       case "Main Slideshow":
         const slideInit = initializeVals(slideshowData[0]);
-        const slideHeaders = ["Image ID (PNG/JPEG)", "Alternate Text"];
+        const slideHeaders = ["Image ID (PNG/JPEG)"];
         return (
           <Table
             initial_state={slideInit}
@@ -673,7 +671,7 @@ export default function Admin() {
           />
         );
       case "Recent Events":
-        const recentEventsInit = initializeVals({ id: 1, documentId: "none", imageId: "" });
+        const recentEventsInit = initializeVals({imageID: "" });
         const recentEventsHeaders = ["Image ID (PNG/JPEG)"];
 
         return (
@@ -743,7 +741,6 @@ export default function Admin() {
         const donationsInit = initializeVals(donationsData[0]);
         const donationsHeaders = [
           "Image ID (PNG/JPEG)",
-          "Alternate Text",
           "Organization",
           "Total Donations",
           "Number of Donations",
