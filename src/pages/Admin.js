@@ -18,6 +18,7 @@ export default function Admin() {
   const [editedIds, setEditedIds] = useState([]);
 
   const execRef = "exec";
+  const slideshowRef = "mainSlideshow";
   const toysRef = "toys";
   const donationsRef = "donations";
   const mediaRef = "media";
@@ -81,7 +82,7 @@ export default function Admin() {
       id: 1,
       documentId: "airplane",
       description: "Up, up and away we go! This plane lights up and moves at the push of a button!",
-      fullName: "Airplane",
+      name: "Airplane",
       imageID: "1B3L40nGH9ySizfE_NkBl_vQj8fdY0Nhl",
       altText: "Modified Airplane Toy",
       buildURL:
@@ -91,7 +92,7 @@ export default function Admin() {
       id: 2,
       documentId: "bus",
       description: "Want to see the bus go round and round? With this toy, you can! At the push of a button, this school bus will DRIVE!",
-      fullName: "School Bus",
+      name: "School Bus",
       imageID: "1lg24yPkPHhcp5G3oXpu54riojgWebgQW",
       altText: "Modified Bus Toy",
       buildURL: "",
@@ -102,7 +103,7 @@ export default function Admin() {
       id: 1,
       documentId: "alien",
       description: "temp description",
-      fullName: "Alien",
+      name: "Alien",
       imageID: "1Mnn9Yn-CQRAtSQ-xBBad3-6vyIMtxeFE",
       altText: "Modified Alien Toy",
       buildURL: "",
@@ -111,7 +112,7 @@ export default function Admin() {
       id: 2,
       documentId: "dog",
       description: "temp description",
-      fullName: "Dog",
+      name: "Dog",
       imageID: "18qJcQ0HD36rQHOCP41r7fvAe78D-XxHz",
       altText: "Modified Dog Toy",
       buildUrl: "",
@@ -320,7 +321,7 @@ export default function Admin() {
         addDocId = addDocId.replace(/\s+/g, '');
         addDocId = addDocId.charAt(0).toLowerCase() + addDocId.slice(1);
       } else if (currTab === "Recent Toys" || currTab === "Old Toys") {
-        addDocId = editedData.fullName;
+        addDocId = editedData.name;
         addDocId = addDocId.replace(/\s+/g, '').toLowerCase();
       }
 
@@ -336,7 +337,6 @@ export default function Admin() {
     const findDoc = (docId) => {
       const docu = data.find(object => {return object.documentId === docId});
       let newDoc = {...docu};
-      delete newDoc.id;
       delete newDoc.documentId;
       return newDoc;
     };
@@ -347,16 +347,35 @@ export default function Admin() {
         }
         setDeletedIds([]);
         
-        if (currTab === "Media") {
+        if (currTab === "Media" || currTab === "Main Slideshow") {
           const newRows = data.filter(object => {return object.documentId === ""})
           for (const id in newRows) {
             let newDoc = {...newRows[id]}
             delete newDoc.documentId;
+            if (currTab !== "Media") {
+              delete newDoc.id;
+            }
             await addDoc(collection(db, dataRef), newDoc);
           }
+        } else if (currTab === "Recent Toys" || currTab === "Old Toys") {
+          for (const id in addedIds) {
+            const newDoc = {...findDoc(addedIds[id]), 
+              current: currTab === "Recent Toys", 
+              donated: 0, 
+              imageName: "",  // Add this field to the Admin dashboard?
+              inventory: 0, 
+              ordered: 0
+            };
+            delete newDoc.id;
+            await setDoc(doc(db, dataRef, addedIds[id]), newDoc);
+          }
+          setAddedIds([]);
         } else {
           for (const id in addedIds) {
             const newDoc = findDoc(addedIds[id]);
+            if (currTab !== "Executives") {
+              delete newDoc.id;
+            }
             await setDoc(doc(db, dataRef, addedIds[id]), newDoc);
           }
           setAddedIds([]);
@@ -364,12 +383,15 @@ export default function Admin() {
 
         for (const id in editedIds) {
           const newDoc = findDoc(editedIds[id]);
+          if (currTab !== "Media" && currTab !== "Executives") {
+            delete newDoc.id;
+          }
           await updateDoc(doc(db, dataRef, editedIds[id]), newDoc);
         }
         setEditedIds([]);
 
         // TODO: Fetch current data from firestore and call setData().
-        //   Alternatively, when adding files to Media, update the documentId to match.
+        //   Alternatively, when adding files to Media/Main Slideshow, update the documentId to match.
         setPrevData(data);
     }
 
@@ -528,102 +550,146 @@ export default function Admin() {
     };
 
     const handleAdd = () => {
-      const newData = [...data, editedData];
+      const addId = data[data.length - 1].id + 1;
+      const addDocId = "";
+
+      const newData = [...data, {...editedData, id: addId, documentId: addDocId}];
       setData((prevData) => ({ ...prevData, [selectedEvent]: newData }));
       setEditIndex(null);
     };
 
+    const findDoc = (docId) => {
+      const docu = data.find(object => {return object.documentId === docId});
+      let newDoc = {...docu};
+      delete newDoc.id;
+      delete newDoc.documentId;
+      return newDoc;
+    };
+
+    const setInfo = async () => {
+      const dataRef = recentEventsRefs[selectedEvent];
+      for (const id in deletedIds) {
+        await deleteDoc(doc(db, dataRef, deletedIds[id]))
+      }
+      setDeletedIds([]);
+      
+      const newRows = data.filter(object => {return object.documentId === ""})
+      for (const id in newRows) {
+        let newDoc = {...newRows[id]}
+        delete newDoc.documentId;
+        delete newDoc.id;
+        await addDoc(collection(db, dataRef), newDoc);
+      }
+
+      for (const id in editedIds) {
+        const newDoc = findDoc(editedIds[id]);
+        await updateDoc(doc(db, dataRef, editedIds[id]), newDoc);
+      }
+      setEditedIds([]);
+
+      // TODO: Fetch current data from firestore and call setData().
+      //   Alternatively, when adding files, update the documentId to match.
+      setPrevData(data);
+    }
+
     return (
-      <table className="view-table">
-        <thead>
-          <tr>
-            {headers.map((header) => (
-              <th key={header}>{header}</th>
-            ))}
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, index) => (
-            <tr key={row.id}>
-              {Object.keys(initial_state).map((field) => (
-                <td key={field}>
+      <div>
+        <table className="view-table">
+          <thead>
+            <tr>
+              {headers.map((header) => (
+                <th key={header}>{header}</th>
+              ))}
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, index) => (
+              <tr key={row.id}>
+                {Object.keys(initial_state).map((field) => (
+                  <td key={field}>
+                    {editIndex === index ? (
+                      <input
+                        type="text"
+                        value={editedData[field]}
+                        onChange={(e) => handleChange(field, e.target.value)}
+                      />
+                    ) : (
+                      row[field]
+                    )}
+                  </td>
+                ))}
+                <td>
                   {editIndex === index ? (
+                    <>
+                      <button
+                        onClick={() => handleSave(index)}
+                        className="view-button"
+                      >
+                        Save
+                      </button>
+                      <button onClick={() => handleCancel(setEditIndex)} className="view-button">
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => handleEdit(index, data, setEditIndex, setEditedData)}
+                        className="view-button"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(index)}
+                        className="view-button"
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+            {editIndex === "plus" ? (
+              <tr>
+                {Object.keys(initial_state).map((field) => (
+                  <td key={field}>
                     <input
                       type="text"
                       value={editedData[field]}
                       onChange={(e) => handleChange(field, e.target.value)}
                     />
-                  ) : (
-                    row[field]
-                  )}
-                </td>
-              ))}
-              <td>
-                {editIndex === index ? (
+                  </td>
+                ))}
+                <td>
                   <>
-                    <button
-                      onClick={() => handleSave(index)}
-                      className="view-button"
-                    >
-                      Save
+                    <button onClick={handleAdd} className="view-button">
+                      Add
                     </button>
-                    <button onClick={() => handleCancel(setEditIndex)} className="view-button">
+                    <button onClick={handleCancel} className="view-button">
                       Cancel
                     </button>
                   </>
-                ) : (
-                  <>
-                    <button
-                      onClick={() => handleEdit(index, data, setEditIndex, setEditedData)}
-                      className="view-button"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(index)}
-                      className="view-button"
-                    >
-                      Delete
-                    </button>
-                  </>
-                )}
-              </td>
-            </tr>
-          ))}
-          {editIndex === "plus" ? (
-            <tr>
-              {Object.keys(initial_state).map((field) => (
-                <td key={field}>
-                  <input
-                    type="text"
-                    value={editedData[field]}
-                    onChange={(e) => handleChange(field, e.target.value)}
-                  />
                 </td>
-              ))}
-              <td>
-                <>
-                  <button onClick={handleAdd} className="view-button">
-                    Add
+              </tr>
+            ) : (
+              <tr>
+                <td>
+                  <button onClick={handleAddInit} className="add-button">
+                    +
                   </button>
-                  <button onClick={handleCancel} className="view-button">
-                    Cancel
-                  </button>
-                </>
-              </td>
-            </tr>
-          ) : (
-            <tr>
-              <td>
-                <button onClick={handleAddInit} className="add-button">
-                  +
-                </button>
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+        <div className="save-div">
+        <button onClick={setInfo} className="save-button">
+          Save Changes
+        </button>
+        </div>
+      </div>
     );
   }
 
@@ -648,7 +714,7 @@ export default function Admin() {
     switch (currTab) {
       case "Executives":
         const execInit = initializeVals(execData[0]);
-        const execHeaders = ["Name", "Position", "Image ID (PNG/JPEG)"];
+        const execHeaders = ["Name", "Position", "Image ID (Google Drive)"];
         return (
           <Table
             initial_state={execInit}
@@ -660,19 +726,19 @@ export default function Admin() {
         );
       case "Main Slideshow":
         const slideInit = initializeVals(slideshowData[0]);
-        const slideHeaders = ["Image ID (PNG/JPEG)"];
+        const slideHeaders = ["Image ID (Google Drive)"];
         return (
           <Table
             initial_state={slideInit}
             data={slideshowData}
             setData={setSlideshowData}
             headers={slideHeaders}
-            dataRef={null}
+            dataRef={slideshowRef}
           />
         );
       case "Recent Events":
         const recentEventsInit = initializeVals({imageID: "" });
-        const recentEventsHeaders = ["Image ID (PNG/JPEG)"];
+        const recentEventsHeaders = ["Image ID (Google Drive)"];
 
         return (
           <div>
@@ -706,7 +772,7 @@ export default function Admin() {
         const recentToysHeaders = [
           "Description",
           "Name",
-          "Image ID (PNG/JPEG)",
+          "Image ID (Google Drive)",
           "Alternate Text",
           "Build URL",
         ];
@@ -724,7 +790,7 @@ export default function Admin() {
         const oldToysHeaders = [
           "Description",
           "Name",
-          "Image ID (PNG/JPEG)",
+          "Image ID (Google Drive)",
           "Alternate Text",
           "Build URL",
         ];
@@ -740,7 +806,7 @@ export default function Admin() {
       case "Donations":
         const donationsInit = initializeVals(donationsData[0]);
         const donationsHeaders = [
-          "Image ID (PNG/JPEG)",
+          "Image ID (Google Drive)",
           "Organization",
           "Total Donations",
           "Number of Donations",
@@ -758,7 +824,7 @@ export default function Admin() {
       case "Media":
         const mediaInit = initializeVals(mediaData[0]);
         const mediaHeaders = [
-          "Image ID (PNG/JPEG)",
+          "Image ID (Google Drive)",
           "Alternate Text",
           "Header",
           "Description",
