@@ -724,7 +724,7 @@ export default function Admin() {
     switch (currTab) {
       case "Executives":
         const execInit = {name: "", position: "", imageID: ""}
-        const execHeaders = ["Name", "Position", "Image ID (Google Drive)"];
+        const execHeaders = ["Name", "Position", "Image ID (PNG/JPEG)"];
         return (
           <Table
             initial_state={execInit}
@@ -736,7 +736,7 @@ export default function Admin() {
         );
       case "Main Slideshow":
         const slideInit = {imageID: ""}
-        const slideHeaders = ["Image ID (Google Drive)"];
+        const slideHeaders = ["Image ID (PNG/JPEG)"];
         return (
           <Table
             initial_state={slideInit}
@@ -748,7 +748,7 @@ export default function Admin() {
         );
       case "Recent Events":
         const recentEventsInit = {imageID: ""};
-        const recentEventsHeaders = ["Image ID (Google Drive)"];
+        const recentEventsHeaders = ["Image ID (PNG/JPEG)"];
 
         return (
           <div>
@@ -788,7 +788,7 @@ export default function Admin() {
         const recentToysHeaders = [
           "Description",
           "Name",
-          "Image ID (Google Drive)",
+          "Image ID (PNG/JPEG)",
           "Alternate Text",
           "Build URL",
         ];
@@ -812,7 +812,7 @@ export default function Admin() {
         const oldToysHeaders = [
           "Description",
           "Name",
-          "Image ID (Google Drive)",
+          "Image ID (PNG/JPEG)",
           "Alternate Text",
           "Build URL",
         ];
@@ -834,7 +834,7 @@ export default function Admin() {
           description: "",
         }
         const donationsHeaders = [
-          "Image ID (Google Drive)",
+          "Image ID (PNG/JPEG)",
           "Organization",
           "Total Donations",
           "Number of Donations",
@@ -858,7 +858,7 @@ export default function Admin() {
           link: "",
         }
         const mediaHeaders = [
-          "Image ID (Google Drive)",
+          "Image ID (PNG/JPEG)",
           "Alternate Text",
           "Header",
           "Description",
