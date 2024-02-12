@@ -21,10 +21,12 @@ export async function getDynamicRecentExecInfo() {
         querySnapshot.forEach((doc) => {
           if (!doc.data().current) {
             let data = doc.data();
-            data.image = `https://drive.google.com/thumbnail?sz=w1000&id=${data.imageID}`
+            data.image = `https://lh3.googleusercontent.com/d/${data.imageID}=w1000`
             execs.push(data);
           }
-        });
+        })
+        console.log(execs)
+        ;
         execs.sort((a, b) => a.id - b.id);
       } catch (error) {
         console.error("Error fetching data:", error);

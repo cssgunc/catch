@@ -32,7 +32,7 @@ export const getDynamicRecentToys = async () => {
       querySnapshot.forEach((doc) => {
         if (doc.data().current) {
           let data = doc.data();
-          data.imagePath = `https://drive.google.com/thumbnail?sz=w1000&id=${data.imageID}`
+          data.imagePath = `https://lh3.googleusercontent.com/d/${data.imageID}=w1000`
           toys.push(data);
         }
       });
@@ -51,7 +51,7 @@ export const getDynamicRecentToys = async () => {
       querySnapshot.forEach((doc) => {
         if (!doc.data().current) {
           let data = doc.data();
-          data.imagePath = `https://drive.google.com/thumbnail?sz=w1000&id=${data.imageID}`
+          data.imagePath = `https://lh3.googleusercontent.com/d/${data.imageID}=w1000`
           toys.push(data);
         }
       });

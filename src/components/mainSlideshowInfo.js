@@ -12,7 +12,7 @@ export const getSlideshowImages = async () => {
       const querySnapshot = await getDocs(slideRef);
       querySnapshot.forEach((doc) => {
         let data = doc.data();
-        data.imagePath = `https://drive.google.com/thumbnail?sz=w1000&id=${data.imageID}`
+        data.imagePath = `https://lh3.googleusercontent.com/d/${data.imageID}=w1000`
         images.push(data);
       });
     } catch (error) {
