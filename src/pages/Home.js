@@ -87,9 +87,7 @@ function MainSlideshow() {
 
 // WORKING WITH BACKEND START
 export default function Home() {
-  const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
   const toysRef = collection(db, "toys"); //reference to toys collection in firestore database
-  const donateSumRef = doc(db, 'totalDonated', 'totalDonated');
   const [toysTime, setToysTime] = useState()
   const [toys, setToys] = useState([]);
   const [donatedSum, setDonatedSum] = useState();
@@ -164,43 +162,6 @@ export default function Home() {
       items: 1,
       slidesToSlide: 1 // optional, default to 1.
     }
-  };
-
-  const completeOrder = async (orderId) => {
-    const orderRef = doc(db, 'orders', orderId); // Replace 'orderId' with the actual document ID of the order you want to update
-    const orderData = await getDoc(orderRef);
-    if (!orderData.exists()) {
-      console.error('Error accessing document data');
-      return;
-    }
-
-    //Development note: Comment out this code block if repeatedly testing on the same order; revert to K & R style with above if statement for production
-    else if (orderData.get("completed") === true) {
-      console.error('Order already completed');
-      return;
-    }
-    const updateData = { completed: true };
-    await updateDoc(orderRef, updateData);
-
-    const order = orderData.get("order");
-    const orderToys = Object.keys(order);
-    let sum = 0;
-
-    for (let i = 0; i < orderToys.length; i++) {
-      const toyRef = formatAndFetchString(orderToys[i]);
-      // const toyName = orderToys[i].replace(/\W/g, '').toLowerCase();
-      // const toyRef = doc(db, "toys", toyName);
-
-      const currOrderAmt = order[orderToys[i]];
-
-      await updateDoc(toyRef, { donated: increment(currOrderAmt) });
-      sum += currOrderAmt;
-    }
-
-    await updateDoc(toysUpdateRef, { toysLastUpdated: serverTimestamp() });
-
-    //Ensure that the totalDonated field is defined as an integer, or its current value will be replaced by sum.  
-    await updateDoc(donateSumRef, { totalDonated: increment(sum) });
   };
 
   // WORKING WITH BACKEND END

@@ -21,7 +21,7 @@ export async function getDynamicRecentExecInfo() {
         querySnapshot.forEach((doc) => {
           if (!doc.data().current) {
             let data = doc.data();
-            data.image = `https://drive.google.com/uc?export=view&id=${data.imageID}`
+            data.image = `https://drive.google.com/thumbnail?sz=w1000&id=${data.imageID}`
             execs.push(data);
           }
         });

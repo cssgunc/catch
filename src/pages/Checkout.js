@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Col, Row, Container, Button, Form, Card } from 'react-bootstrap';
 import imageSrcTest from '../images/logo.png';
 import { placeOrder } from '../components/Navbar/NavBar.js';
+import { db } from '../firebase-config.js';
+import { collection, addDoc } from 'firebase/firestore';
 import "./Checkout.css";
 import { FaTrashAlt } from "react-icons/fa";
 
@@ -21,6 +23,27 @@ const QuantitySelector = ({ quantity, onDecrease, onIncrease }) => {
 };
 
 export default function Checkout() {
+  async function addMailDocument() {
+    const mailCollection = collection(db, 'mail');
+  
+    // Document data
+    const mailData = {
+      message: {
+        subject: userData.name + ' just placed an order!',
+        text: 'text content',
+        html: 'Organization: '+ userData.organization + ', # of buttons: ' + userData.buttonQuantity + ', Address: ' + userData.address + ", Notes: " + userData.notes,
+      },
+      to: [userData.email],
+    };
+  
+    try {
+      const docRef = await addDoc(mailCollection, mailData);
+      console.log('Document written with ID: ', docRef.id);
+    } catch (e) {
+      console.error('Error adding document: ', e);
+    }
+  }
+
   const [cartItems, setCartItems] = useState([]);
   const [orderSubmitted, setOrderSubmitted] = useState(false);
 
@@ -88,15 +111,28 @@ export default function Checkout() {
     setCartItems(prevItems => prevItems.filter(item => item.id !== itemId));
   };
 
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     placeOrder(cartItems, userData);
+    addMailDocument();
+
     setCartItems([]);
     // Optionally, you can clear the localStorage here as well
     localStorage.removeItem('cartObject');
 
     // Set orderSubmitted to true to display the success message
     setOrderSubmitted(true);
+        // Clear user data
+    setUserData({
+      name: '',
+      email: '',
+      organization: '',
+      buttonQuantity: 0,
+      address: '',
+      notes: ''
+    });
     window.alert("Thank You for Ordering! CATCH will review your order soon and let you know when it is confirmed!");
   }
 

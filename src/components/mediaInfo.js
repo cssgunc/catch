@@ -10,7 +10,7 @@ export const getMediaInfo = async () => {
     const querySnapshot = await getDocs(query(mediaRef, orderBy("id")));
     querySnapshot.forEach((doc) => {
       let data = doc.data();
-      data.image = `https://drive.google.com/uc?export=view&id=${data.imageID}`
+      data.image = `https://drive.google.com/thumbnail?sz=w1000&id=${data.imageID}`
       mediaArray.push(data);
     });
   } catch (error) {

@@ -1,16 +1,3 @@
-import trexImage from '../images/Toy Catolog/trex.jpg';
-import airplaneImage from '../images/Toy Catolog/airplane.jpg';
-import garbageTruckImage from '../images/Toy Catolog/garbagetruck.jpg';
-import schoolBusImage from '../images/Toy Catolog/bus.jpg';
-import snakeImage from '../images/Toy Catolog/snake.jpg';
-import automobileImage from '../images/Toy Catolog/dinocar.jpg';
-import firetruckImage from '../images/Toy Catolog/firetruck.jpg';
-import tractorImage from '../images/Toy Catolog/tractor.jpg';
-import lizardImage from '../images/Toy Catolog/lizard.jpg';
-import penguinImage from '../images/Toy Catolog/penguin.jpg';
-import alienImage from '../images/Toy Catolog/alien.jpg';
-import dogImage from '../images/Toy Catolog/dog.jpg';
-import pixieImage from '../images/Toy Catolog/pixie.jpg';
 import { collection, getDocs } from '@firebase/firestore';
 import { db } from '../firebase-config';
 
@@ -45,7 +32,7 @@ export const getDynamicRecentToys = async () => {
       querySnapshot.forEach((doc) => {
         if (doc.data().current) {
           let data = doc.data();
-          data.imagePath = `https://drive.google.com/uc?export=view&id=${data.imageID}`
+          data.imagePath = `https://drive.google.com/thumbnail?sz=w1000&id=${data.imageID}`
           toys.push(data);
         }
       });
@@ -64,7 +51,7 @@ export const getDynamicRecentToys = async () => {
       querySnapshot.forEach((doc) => {
         if (!doc.data().current) {
           let data = doc.data();
-          data.imagePath = `https://drive.google.com/uc?export=view&id=${data.imageID}`
+          data.imagePath = `https://drive.google.com/thumbnail?sz=w1000&id=${data.imageID}`
           toys.push(data);
         }
       });
