@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react';
 import { FaInstagram } from 'react-icons/fa'
 import { FaFacebook } from 'react-icons/fa'
 import { FaLinkedin } from 'react-icons/fa'
@@ -14,23 +14,37 @@ export default function Footer() {
         <div class="footer-col">
           <div style={{display: 'inline-block', textAlign: 'left'}}>
             <div class="footer-heading">LEARN</div>
-            <div class="footer-row">History</div>
-            <div class="footer-row">FAQ</div>
-            <div class="footer-row">The Team</div>
+            <div>
+            <a href="/about" class="footer-row">History</a>
+            </div>
+            <div>
+            <a href="/about" class="footer-row">FAQ</a>
+            </div>
+            <div>
+            <a href="/about" class="footer-row">The Team</a>
+            </div>
           </div>
         </div>
         <div class="footer-col">
           <div style={{display: 'inline-block', textAlign: 'left'}}>
             <div class="footer-heading">GET INVOLVED</div>
-            <div class="footer-row">Tutorials</div>
-            <div class="footer-row">Partner Application</div>
+            <div>
+            <a href="/toys" class="footer-row">Tutorials</a>
+            </div>
+            <div>
+            <a href="/toys" class="footer-row">Partner Application</a>
+            </div>
           </div>
         </div>
         <div class="footer-col">
           <div style={{display: 'inline-block', textAlign: 'left'}}>
             <div class="footer-heading">SUPPORT</div>
-            <div class="footer-row">GoFundMe</div>
-            <div class="footer-row">Donate a Toy</div>
+            <div>
+            <a href="/donations" class="footer-row" li>GoFundMe</a>
+            </div>
+            <div>
+            <a href="/donations" class="footer-row">Donate a Toy</a>
+            </div>
           </div>
         </div>
         <div class="footer-col">
@@ -59,5 +73,3 @@ export default function Footer() {
   </div>
   )
 }
-
-

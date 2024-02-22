@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaHammer, FaPlus, FaChevronLeft } from "react-icons/fa";
-import {recentToys, oldToys} from "../components/toyInfo";
+import { getDynamicRecentToys, getDynamicOldToys} from "../components/toyInfo";
 import Banner from "../components/Banner";
 //import bannerImage from '../images/Toy Catolog/banner.jpg'
 import bannerImage from '../images/Toy Catolog/toy_catolog_banner_color.jpeg'
@@ -75,7 +75,7 @@ function Toy(props) {
         return;
       }
     }
-    tempOrder.push({"name": props.details.name, "quantity": 1});
+    tempOrder.push({"name": props.details.name, "quantity": 1, "imagePath": props.details.imagePath, "description": props.details.description});
     props.setOrder(tempOrder);
   }
 
@@ -104,6 +104,20 @@ function Toy(props) {
 
 function ToyGrid_new(props) {
 
+  const [recentToys, setRecentToys] = useState([]);
+
+  useEffect(() => {
+    const fetchToys = async () => {
+      const toyData = await getDynamicRecentToys();
+      setRecentToys(toyData);
+    };
+
+    fetchToys();
+  }, []);
+
+  const recentToysString = JSON.stringify(recentToys);
+  localStorage.setItem('recentToys', recentToysString);
+
   return (
     <div id="catalog">
       {recentToys.map((toy) => (
@@ -122,6 +136,17 @@ function ToyGrid_new(props) {
 
 
 function ToyGrid_old(props) {
+
+  const [oldToys, setOldToys] = useState([]);
+
+  useEffect(() => {
+    const fetchToys = async () => {
+      const toyData = await getDynamicOldToys();
+      setOldToys(toyData);
+    };
+
+    fetchToys();
+  }, []);
 
   return (
     <div id="catalog">

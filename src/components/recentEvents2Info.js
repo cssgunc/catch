@@ -1,0 +1,20 @@
+import { collection, getDocs } from '@firebase/firestore';
+import { db } from '../firebase-config';
+
+const recentEvents2Ref = collection(db, 'recentEvents2');
+
+export const getRecentEvents2Info = async () => {
+  const recentEventsArray = [];
+
+  try {
+    const querySnapshot = await getDocs(recentEvents2Ref);
+    querySnapshot.forEach((doc) => {
+      let data = doc.data();
+      data.image = `https://lh3.googleusercontent.com/d/${data.imageID}=w1000`
+      recentEventsArray.push(data);
+    });
+  } catch (error) {
+    console.error("Error fetching media data:", error);
+  }
+  return recentEventsArray;
+}

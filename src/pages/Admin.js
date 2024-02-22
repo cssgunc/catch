@@ -2,13 +2,52 @@ import React from "react";
 import { useState } from "react";
 //import { getAuth } from 'firebase/auth';
 import { db } from "../firebase-config.js";
-import { collection, doc, query, where, orderBy, getDocs, addDoc, setDoc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
+import { collection, doc, getDoc, query, increment, where, orderBy, getDocs, addDoc, setDoc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
+import formatAndFetchString from '../helper-functions/lowercase-and-remove-non-alph.js';
 import ExitImg from "../images/General/exitDoor.png";
 
 import "./Admin.css";
 import { FaChevronCircleDown } from "react-icons/fa";
 
 export default function Admin() {
+  const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
+  const donateSumRef = doc(db, 'totalDonated', 'totalDonated');
+  const completeOrder = async (orderId) => {
+    const orderRef = doc(db, 'orders', orderId); // Replace 'orderId' with the actual document ID of the order you want to update
+    const orderData = await getDoc(orderRef);
+    if (!orderData.exists()) {
+      console.error('Error accessing document data');
+      return;
+    }
+
+    //Development note: Comment out this code block if repeatedly testing on the same order; revert to K & R style with above if statement for production
+    else if (orderData.get("completed") === true) {
+      console.error('Order already completed');
+      return;
+    }
+    const updateData = { completed: true };
+    await updateDoc(orderRef, updateData);
+
+    const order = orderData.get("order");
+    const orderToys = Object.keys(order);
+    let sum = 0;
+
+    for (let i = 0; i < orderToys.length; i++) {
+      const toyRef = formatAndFetchString(orderToys[i]);
+      // const toyName = orderToys[i].replace(/\W/g, '').toLowerCase();
+      // const toyRef = doc(db, "toys", toyName);
+
+      const currOrderAmt = order[orderToys[i]];
+
+      await updateDoc(toyRef, { donated: increment(currOrderAmt) });
+      sum += currOrderAmt;
+    }
+
+    await updateDoc(toysUpdateRef, { toysLastUpdated: serverTimestamp() });
+
+    //Ensure that the totalDonated field is defined as an integer, or its current value will be replaced by sum.  
+    await updateDoc(donateSumRef, { totalDonated: increment(sum) });
+  };
   //const currUserName = getAuth().currentUser.displayName;
   const currUserName = "John Doe";
 

@@ -7,23 +7,23 @@ h2 {
 }
 
 .rightArrow {
-    font-size: 2rem;
-  }
-  
+  font-size: 2rem;
+}
+
 .leftArrow {
-    font-size: 2rem;
-  }
+  font-size: 2rem;
+}
 
 .carousel {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 .carouselItem {
-  width: 30%;
+  width: 100%;
 }
 
 .carouselItemWide {
@@ -41,7 +41,7 @@ h2 {
 
 .tagline {
   width: 45%;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
@@ -74,7 +74,8 @@ button {
   border: none;
 }
 
-#introduction, #recent-events {
+#introduction,
+#recent-events {
   padding: 3rem 5rem 0 5rem;
   display: flex;
   flex-direction: column;
@@ -93,6 +94,76 @@ button {
   object-fit: cover;
 }
 
+/* .get-involved {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: auto;
+  background-color: #F36F38;
+  font-weight: 800;
+  color: black;
+  padding: 8rem 0 0;
+  margin: 5rem 0 0;
+}
+
+.get-involved button {
+  background-color: #D9D9D9;
+  width: 322px;
+  height: 67px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 50px;
+  padding-top: 5px;
+}
+
+.button-group {
+  padding-top: 40px;
+}
+
+.get-involved h3 {
+  padding-top: 10px;
+  font-weight: 600;
+  font-size: 40px;
+}
+
+.get-involved h2 {
+  font-weight: 800;
+  font-size: 70px;
+}
+
+
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.button-container .button-group {
+  margin: 1em auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-container p {
+  margin-bottom: 5px;
+  font-weight: 600;
+  font-size: 25px;
+  display: flex;
+  text-align: center;
+  max-width: 350px;
+}
+
+.button-container button {
+  margin: 5px;
+  padding: 10px;
+  line-height: 43px;
+  cursor: pointer;
+} */
+
 @media screen and (max-width: 900px) {
   .landing {
     height: auto;
@@ -101,9 +172,12 @@ button {
     flex-direction: column-reverse;
   }
 
-  .landing, #introduction, #recent-events {
+  .landing,
+  #introduction,
+  #recent-events {
     padding: 3rem;
   }
+
   .landing svg {
     width: 12vw;
     height: 12vw;
@@ -111,13 +185,43 @@ button {
 
   .carousel {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 80vw;
+  }
+
+  .carouselItemWide {
+    width: 100%;
   }
 
   .tagline {
     width: 100%;
   }
 
-  .tagline p {
+  .tagline p {}
+
+  .get-involved button {
     font-size: 5vw;
+  }
+
+  .get-involved h3 {
+    font-size: 5vw;
+  }
+
+  .get-involved h2 {
+    font-size: 5vw;
+  }
+
+  .button-container p {
+    font-size: 5vw;
+    max-width: 80%;
+  }
+
+  .get-involved button {
+    max-width: 40%;
+    height: 25px;
+    font-weight: 800;
+    font-size: 5vw;
+    line-height: 3px;
   }
 }

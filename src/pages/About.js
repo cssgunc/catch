@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import FAQ from "./FAQ";
 import './About.css';
 //import bannerImage from '../images/About/banner.jpg';
 import bannerImage from '../images/About/about_banner_color.jpeg';
 import Banner from '../components/Banner';
-import  { execInfo } from "../components/execInfo";
+import  { getDynamicRecentExecInfo } from "../components/execInfo";
 import './About.css';
 
 function ExecTile({ imagePath, name, position }) {
@@ -24,6 +24,18 @@ function ExecTile({ imagePath, name, position }) {
 }
 
 function ExecGrid() {
+
+  const [execInfo, setexecInfo] = useState([]);
+
+  useEffect(() => {
+    const fetchExecs = async () => {
+      const execData = await getDynamicRecentExecInfo();
+      setexecInfo(execData);
+    };
+
+    fetchExecs();
+  }, []);
+
   return (
     <>
       {execInfo.map((execMember) => (
@@ -53,7 +65,7 @@ export default function About() {
               <iframe title="Intro Video" class="video" width="750" height="450" sandbox="allow-scripts allow-popups allow-forms allow-same-origin allow-popups-to-escape-sandbox allow-downloads allow-modals" frameborder="0" aria-label="YouTube Video, Making toys more accessible for kids" src="https://www.youtube.com/embed/LDH36tCupQQ" allowfullscreen=""></iframe>
             </div>
           </a>
-          <div id="text">
+          <div id="history">
             <p font="font-family: Arial"><em>
               "Founded in November 2018, CATCH works to provide adapted toys to children with special needs who are unable to play with most commercially manufactured toys. Utilizing engineering, creativity, and innovation, we give back to the community, while also raising awareness about underrepresented communities and their needs."
             </em></p>
