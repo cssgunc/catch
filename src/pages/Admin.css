@@ -186,6 +186,25 @@ input {
     background-color: #EF574E;
 }
 
+.save-div {
+    align-content: center;
+}
+
+.save-button {
+    color: white;
+    background-color: #EF574E;
+    border: solid;
+    border-color: #EF574E;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: bold;
+    border-radius: 5%;
+    outline: none;
+    margin-top: 15px;
+}
+
 @media screen and (max-width: 950px) {
     .mobile-tabs {
         display: block;

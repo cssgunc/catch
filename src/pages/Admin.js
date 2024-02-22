@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 //import { getAuth } from 'firebase/auth';
 import { db } from "../firebase-config.js";
-import { collection, doc, getDoc, updateDoc, increment, serverTimestamp } from 'firebase/firestore';
+import { collection, doc, getDoc, query, increment, where, orderBy, getDocs, addDoc, setDoc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import formatAndFetchString from '../helper-functions/lowercase-and-remove-non-alph.js';
 import ExitImg from "../images/General/exitDoor.png";
 
@@ -50,139 +50,174 @@ export default function Admin() {
   };
   //const currUserName = getAuth().currentUser.displayName;
   const currUserName = "John Doe";
-  const [currTab, setCurrTab] = useState("Executives");
-
-  const execRef = collection(db, "Executives");
-
-  const [execData, setExecData] = useState([
-    {
-      id: 1,
-      name: "Jane Doe",
-      position: "President",
-      image: "https://example.com/johndoe.jpg",
-    },
-    {
-      id: 2,
-      name: "John Doe",
-      position: "Vice President",
-      image: "https://example.com/janedoe.jpg",
-    },
-  ]);
-  const [slideshowData, setSlideshowData] = useState([
-    { id: 1, imageId: "8437132145", altText: "Building a Dinosaur!" },
-    { id: 2, imageId: "1834972562", altText: "Group Photo" },
-  ]);
-  const [recentEvents, setRecentEvents] = useState([
-    "Name of Event 1",
-    "Name of Event 2",
-    "Name of Event 3",
-    "Name of Event 4",
-  ]);
-  const [selectedEvent, setSelectedEvent] = useState(recentEvents[0]);
-  const [recentEventsData, setRecentEventsData] = useState({
-    "Name of Event 1": [
-      { id: 1, imageId: "event1_image1" },
-      { id: 2, imageId: "event1_image2" },
-    ],
-    "Name of Event 2": [
-      { id: 1, imageId: "event2_image1" },
-      { id: 2, imageId: "event2_image2" },
-    ],
-    "Name of Event 3": [
-      { id: 1, imageId: "event3_image1" },
-      { id: 2, imageId: "event3_image2" },
-    ],
-    "Name of Event 4": [
-      { id: 1, imageId: "event4_image1" },
-      { id: 2, imageId: "event4_image2" },
-    ],
-  });
-  const handleEventChange = (event) => {
-    setSelectedEvent(event);
-  };
-  const [recentToysData, setRecentToysData] = useState([
-    {
-      id: 1,
-      description: "temp airplane description",
-      name: "Airplane",
-      imageId: "airplane",
-      altText: "Modified Airplane Toy",
-      buildUrl:
-        "https://docs.google.com/presentation/d/1sG6zYR71rNoACMY5j51roubwaqilKjNm_EgJfxFn7VU/edit#slide=id.p",
-    },
-    {
-      id: 2,
-      description: "temp bus description",
-      name: "School Bus",
-      imageId: "bus",
-      altText: "Modified Bus Toy",
-      buildUrl: "bus URL",
-    },
-  ]);
-  const [oldToysData, setOldToysData] = useState([
-    {
-      id: 1,
-      description: "temp alien description",
-      name: "Alien",
-      imageId: "alien",
-      altText: "Modified Alien Toy",
-      buildUrl: "alien URL",
-    },
-    {
-      id: 2,
-      description: "temp dog description",
-      name: "Dog",
-      imageId: "dog",
-      altText: "Modified Dog Toy",
-      buildUrl: "dog URL",
-    },
-  ]);
-  const [donationsData, setDonationsData] = useState([
-    {
-      id: 1,
-      imageId: "org6image",
-      altText: "aversboro alt text",
-      organization: "Aversboro Elementary School",
-      totalDonations: 10,
-      donationNumber: 1,
-      description: "aversboro description",
-    },
-    {
-      id: 2,
-      imageId: "org3image",
-      altText: "levine alt text",
-      organization: "Levine Children's Hospital",
-      totalDonations: 32,
-      donationNumber: 2,
-      description: "levine description",
-    },
-  ]);
-  const [mediaData, setMediaData] = useState([
-    {
-      id: 1,
-      imageId: "image id 1",
-      altText: "alt text 1",
-      header: "header 1",
-      description: "description 1",
-      articleUrl: "article URL 1",
-    },
-    {
-      id: 2,
-      imageId: "image id 2",
-      altText: "alt text 2",
-      header: "header 2",
-      description: "description 2",
-      articleUrl: "article URL 2",
-    },
-  ]);
 
   function logout() {
     console.log("This is where I would put a logout method if I had one");
   }
+  
+  const [currTab, setCurrTab] = useState("Executives");
 
-  function change_tab(tab) {
+  const [deletedIds, setDeletedIds] = useState([]);
+  const [addedIds, setAddedIds] = useState([]);
+  const [editedIds, setEditedIds] = useState([]);
+
+  const tabRefs = {
+    "Executives": "exec",
+    "Main Slideshow": "mainSlideshow",
+    "Recent Toys": "toys",
+    "Old Toys": "toys",
+    "Donations": "donations",
+    "Media": "media",
+  };
+
+  const recentEvents = [
+    "Recent Event 1",
+    "Recent Event 2",
+    "Recent Event 3",
+    "Recent Event 4",
+  ];
+
+  const [selectedEvent, setSelectedEvent] = useState(recentEvents[0]);
+
+  const recentEventsRefs = {
+    "Recent Event 1": "recentEvents1",
+    "Recent Event 2": "recentEvents2",
+    "Recent Event 3": "recentEvents3",
+    "Recent Event 4": "recentEvents4",
+  };
+  
+  const handleEventChange = (event) => {
+    setSelectedEvent(event);
+    getData(recentEventsRefs[event], "Recent Events")
+  };
+
+  const [currData, setCurrData] = useState([]);
+
+  async function getData(currRef, tab) {
+    let q = collection(db, currRef);
+    if (tab === "Recent Toys" || tab === "Old Toys") {
+      q = query(collection(db, currRef), where("current", "==", tab === "Recent Toys"));
+    } else if (tab === "Executives" || tab === "Media"){
+      q = query(collection(db, currRef), orderBy("id"));
+    }
+    
+    let newData = [];
+
+    try { 
+      const docsSnap = await getDocs(q);
+      let idNum = 1;
+      switch (tab) {
+        case "Executives":
+          docsSnap.forEach((doc) => {
+            newData = [...newData, {
+              id: doc.get("id"), 
+              documentId: doc.id, 
+              name: doc.get("name"), 
+              position: doc.get("position"), 
+              imageID: doc.get("imageID"),
+            }]
+          });
+          break;
+        case "Main Slideshow":
+          docsSnap.forEach((doc) => {
+            newData = [...newData, {id: idNum, documentId: doc.id, imageID: doc.get("imageID")}]; 
+            idNum++;
+          });
+          break;
+        case "Recent Events":
+          docsSnap.forEach((doc) => {
+            newData = [...newData, {id: idNum, documentId: doc.id, imageID: doc.get("imageID")}];
+            idNum++;
+          });
+          break;
+        case "Recent Toys":
+          docsSnap.forEach((doc) => {
+            newData = [...newData, {
+              id: idNum, 
+              documentId: doc.id, 
+              description: doc.get("description"),
+              name: doc.get("name"),
+              imageID: doc.get("imageID"),
+              altText: doc.get("altText"),
+              buildURL: doc.get("buildURL"),
+            }];
+            idNum++;
+          });
+          break;
+        case "Old Toys":
+          docsSnap.forEach((doc) => {
+            newData = [...newData, {
+              id: idNum, 
+              documentId: doc.id, 
+              description: doc.get("description"),
+              name: doc.get("name"),
+              imageID: doc.get("imageID"),
+              altText: doc.get("altText"),
+              buildURL: doc.get("buildURL"),
+            }];
+            idNum++;
+          });
+          break;
+        case "Donations":
+          docsSnap.forEach((doc) => {
+            newData = [...newData, {
+              id: idNum,
+              documentId: doc.id,
+              imageID: doc.get("imageID"),
+              orgName: doc.get("orgName"),
+              totalDonated: doc.get("totalDonated"),
+              numDonations: doc.get("numDonations"),
+              description: doc.get("description"),
+            }];
+            idNum++;
+          });
+          break;
+        case "Media":
+          docsSnap.forEach((doc) => {
+            newData = [...newData, {
+              id: doc.get("id"),
+              documentId: doc.id,
+              imageID: doc.get("imageID"),
+              alt: doc.get("alt"),
+              title: doc.get("title"),
+              caption: doc.get("caption"),
+              link: doc.get("link"),
+            }]
+          });
+          break;
+        default:
+          console.log(currTab + " is not mapped to a document pattern in setData()");
+      }
+    } catch (error) {
+      console.error("Error fetching data", error);
+    }
+
+    console.log(newData);
+
+    setCurrData(newData);
     setCurrTab(tab);
+  }
+
+  const [firstRender, setFirstRender] = useState(false);
+
+  if (firstRender === false) {
+    setFirstRender(true);
+    getData(tabRefs[currTab], currTab);
+  }
+
+  async function change_tab(tab) {
     setDropdownOpen(false);
+    setDeletedIds([]);
+    setAddedIds([]);
+    setEditedIds([]);
+
+    let ref = null;
+    if (tab === "Recent Events") {
+      ref = recentEventsRefs[selectedEvent];
+    } else {
+      ref = tabRefs[tab];
+    }
+    getData(ref, tab);
   }
 
   function Tab({ tabName }) {
@@ -202,25 +237,6 @@ export default function Admin() {
     setEditedData({ ...data[index] });
   };
 
-  const handleSave = (index, data, editedData, setData, setEditIndex) => {
-    const newData = [...data];
-    newData[index] = editedData;
-    setData(newData);
-    setEditIndex(null);
-  };
-
-  const handleDelete = (index, data, setData) => {
-    const newData = [...data];
-    newData.splice(index, 1);
-    setData(newData);
-  };
-
-  const handleAdd = (data, editedData, setData, setEditIndex) => {
-    const newData = [...data, editedData];
-    setData(newData);
-    setEditIndex(null);
-  };
-
   const handleCancel = (setEditIndex) => {
     setEditIndex(null);
   };
@@ -235,12 +251,13 @@ export default function Admin() {
     setDropdownOpen(!isDropdownOpen);
   };
 
-  function Table(props) {
-    const initial_state = props.initial_state;
-    const data = props.data;
-    const setData = props.setData;
-    const headers = props.headers;
-
+  function Table({
+    initial_state,
+    data,
+    setData,
+    headers,
+    dataRef,
+  }) {
     const [editIndex, setEditIndex] = useState(null);
     const [editedData, setEditedData] = useState(initial_state);
     const init_keys = Object.keys(initial_state);
@@ -251,10 +268,165 @@ export default function Admin() {
     };
 
     const handleChange = (field, value) => {
-      console.log(field);
-      console.log(value);
       return handleInputChange(field, value, setEditedData);
     };
+
+    const handleSave = (ind) => {
+      const editRow = {...data[ind]};
+      const editId = editRow.documentId;
+      if (editId !== "" && !addedIds.some(value => {return value === editId}) && !editedIds.some(value => {return value === editId})) {
+        setEditedIds([...editedIds, editId]);
+      }
+
+      const newData = [...data];
+      newData[ind] = editedData;
+      setData(newData);
+      setEditIndex(null);
+    };
+  
+    const handleDelete = (ind) => {
+      const deleteRow = {...data[ind]};
+      const deleteId = deleteRow.documentId;
+      let idInd = -1;
+      if (addedIds.some((value, index) => {idInd = index; return value === deleteId})) {
+        const newAddedIds = [...addedIds]
+        newAddedIds.splice(idInd, 1);
+        setAddedIds(newAddedIds);
+      } else if (editedIds.some((value, index) => {idInd = index; return value === deleteId})) {
+        const newEditedIds = [...editedIds]
+        newEditedIds.splice(idInd, 1);
+        setEditedIds(newEditedIds);
+        setDeletedIds([...deletedIds, deleteId]);
+      } else if (deleteId !== "") {
+        setDeletedIds([...deletedIds, deleteId]);
+      }
+
+      const newData = [...data];
+      newData.splice(ind, 1);
+      setData(newData);
+    };
+  
+    const handleAdd = () => {
+      const addId = data[data.length - 1].id + 1;
+      let addDocId = "";
+      if (currTab === "Donations") {
+        addDocId = editedData.orgName;
+      } else if (currTab === "Executives") {
+        addDocId = editedData.position;
+        addDocId = addDocId.replace(/\s+/g, '');
+        addDocId = addDocId.charAt(0).toLowerCase() + addDocId.slice(1);
+      } else if (currTab === "Recent Toys" || currTab === "Old Toys") {
+        addDocId = editedData.name;
+        addDocId = addDocId.replace(/\s+/g, '').toLowerCase();
+      }
+
+      if (addDocId !== "") {
+        setAddedIds([...addedIds, addDocId]);
+      }
+
+      const newData = [...data, {...editedData, id: addId, documentId: addDocId}];
+      setData(newData);
+      setEditIndex(null);
+    };
+
+    const findDoc = (docId) => {
+      const docu = data.find(object => {return object.documentId === docId});
+      let newDoc = {...docu};
+      delete newDoc.documentId;
+      return newDoc;
+    };
+
+    const setInfo = async () => {
+      let changes = false;
+
+      try {
+        for (const id in deletedIds) {
+          await deleteDoc(doc(db, dataRef, deletedIds[id]))
+        }
+        if (deletedIds.length !== 0) {
+          changes = true;
+        }
+        setDeletedIds([]);
+      } catch (error) {
+        console.error("Error deleting documents", error);
+      }
+        
+      try {
+        if (currTab === "Media" || currTab === "Main Slideshow") {
+          const newRows = data.filter(object => {return object.documentId === ""})
+          for (const id in newRows) {
+            let newDoc = {...newRows[id]}
+            delete newDoc.documentId;
+            if (currTab !== "Media") {
+              delete newDoc.id;
+            }
+            await addDoc(collection(db, dataRef), newDoc);
+          }
+          if (newRows.length !== 0) {
+            changes = true;
+          }
+          
+        } else if (currTab === "Recent Toys" || currTab === "Old Toys") {
+          for (const id in addedIds) {
+            const newDoc = {...findDoc(addedIds[id]), 
+              current: currTab === "Recent Toys", // Allow this field to be edited?
+              donated: 0, 
+              imageName: "",  // Add this field to the Admin dashboard?
+              inventory: 0, 
+              ordered: 0
+            };
+            delete newDoc.id;
+            await setDoc(doc(db, dataRef, addedIds[id]), newDoc);
+          }
+          if (addedIds.length !== 0) {
+            changes = true;
+          }
+          setAddedIds([]);
+        } else {
+          for (const id in addedIds) {
+            const newDoc = findDoc(addedIds[id]);
+            if (currTab !== "Executives") {
+              delete newDoc.id;
+            }
+            await setDoc(doc(db, dataRef, addedIds[id]), newDoc);
+          }
+          if (addedIds.length !== 0) {
+            changes = true;
+          }
+          setAddedIds([]);
+        }
+      } catch (error) {
+        console.error("Error adding documents", error);
+      }
+
+      try {
+        for (const id in editedIds) {
+          const newDoc = findDoc(editedIds[id]);
+          if (currTab !== "Media" && currTab !== "Executives") {
+            delete newDoc.id;
+          }
+          await updateDoc(doc(db, dataRef, editedIds[id]), newDoc);
+        }
+        if (editedIds.length !== 0) {
+          changes = true;
+        }
+        setEditedIds([]);
+      } catch (error) {
+        console.error("Error editing documents", error);
+      }
+
+      // Development note: If adding/altering dummy data with Recent Toys or Old Toys, comment out the following if statement.
+      if ((currTab === "Recent Toys" || currTab ==="Old Toys") && changes) {
+        updateDoc(doc(db, "lastUpdated", "toysLastUpdated"), {toysLastUpdated: serverTimestamp()});
+      }
+
+      // TODO: Add visual indication of result (success/failure)
+      // TODO: consider alternative setup to prevent failure's resulting progress erasure:
+      //    If success, getData() 
+      //    Else, record current progress for resubmission (if mid-deletedIds, addedIds, editedIds) and disallow further alterations until setInfo() is fully executed
+
+      getData(dataRef, currTab);
+    }
 
     return (
       <div className="table-container">
@@ -369,6 +541,11 @@ export default function Admin() {
             )}
           </tbody>
         </table>
+        <div className="save-div">
+          <button onClick={setInfo} className="save-button">
+            Save Changes
+          </button>
+        </div>
       </div>
     );
   }
@@ -378,190 +555,239 @@ export default function Admin() {
     data,
     setData,
     headers,
-    selectedEvent,
-    setEditIndex,
-    setEditedData,
+    selectedEventRef,
   }) {
-    const [editIndex, setEditIndexLocal] = useState(null);
-    const [editedData, setEditedDataLocal] = useState(initial_state);
+    const [editIndex, setEditIndex] = useState(null);
+    const [editedData, setEditedData] = useState(initial_state);
 
     const handleAddInit = () => {
-      setEditIndexLocal("plus");
-      setEditedDataLocal(initial_state);
+      setEditIndex("plus");
+      setEditedData(initial_state);
     };
 
     const handleChange = (field, value) => {
-      setEditedDataLocal((prevData) => ({ ...prevData, [field]: value }));
+      return handleInputChange(field, value, setEditedData);
     };
 
     const handleSave = (index) => {
+      const editRow = {...data[index]};
+      const editId = editRow.documentId;
+      if (editId !== "" && !editedIds.some(value => {return value === editId})) {
+        setEditedIds([...editedIds, editId]);
+      }
+
       const newData = [...data];
       newData[index] = editedData;
-      setData((prevData) => ({ ...prevData, [selectedEvent]: newData }));
-      setEditIndexLocal(null);
+      setData(newData);
+      setEditIndex(null);
     };
 
     const handleDelete = (index) => {
+      const deleteRow = {...data[index]};
+      const deleteId = deleteRow.documentId;
+      let idInd = -1;
+      if (editedIds.some((value, index) => {idInd = index; return value === deleteId})) {
+        const newEditedIds = [...editedIds]
+        newEditedIds.splice(idInd, 1);
+        setEditedIds(newEditedIds);
+      } 
+
+      if (deleteId !== "") {
+        setDeletedIds([...deletedIds, deleteId]);
+      }
+
       const newData = [...data];
       newData.splice(index, 1);
-      setData((prevData) => ({ ...prevData, [selectedEvent]: newData }));
+      setData(newData);
     };
 
     const handleAdd = () => {
-      const newData = [...data, editedData];
-      setData((prevData) => ({ ...prevData, [selectedEvent]: newData }));
-      setEditIndexLocal(null);
+      const addId = data[data.length - 1].id + 1;
+      const addDocId = "";
+
+      const newData = [...data, {...editedData, id: addId, documentId: addDocId}];
+      setData(newData);
+      setEditIndex(null);
     };
 
-    const handleCancel = () => {
-      setEditIndexLocal(null);
+    const findDoc = (docId) => {
+      const docu = data.find(object => {return object.documentId === docId});
+      let newDoc = {...docu};
+      delete newDoc.id;
+      delete newDoc.documentId;
+      return newDoc;
     };
 
-    const handleEdit = (index) => {
-      setEditIndexLocal(index);
-      setEditedDataLocal({ ...data[index] });
-    };
+    const setInfo = async () => {
+      try {
+        for (const id in deletedIds) {
+          await deleteDoc(doc(db, selectedEventRef, deletedIds[id]))
+        }
+        setDeletedIds([]);
+      } catch (error) {
+        console.error("Error deleting documents", error);
+      }
+      
+      try {
+        const newRows = data.filter(object => {return object.documentId === ""})
+        for (const id in newRows) {
+          let newDoc = {...newRows[id]}
+          delete newDoc.documentId;
+          delete newDoc.id;
+          await addDoc(collection(db, selectedEventRef), newDoc);
+        }
+      } catch (error) {
+        console.error("Error adding documents", error);
+      }
+
+      try {
+        for (const id in editedIds) {
+          const newDoc = findDoc(editedIds[id]);
+          await updateDoc(doc(db, selectedEventRef, editedIds[id]), newDoc);
+        }
+        setEditedIds([]);
+      } catch (error) {
+        console.error("Error editing documents", error);
+      }
+
+      // TODO: Add visual indication of result (success/failure)
+      // TODO: consider alternative setup to prevent failure's resulting progress erasure:
+      //    If success, getData() 
+      //    Else, record current progress for resubmission (if mid-deletedIds, adding ids, editedIds) and disallow further alterations until setInfo() is fully executed
+
+      getData(selectedEventRef, "Recent Events");
+    }
 
     return (
-      <table className="view-table">
-        <thead>
-          <tr>
-            {headers.map((header) => (
-              <th key={header}>{header}</th>
-            ))}
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, index) => (
-            <tr key={row.id}>
-              {Object.keys(initial_state).map((field) => (
-                <td key={field}>
+      <div>
+        <table className="view-table">
+          <thead>
+            <tr>
+              {headers.map((header) => (
+                <th key={header}>{header}</th>
+              ))}
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, index) => (
+              <tr key={row.id}>
+                {Object.keys(initial_state).map((field) => (
+                  <td key={field}>
+                    {editIndex === index ? (
+                      <input
+                        type="text"
+                        value={editedData[field]}
+                        onChange={(e) => handleChange(field, e.target.value)}
+                      />
+                    ) : (
+                      row[field]
+                    )}
+                  </td>
+                ))}
+                <td>
                   {editIndex === index ? (
+                    <>
+                      <button
+                        onClick={() => handleSave(index)}
+                        className="view-button"
+                      >
+                        Save
+                      </button>
+                      <button onClick={() => handleCancel(setEditIndex)} className="view-button">
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => handleEdit(index, data, setEditIndex, setEditedData)}
+                        className="view-button"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(index)}
+                        className="view-button"
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+            {editIndex === "plus" ? (
+              <tr>
+                {Object.keys(initial_state).map((field) => (
+                  <td key={field}>
                     <input
                       type="text"
                       value={editedData[field]}
                       onChange={(e) => handleChange(field, e.target.value)}
                     />
-                  ) : (
-                    row[field]
-                  )}
-                </td>
-              ))}
-              <td>
-                {editIndex === index ? (
+                  </td>
+                ))}
+                <td>
                   <>
-                    <button
-                      onClick={() => handleSave(index)}
-                      className="view-button"
-                    >
-                      Save
+                    <button onClick={handleAdd} className="view-button">
+                      Add
                     </button>
                     <button onClick={handleCancel} className="view-button">
                       Cancel
                     </button>
                   </>
-                ) : (
-                  <>
-                    <button
-                      onClick={() => handleEdit(index)}
-                      className="view-button"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(index)}
-                      className="view-button"
-                    >
-                      Delete
-                    </button>
-                  </>
-                )}
-              </td>
-            </tr>
-          ))}
-          {editIndex === "plus" ? (
-            <tr>
-              {Object.keys(initial_state).map((field) => (
-                <td key={field}>
-                  <input
-                    type="text"
-                    value={editedData[field]}
-                    onChange={(e) => handleChange(field, e.target.value)}
-                  />
                 </td>
-              ))}
-              <td>
-                <>
-                  <button onClick={handleAdd} className="view-button">
-                    Add
+              </tr>
+            ) : (
+              <tr>
+                <td>
+                  <button onClick={handleAddInit} className="add-button">
+                    +
                   </button>
-                  <button onClick={handleCancel} className="view-button">
-                    Cancel
-                  </button>
-                </>
-              </td>
-            </tr>
-          ) : (
-            <tr>
-              <td>
-                <button onClick={handleAddInit} className="add-button">
-                  +
-                </button>
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+        <div className="save-div">
+        <button onClick={setInfo} className="save-button">
+          Save Changes
+        </button>
+        </div>
+      </div>
     );
   }
 
   function RightView() {
-    const initializeVals = (obj) => {
-      let newObj = { ...obj };
-      delete newObj.id;
-      for (const field of Object.keys(newObj)) {
-        if (typeof obj[field] === "string") {
-          newObj[field] = "";
-        } else if (typeof obj[field] === "number") {
-          newObj[field] = 0;
-        } else {
-          newObj[field] = null;
-        }
-      }
-      return newObj;
-    };
-
-    const [editIndex, setEditIndex] = useState(null);
-    const [editedData, setEditedData] = useState(initializeVals({}));
-
     switch (currTab) {
       case "Executives":
-        const execInit = initializeVals(execData[0]);
-        console.log(execInit);
-        const execHeaders = ["Name", "Position", "Picture"];
+        const execInit = {name: "", position: "", imageID: ""}
+        const execHeaders = ["Name", "Position", "Image ID (PNG/JPEG)"];
         return (
           <Table
             initial_state={execInit}
-            data={execData}
-            setData={setExecData}
+            data={currData}
+            setData={setCurrData}
             headers={execHeaders}
+            dataRef={tabRefs[currTab]}
           />
         );
       case "Main Slideshow":
-        const slideInit = initializeVals(slideshowData[0]);
-        const slideHeaders = ["Image ID", "Alternate Text"];
+        const slideInit = {imageID: ""}
+        const slideHeaders = ["Image ID (PNG/JPEG)"];
         return (
           <Table
             initial_state={slideInit}
-            data={slideshowData}
-            setData={setSlideshowData}
+            data={currData}
+            setData={setCurrData}
             headers={slideHeaders}
+            dataRef={tabRefs[currTab]}
           />
         );
       case "Recent Events":
-        const recentEventsInit = initializeVals({ id: 1, imageId: "" });
-        const recentEventsHeaders = ["Image ID"];
+        const recentEventsInit = {imageID: ""};
+        const recentEventsHeaders = ["Image ID (PNG/JPEG)"];
 
         return (
           <div>
@@ -583,54 +809,71 @@ export default function Admin() {
             </div>
             <TableRecentEvents
               initial_state={recentEventsInit}
-              data={recentEventsData[selectedEvent]}
-              setData={setRecentEventsData}
+              data={currData}
+              setData={setCurrData}
               headers={recentEventsHeaders}
-              selectedEvent={selectedEvent}
-              setEditIndex={setEditIndex}
-              setEditedData={setEditedData}
+              selectedEventRef={recentEventsRefs[selectedEvent]}
             />
           </div>
         );
       case "Recent Toys":
-        const recentToysInit = initializeVals(recentToysData[0]);
+        const recentToysInit = {
+          description: "",
+          name: "",
+          imageID: "",
+          altText: "",
+          buildURL: "",
+        }
         const recentToysHeaders = [
           "Description",
           "Name",
-          "Image ID",
+          "Image ID (PNG/JPEG)",
           "Alternate Text",
           "Build URL",
         ];
         return (
           <Table
             initial_state={recentToysInit}
-            data={recentToysData}
-            setData={setRecentToysData}
+            data={currData}
+            setData={setCurrData}
             headers={recentToysHeaders}
+            dataRef={tabRefs[currTab]}
           />
         );
       case "Old Toys":
-        const oldToysInit = initializeVals(oldToysData[0]);
+        const oldToysInit = {
+          description: "",
+          name: "",
+          imageID: "",
+          altText: "",
+          buildURL: "",
+        }
         const oldToysHeaders = [
           "Description",
           "Name",
-          "Image ID",
+          "Image ID (PNG/JPEG)",
           "Alternate Text",
           "Build URL",
         ];
         return (
           <Table
             initial_state={oldToysInit}
-            data={oldToysData}
-            setData={setOldToysData}
+            data={currData}
+            setData={setCurrData}
             headers={oldToysHeaders}
+            dataRef={tabRefs[currTab]}
           />
         );
       case "Donations":
-        const donationsInit = initializeVals(donationsData[0]);
+        const donationsInit = {
+          imageID: "",
+          orgName: "",
+          totalDonated: 0,
+          numDonations: "",
+          description: "",
+        }
         const donationsHeaders = [
-          "Image ID",
-          "Alternate Text",
+          "Image ID (PNG/JPEG)",
           "Organization",
           "Total Donations",
           "Number of Donations",
@@ -639,15 +882,22 @@ export default function Admin() {
         return (
           <Table
             initial_state={donationsInit}
-            data={donationsData}
-            setData={setDonationsData}
+            data={currData}
+            setData={setCurrData}
             headers={donationsHeaders}
+            dataRef={tabRefs[currTab]}
           />
         );
       case "Media":
-        const mediaInit = initializeVals(mediaData[0]);
+        const mediaInit = {
+          imageID: "",
+          alt: "",
+          title: "",
+          caption: "",
+          link: "",
+        }
         const mediaHeaders = [
-          "Image ID",
+          "Image ID (PNG/JPEG)",
           "Alternate Text",
           "Header",
           "Description",
@@ -656,9 +906,10 @@ export default function Admin() {
         return (
           <Table
             initial_state={mediaInit}
-            data={mediaData}
-            setData={setMediaData}
+            data={currData}
+            setData={setCurrData}
             headers={mediaHeaders}
+            dataRef={tabRefs[currTab]}
           />
         );
       default:
