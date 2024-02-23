@@ -416,9 +416,9 @@ export default function Admin() {
       }
 
       // Development note: If adding/altering dummy data with Recent Toys or Old Toys, comment out the following if statement.
-      if ((currTab === "Recent Toys" || currTab ==="Old Toys") && changes) {
-        updateDoc(doc(db, "lastUpdated", "toysLastUpdated"), {toysLastUpdated: serverTimestamp()});
-      }
+      // if ((currTab === "Recent Toys" || currTab === "Old Toys") && changes) {
+      //   updateDoc(doc(db, "lastUpdated", "toysLastUpdated"), {toysLastUpdated: serverTimestamp()});
+      // }
 
       // TODO: Add visual indication of result (success/failure)
       // TODO: consider alternative setup to prevent failure's resulting progress erasure:

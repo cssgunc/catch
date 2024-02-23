@@ -17,7 +17,7 @@ function ToyPage(props) {
   };
 
   const handleBuildRedirect = () => {
-    if (url === ""){
+    if (url === "N/A"){
       return;
     }
     window.location.href = url;
@@ -45,11 +45,13 @@ function ToyPage(props) {
                   <FaPlus size={15} style={{marginRight:"10px"}}/> <span>Add to Cart</span>
                 </div>
               </button>
+              {url !== "N/A" && (
               <button className="build-button" onClick={() =>handleBuildRedirect()}>
                 <div className="button-holder">
                   <FaHammer size={20} style={{marginRight:"10px"}}/> <span>Make Yourself</span>
                 </div>
               </button>
+              )}
               <div className="button-break"/>
             </div>
         </div>
