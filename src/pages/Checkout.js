@@ -31,7 +31,7 @@ export default function Checkout() {
       message: {
         subject: userData.name + ' just placed an order!',
         text: 'text content',
-        html: 'Organization: '+ userData.organization + ', # of buttons: ' + userData.buttonQuantity + ', Address: ' + userData.address + ", Notes: " + userData.notes,
+        html: 'Organization: '+ userData.organization + ', # of buttons: ' + userData.buttonQuantity + ', Address: ' + userData.address + ", Notes: " + userData.notes+ ", User Email: " + userData.email,
       },
       to: [userData.email],
     };
