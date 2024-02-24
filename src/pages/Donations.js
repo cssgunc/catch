@@ -168,7 +168,9 @@ function DonationDisplay (props) {
             total={donation.total}
             donations={donation.donations}
             description={donation.description}
-            imagePath={`https://lh3.googleusercontent.com/d/${donation.imagePath}=w1000`}
+            // imagePath={`https://lh3.googleusercontent.com/d/${donation.imagePath}=w1000`}
+            // https://imgur.com/${data.imageID}.jpg
+            imagePath={`https://imgur.com/${donation.imagePath}.jpg`}
           />
         ))
       ) : (

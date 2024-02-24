@@ -80,11 +80,14 @@ function Toy(props) {
     tempOrder.push({"name": props.details.name, "quantity": 1, "imagePath": props.details.imagePath, "description": props.details.description});
     props.setOrder(tempOrder);
   }
+  // console.log(props.details)
 
   return (
     <>
       {!props.viewToy && 
       <div className="image-tile">
+        {/* <iframe onClick={() => handleClick()} src={props.details.imagePath} alt={props.details.altText} className="catalog-picture"/> */}
+
         <img onClick={() => handleClick()} src={props.details.imagePath} alt={props.details.altText} className="catalog-picture"/>
         {props.isNew && <button className="plus-toy" onClick={() => addToyToCart(props.setOrder, props.order, props.details)}>
           <FaPlus size={18} style={{display:"flex", width:"100%", border:"transparent"}}/>
