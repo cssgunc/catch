@@ -10,7 +10,7 @@ export const getRecentEvents2Info = async () => {
     const querySnapshot = await getDocs(recentEvents2Ref);
     querySnapshot.forEach((doc) => {
       let data = doc.data();
-      data.image = `https://lh3.googleusercontent.com/d/${data.imageID}=w1000`
+      data.imagePath = `https://imgur.com/${data.imageID}.jpg`;
       recentEventsArray.push(data);
     });
   } catch (error) {

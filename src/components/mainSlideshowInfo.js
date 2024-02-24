@@ -12,7 +12,7 @@ export const getSlideshowImages = async () => {
       const querySnapshot = await getDocs(slideRef);
       querySnapshot.forEach((doc) => {
         let data = doc.data();
-        data.imagePath = `https://lh3.googleusercontent.com/d/${data.imageID}=w1000`
+        data.imagePath = `https://imgur.com/${data.imageID}.jpg`;
         images.push(data);
       });
     } catch (error) {

@@ -101,6 +101,7 @@ export default function Home() {
     };
 
     fetchRecentEvents1();
+    console.log(recentEvents1)
   }, []);
 
   const [recentEvents2, setrecentEvents2] = useState([]);
@@ -227,7 +228,7 @@ export default function Home() {
             >
               {recentEvents1.map((image, index) => (
                 <div key={index}>
-                  <img className="carousel-image" src={image.image} alt={`Image ${index + 1}`} />
+                  <img className="carousel-image" src={image.imagePath} alt={`Image ${index + 1}`} />
                 </div>
               ))}
             </Carousel>
@@ -249,7 +250,7 @@ export default function Home() {
             >
               {recentEvents2.map((image, index) => (
                 <div key={index}>
-                  <img className="carousel-image" src={image.image} alt={`Image ${index + 1}`} />
+                  <img className="carousel-image" src={image.imagePath} alt={`Image ${index + 1}`} />
                 </div>
               ))}
             </Carousel>
@@ -273,7 +274,7 @@ export default function Home() {
             >
               {recentEvents3.map((image, index) => (
                 <div key={index}>
-                  <img className="carousel-image" src={image.image} alt={`Image ${index + 1}`} />
+                  <img className="carousel-image" src={image.imagePath} alt={`Image ${index + 1}`} />
                 </div>
               ))}
             </Carousel>
@@ -295,7 +296,7 @@ export default function Home() {
             >
               {recentEvents4.map((image, index) => (
                 <div key={index}>
-                  <img className="carousel-image" src={image.image} alt={`Image ${index + 1}`} />
+                  <img className="carousel-image" src={image.imagePath} alt={`Image ${index + 1}`} />
                 </div>
               ))}
             </Carousel>
