@@ -255,7 +255,6 @@ export default function Home() {
         <h2>Recent Events</h2>
         <div className="carousel">
           <div className="carouselItemWide">
-            <p>Recent Event 1</p>
             <Carousel
               swipeable={true}
               draggable={false}
@@ -277,7 +276,6 @@ export default function Home() {
             </Carousel>
           </div>
           <div className="carouselItemWide">
-            <p>Recent Event 2</p>
             <Carousel
               swipeable={true}
               draggable={false}
@@ -301,7 +299,6 @@ export default function Home() {
         </div>
         <div className="carousel">
           <div className="carouselItemWide">
-            <p>Recent Event 3</p>
             <Carousel
               swipeable={true}
               draggable={false}
@@ -323,7 +320,6 @@ export default function Home() {
             </Carousel>
           </div>
           <div className="carouselItemWide">
-            <p>Recent Event 4</p>
             <Carousel
               swipeable={true}
               draggable={false}
