@@ -64,8 +64,10 @@ function ToyPage(props) {
 function Toy(props) {
   const [activeToy, setActiveToy] = useState(false);
   const handleClick = () => {
-    props.setViewToy(true);
-    setActiveToy(true);
+    if (props.isNew) {
+      props.setViewToy(true);
+      setActiveToy(true);
+    }
   };
 
   function addToyToCart(setOrder, order, details) {
@@ -88,7 +90,7 @@ function Toy(props) {
       <div className="image-tile">
         {/* <iframe onClick={() => handleClick()} src={props.details.imagePath} alt={props.details.altText} className="catalog-picture"/> */}
 
-        <img onClick={() => handleClick()} src={props.details.imagePath} alt={props.details.altText} className="catalog-picture"/>
+        <img onClick={() => handleClick()} src={props.details.imagePath} alt={props.details.altText} className={props.isNew ? "catalog-picture" : "catalog-picture-old"}/>
         {props.isNew && <button className="plus-toy" onClick={() => addToyToCart(props.setOrder, props.order, props.details)}>
           <FaPlus size={18} style={{display:"flex", width:"100%", border:"transparent"}}/>
         </button>}
@@ -186,6 +188,25 @@ export default function Toys(props) {
 
       {!viewToy && <h2 id="catalog-title">Last Season's Toys</h2>}
       <ToyGrid_old order={props.order} setOrder={props.setOrder} viewToy={viewToy} setViewToy={setViewToy}/>
+
+      
+
+      <div className="pat">
+        <h2 className="pat-title">Project Assistive Tech</h2>
+        <p>Project Assistive Tech (PAT) was born in December 2022 through our collaboration with Atrium Health. With their generous donation, we were able to obtain CATCH’s first 3D printer. Since then, we have donated 50+ pieces of 3D printed assistive technology (ie. deodorant holders, zipper pulls, toothpaste squeezers, braille learning symbols) to various patients across Atrium Health, CIDD, and CRC. We have also obtained a second 3D printer!</p>
+        <br/>
+        <p>This semester, we are expanding/rethinking PAT through a (pilot) learning initiative. Through PAT classes, our members can advance their CAD, circuit design, surface mount soldering, and web development skills. The informal course will culminate in a final project where members can showcase their skills with an assistive tech project!</p>
+        <a href="https://forms.gle/AahiawRsYETf1Wdx6">Learn more</a>
+
+        <div className="pat-images">
+          <img src="pat1.png" id="pat1" alt="pat 1"></img>
+          <div className="pat-images-col">
+            <img src="pat2.png" id="pat2" alt="pat 2"></img>
+            <img src="pat3.png" id="pat3" alt="pat 3"></img>
+          </div>
+          <img src="pat4.png" id="pat4" alt="pat 4"></img>
+        </div>
+      </div>
 
       {!viewToy && <img
         src={require("../images/logo.png")}

@@ -26,6 +26,15 @@
     max-height: 100%;
 }
 
+.catalog-picture-old {
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    border-radius: 5%;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .main-picture {
     max-height:75vh;
     object-fit: contain;
@@ -207,4 +216,77 @@
         display: none;
     }
 
+}
+
+
+.pat {
+    margin-top: 5rem;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.pat p {
+    text-align: justify;
+}
+
+.pat a {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    color: white;
+    background-color: #5ebfb5;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 7px;
+    display: inline-block;
+}
+
+.pat .pat-images {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 100%;
+    /* border: solid; */
+}
+
+.pat .pat-images #pat1 {
+    margin: 0;
+    padding: 0;
+    flex: 2;
+    max-width: 15%;
+    object-fit: contain;
+    /* border: solid;
+    border-color: red; */
+}
+
+.pat .pat-images .pat-images-col {
+    max-width: 40%;
+    flex-direction: column;
+    flex: 4;
+    margin: 0;
+    max-height: 100%;
+    /* border: solid; */
+}
+
+#pat2, #pat3 {
+    max-width: 100%;
+    min-height: 45%;
+    max-height: 45%;;
+    padding: 0;
+    margin:0;
+    flex: 1;
+    object-fit: cover;
+    /* border: solid; */
+}
+
+#pat2 {
+    margin-bottom: 8%;
+    padding-bottom: 0;
+}
+
+.pat .pat-images #pat4 {
+    max-width: 40%;
+    flex: 4;
 }

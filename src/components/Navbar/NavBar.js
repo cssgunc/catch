@@ -97,6 +97,20 @@ function ShoppingCartPanel(props) {
       window.removeEventListener("scroll", closeShoppingCart); // clean up
     }
   }, []);
+  const [total, setTotal] = useState(0);
+  // function to calculate total number of items currently in cart with useEffect
+  useEffect(() => {
+    const getTotal = () => {
+      let totalQuantity = 0;
+      props.order.forEach(toy => {
+        totalQuantity += toy.quantity;
+      });
+      return totalQuantity;
+    }
+    setTotal(getTotal());
+  }, [props.order]);
+
+  
 
   const placeOrder = async (order) => {
       // Convert the object representing all cart items to JSON string
@@ -115,6 +129,10 @@ function ShoppingCartPanel(props) {
             <GrClose size={35} />
           </button>
         </div>
+        {total === 0 ? 
+        <div className='empty-cart'>
+          <p className='empty-message'>Cart is empty. Add items to your order in the catalog.</p>
+        </div> :
         <div className='cart-items'>
           {props.order.map((toy, index) => (
             (toy.quantity !== 0) && <CartItem
@@ -125,8 +143,12 @@ function ShoppingCartPanel(props) {
             />
           ))}
         </div>
+}
         <div className='checkout-container' style={{ flex: 2, display: "flex", justifyContent: "center" }}>
-        <button className='checkout' onClick={() => placeOrder(props.order)}>Checkout</button>
+        {total !== 0 ? 
+        <button className='checkout' onClick={() => placeOrder(props.order)}>Checkout</button> :
+        <button disabled className='checkout'>Checkout</button>
+        }
 
         </div>
       </div>
@@ -188,7 +210,6 @@ export default function NavBar() {
   }, [order])
 
   const openShoppingCart = () => {
-    console.log('activate click');
     setShoppingCartActive(true);
   };
 
