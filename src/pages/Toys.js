@@ -10,6 +10,7 @@ import './Toys.css'
 function ToyPage(props) {
 
   const url = props.details.buildURL;
+  const recent = props.details.current;
 
   const handleClick = () => {
     props.setViewToy(false);
@@ -40,11 +41,13 @@ function ToyPage(props) {
             </div>
             <div className="toy-buttons">
               <div className="button-break"/>
+              {recent === true && (
               <button className="add-to-cart-button" onClick={() => props.addToy(props.setOrder, props.order, props.details)}>
                 <div className="button-holder">
                   <FaPlus size={15} style={{marginRight:"10px"}}/> <span>Add to Cart</span>
                 </div>
               </button>
+              )}
               {url !== "N/A" && (
               <button className="build-button" onClick={() =>handleBuildRedirect()}>
                 <div className="button-holder">
