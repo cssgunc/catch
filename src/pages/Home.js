@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
 import { useEffect, useState } from 'react';
 import Slider from "../components/Slider.js";
 import { db } from '../firebase-config.js';
@@ -12,8 +12,40 @@ import  { getRecentEvents1Info } from "../components/recentEvents1Info.js";
 import  { getRecentEvents2Info } from "../components/recentEvents2Info.js";
 import  { getRecentEvents3Info } from "../components/recentEvents3Info.js";
 import  { getRecentEvents4Info } from "../components/recentEvents4Info.js";
+
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+import { Canvas, useLoader } from "@react-three/fiber";
+import { Environment, OrbitControls } from "@react-three/drei";
+import { useTexture } from '@react-three/drei';
+import { Mesh, NoToneMapping } from 'three';
+// import { AmbientLight } from 'three';
+
 import 'react-multi-carousel/lib/styles.css';
 import './Home.css';
+
+const Truck = () => {
+  const texture = useTexture("FireEngine.png");
+  const materials = useLoader(MTLLoader, "FireEngine.mtl")
+  const obj = useLoader(OBJLoader, "FireEngine.obj", loader => {
+      materials.preload();
+      loader.setMaterials(materials)
+    }
+  );
+
+  obj.traverse((child) => {
+    if (child instanceof Mesh) {
+      child.material.map = texture;
+    }
+  });
+  const position = [0.5,-0.6,0.3];
+  const rotation = [0.4, -0.8, 0];
+  return (
+    <group position={position} rotation={rotation}>
+      <primitive object={obj} scale={0.65}/>
+    </group>
+  );
+};
 
 function MainSlideshow() {
   const [mainSlideshow, setMainSlideshow] = useState([]);
@@ -189,7 +221,18 @@ export default function Home() {
             </svg>
           </button>
         </div>
-        <div className="car-logo"></div>
+        <div className='canvas-container'>
+          <Canvas gl={{ antialias: true, toneMapping: NoToneMapping }} linear className='model'>
+            <ambientLight intensity={3}/>
+            <pointLight position={[5, 3, 5]} intensity={20}/>
+            <Suspense fallback={null}>
+              <Truck className='truck'/>
+              <OrbitControls />
+              {/* <Environment preset="sunset" background /> */}
+            </Suspense>
+          </Canvas>
+        </div>
+        {/* <div className="car-logo"></div> */}
       </div>
 
 

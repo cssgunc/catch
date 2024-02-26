@@ -44,6 +44,7 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  /* border: solid; */
 }
 
 .tagline h1 {
@@ -66,6 +67,14 @@ h2 {
 .car-logo {
   background: url('../images/General/car_logo.png') no-repeat;
   width: 45%;
+  background-size: contain;
+}
+
+.canvas-container {
+  /* border: solid; */
+  width: 55%;
+  margin: -1rem;
+  /* margin-left: -10rem; */
   background-size: contain;
 }
 
@@ -169,7 +178,7 @@ button {
     height: auto;
     background-color: #2EA397;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 
   .landing,
@@ -181,6 +190,16 @@ button {
   .landing svg {
     width: 12vw;
     height: 12vw;
+  }
+
+  .canvas-container {
+    /* border: solid; */
+    margin:0;
+    margin-top: 1rem;
+    width: 100%;
+    /* margin: 3rem; */
+    /* margin-left: -10rem; */
+    background-size: contain;
   }
 
   .carousel {
