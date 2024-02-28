@@ -13,7 +13,7 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import { db } from '../firebase-config'
 import { collection, getDocs } from '@firebase/firestore'; // importing Firestore functions
-import { donationsInfoTemp } from '../components/donationInfo.js';
+import { getDonationInfo, donationsInfoTemp } from '../components/donationInfo.js';
 
 import "./Donations.css";
 
@@ -153,10 +153,22 @@ function DonationDisplay (props) {
   //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: 'Aversboro Elementary School', total: 10, donations: 1, description: '' }
   // ]
 
+  // const [donationsInfo, setDonationsInfo] = useState([]);
+  // donationsInfoTemp.then((data) => {
+  //   setDonationsInfo(data)
+  //   console.log(donationsInfo)
+  // });
   const [donationsInfo, setDonationsInfo] = useState([]);
-  donationsInfoTemp.then((data) => {
-    setDonationsInfo(data)
-  });
+
+  useEffect(() => {
+    const fetchDonations = async () => {
+      const donationsData = await getDonationInfo();
+      setDonationsInfo(donationsData);
+      console.log(donationsInfo)
+    };
+
+    fetchDonations();
+  }, []);
 
   return (
     <Slide>
@@ -182,6 +194,9 @@ function DonationDisplay (props) {
 }
 
 export default function Donations() {
+
+  
+
   const gofundmeform = "https://gofund.me/9dca4d2f";
   const formUrl1 =
     "https://docs.google.com/forms/d/e/1FAIpQLSfOhVwyU37XieVYEo73C-MyJ1XbY_Hfcy-VB3D31d7F2Tf0Qg/viewform";
@@ -202,7 +217,7 @@ export default function Donations() {
       <h2 style={{ paddingTop: "100px" }}>
         <b>Past Donation Sites</b>
       </h2>
-      <DonationDisplay />
+      <DonationDisplay/>
       <div id="pastpartnersection">
         <h3>
           <b>Past Partners</b>

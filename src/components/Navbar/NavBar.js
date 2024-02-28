@@ -211,6 +211,7 @@ export default function NavBar() {
 
   const openShoppingCart = () => {
     setShoppingCartActive(true);
+    // console.log(shoppingCartActive);
   };
 
   const changeOrder = (n) => {

@@ -4,8 +4,9 @@ import { useState } from "react";
 import { db, auth } from "../firebase-config.js";
 import { collection, doc, getDoc, query, increment, where, orderBy, getDocs, addDoc, setDoc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import formatAndFetchString from '../helper-functions/lowercase-and-remove-non-alph.js';
-import ExitImg from "../images/General/exitDoor.png";
 import Login from "./Login.js";
+import { FiLogOut } from "react-icons/fi";
+
 import { signOut } from "firebase/auth";
 
 import "./Admin.css";
@@ -936,7 +937,7 @@ export default function Admin() {
         </div>
         <div className="right">
           {currUserName}
-          <img src={ExitImg} alt="Log Out" className="exit" onClick={logout} />
+          <FiLogOut onClick={logout} size={25} style={{"marginLeft": "10px", "marginTop": "-5px", "cursor": "pointer"}}/>
         </div>
       </div>
 
