@@ -16,6 +16,7 @@ function Login() {
       setIsLoggedIn(true);
       setLoginError('');
       navigate('/admin');
+      window.location.reload(false);
     } catch (error) {
       setLoginError('Login failed: ' + error.message);
       console.error("Error signing in with email and password", error);

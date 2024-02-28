@@ -1,10 +1,12 @@
 import React from "react";
 import { useState } from "react";
 //import { getAuth } from 'firebase/auth';
-import { db } from "../firebase-config.js";
+import { db, auth } from "../firebase-config.js";
 import { collection, doc, getDoc, query, increment, where, orderBy, getDocs, addDoc, setDoc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import formatAndFetchString from '../helper-functions/lowercase-and-remove-non-alph.js';
 import ExitImg from "../images/General/exitDoor.png";
+import Login from "./Login.js";
+import { signOut } from "firebase/auth";
 
 import "./Admin.css";
 import { FaChevronCircleDown } from "react-icons/fa";
@@ -49,9 +51,15 @@ export default function Admin() {
     await updateDoc(donateSumRef, { totalDonated: increment(sum) });
   };
   //const currUserName = getAuth().currentUser.displayName;
-  const currUserName = "John Doe";
+  const currUserName = "Admin";
 
   function logout() {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+    });
+    window.location.reload(false);
     console.log("This is where I would put a logout method if I had one");
   }
   
@@ -916,8 +924,11 @@ export default function Admin() {
         return <p>Valid Tab Name not found</p>;
     }
   }
+  console.log(auth.currentUser)
 
   return (
+    <div>
+    {auth.currentUser ?
     <div className="App">
       <div className="header">
         <div className="left">
@@ -962,5 +973,9 @@ export default function Admin() {
         </div>
       </div>
     </div>
+    :
+    <Login/>
+        }
+        </div>
   );
 }
