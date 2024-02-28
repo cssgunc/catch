@@ -225,7 +225,7 @@ export default function NavBar() {
       <Router>
         { window.location.pathname !== '/admin' &&
         <Container fluid className="nav-container">
-          <Navbar className={` navbar ${visible ? 'navbar-show' : 'navbar-hide'} ${activeTab === '/' ? 'home-page-navbar' : ''}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Navbar className={` navbar ${visible ? 'navbar-show' : 'navbar-hide'} ${activeTab === '/' || activeTab === '/login' ? 'home-page-navbar' : ''}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
 
             <Navbar.Brand className="nav-brand" style={{ marginLeft: '20px' }}>
               {/* new navbar */}
