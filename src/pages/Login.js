@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { auth } from '../firebase-config'; 
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import logoImage from '../images/logo.png';
+import './Login.css'; // Import a CSS file for styling (create this file with your styles)
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -32,33 +34,33 @@ function Login() {
   };
 
   return (
-  <div>
+    <div className="login-container">
       {!isLoggedIn ? (
-        <div>
-          <input 
+        <div className="login-form">
+        <img src={logoImage} alt="Logo" style={{ width: '100px' }} />
+          <h2>Admin Login</h2>
+          <input class='inputLogin'
             type="email" 
             value={email} 
             onChange={handleEmailChange} 
             placeholder="Email" 
           />
-          <input 
+          <input class='inputLogin'
             type="password" 
             value={password} 
             onChange={handlePasswordChange} 
             placeholder="Password" 
           />
-          <button onClick={adminLogin}>Login</button>
-          {loginError && <p>{loginError}</p>}
+          <button class='loginButton' onClick={adminLogin}>Login</button>
+          {loginError && <p className="error-message">{loginError}</p>}
         </div>
       ) : (
-        <div>
-          {/* <p>Welcome to the Admin Dashboard!</p>
-          more here later */}
+        <div className="welcome-message">
+          <p>Welcome to the Admin Dashboard!</p>
         </div>
       )}
     </div>
   );
-
 }
 
 export default Login;
