@@ -38,19 +38,19 @@ function Login() {
         <div className="login-form">
         <img src={logoImage} alt="Logo" style={{ width: '100px' }} />
           <h2>Admin Login</h2>
-          <input 
+          <input class='inputLogin'
             type="email" 
             value={email} 
             onChange={handleEmailChange} 
             placeholder="Email" 
           />
-          <input 
+          <input class='inputLogin'
             type="password" 
             value={password} 
             onChange={handlePasswordChange} 
             placeholder="Password" 
           />
-          <button onClick={adminLogin}>Login</button>
+          <button class='loginButton' onClick={adminLogin}>Login</button>
           {loginError && <p className="error-message">{loginError}</p>}
         </div>
       ) : (

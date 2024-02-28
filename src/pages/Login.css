@@ -16,7 +16,7 @@
   margin-bottom: 20px;
 }
 
-input {
+.inputLogin {
   width: 100%;
   margin-bottom: 15px;
   padding: 10px;
@@ -25,7 +25,7 @@ input {
   border-radius: 4px;
 }
 
-button {
+.loginButton {
   background-color: #4caf50;
   color: #fff;
   padding: 10px;
@@ -34,7 +34,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.loginButton:hover {
   background-color: #45a049;
 }
 
