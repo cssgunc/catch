@@ -118,7 +118,6 @@ export default function Home() {
     };
 
     fetchRecentEvents1();
-    console.log(recentEvents1);
   }, []);
 
   const [recentEvents2, setrecentEvents2] = useState([]);

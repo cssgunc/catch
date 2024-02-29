@@ -11,6 +11,7 @@ function ToyPage(props) {
   const handleClick = () => {
     props.setViewToy(false);
     props.setActiveToy(false);
+    document.body.style.overflow = 'auto';
   };
 
   const handleBuildRedirect = () => {
@@ -84,6 +85,12 @@ function Toy(props) {
     if (props.isNew) {
       props.setViewToy(true);
       setActiveToy(true);
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant"
+      });
+      document.body.style.overflow = 'hidden';
     }
   };
 

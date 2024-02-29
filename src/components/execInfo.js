@@ -15,7 +15,6 @@ export async function getDynamicRecentExecInfo() {
         execs.push(data);
       }
     });
-    console.log(execs);
     execs.sort((a, b) => a.id - b.id);
   } catch (error) {
     console.error("Error fetching data:", error);

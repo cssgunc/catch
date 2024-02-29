@@ -48,7 +48,6 @@ export default function Checkout() {
 
     try {
       const docRef = await addDoc(mailCollection, mailData);
-      console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -60,7 +59,8 @@ export default function Checkout() {
   useEffect(() => {
     try {
       const storedJsonString = localStorage.getItem("cartObject");
-      console.log(storedJsonString);
+      // Keep for now
+      // console.log(storedJsonString);
       if (storedJsonString) {
         const storedObject = JSON.parse(storedJsonString);
         let idCounter = 1;
@@ -75,7 +75,6 @@ export default function Checkout() {
       }
     } catch (error) {
       console.error("Error retrieving data from local storage:", error);
-      // Handle the error appropriately (e.g., log it, notify the user, etc.)
     }
   }, []);
 

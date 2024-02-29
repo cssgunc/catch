@@ -30,7 +30,3 @@ export const getDonationInfo = async () => {
 };
 
 export const donationsInfoTemp = getDonationInfo();
-
-donationsInfoTemp.then((mediaItems) => {
-  console.log(mediaItems);
-});

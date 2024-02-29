@@ -103,7 +103,6 @@ function DonationDisplay(props) {
     const fetchDonations = async () => {
       const donationsData = await getDonationInfo();
       setDonationsInfo(donationsData);
-      console.log(donationsInfo);
     };
 
     fetchDonations();

@@ -35,7 +35,6 @@ export default function Admin() {
         // An error happened.
       });
     window.location.reload(false);
-    console.log("This is where I would put a logout method if I had one");
   }
 
   const [currTab, setCurrTab] = useState("Executives");
@@ -201,7 +200,6 @@ export default function Admin() {
       console.error("Error fetching data", error);
     }
 
-    console.log(newData);
 
     setCurrData(newData);
     setCurrTab(tab);
@@ -966,7 +964,6 @@ export default function Admin() {
         return <p>Valid Tab Name not found</p>;
     }
   }
-  console.log(auth.currentUser);
 
   return (
     <div>
