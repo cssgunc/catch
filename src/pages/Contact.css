@@ -1,3 +1,8 @@
+h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 #mainContainer {
   display: flex !important;
   flex-direction: row !important;
