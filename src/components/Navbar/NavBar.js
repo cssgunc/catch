@@ -58,7 +58,6 @@ function CartItem(props) {
     tempOrder[props.index].quantity = 0;
     setQuantity(0);
     props.setOrder(tempOrder);
-    console.log(tempOrder)
   };
 
   return (
@@ -310,109 +309,112 @@ export default function NavBar() {
   return (
     <>
       <Router>
-        {window.location.pathname !== "/admin" && window.location.pathname !== "/checkout" && (
-          <Container fluid className="nav-container">
-            <Navbar
-              className={` navbar ${visible ? "navbar-show" : "navbar-hide"} ${
-                activeTab === "/" || activeTab === "/login"
-                  ? "home-page-navbar"
-                  : ""
-              }`}
-              expand="lg"
-              style={{ display: "flex", justifyContent: "space-between" }}
-            >
-              <Navbar.Brand
-                className="nav-brand"
-                style={{ marginLeft: "20px" }}
+        {window.location.pathname !== "/admin" &&
+          window.location.pathname !== "/checkout" && (
+            <Container fluid className="nav-container">
+              <Navbar
+                className={` navbar ${
+                  visible ? "navbar-show" : "navbar-hide"
+                } ${
+                  activeTab === "/" || activeTab === "/login"
+                    ? "home-page-navbar"
+                    : ""
+                }`}
+                expand="lg"
+                style={{ display: "flex", justifyContent: "space-between" }}
               >
-                {/* new navbar */}
-                <Navbar.Toggle
-                  style={{ backgroundColor: "transparent" }}
-                  id="collapsed-menu-icon"
-                  className="toggle-button"
-                  aria-controls="basic-navbar-nav"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleSidebar();
-                  }}
-                />
-                <img className="nav-logo" src="logo.png" alt=""></img>
-                CATCH
-              </Navbar.Brand>
-              {/* old nav */}
-              <div
-                className={`sidebar ${isSidebarOpen ? "sidebar-open" : ""}`}
-                style={{ marginLeft: "0px", marginRight: "0px" }}
-              >
-                <button onClick={toggleSidebar} className="closebtn">
-                  &times;
-                </button>
-                <Nav
-                  className="mx-auto"
-                  style={{ paddingLeft: "0", marginLeft: "0" }}
+                <Navbar.Brand
+                  className="nav-brand"
+                  style={{ marginLeft: "20px" }}
                 >
-                  <Nav.Link
-                    className={getClassName("/")}
-                    as={Link}
-                    to={"/"}
-                    onClick={() => handleClick("/")}
+                  {/* new navbar */}
+                  <Navbar.Toggle
+                    style={{ backgroundColor: "transparent" }}
+                    id="collapsed-menu-icon"
+                    className="toggle-button"
+                    aria-controls="basic-navbar-nav"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleSidebar();
+                    }}
+                  />
+                  <img className="nav-logo" src="logo.png" alt=""></img>
+                  CATCH
+                </Navbar.Brand>
+                {/* old nav */}
+                <div
+                  className={`sidebar ${isSidebarOpen ? "sidebar-open" : ""}`}
+                  style={{ marginLeft: "0px", marginRight: "0px" }}
+                >
+                  <button onClick={toggleSidebar} className="closebtn">
+                    &times;
+                  </button>
+                  <Nav
+                    className="mx-auto"
+                    style={{ paddingLeft: "0", marginLeft: "0" }}
                   >
-                    Home
-                  </Nav.Link>
-                  <Nav.Link
-                    className={getClassName("/about")}
-                    as={Link}
-                    to={"/about"}
-                    onClick={() => handleClick("/about")}
-                  >
-                    About
-                  </Nav.Link>
-                  <Nav.Link
-                    className={getClassName("/toys")}
-                    as={Link}
-                    to={"/toys"}
-                    onClick={() => handleClick("/toys")}
-                  >
-                    Toy Catalog
-                  </Nav.Link>
-                  <Nav.Link
-                    className={getClassName("/donations")}
-                    as={Link}
-                    to={"/donations"}
-                    onClick={() => handleClick("/donations")}
-                  >
-                    Donations
-                  </Nav.Link>
-                  <Nav.Link
-                    className={getClassName("/mediacoverage")}
-                    as={Link}
-                    to={"/mediacoverage"}
-                    onClick={() => handleClick("/mediacoverage")}
-                  >
-                    Media
-                  </Nav.Link>
-                  <Nav.Link
-                    className={getClassName("/contact")}
-                    as={Link}
-                    to={"/contact"}
-                    onClick={() => handleClick("/contact")}
-                  >
-                    Contact
-                  </Nav.Link>
-                </Nav>
-              </div>
+                    <Nav.Link
+                      className={getClassName("/")}
+                      as={Link}
+                      to={"/"}
+                      onClick={() => handleClick("/")}
+                    >
+                      Home
+                    </Nav.Link>
+                    <Nav.Link
+                      className={getClassName("/about")}
+                      as={Link}
+                      to={"/about"}
+                      onClick={() => handleClick("/about")}
+                    >
+                      About
+                    </Nav.Link>
+                    <Nav.Link
+                      className={getClassName("/toys")}
+                      as={Link}
+                      to={"/toys"}
+                      onClick={() => handleClick("/toys")}
+                    >
+                      Toy Catalog
+                    </Nav.Link>
+                    <Nav.Link
+                      className={getClassName("/donations")}
+                      as={Link}
+                      to={"/donations"}
+                      onClick={() => handleClick("/donations")}
+                    >
+                      Donations
+                    </Nav.Link>
+                    <Nav.Link
+                      className={getClassName("/mediacoverage")}
+                      as={Link}
+                      to={"/mediacoverage"}
+                      onClick={() => handleClick("/mediacoverage")}
+                    >
+                      Media
+                    </Nav.Link>
+                    <Nav.Link
+                      className={getClassName("/contact")}
+                      as={Link}
+                      to={"/contact"}
+                      onClick={() => handleClick("/contact")}
+                    >
+                      Contact
+                    </Nav.Link>
+                  </Nav>
+                </div>
 
-              <Nav className="ml-auto justify-content-end adjust-right-nav">
-                <button
-                  onClick={() => openShoppingCart()}
-                  className="shopping-button"
-                >
-                  <ShoppingCart quantity={total} />
-                </button>
-              </Nav>
-            </Navbar>
-          </Container>
-        )}
+                <Nav className="ml-auto justify-content-end adjust-right-nav">
+                  <button
+                    onClick={() => openShoppingCart()}
+                    className="shopping-button"
+                  >
+                    <ShoppingCart quantity={total} />
+                  </button>
+                </Nav>
+              </Navbar>
+            </Container>
+          )}
         <div>
           <Routes>
             <Route path="/" element={<Home />} />

@@ -201,7 +201,7 @@ export default function Checkout() {
   return (
     <>
       <button className="return-home" onClick={() => returnHome()}>
-        <FaChevronLeft size={25}/>
+        <FaChevronLeft size={25} />
       </button>
       <Container>
         <Row className="my-4">
