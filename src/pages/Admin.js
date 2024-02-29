@@ -1,71 +1,29 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 //import { getAuth } from 'firebase/auth';
-import { db, auth } from "../firebase-config.js";
 import {
-  collection,
-  doc,
-  getDoc,
-  query,
-  increment,
-  where,
-  orderBy,
-  getDocs,
   addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  orderBy,
+  query,
   setDoc,
   updateDoc,
-  deleteDoc,
-  serverTimestamp,
+  where
 } from "firebase/firestore";
-import formatAndFetchString from "../helper-functions/lowercase-and-remove-non-alph.js";
-import Login from "./Login.js";
 import { FiLogOut } from "react-icons/fi";
+import { auth, db } from "../firebase-config.js";
+import Login from "./Login.js";
 
 import { signOut } from "firebase/auth";
 
-import "./Admin.css";
 import { FaChevronCircleDown } from "react-icons/fa";
+import "./Admin.css";
 
 export default function Admin() {
   const toysUpdateRef = doc(db, "lastUpdated", "toysLastUpdated");
   const donateSumRef = doc(db, "totalDonated", "totalDonated");
-  const completeOrder = async (orderId) => {
-    const orderRef = doc(db, "orders", orderId); // Replace 'orderId' with the actual document ID of the order you want to update
-    const orderData = await getDoc(orderRef);
-    if (!orderData.exists()) {
-      console.error("Error accessing document data");
-      return;
-    }
-
-    //Development note: Comment out this code block if repeatedly testing on the same order; revert to K & R style with above if statement for production
-    else if (orderData.get("completed") === true) {
-      console.error("Order already completed");
-      return;
-    }
-    const updateData = { completed: true };
-    await updateDoc(orderRef, updateData);
-
-    const order = orderData.get("order");
-    const orderToys = Object.keys(order);
-    let sum = 0;
-
-    for (let i = 0; i < orderToys.length; i++) {
-      const toyRef = formatAndFetchString(orderToys[i]);
-      // const toyName = orderToys[i].replace(/\W/g, '').toLowerCase();
-      // const toyRef = doc(db, "toys", toyName);
-
-      const currOrderAmt = order[orderToys[i]];
-
-      await updateDoc(toyRef, { donated: increment(currOrderAmt) });
-      sum += currOrderAmt;
-    }
-
-    await updateDoc(toysUpdateRef, { toysLastUpdated: serverTimestamp() });
-
-    //Ensure that the totalDonated field is defined as an integer, or its current value will be replaced by sum.
-    await updateDoc(donateSumRef, { totalDonated: increment(sum) });
-  };
-  //const currUserName = getAuth().currentUser.displayName;
   const currUserName = "Admin";
 
   function logout() {

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import FAQ from "./FAQ";
+import React, { useEffect, useState } from "react";
 import Banner from "../components/Banner";
 import { getDynamicRecentExecInfo } from "../components/execInfo";
 import "./About.css";
+import FAQ from "./FAQ";
 
 function ExecTile({ imagePath, name, position }) {
   return (

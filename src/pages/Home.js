@@ -1,5 +1,4 @@
-import React from "react";
-import { useRef, Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import Carousel from "react-multi-carousel";
 import { getSlideshowImages } from "../components/mainSlideshowInfo.js";
 import { getRecentEvents1Info } from "../components/recentEvents1Info.js";
@@ -7,11 +6,11 @@ import { getRecentEvents2Info } from "../components/recentEvents2Info.js";
 import { getRecentEvents3Info } from "../components/recentEvents3Info.js";
 import { getRecentEvents4Info } from "../components/recentEvents4Info.js";
 
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
-import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
-import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, useTexture } from "@react-three/drei";
+import { Canvas, useLoader } from "@react-three/fiber";
 import { Mesh, NoToneMapping } from "three";
+import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 
 import "react-multi-carousel/lib/styles.css";
 import "./Home.css";

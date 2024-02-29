@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import bannerImage from "../images/Donations/donations_banner_color.jpeg";
-import Banner from "../components/Banner";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
+import Banner from "../components/Banner";
 import { getDonationInfo } from "../components/donationInfo.js";
 
 import "./Donations.css";
@@ -138,7 +137,10 @@ export default function Donations() {
     "https://docs.google.com/forms/d/e/1FAIpQLSfACZzhpliXiEolrF0IDf89XFW_RHx7DaSZkDeDLLF618HE1A/viewform";
   return (
     <>
-      <Banner imagePath={bannerImage} title="Donations" />
+      <Banner
+        imagePath="banner/donations_banner_color.jpeg"
+        title="Donations"
+      />
       <h2>Donations</h2>
       <iframe
         src={gofundmeform}

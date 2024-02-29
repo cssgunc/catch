@@ -1,6 +1,6 @@
 import React from "react";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 import Banner from "../components/Banner";
-import { FaInstagram, FaFacebook } from "react-icons/fa";
 import "../pages/Contact.css";
 
 export default function Contact() {
@@ -47,7 +47,7 @@ export default function Contact() {
               rel="noreferrer"
             >
               <img
-                src={require("../images/Contact/heellife.jpg")}
+                src="contact/heellife.jpg"
                 alt="Heel Life"
                 style={{ width: "50px", height: "50px", marginRight: "20px" }}
               />
@@ -58,7 +58,7 @@ export default function Contact() {
               rel="noreferrer"
             >
               <img
-                src={require("../images/Contact/groupme.jpg")}
+                src="contact/groupme.jpg"
                 alt="GroupMe"
                 style={{ width: "50px", height: "50px", marginRight: "10px" }}
               />

@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from "react";
-import { FaInstagram } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
-import { FaHome } from "react-icons/fa";
-import { FaEnvelope } from "react-icons/fa";
+import React from "react";
+import {
+  FaEnvelope,
+  FaFacebook,
+  FaHome,
+  FaInstagram,
+  FaLinkedin,
+} from "react-icons/fa";
 import "./Footer.css";
 
 export default function Footer() {

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Card, Col, Row } from "react-bootstrap";
 import Banner from "../components/Banner";
 import { getMediaInfo } from "../components/mediaInfo.js";
 

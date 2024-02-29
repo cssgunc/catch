@@ -1,7 +1,5 @@
-import React from "react";
-import { db } from "../firebase-config.js";
 import { doc } from "firebase/firestore";
-import { useRef } from "react";
+import { db } from "../firebase-config.js";
 
 const formatAndFetchString = function (stringToStyle) {
   const toyName = stringToStyle.replace(/\W/g, "").toLowerCase();

@@ -1,32 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
-import { GrClose } from 'react-icons/gr'
-import Home from '../../pages/Home';
-import About from '../../pages/About';
-import Toys from '../../pages/Toys';
-import Checkout from '../../pages/Checkout';
-import Donations from '../../pages/Donations';
-import MediaCoverage from '../../pages/MediaCoverage';
-import Admin from '../../pages/Admin';
-import Contact from '../../pages/Contact';
-import Login from '../../pages/Login';
-import ShoppingCart from './ShoppingCart';
-import formatAndFetchString from '../../helper-functions/lowercase-and-remove-non-alph';
+import React, { useEffect, useState } from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
+import { GrClose } from "react-icons/gr";
+import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import formatAndFetchString from "../../helper-functions/lowercase-and-remove-non-alph";
+import About from "../../pages/About";
+import Admin from "../../pages/Admin";
+import Checkout from "../../pages/Checkout";
+import Contact from "../../pages/Contact";
+import Donations from "../../pages/Donations";
+import Home from "../../pages/Home";
+import Login from "../../pages/Login";
+import MediaCoverage from "../../pages/MediaCoverage";
+import Toys from "../../pages/Toys";
+import ShoppingCart from "./ShoppingCart";
 
-import { db } from '../../firebase-config'; 
-import { addDoc, collection, getDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore'; 
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  updateDoc,
+} from "@firebase/firestore";
+import { db } from "../../firebase-config";
 
-import './Navbar.css';
+import "./Navbar.css";
 
 function CartItem(props) {
-  const recentToys = JSON.parse(localStorage.getItem('recentToys'));
-  const [quantity, setQuantity] = useState(props.toy.quantity)
-  const [disable, setDisable] = useState(quantity === 1)
+  const recentToys = JSON.parse(localStorage.getItem("recentToys"));
+  const [quantity, setQuantity] = useState(props.toy.quantity);
+  const [disable, setDisable] = useState(quantity === 1);
   const toyName = props.toy.name;
 
-  const toy = recentToys.find(item => item.name === toyName)
+  const toy = recentToys.find((item) => item.name === toyName);
 
   const addOne = () => {
     let tempOrder = [...props.order];
@@ -41,7 +48,7 @@ function CartItem(props) {
     tempOrder[props.index].quantity--;
     setQuantity(tempOrder[props.index].quantity);
     if (quantity === 1) {
-      setDisable(true)
+      setDisable(true);
     }
     props.setOrder(tempOrder);
   };
@@ -55,106 +62,176 @@ function CartItem(props) {
 
   return (
     <>
-      {(quantity !== 0) &&
-        <div className='cart-item-container'>
-          <div className='colbreak' />
-          <img src={toy.imagePath} className='item-picture' alt={toy.altText}></img>
-          <div className='colbreak' />
-          <div className='item-details'>
+      {quantity !== 0 && (
+        <div className="cart-item-container">
+          <div className="colbreak" />
+          <img
+            src={toy.imagePath}
+            className="item-picture"
+            alt={toy.altText}
+          ></img>
+          <div className="colbreak" />
+          <div className="item-details">
             <div className="item-descriptors">
-              <p className='item-title'>{toyName}</p>
+              <p className="item-title">{toyName}</p>
               <p className="item-description">{toy.description}</p>
             </div>
 
             <div className="item-buttons" style={{ display: "inline-flex" }}>
               <span>
-                <button style={{ backgroundColor: "transparent", border: "none", margin: "0", padding: "0" }} onClick={() => removeItem()}><FaTrash size={20} style={{ marginRight: "10px" }} /></button>
-                <span style={{ minWidth: "60%", maxWidth: "60%", alignItem: "center", backgroundColor: "#AAAAAA", padding: "5px", borderRadius: "300px", paddingLeft: "15px", paddingRight: "15px" }}>
-                  <button style={{ margin: "0", padding: "0", backgroundColor: "transparent", border: "none" }} onClick={() => removeOne()} disabled={disable}><FaMinus size={15} /></button>
-                  <b style={{ marginRight: "25px", marginLeft: "25px" }}>{quantity}</b>
-                  <button style={{ margin: "0", padding: "0", backgroundColor: "transparent", border: "none" }} onClick={() => addOne()}><FaPlus size={15} /></button>
+                <button
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    margin: "0",
+                    padding: "0",
+                  }}
+                  onClick={() => removeItem()}
+                >
+                  <FaTrash size={20} style={{ marginRight: "10px" }} />
+                </button>
+                <span
+                  style={{
+                    minWidth: "60%",
+                    maxWidth: "60%",
+                    alignItem: "center",
+                    backgroundColor: "#AAAAAA",
+                    padding: "5px",
+                    borderRadius: "300px",
+                    paddingLeft: "15px",
+                    paddingRight: "15px",
+                  }}
+                >
+                  <button
+                    style={{
+                      margin: "0",
+                      padding: "0",
+                      backgroundColor: "transparent",
+                      border: "none",
+                    }}
+                    onClick={() => removeOne()}
+                    disabled={disable}
+                  >
+                    <FaMinus size={15} />
+                  </button>
+                  <b style={{ marginRight: "25px", marginLeft: "25px" }}>
+                    {quantity}
+                  </b>
+                  <button
+                    style={{
+                      margin: "0",
+                      padding: "0",
+                      backgroundColor: "transparent",
+                      border: "none",
+                    }}
+                    onClick={() => addOne()}
+                  >
+                    <FaPlus size={15} />
+                  </button>
                 </span>
               </span>
             </div>
-            <div className='rowbreak' />
+            <div className="rowbreak" />
           </div>
-          <div className='colbreak' />
+          <div className="colbreak" />
         </div>
-      }
+      )}
     </>
   );
 }
 
 function ShoppingCartPanel(props) {
-
   const closeShoppingCart = () => {
     props.setShoppingCartActive(false);
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", closeShoppingCart); 
+    window.addEventListener("scroll", closeShoppingCart);
     return () => {
-      window.removeEventListener("scroll", closeShoppingCart); 
-    }
+      window.removeEventListener("scroll", closeShoppingCart);
+    };
   }, []);
   const [total, setTotal] = useState(0);
-  
+
   useEffect(() => {
     const getTotal = () => {
       let totalQuantity = 0;
-      props.order.forEach(toy => {
+      props.order.forEach((toy) => {
         totalQuantity += toy.quantity;
       });
       return totalQuantity;
-    }
+    };
     setTotal(getTotal());
   }, [props.order]);
 
-  
-
   const placeOrder = async (order) => {
-      
-      const orderString = JSON.stringify(order);
-      
-      localStorage.setItem('cartObject', orderString);
-      window.location.href = "/checkout";
+    const orderString = JSON.stringify(order);
+
+    localStorage.setItem("cartObject", orderString);
+    window.location.href = "/checkout";
   };
 
   return (
-    <div className='shopping-cart-container'>
-      <div className='disable-interaction' onClick={() => closeShoppingCart()}></div>
-      <div className='shopping-cart-panel'>
-        <div className='close-cart'>
-          <button onClick={() => closeShoppingCart()} style={{ margin: "10px", backgroundColor: "transparent", border: "none", float: "right" }}>
+    <div className="shopping-cart-container">
+      <div
+        className="disable-interaction"
+        onClick={() => closeShoppingCart()}
+      ></div>
+      <div className="shopping-cart-panel">
+        <div className="close-cart">
+          <button
+            onClick={() => closeShoppingCart()}
+            style={{
+              margin: "10px",
+              backgroundColor: "transparent",
+              border: "none",
+              float: "right",
+            }}
+          >
             <GrClose size={35} />
           </button>
         </div>
-        {total === 0 ? 
-        <div className='empty-cart'>
-          <p className='empty-message'>Cart is empty. Add items to your order in the catalog.</p>
-        </div> :
-        <div className='cart-items'>
-          {props.order.map((toy, index) => (
-            (toy.quantity !== 0) && <CartItem
-              index={index}
-              toy={toy}
-              order={props.order}
-              setOrder={props.setOrder}
-            />
-          ))}
-        </div>
-}
-        <div className='checkout-container' style={{ flex: 2, display: "flex", justifyContent: "center" }}>
-        {total !== 0 ? 
-        <button className='checkout' onClick={() => placeOrder(props.order)}>Checkout</button> :
-        <button disabled className='checkout'>Checkout</button>
-        }
-
+        {total === 0 ? (
+          <div className="empty-cart">
+            <p className="empty-message">
+              Cart is empty. Add items to your order in the catalog.
+            </p>
+          </div>
+        ) : (
+          <div className="cart-items">
+            {props.order.map(
+              (toy, index) =>
+                toy.quantity !== 0 && (
+                  <CartItem
+                    index={index}
+                    toy={toy}
+                    order={props.order}
+                    setOrder={props.setOrder}
+                  />
+                )
+            )}
+          </div>
+        )}
+        <div
+          className="checkout-container"
+          style={{ flex: 2, display: "flex", justifyContent: "center" }}
+        >
+          {total !== 0 ? (
+            <button
+              className="checkout"
+              onClick={() => placeOrder(props.order)}
+            >
+              Checkout
+            </button>
+          ) : (
+            <button disabled className="checkout">
+              Checkout
+            </button>
+          )}
         </div>
       </div>
     </div>
   );
-
 }
 
 export default function NavBar() {
@@ -173,95 +250,172 @@ export default function NavBar() {
 
   const handleClick = (path) => {
     setActiveTab(path);
-    setSidebarOpen(false); 
+    setSidebarOpen(false);
   };
   const getClassName = (path) => {
     return path === activeTab ? "mx-3 nav-link-active" : "mx-3 nav-link";
   };
 
   useEffect(() => {
-    const storedActiveTab = localStorage.getItem('activeTab');
+    const storedActiveTab = localStorage.getItem("activeTab");
     if (storedActiveTab) {
       setActiveTab(storedActiveTab);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('activeTab', activeTab);
+    localStorage.setItem("activeTab", activeTab);
   }, [activeTab]);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.pageYOffset;
-      setVisible((prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 170) || currentScrollPos < 30);
+      setVisible(
+        (prevScrollPos > currentScrollPos &&
+          prevScrollPos - currentScrollPos > 170) ||
+          currentScrollPos < 30
+      );
       setPrevScrollPos(currentScrollPos);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollPos]);
 
   useEffect(() => {
     const getTotal = () => {
-      setTotal(0)
+      setTotal(0);
       const totalQuantity = order.reduce((acc, toy) => acc + toy.quantity, 0);
       setTotal(totalQuantity);
-    }
-    getTotal()
-  }, [order])
+    };
+    getTotal();
+  }, [order]);
 
   const openShoppingCart = () => {
     setShoppingCartActive(true);
-    
   };
 
   const changeOrder = (n) => {
     setOrder(n);
   };
 
-
-
-
   return (
     <>
       <Router>
-        { window.location.pathname !== '/admin' &&
-        <Container fluid className="nav-container">
-          <Navbar className={` navbar ${visible ? 'navbar-show' : 'navbar-hide'} ${activeTab === '/' || activeTab === '/login' ? 'home-page-navbar' : ''}`} expand="lg" style={{ display: 'flex', justifyContent: 'space-between' }}>
-
-            <Navbar.Brand className="nav-brand" style={{ marginLeft: '20px' }}>
-              {/* new navbar */}
-              <Navbar.Toggle style={{backgroundColor:"transparent"}} id="collapsed-menu-icon" className="toggle-button" aria-controls="basic-navbar-nav" onClick={(e) => { e.stopPropagation(); toggleSidebar(); }} />
-
-              <img className="nav-logo" src={require('../../images/logo.png')} alt=""></img>CATCH
-            </Navbar.Brand>
-            {/* old nav */}
-            <div className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`} style={{ marginLeft: '0px', marginRight: '0px' }}>
-              <button onClick={toggleSidebar} className="closebtn">&times;</button>
-              <Nav className="mx-auto" style={{ paddingLeft: '0', marginLeft: '0' }}>
-                <Nav.Link className={getClassName("/")} as={Link} to={"/"} onClick={() => handleClick('/')}>Home</Nav.Link>
-                <Nav.Link className={getClassName("/about")} as={Link} to={"/about"} onClick={() => handleClick('/about')}>About</Nav.Link>
-                <Nav.Link className={getClassName("/toys")} as={Link} to={"/toys"} onClick={() => handleClick('/toys')}>Toy Catalog</Nav.Link>
-                <Nav.Link className={getClassName("/donations")} as={Link} to={"/donations"} onClick={() => handleClick('/donations')}>Donations</Nav.Link>
-                <Nav.Link className={getClassName("/mediacoverage")} as={Link} to={"/mediacoverage"} onClick={() => handleClick('/mediacoverage')}>Media</Nav.Link>
-                <Nav.Link className={getClassName("/contact")} as={Link} to={"/contact"} onClick={() => handleClick('/contact')}>Contact</Nav.Link>
+        {window.location.pathname !== "/admin" && (
+          <Container fluid className="nav-container">
+            <Navbar
+              className={` navbar ${visible ? "navbar-show" : "navbar-hide"} ${
+                activeTab === "/" || activeTab === "/login"
+                  ? "home-page-navbar"
+                  : ""
+              }`}
+              expand="lg"
+              style={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <Navbar.Brand
+                className="nav-brand"
+                style={{ marginLeft: "20px" }}
+              >
+                {/* new navbar */}
+                <Navbar.Toggle
+                  style={{ backgroundColor: "transparent" }}
+                  id="collapsed-menu-icon"
+                  className="toggle-button"
+                  aria-controls="basic-navbar-nav"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleSidebar();
+                  }}
+                />
+                <img
+                  className="nav-logo"
+                  src="logo.png"
+                  alt=""
+                ></img>
+                CATCH
+              </Navbar.Brand>
+              {/* old nav */}
+              <div
+                className={`sidebar ${isSidebarOpen ? "sidebar-open" : ""}`}
+                style={{ marginLeft: "0px", marginRight: "0px" }}
+              >
+                <button onClick={toggleSidebar} className="closebtn">
+                  &times;
+                </button>
+                <Nav
+                  className="mx-auto"
+                  style={{ paddingLeft: "0", marginLeft: "0" }}
+                >
+                  <Nav.Link
+                    className={getClassName("/")}
+                    as={Link}
+                    to={"/"}
+                    onClick={() => handleClick("/")}
+                  >
+                    Home
+                  </Nav.Link>
+                  <Nav.Link
+                    className={getClassName("/about")}
+                    as={Link}
+                    to={"/about"}
+                    onClick={() => handleClick("/about")}
+                  >
+                    About
+                  </Nav.Link>
+                  <Nav.Link
+                    className={getClassName("/toys")}
+                    as={Link}
+                    to={"/toys"}
+                    onClick={() => handleClick("/toys")}
+                  >
+                    Toy Catalog
+                  </Nav.Link>
+                  <Nav.Link
+                    className={getClassName("/donations")}
+                    as={Link}
+                    to={"/donations"}
+                    onClick={() => handleClick("/donations")}
+                  >
+                    Donations
+                  </Nav.Link>
+                  <Nav.Link
+                    className={getClassName("/mediacoverage")}
+                    as={Link}
+                    to={"/mediacoverage"}
+                    onClick={() => handleClick("/mediacoverage")}
+                  >
+                    Media
+                  </Nav.Link>
+                  <Nav.Link
+                    className={getClassName("/contact")}
+                    as={Link}
+                    to={"/contact"}
+                    onClick={() => handleClick("/contact")}
+                  >
+                    Contact
+                  </Nav.Link>
                 </Nav>
               </div>
 
-            <Nav className="ml-auto justify-content-end adjust-right-nav">
-              <button onClick={() => openShoppingCart()} className="shopping-button">
-                <ShoppingCart
-                  quantity={total}
-                />
-              </button>
-            </Nav>
-          </Navbar>
-        </Container>
-        }
+              <Nav className="ml-auto justify-content-end adjust-right-nav">
+                <button
+                  onClick={() => openShoppingCart()}
+                  className="shopping-button"
+                >
+                  <ShoppingCart quantity={total} />
+                </button>
+              </Nav>
+            </Navbar>
+          </Container>
+        )}
         <div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/toys" element={<Toys order={order} setOrder={changeOrder} />} />
+            <Route
+              path="/toys"
+              element={<Toys order={order} setOrder={changeOrder} />}
+            />
             <Route path="/donations" element={<Donations />} />
             <Route path="/mediacoverage" element={<MediaCoverage />} />
             <Route path="/checkout" element={<Checkout />} />
@@ -271,9 +425,13 @@ export default function NavBar() {
           </Routes>
         </div>
       </Router>
-      {shoppingCartActive &&
-        <ShoppingCartPanel order={order} setOrder={changeOrder} setShoppingCartActive={setShoppingCartActive} />
-      }
+      {shoppingCartActive && (
+        <ShoppingCartPanel
+          order={order}
+          setOrder={changeOrder}
+          setShoppingCartActive={setShoppingCartActive}
+        />
+      )}
     </>
   );
 }
@@ -290,30 +448,27 @@ export const placeOrder = async (order, userData) => {
 
   const orderData = {
     completed: false,
-    orderTime: serverTimestamp(), 
+    orderTime: serverTimestamp(),
     order: orderFormat,
     name: userData.name,
     email: userData.email,
     organization: userData.organization,
     buttonQuantity: userData.buttonQuantity,
     address: userData.address,
-    notes: userData.notes
+    notes: userData.notes,
   };
   try {
-    
     const orderRef = await addDoc(collection(db, "orders"), orderData);
-    const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
-    
-    const toyNames = Object.keys(orderFormat)
+    const toysUpdateRef = doc(db, "lastUpdated", "toysLastUpdated");
+
+    const toyNames = Object.keys(orderFormat);
     for (let i = 0; i < toyNames.length; i++) {
-      
-      
       const toyRef = formatAndFetchString(toyNames[i]);
 
-      const element = await getDoc(toyRef)
-      const toyData = { ...element.data() }
+      const element = await getDoc(toyRef);
+      const toyData = { ...element.data() };
       await updateDoc(toyRef, {
-        ordered: toyData.ordered + (orderFormat[toyNames[i]])
+        ordered: toyData.ordered + orderFormat[toyNames[i]],
       });
     }
 

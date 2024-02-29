@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { auth } from "../firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase-config";
 import "./Login.css"; // Import a CSS file for styling (create this file with your styles)
 
 function Login() {

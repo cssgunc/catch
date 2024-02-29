@@ -1,16 +1,11 @@
+import { doc, getDoc, serverTimestamp, updateDoc } from "@firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { Col, Row, Container, Button, Form, Card } from "react-bootstrap";
-import { db } from "../firebase-config.js";
-import { collection, addDoc } from "firebase/firestore";
-import "./Checkout.css";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { FaTrashAlt } from "react-icons/fa";
+import { db } from "../firebase-config.js";
 import formatAndFetchString from "../helper-functions/lowercase-and-remove-non-alph";
-import {
-  getDoc,
-  doc,
-  updateDoc,
-  serverTimestamp,
-} from "@firebase/firestore";
+import "./Checkout.css";
 
 // New component to handle quantity adjustments
 const QuantitySelector = ({ quantity, onDecrease, onIncrease }) => {
@@ -139,7 +134,7 @@ export default function Checkout() {
         orderFormat[order[toy].name] = order[toy].quantity;
       }
     }
-  
+
     const orderData = {
       completed: false,
       orderTime: serverTimestamp(), // using Firestore server timestamp
@@ -161,14 +156,14 @@ export default function Checkout() {
         // const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
         // const toyRef = doc(db, "toys", toyName);
         const toyRef = formatAndFetchString(toyNames[i]);
-  
+
         const element = await getDoc(toyRef);
         const toyData = { ...element.data() };
         await updateDoc(toyRef, {
           ordered: toyData.ordered + orderFormat[toyNames[i]],
         });
       }
-  
+
       await updateDoc(toysUpdateRef, { toysLastUpdated: serverTimestamp() });
     } catch (e) {
       console.error("Error placing order: ", e);
