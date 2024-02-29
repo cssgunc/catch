@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import Banner from "../components/Banner";
 import { getDonationInfo } from "../components/donationInfo.js";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import "./Donations.css";
 
@@ -12,7 +12,7 @@ function DonationBox(props) {
   var screenWidth = window.innerWidth;
   return (
     <div>
-      {screenWidth >= 1290 ? (
+      {screenWidth >= 900 ? (
         <DonationBoxDesktop desktop={props} />
       ) : (
         <DonationBoxMobile mobile={props} />
@@ -54,9 +54,13 @@ function DonationBoxDesktop(props) {
         className="pic"
         alt={"Donation to " + props.desktop.organization}
         style={{
+          minWidth: "45%",
+          width: "45%",
           maxWidth: "45%",
-          maxHeight: "auto",
+          maxHeight: "45%",
+          aspectRatio: "1",
           borderRadius: "25px",
+          objectFit: "cover",
         }}
       />
     </div>
@@ -76,8 +80,12 @@ function DonationBoxMobile(props) {
           alt={"Donation to " + props.mobile.organization}
           style={{
             maxWidth: "80%",
-            maxHeight: "auto",
+            minWidth: "80%",
+            minHeight: "80%",
+            maxHeight: "80%",
             borderRadius: "15px",
+            aspectRatio: "1",
+            objectFit: "cover"
           }}
         />
       </div>
@@ -103,14 +111,42 @@ function DonationDisplay(props) {
     const fetchDonations = async () => {
       const donationsData = await getDonationInfo();
       setDonationsInfo(donationsData);
+      setLength(donationsData.length);
     };
 
     fetchDonations();
   }, []);
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [length, setLength] = useState(0);
+
+  const nextSlide = () => {
+    const nextIndex = currentIndex === length - 1 ? 0 : currentIndex + 1;
+    setCurrentIndex(nextIndex);
+  };
+
+  const prevSlide = () => {
+    const nextIndex = currentIndex === 0 ? length - 1 : currentIndex - 1;
+    setCurrentIndex(nextIndex);
+  };
+
   return (
-    <Slide>
-      {donationsInfo.length > 0 ? (
+    <div className="slideshow">
+      <div className="slide">
+        {donationsInfo.length > 0 ? (
+          <div className="slide-active">
+            <DonationBox
+              organization={donationsInfo[currentIndex].organization}
+              total={donationsInfo[currentIndex].total}
+              donations={donationsInfo[currentIndex].donations}
+              description={donationsInfo[currentIndex].description}
+              imagePath={`https://imgur.com/${donationsInfo[currentIndex].imagePath}.jpg`}
+            />
+          </div>
+        ) : (
+          <p>Loading...</p>
+        )}
+        {/* {donationsInfo.length > 0 ? (
         donationsInfo.map((donation) => (
           <DonationBox
             key={donation.imagePath}
@@ -123,8 +159,16 @@ function DonationDisplay(props) {
         ))
       ) : (
         <p>Loading...</p>
-      )}
-    </Slide>
+      )} */}
+      <button onClick={prevSlide} className="left-arrow">
+        <FaChevronLeft/>
+      </button>
+      <button onClick={nextSlide} className="right-arrow">
+        <FaChevronRight/>
+      </button>
+      </div>
+      
+    </div>
   );
 }
 
@@ -147,7 +191,7 @@ export default function Donations() {
         title="gofundme form"
         style={{ width: "80%", height: "676px", overflow: "scroll" }}
       ></iframe>
-      <h2 style={{ paddingTop: "100px" }}>
+      <h2 style={{ paddingTop: "100px", marginBottom: "20px" }}>
         <b>Past Donation Sites</b>
       </h2>
       <DonationDisplay />

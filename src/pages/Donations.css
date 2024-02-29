@@ -14,9 +14,8 @@ h3 {
 
 .sitesection {
   display: flex;
-  padding-left: 10%;
-  padding-right: 10%;
   padding-top: 3%;
+  padding-bottom: 3%;
 }
 
 #pastpartnersection {
@@ -31,17 +30,22 @@ h3 {
   display: flex;
   flex-direction: column;
   text-align: start;
-  gap: 20px;
   align-items: flex-start;
+  margin:0;
+  padding:0;
 }
 
-@media screen and (min-width: 1291px) {
+@media screen and (min-width: 901px) {
   .column {
     width: 100%;
   }
 
   .description {
     padding-right: 15px;
+    min-height: 70%;
+    max-height: 70%;
+    overflow: scroll;
+
   }
 
   #pastpartnersection {
@@ -49,7 +53,7 @@ h3 {
   }
 }
 
-@media screen and (max-width: 1290px) {
+@media screen and (max-width: 900px) {
   .column {
     width: 50%;
   }
@@ -60,16 +64,10 @@ h3 {
     padding: 25px;
   }
 
-  .pic {
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   .description {
     padding: 15px;
     text-align: justify;
+    overflow: scroll;
   }
 
   #pastpartnersection {
@@ -91,4 +89,43 @@ h3 {
     width: 100%;
     align-items: center;
   }
+}
+
+.slideshow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  position: relative;
+  max-height: 100%;
+}
+
+.slide {
+  padding: 2%;
+  width:80%;
+  /* height: 500px; */
+  border: solid;
+  border-radius: 15px;
+  border-color: gray;
+  /* add drop shadow */
+  box-shadow: 2px 2px 2px 2px #b8b8b8;
+  position: relative;
+}
+
+.left-arrow {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.right-arrow {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 2em;
+  cursor: pointer;
 }
