@@ -58,6 +58,7 @@ function CartItem(props) {
     tempOrder[props.index].quantity = 0;
     setQuantity(0);
     props.setOrder(tempOrder);
+    console.log(tempOrder)
   };
 
   return (
@@ -165,8 +166,13 @@ function ShoppingCartPanel(props) {
   }, [props.order]);
 
   const placeOrder = async (order) => {
+    // loop through order backwards and if object at index has quantity 0, remove it
+    for (let i = order.length - 1; i >= 0; i--) {
+      if (order[i].quantity === 0) {
+        order.splice(i, 1);
+      }
+    }
     const orderString = JSON.stringify(order);
-
     localStorage.setItem("cartObject", orderString);
     window.location.href = "/checkout";
   };
@@ -241,7 +247,10 @@ export default function NavBar() {
   const [shoppingCartActive, setShoppingCartActive] = useState(false);
   const [total, setTotal] = useState(0);
 
-  const [order, setOrder] = useState([]);
+  // if cartObject in localStorage is not null, set order to the cartObject
+  const cartObject = JSON.parse(localStorage.getItem("cartObject"));
+  const [order, setOrder] = useState(cartObject ? cartObject : []);
+  // const [order, setOrder] = useState([]);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -301,7 +310,7 @@ export default function NavBar() {
   return (
     <>
       <Router>
-        {window.location.pathname !== "/admin" && (
+        {window.location.pathname !== "/admin" && window.location.pathname !== "/checkout" && (
           <Container fluid className="nav-container">
             <Navbar
               className={` navbar ${visible ? "navbar-show" : "navbar-hide"} ${

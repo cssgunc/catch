@@ -2,7 +2,7 @@ import { doc, getDoc, serverTimestamp, updateDoc } from "@firebase/firestore";
 import { addDoc, collection } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaChevronLeft } from "react-icons/fa";
 import { db } from "../firebase-config.js";
 import formatAndFetchString from "../helper-functions/lowercase-and-remove-non-alph";
 import "./Checkout.css";
@@ -194,8 +194,15 @@ export default function Checkout() {
     );
   };
 
+  const returnHome = () => {
+    window.location.href = "/";
+  };
+
   return (
     <>
+      <button className="return-home" onClick={() => returnHome()}>
+        <FaChevronLeft size={25}/>
+      </button>
       <Container>
         <Row className="my-4">
           <Col md={6}>
