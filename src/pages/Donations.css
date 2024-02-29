@@ -31,8 +31,8 @@ h3 {
   flex-direction: column;
   text-align: start;
   align-items: flex-start;
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
 
 @media screen and (min-width: 901px) {
@@ -45,7 +45,6 @@ h3 {
     min-height: 70%;
     max-height: 70%;
     overflow: scroll;
-
   }
 
   #pastpartnersection {
@@ -102,7 +101,7 @@ h3 {
 
 .slide {
   padding: 2%;
-  width:80%;
+  width: 80%;
   /* height: 500px; */
   border: solid;
   border-radius: 15px;

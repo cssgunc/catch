@@ -85,7 +85,7 @@ function DonationBoxMobile(props) {
             maxHeight: "80%",
             borderRadius: "15px",
             aspectRatio: "1",
-            objectFit: "cover"
+            objectFit: "cover",
           }}
         />
       </div>
@@ -160,14 +160,13 @@ function DonationDisplay(props) {
       ) : (
         <p>Loading...</p>
       )} */}
-      <button onClick={prevSlide} className="left-arrow">
-        <FaChevronLeft/>
-      </button>
-      <button onClick={nextSlide} className="right-arrow">
-        <FaChevronRight/>
-      </button>
+        <button onClick={prevSlide} className="left-arrow">
+          <FaChevronLeft />
+        </button>
+        <button onClick={nextSlide} className="right-arrow">
+          <FaChevronRight />
+        </button>
       </div>
-      
     </div>
   );
 }

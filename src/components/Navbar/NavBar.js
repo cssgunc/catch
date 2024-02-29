@@ -327,11 +327,7 @@ export default function NavBar() {
                     toggleSidebar();
                   }}
                 />
-                <img
-                  className="nav-logo"
-                  src="logo.png"
-                  alt=""
-                ></img>
+                <img className="nav-logo" src="logo.png" alt=""></img>
                 CATCH
               </Navbar.Brand>
               {/* old nav */}

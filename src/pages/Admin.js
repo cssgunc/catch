@@ -10,7 +10,7 @@ import {
   query,
   setDoc,
   updateDoc,
-  where
+  where,
 } from "firebase/firestore";
 import { FiLogOut } from "react-icons/fi";
 import { auth, db } from "../firebase-config.js";
@@ -199,7 +199,6 @@ export default function Admin() {
     } catch (error) {
       console.error("Error fetching data", error);
     }
-
 
     setCurrData(newData);
     setCurrTab(tab);

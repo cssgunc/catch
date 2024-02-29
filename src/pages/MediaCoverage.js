@@ -13,7 +13,12 @@ const ArticleCard = ({ image, title, caption, link }) => {
         <Card.Body className="text-left p-3">
           <Card.Title>{title}</Card.Title>
           <Card.Text>{caption}</Card.Text>
-          <a href={link} style={{"textDecoration": "underline", "color": "skyblue"}} target="_blank" rel="noreferrer">
+          <a
+            href={link}
+            style={{ textDecoration: "underline", color: "skyblue" }}
+            target="_blank"
+            rel="noreferrer"
+          >
             Read more
           </a>
         </Card.Body>
