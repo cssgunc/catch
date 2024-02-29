@@ -81,15 +81,24 @@ export default function Footer() {
         </div>
       </div>
       <div class="links">
-        <a href="https://www.instagram.com/catch_unc/" target="_blank">
+        <a
+          href="https://www.instagram.com/catch_unc/"
+          target="_blank"
+          rel="noreferrer"
+        >
           <FaInstagram size={20} className="icon" />
         </a>
-        <a href="https://www.facebook.com/CATCHUNC/" target="_blank">
+        <a
+          href="https://www.facebook.com/CATCHUNC/"
+          target="_blank"
+          rel="noreferrer"
+        >
           <FaFacebook size={20} className="icon" />
         </a>
         <a
           href="https://www.linkedin.com/in/carolina-adapts-toys-for-children-0b351a220/"
           target="_blank"
+          rel="noreferrer"
         >
           <FaLinkedin size={20} className="icon" />
         </a>
