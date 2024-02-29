@@ -1,7 +1,7 @@
-import { collection, getDocs } from '@firebase/firestore';
-import { db } from '../firebase-config';
+import { collection, getDocs } from "@firebase/firestore";
+import { db } from "../firebase-config";
 
-const recentEvents4Ref = collection(db, 'recentEvents4');
+const recentEvents4Ref = collection(db, "recentEvents4");
 
 export const getRecentEvents4Info = async () => {
   const recentEventsArray = [];
@@ -17,4 +17,4 @@ export const getRecentEvents4Info = async () => {
     console.error("Error fetching media data:", error);
   }
   return recentEventsArray;
-}
+};

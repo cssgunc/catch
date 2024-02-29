@@ -8,7 +8,7 @@
 }
 
 .break {
-  margin-bottom: 204px;;
+  margin-bottom: 204px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -61,4 +61,3 @@
   --color-fuchsia: #ff00ff;
   --font-family: Arial, sans-serif;
 }
-

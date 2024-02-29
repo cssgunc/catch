@@ -1,19 +1,9 @@
-
 import React, { useEffect, useState } from "react";
-//import bannerImage from "../images/Donations/banner.jpg";
 import bannerImage from "../images/Donations/donations_banner_color.jpeg";
 import Banner from "../components/Banner";
-import org1Image from '../images/Donations/donation1.jpg';
-import org2Image from '../images/Donations/donation2.jpg';
-import org3Image from '../images/Donations/donation3.jpg';
-import org4Image from '../images/Donations/donation4.jpg';
-import org5Image from '../images/Donations/donation5.jpg';
-import org6Image from '../images/Donations/donation6.jpg';
-import { Slide } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css';
-import { db } from '../firebase-config'
-import { collection, getDocs } from '@firebase/firestore'; // importing Firestore functions
-import { getDonationInfo, donationsInfoTemp } from '../components/donationInfo.js';
+import { Slide } from "react-slideshow-image";
+import "react-slideshow-image/dist/styles.css";
+import { getDonationInfo } from "../components/donationInfo.js";
 
 import "./Donations.css";
 
@@ -23,7 +13,11 @@ function DonationBox(props) {
   var screenWidth = window.innerWidth;
   return (
     <div>
-      {screenWidth >= 1290 ? <DonationBoxDesktop desktop={props} /> : <DonationBoxMobile mobile={props} />}
+      {screenWidth >= 1290 ? (
+        <DonationBoxDesktop desktop={props} />
+      ) : (
+        <DonationBoxMobile mobile={props} />
+      )}
     </div>
   );
 }
@@ -42,20 +36,19 @@ function DonationBoxDesktop(props) {
           <b>{props.desktop.organization}</b>
         </h3>
 
-        {props.desktop.description !== '' &&
-          <div className="description">
-            {props.desktop.description}
-          </div>
-        }
+        {props.desktop.description !== "" && (
+          <div className="description">{props.desktop.description}</div>
+        )}
 
         <div>
-          <strong>Total Toys Donated: </strong>{props.desktop.total}
+          <strong>Total Toys Donated: </strong>
+          {props.desktop.total}
         </div>
 
         <div>
-          <strong>Total Donation: </strong>{props.desktop.donations}
+          <strong>Total Donation: </strong>
+          {props.desktop.donations}
         </div>
-
       </div>
       <img
         src={props.desktop.imagePath}
@@ -64,7 +57,7 @@ function DonationBoxDesktop(props) {
         style={{
           maxWidth: "45%",
           maxHeight: "auto",
-          borderRadius: "25px"
+          borderRadius: "25px",
         }}
       />
     </div>
@@ -85,86 +78,33 @@ function DonationBoxMobile(props) {
           style={{
             maxWidth: "80%",
             maxHeight: "auto",
-            borderRadius: "15px"
+            borderRadius: "15px",
           }}
         />
       </div>
-      {props.mobile.description !== '' &&
-        <div className="description">
-          {props.mobile.description}
-        </div>
-      }
+      {props.mobile.description !== "" && (
+        <div className="description">{props.mobile.description}</div>
+      )}
       <div>
-        <strong>Total Toys Donated: </strong>{props.mobile.total}
+        <strong>Total Toys Donated: </strong>
+        {props.mobile.total}
       </div>
       <div>
-        <strong>Total Donation: </strong>{props.mobile.donations}
+        <strong>Total Donation: </strong>
+        {props.mobile.donations}
       </div>
     </div>
   );
 }
 
-// function DonationDisplay() {
-// function GetDonationsInfo() {
-//   const [donationsInfo, setDonationsInfo] = useState([]);
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       const donationsRef = collection(db, "donations");
-//       const snapshot = await getDocs(donationsRef);
-
-//       const donationsData = [];
-//       snapshot.forEach((doc) => {
-//         const data = doc.data();
-//         donationsData.push({
-//           imagePath: data.imageName,
-//           organization: data.orgName,
-//           total: data.totalDonated,
-//           donations: data.numDonations,
-//           description: data.description,
-//         });
-//       });
-//       setDonationsInfo(donationsData);
-//     };
-
-//     fetchData();
-//   }, []);
-//   return donationsInfo
-// }
-// }
-
-function DonationDisplay (props) {
-  // const [donationsInfo, setDonationsInfo] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchDonations = async () => {
-  //     const donationData = await getDonationInfo();
-  //     setDonationsInfo(donationData);
-  //   };
-
-  //   fetchDonations();
-  // }, []);
-
-  // const donationsInfoTemp = [
-  //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: 'Carolina Institute for Developmental Disabilities', total: 20, donations: 2, description: "The Carolina Institute for Developmental Disabilities is a comprehensive program for services, research, and training relevant to individuals with developmental disabilities and their families. The Carolina Institute provides a continuum of clinical services from complex, interdisciplinary evaluations on-site to more limited and selected clinical services and training in all 100 counties in North Carolina. The Institute brings together state-of-the-art research and clinical practice to ensure the best possible care for citizens of North Carolina." },
-  //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: 'UNC Center for Rehabilitative Care', total: 14, donations: 2, description: 'The mission of the UNC Inpatient Rehabilitation Center is to improve, restore and maintain functional abilities and maximize quality of life in patients with disabilities; educate health care professionals in rehabilitation care and services; and advance rehabilitation research. Rehabilitative care provides persons served with the skills and support necessary to function in an environment with as much independence and choice and as little supervision and restriction as possible. The totality of this care spans the rehabilitation continuum to optimize the functionality and quality of life and prevent and or treat conditions of physically disabled persons.' },
-  //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: "Levine Children's Hospital", total: 16, donations: 2, description: '' },
-  //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: 'Novant Health', total: 10, donations: 1, description: '' },
-  //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: 'Barton Pond Elementary School', total: 10, donations: 1, description: '' },
-  //   { imagePath: '1rIUHzAY3zXOTTxxTS5QvYAIM1GnufKaH', organization: 'Aversboro Elementary School', total: 10, donations: 1, description: '' }
-  // ]
-
-  // const [donationsInfo, setDonationsInfo] = useState([]);
-  // donationsInfoTemp.then((data) => {
-  //   setDonationsInfo(data)
-  //   console.log(donationsInfo)
-  // });
+function DonationDisplay(props) {
   const [donationsInfo, setDonationsInfo] = useState([]);
 
   useEffect(() => {
     const fetchDonations = async () => {
       const donationsData = await getDonationInfo();
       setDonationsInfo(donationsData);
-      console.log(donationsInfo)
+      console.log(donationsInfo);
     };
 
     fetchDonations();
@@ -180,13 +120,10 @@ function DonationDisplay (props) {
             total={donation.total}
             donations={donation.donations}
             description={donation.description}
-            // imagePath={`https://lh3.googleusercontent.com/d/${donation.imagePath}=w1000`}
-            // https://imgur.com/${data.imageID}.jpg
             imagePath={`https://imgur.com/${donation.imagePath}.jpg`}
           />
         ))
       ) : (
-        // Loading indicator
         <p>Loading...</p>
       )}
     </Slide>
@@ -194,9 +131,6 @@ function DonationDisplay (props) {
 }
 
 export default function Donations() {
-
-  
-
   const gofundmeform = "https://gofund.me/9dca4d2f";
   const formUrl1 =
     "https://docs.google.com/forms/d/e/1FAIpQLSfOhVwyU37XieVYEo73C-MyJ1XbY_Hfcy-VB3D31d7F2Tf0Qg/viewform";
@@ -205,9 +139,7 @@ export default function Donations() {
   return (
     <>
       <Banner imagePath={bannerImage} title="Donations" />
-      <h2>
-        Donations
-      </h2>
+      <h2>Donations</h2>
       <iframe
         src={gofundmeform}
         id="gfm-form"
@@ -217,7 +149,7 @@ export default function Donations() {
       <h2 style={{ paddingTop: "100px" }}>
         <b>Past Donation Sites</b>
       </h2>
-      <DonationDisplay/>
+      <DonationDisplay />
       <div id="pastpartnersection">
         <h3>
           <b>Past Partners</b>

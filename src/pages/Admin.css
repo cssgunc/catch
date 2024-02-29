@@ -1,221 +1,222 @@
 * {
-    transition: all 200ms ease-in;
+  transition: all 200ms ease-in;
 }
 
 .header {
-    height: 20%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: #EF574E;
-    color: white;
-    display: flex;
-    vertical-align: middle;
+  height: 20%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #ef574e;
+  color: white;
+  display: flex;
+  vertical-align: middle;
 }
 
 .left {
-    width: 25%;
-    padding-left: 4%;
-    text-align: left;
+  width: 25%;
+  padding-left: 4%;
+  text-align: left;
 }
 
 .right {
-    width: 75%;
-    padding-right: 4%;
-    text-align: right;
+  width: 75%;
+  padding-right: 4%;
+  text-align: right;
 }
 
 .exit {
-    width: 15px;
-    height: 25px;
-    margin-left: 9px;
+  width: 15px;
+  height: 25px;
+  margin-left: 9px;
 }
 
 .exit:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .body {
-    display: flex;
+  display: flex;
 }
 
 .left-body {
-    width: 20%;
-    padding-top: 60px;
-    padding-left: 4%;
-    text-align: left;
-    border-right: 1px solid black;
+  width: 20%;
+  padding-top: 60px;
+  padding-left: 4%;
+  text-align: left;
+  border-right: 1px solid black;
 }
 
 .right-body {
-    width: 80%;
-    padding-top: 60px;
-    padding-left: 50px;
-    padding-right: 50px;
-    align-content: center;
+  width: 80%;
+  padding-top: 60px;
+  padding-left: 50px;
+  padding-right: 50px;
+  align-content: center;
 }
 
 .event-selector {
-    align-content: left;
-    float: left;
-    margin-bottom: 10px;
+  align-content: left;
+  float: left;
+  margin-bottom: 10px;
 }
 
 .event-selector-select {
-    float: left;
-    margin-bottom: 10px;
+  float: left;
+  margin-bottom: 10px;
 }
 
 .selected-event-name {
-    font-size: 26px;
+  font-size: 26px;
 }
 
 .title {
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 5px;
 }
 
 .menu-button {
-    padding-left: 20px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    margin-bottom: 4px;
+  padding-left: 20px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 4px;
 }
 
 .menu-button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .menu-button-current {
-    padding-left: 20px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    margin-bottom: 4px;
-    background-color: rgba(240, 85, 77, 0.05);
-    border-right: 3px solid #EF574E;
-    border-top-left-radius: 10%;
-    border-bottom-left-radius: 10%;
+  padding-left: 20px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 4px;
+  background-color: rgba(240, 85, 77, 0.05);
+  border-right: 3px solid #ef574e;
+  border-top-left-radius: 10%;
+  border-bottom-left-radius: 10%;
 }
 
 .menu-button-current:hover {
-    cursor: default;
+  cursor: default;
 }
 
 .table-container {
-    overflow-x: auto;
-    max-width: 100%;
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 .view-table {
-    width: 100%;
-    margin: auto;
-    text-align: left;
+  width: 100%;
+  margin: auto;
+  text-align: left;
 }
 
 tr {
-    border-bottom: 1px solid #DDDDDD;
+  border-bottom: 1px solid #dddddd;
 }
 
 th {
-    padding: 0px 10px 10px 10px;
+  padding: 0px 10px 10px 10px;
 }
 
 td {
-    width: 18%;
-    padding: 25px 10px;
+  width: 18%;
+  padding: 25px 10px;
 }
 
 .wrap-cell {
-    max-width: 100px;
-    word-wrap: break-word;
-    white-space: normal;
+  max-width: 100px;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 input {
-    width: 90%;
+  width: 90%;
 }
 
 .view-button {
-    color: #EF574E;
-    background-color: white;
-    box-shadow: none;
-    border: solid;
-    border-color: #EF574E;
-    width: 80px;
-    margin-left: 20px;
-    outline: none;
+  color: #ef574e;
+  background-color: white;
+  box-shadow: none;
+  border: solid;
+  border-color: #ef574e;
+  width: 80px;
+  margin-left: 20px;
+  outline: none;
 }
 
 .view-button:hover {
-    background-color: #f4dfdf;
+  background-color: #f4dfdf;
 }
 
 .add-button {
-    color: white;
-    background-color: #EF574E;
-    border: solid;
-    border-color: #EF574E;
-    width: 30px;
-    height: 30px;
-    border-radius: 10%;
-    outline: none;
+  color: white;
+  background-color: #ef574e;
+  border: solid;
+  border-color: #ef574e;
+  width: 30px;
+  height: 30px;
+  border-radius: 10%;
+  outline: none;
 }
 
 .add-button:hover {
-    background-color: #d6453e;
-    border-color: #d6453e;
+  background-color: #d6453e;
+  border-color: #d6453e;
 }
 
 .mobile-tabs {
-    display: none;
-    text-align: left;
-    margin: 30px 50px 0px 50px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgb(202, 202, 202);
+  display: none;
+  text-align: left;
+  margin: 30px 50px 0px 50px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(202, 202, 202);
 }
 
 .dropdown-button {
-    border: 2px solid #EF574E;
-    border-radius: 5px;
-    background-color: white;
-    color: #EF574E;
+  border: 2px solid #ef574e;
+  border-radius: 5px;
+  background-color: white;
+  color: #ef574e;
 }
 
-.dropdown-button:hover, .dropdown-button:active {
-    color: white;
-    background-color: #EF574E;
+.dropdown-button:hover,
+.dropdown-button:active {
+  color: white;
+  background-color: #ef574e;
 }
 
 .save-div {
-    align-content: center;
+  align-content: center;
 }
 
 .save-button {
-    color: white;
-    background-color: #EF574E;
-    border: solid;
-    border-color: #EF574E;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-weight: bold;
-    border-radius: 5%;
-    outline: none;
-    margin-top: 15px;
+  color: white;
+  background-color: #ef574e;
+  border: solid;
+  border-color: #ef574e;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: bold;
+  border-radius: 5%;
+  outline: none;
+  margin-top: 15px;
 }
 
 @media screen and (max-width: 950px) {
-    .mobile-tabs {
-        display: block;
-    }
-
-    .left-body {
-        display: none;
-    }
-    
-    .right-body {
-        width: 100%;
-        padding-top:30px;
-    }
+  .mobile-tabs {
+    display: block;
   }
+
+  .left-body {
+    display: none;
+  }
+
+  .right-body {
+    width: 100%;
+    padding-top: 30px;
+  }
+}

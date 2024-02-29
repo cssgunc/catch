@@ -1,66 +1,68 @@
 .footer {
-    background-color: rgb(83, 191, 181, 0.7);
-    bottom: 0%;
-    width: 100%;
-    margin-top: 100px;
-    height: 100%;
+  background-color: rgb(83, 191, 181, 0.7);
+  bottom: 0%;
+  width: 100%;
+  margin-top: 100px;
+  height: 100%;
 }
 
 .footer-main {
-    display: flex;
-    font-family: Montserrat;
-    flex-direction: row;
-    min-height: 200px;
-
+  display: flex;
+  font-family: Montserrat;
+  flex-direction: row;
+  min-height: 200px;
 }
 
 .footer-col {
-    flex: 1;
-    text-align: center;
+  flex: 1;
+  text-align: center;
 }
 
 .footer-row {
-    margin-top: 10px;
-    font-weight: 500;
+  margin-top: 10px;
+  font-weight: 500;
 }
 
 .footer-heading {
-    margin-top: 25px;
-    font-weight: BOLD;
+  margin-top: 25px;
+  font-weight: BOLD;
 }
 
 .links {
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .links a {
-    color: rgb(28, 28, 28);
+  color: rgb(28, 28, 28);
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }
 
 .icon {
-    margin-right: 10px;
-    margin-left: 10px;
-    border-width: 5px;
-    border-color: blue;
-    /* color: white; */
+  margin-right: 10px;
+  margin-left: 10px;
+  border-width: 5px;
+  border-color: blue;
+  /* color: white; */
 }
 
 .inline-icon {
-    margin-left: -30px;
-    margin-right: 14px;
+  margin-left: -30px;
+  margin-right: 14px;
 }
 
-
 @media (max-width: 768px) {
-    .footer-main {
-      flex-direction: column;
-      align-items: left;
-      padding-left: 50px;
-
-    }
-  
-    .footer-col {
-      margin: 10px 0;
-      text-align: left;
-    }
+  .footer-main {
+    flex-direction: column;
+    align-items: left;
+    padding-left: 50px;
   }
+
+  .footer-col {
+    margin: 10px 0;
+    text-align: left;
+  }
+}

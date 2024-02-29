@@ -1,7 +1,7 @@
-import { collection, getDocs, query, orderBy } from '@firebase/firestore';
-import { db } from '../firebase-config';
+import { collection, getDocs, query, orderBy } from "@firebase/firestore";
+import { db } from "../firebase-config";
 
-const mediaRef = collection(db, 'media');
+const mediaRef = collection(db, "media");
 
 export const getMediaInfo = async () => {
   const mediaArray = [];
@@ -10,11 +10,11 @@ export const getMediaInfo = async () => {
     const querySnapshot = await getDocs(query(mediaRef, orderBy("id")));
     querySnapshot.forEach((doc) => {
       let data = doc.data();
-      data.image = `https://imgur.com/${data.imageID}.jpg`
+      data.image = `https://imgur.com/${data.imageID}.jpg`;
       mediaArray.push(data);
     });
   } catch (error) {
     console.error("Error fetching media data:", error);
   }
   return mediaArray;
-}
+};

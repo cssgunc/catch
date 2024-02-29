@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 import { Card, Row, Col } from "react-bootstrap";
-import bannerImage from '../images/MediaCoverage/media_coverage_banner_color.jpeg';
-import Banner from '../components/Banner';
-import { getMediaInfo } from '../components/mediaInfo.js';
+import Banner from "../components/Banner";
+import { getMediaInfo } from "../components/mediaInfo.js";
 
-
-import './MediaCoverage.css';
+import "./MediaCoverage.css";
 
 const ArticleCard = ({ image, title, caption, link }) => {
   return (
-    <Col md={6} className="mb-4 mt-3" >
-      <Card className="mx-2" style={{minHeight:"100%"}}>
+    <Col md={6} className="mb-4 mt-3">
+      <Card className="mx-2" style={{ minHeight: "100%" }}>
         <Card.Img variant="top" src={image} alt={title} />
         <Card.Body className="text-left p-3">
           <Card.Title>{title}</Card.Title>
@@ -54,14 +52,16 @@ const MediaCoverage = () => {
   return (
     <div>
       <Banner
-        imagePath={bannerImage} 
-        title='Media Coverage'
+        imagePath="banner/media_coverage_banner_color.jpeg"
+        title="Media Coverage"
       />
-      <p style={{paddingTop: 20, marginBottom: -40}}>We are always looking to spread the word and the CATCH mission. 
-        For news inquiries, please contact our PR Chair</p>
+      <p style={{ paddingTop: 20, marginBottom: -40 }}>
+        We are always looking to spread the word and the CATCH mission. For news
+        inquiries, please contact our PR Chair
+      </p>
       <ArticleGrid />
     </div>
-  )
-}
+  );
+};
 
 export default MediaCoverage;

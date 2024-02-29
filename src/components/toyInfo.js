@@ -1,8 +1,7 @@
-import { collection, getDocs } from '@firebase/firestore';
-import { db } from '../firebase-config';
+import { collection, getDocs } from "@firebase/firestore";
+import { db } from "../firebase-config";
 
-
-const toysRef = collection(db, 'toys'); 
+const toysRef = collection(db, "toys");
 
 // const toyInfo = [
 // ];
@@ -20,46 +19,44 @@ const toysRef = collection(db, 'toys');
 //     }
 //     return toys
 //   }
-  
+
 //   const dynamicToyInfo = getToyInfo()
 
 export const getDynamicRecentToys = async () => {
   const toys = [];
 
- 
-    try {
-      const querySnapshot = await getDocs(toysRef);
-      querySnapshot.forEach((doc) => {
-        if (doc.data().current) {
-          let data = doc.data();
-          data.imagePath = `https://imgur.com/${data.imageID}.jpg`
-          toys.push(data);
-        }
-      });
-    } catch (error) {
-      console.error("Error fetching media data:", error);
-    }
-    return toys;
-
+  try {
+    const querySnapshot = await getDocs(toysRef);
+    querySnapshot.forEach((doc) => {
+      if (doc.data().current) {
+        let data = doc.data();
+        data.imagePath = `https://imgur.com/${data.imageID}.jpg`;
+        toys.push(data);
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching media data:", error);
   }
+  return toys;
+};
 
-  export const getDynamicOldToys = async () => {
-    const toys = [];
-  
-    try {
-      const querySnapshot = await getDocs(toysRef);
-      querySnapshot.forEach((doc) => {
-        if (!doc.data().current) {
-          let data = doc.data();
-          data.imagePath = `https://imgur.com/${data.imageID}.jpg`
-          toys.push(data);
-        }
-      });
-    } catch (error) {
-      console.error("Error fetching media data:", error);
-    }
-    return toys;
-    }
+export const getDynamicOldToys = async () => {
+  const toys = [];
+
+  try {
+    const querySnapshot = await getDocs(toysRef);
+    querySnapshot.forEach((doc) => {
+      if (!doc.data().current) {
+        let data = doc.data();
+        data.imagePath = `https://imgur.com/${data.imageID}.jpg`;
+        toys.push(data);
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching media data:", error);
+  }
+  return toys;
+};
 
 // export const recentToys = [
 //     {description: "Who said you need Jurassic Park to see a real-life dinosaur? The Robo-Alive Attacking T-Rex Dinosaur can stomp, walk, bite, and roar – all at a push of a button!", name: "Attacking T-Rex Dinosaur", imagePath: trexImage, altText: 'Modfified T-Rex Toy', buildURL: 'https://docs.google.com/presentation/d/1wbJqiEVo8fUr-7MK_vaexr9-cqTBe6HjSzHXuhyEOuY/edit#slide=id.p'},
@@ -79,7 +76,6 @@ export const getDynamicRecentToys = async () => {
 //     {description: "", name: "Alien", imagePath: alienImage, altText: 'Modfified Alien Toy', buildURL: ''},
 //     {description: "", name: "Dog", imagePath: dogImage, altText: 'Modfified Dog Toy', buildURL: ''}
 // ]
-
 
 // console.log(recentToys)
 // console.log(oldToys)

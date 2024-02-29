@@ -2,8 +2,22 @@ import React from "react";
 import { useState } from "react";
 //import { getAuth } from 'firebase/auth';
 import { db, auth } from "../firebase-config.js";
-import { collection, doc, getDoc, query, increment, where, orderBy, getDocs, addDoc, setDoc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
-import formatAndFetchString from '../helper-functions/lowercase-and-remove-non-alph.js';
+import {
+  collection,
+  doc,
+  getDoc,
+  query,
+  increment,
+  where,
+  orderBy,
+  getDocs,
+  addDoc,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp,
+} from "firebase/firestore";
+import formatAndFetchString from "../helper-functions/lowercase-and-remove-non-alph.js";
 import Login from "./Login.js";
 import { FiLogOut } from "react-icons/fi";
 
@@ -13,19 +27,19 @@ import "./Admin.css";
 import { FaChevronCircleDown } from "react-icons/fa";
 
 export default function Admin() {
-  const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
-  const donateSumRef = doc(db, 'totalDonated', 'totalDonated');
+  const toysUpdateRef = doc(db, "lastUpdated", "toysLastUpdated");
+  const donateSumRef = doc(db, "totalDonated", "totalDonated");
   const completeOrder = async (orderId) => {
-    const orderRef = doc(db, 'orders', orderId); // Replace 'orderId' with the actual document ID of the order you want to update
+    const orderRef = doc(db, "orders", orderId); // Replace 'orderId' with the actual document ID of the order you want to update
     const orderData = await getDoc(orderRef);
     if (!orderData.exists()) {
-      console.error('Error accessing document data');
+      console.error("Error accessing document data");
       return;
     }
 
     //Development note: Comment out this code block if repeatedly testing on the same order; revert to K & R style with above if statement for production
     else if (orderData.get("completed") === true) {
-      console.error('Order already completed');
+      console.error("Order already completed");
       return;
     }
     const updateData = { completed: true };
@@ -48,22 +62,24 @@ export default function Admin() {
 
     await updateDoc(toysUpdateRef, { toysLastUpdated: serverTimestamp() });
 
-    //Ensure that the totalDonated field is defined as an integer, or its current value will be replaced by sum.  
+    //Ensure that the totalDonated field is defined as an integer, or its current value will be replaced by sum.
     await updateDoc(donateSumRef, { totalDonated: increment(sum) });
   };
   //const currUserName = getAuth().currentUser.displayName;
   const currUserName = "Admin";
 
   function logout() {
-    signOut(auth).then(() => {
-      // Sign-out successful.
-    }).catch((error) => {
-      // An error happened.
-    });
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
     window.location.reload(false);
     console.log("This is where I would put a logout method if I had one");
   }
-  
+
   const [currTab, setCurrTab] = useState("Executives");
 
   const [deletedIds, setDeletedIds] = useState([]);
@@ -71,12 +87,12 @@ export default function Admin() {
   const [editedIds, setEditedIds] = useState([]);
 
   const tabRefs = {
-    "Executives": "exec",
+    Executives: "exec",
     "Main Slideshow": "mainSlideshow",
     "Recent Toys": "toys",
     "Old Toys": "toys",
-    "Donations": "donations",
-    "Media": "media",
+    Donations: "donations",
+    Media: "media",
   };
 
   const recentEvents = [
@@ -94,10 +110,10 @@ export default function Admin() {
     "Recent Event 3": "recentEvents3",
     "Recent Event 4": "recentEvents4",
   };
-  
+
   const handleEventChange = (event) => {
     setSelectedEvent(event);
-    getData(recentEventsRefs[event], "Recent Events")
+    getData(recentEventsRefs[event], "Recent Events");
   };
 
   const [currData, setCurrData] = useState([]);
@@ -105,97 +121,123 @@ export default function Admin() {
   async function getData(currRef, tab) {
     let q = collection(db, currRef);
     if (tab === "Recent Toys" || tab === "Old Toys") {
-      q = query(collection(db, currRef), where("current", "==", tab === "Recent Toys"));
-    } else if (tab === "Executives" || tab === "Media"){
+      q = query(
+        collection(db, currRef),
+        where("current", "==", tab === "Recent Toys")
+      );
+    } else if (tab === "Executives" || tab === "Media") {
       q = query(collection(db, currRef), orderBy("id"));
     }
-    
+
     let newData = [];
 
-    try { 
+    try {
       const docsSnap = await getDocs(q);
       let idNum = 1;
       switch (tab) {
         case "Executives":
           docsSnap.forEach((doc) => {
-            newData = [...newData, {
-              id: doc.get("id"), 
-              documentId: doc.id, 
-              name: doc.get("name"), 
-              position: doc.get("position"), 
-              imageID: doc.get("imageID"),
-            }]
+            newData = [
+              ...newData,
+              {
+                id: doc.get("id"),
+                documentId: doc.id,
+                name: doc.get("name"),
+                position: doc.get("position"),
+                imageID: doc.get("imageID"),
+              },
+            ];
           });
           break;
         case "Main Slideshow":
           docsSnap.forEach((doc) => {
-            newData = [...newData, {id: idNum, documentId: doc.id, imageID: doc.get("imageID")}]; 
+            newData = [
+              ...newData,
+              { id: idNum, documentId: doc.id, imageID: doc.get("imageID") },
+            ];
             idNum++;
           });
           break;
         case "Recent Events":
           docsSnap.forEach((doc) => {
-            newData = [...newData, {id: idNum, documentId: doc.id, imageID: doc.get("imageID")}];
+            newData = [
+              ...newData,
+              { id: idNum, documentId: doc.id, imageID: doc.get("imageID") },
+            ];
             idNum++;
           });
           break;
         case "Recent Toys":
           docsSnap.forEach((doc) => {
-            newData = [...newData, {
-              id: idNum, 
-              documentId: doc.id, 
-              description: doc.get("description"),
-              name: doc.get("name"),
-              imageID: doc.get("imageID"),
-              altText: doc.get("altText"),
-              buildURL: doc.get("buildURL"),
-            }];
+            newData = [
+              ...newData,
+              {
+                id: idNum,
+                documentId: doc.id,
+                description: doc.get("description"),
+                name: doc.get("name"),
+                imageID: doc.get("imageID"),
+                altText: doc.get("altText"),
+                buildURL: doc.get("buildURL"),
+              },
+            ];
             idNum++;
           });
           break;
         case "Old Toys":
           docsSnap.forEach((doc) => {
-            newData = [...newData, {
-              id: idNum, 
-              documentId: doc.id, 
-              description: doc.get("description"),
-              name: doc.get("name"),
-              imageID: doc.get("imageID"),
-              altText: doc.get("altText"),
-              buildURL: doc.get("buildURL"),
-            }];
+            newData = [
+              ...newData,
+              {
+                id: idNum,
+                documentId: doc.id,
+                description: doc.get("description"),
+                name: doc.get("name"),
+                imageID: doc.get("imageID"),
+                altText: doc.get("altText"),
+                buildURL: doc.get("buildURL"),
+              },
+            ];
             idNum++;
           });
           break;
         case "Donations":
           docsSnap.forEach((doc) => {
-            newData = [...newData, {
-              id: idNum,
-              documentId: doc.id,
-              imageID: doc.get("imageID"),
-              orgName: doc.get("orgName"),
-              totalDonated: doc.get("totalDonated"),
-              numDonations: doc.get("numDonations"),
-              description: doc.get("description"),
-            }];
+            newData = [
+              ...newData,
+              {
+                id: idNum,
+                documentId: doc.id,
+                imageID: doc.get("imageID"),
+                orgName: doc.get("orgName"),
+                totalDonated: doc.get("totalDonated"),
+                numDonations: doc.get("numDonations"),
+                description: doc.get("description"),
+              },
+            ];
             idNum++;
           });
           break;
         case "Media":
           docsSnap.forEach((doc) => {
-            newData = [...newData, {
-              id: doc.get("id"),
-              documentId: doc.id,
-              imageID: doc.get("imageID"),
-              alt: doc.get("alt"),
-              title: doc.get("title"),
-              caption: doc.get("caption"),
-              link: doc.get("link"),
-            }]
+            newData = [
+              ...newData,
+              {
+                id: doc.get("id"),
+                documentId: doc.id,
+                imageID: doc.get("imageID"),
+                alt: doc.get("alt"),
+                title: doc.get("title"),
+                caption: doc.get("caption"),
+                link: doc.get("link"),
+              },
+            ];
           });
           break;
         default:
-          console.log(currTab + " is not mapped to a document pattern in setData()");
+          console.log(
+            currTab + " is not mapped to a document pattern in setData()"
+          );
       }
     } catch (error) {
       console.error("Error fetching data", error);
@@ -260,13 +302,7 @@ export default function Admin() {
     setDropdownOpen(!isDropdownOpen);
   };
 
-  function Table({
-    initial_state,
-    data,
-    setData,
-    headers,
-    dataRef,
-  }) {
+  function Table({ initial_state, data, setData, headers, dataRef }) {
     const [editIndex, setEditIndex] = useState(null);
     const [editedData, setEditedData] = useState(initial_state);
     const init_keys = Object.keys(initial_state);
@@ -281,9 +317,17 @@ export default function Admin() {
     };
 
     const handleSave = (ind) => {
-      const editRow = {...data[ind]};
+      const editRow = { ...data[ind] };
       const editId = editRow.documentId;
-      if (editId !== "" && !addedIds.some(value => {return value === editId}) && !editedIds.some(value => {return value === editId})) {
+      if (
+        editId !== "" &&
+        !addedIds.some((value) => {
+          return value === editId;
+        }) &&
+        !editedIds.some((value) => {
+          return value === editId;
+        })
+      ) {
         setEditedIds([...editedIds, editId]);
       }
 
@@ -292,17 +336,27 @@ export default function Admin() {
       setData(newData);
       setEditIndex(null);
     };
-  
+
     const handleDelete = (ind) => {
-      const deleteRow = {...data[ind]};
+      const deleteRow = { ...data[ind] };
       const deleteId = deleteRow.documentId;
       let idInd = -1;
-      if (addedIds.some((value, index) => {idInd = index; return value === deleteId})) {
-        const newAddedIds = [...addedIds]
+      if (
+        addedIds.some((value, index) => {
+          idInd = index;
+          return value === deleteId;
+        })
+      ) {
+        const newAddedIds = [...addedIds];
         newAddedIds.splice(idInd, 1);
         setAddedIds(newAddedIds);
-      } else if (editedIds.some((value, index) => {idInd = index; return value === deleteId})) {
-        const newEditedIds = [...editedIds]
+      } else if (
+        editedIds.some((value, index) => {
+          idInd = index;
+          return value === deleteId;
+        })
+      ) {
+        const newEditedIds = [...editedIds];
         newEditedIds.splice(idInd, 1);
         setEditedIds(newEditedIds);
         setDeletedIds([...deletedIds, deleteId]);
@@ -314,7 +368,7 @@ export default function Admin() {
       newData.splice(ind, 1);
       setData(newData);
     };
-  
+
     const handleAdd = () => {
       const addId = data[data.length - 1].id + 1;
       let addDocId = "";
@@ -322,25 +376,30 @@ export default function Admin() {
         addDocId = editedData.orgName;
       } else if (currTab === "Executives") {
         addDocId = editedData.position;
-        addDocId = addDocId.replace(/\s+/g, '');
+        addDocId = addDocId.replace(/\s+/g, "");
         addDocId = addDocId.charAt(0).toLowerCase() + addDocId.slice(1);
       } else if (currTab === "Recent Toys" || currTab === "Old Toys") {
         addDocId = editedData.name;
-        addDocId = addDocId.replace(/\s+/g, '').toLowerCase();
+        addDocId = addDocId.replace(/\s+/g, "").toLowerCase();
       }
 
       if (addDocId !== "") {
         setAddedIds([...addedIds, addDocId]);
       }
 
-      const newData = [...data, {...editedData, id: addId, documentId: addDocId}];
+      const newData = [
+        ...data,
+        { ...editedData, id: addId, documentId: addDocId },
+      ];
       setData(newData);
       setEditIndex(null);
     };
 
     const findDoc = (docId) => {
-      const docu = data.find(object => {return object.documentId === docId});
-      let newDoc = {...docu};
+      const docu = data.find((object) => {
+        return object.documentId === docId;
+      });
+      let newDoc = { ...docu };
       delete newDoc.documentId;
       return newDoc;
     };
@@ -350,7 +409,7 @@ export default function Admin() {
 
       try {
         for (const id in deletedIds) {
-          await deleteDoc(doc(db, dataRef, deletedIds[id]))
+          await deleteDoc(doc(db, dataRef, deletedIds[id]));
         }
         if (deletedIds.length !== 0) {
           changes = true;
@@ -359,12 +418,14 @@ export default function Admin() {
       } catch (error) {
         console.error("Error deleting documents", error);
       }
-        
+
       try {
         if (currTab === "Media" || currTab === "Main Slideshow") {
-          const newRows = data.filter(object => {return object.documentId === ""})
+          const newRows = data.filter((object) => {
+            return object.documentId === "";
+          });
           for (const id in newRows) {
-            let newDoc = {...newRows[id]}
+            let newDoc = { ...newRows[id] };
             delete newDoc.documentId;
             if (currTab !== "Media") {
               delete newDoc.id;
@@ -374,15 +435,15 @@ export default function Admin() {
           if (newRows.length !== 0) {
             changes = true;
           }
-          
         } else if (currTab === "Recent Toys" || currTab === "Old Toys") {
           for (const id in addedIds) {
-            const newDoc = {...findDoc(addedIds[id]), 
+            const newDoc = {
+              ...findDoc(addedIds[id]),
               current: currTab === "Recent Toys", // Allow this field to be edited?
-              donated: 0, 
-              imageName: "",  // Add this field to the Admin dashboard?
-              inventory: 0, 
-              ordered: 0
+              donated: 0,
+              imageName: "", // Add this field to the Admin dashboard?
+              inventory: 0,
+              ordered: 0,
             };
             delete newDoc.id;
             await setDoc(doc(db, dataRef, addedIds[id]), newDoc);
@@ -431,11 +492,11 @@ export default function Admin() {
 
       // TODO: Add visual indication of result (success/failure)
       // TODO: consider alternative setup to prevent failure's resulting progress erasure:
-      //    If success, getData() 
+      //    If success, getData()
       //    Else, record current progress for resubmission (if mid-deletedIds, addedIds, editedIds) and disallow further alterations until setInfo() is fully executed
 
       getData(dataRef, currTab);
-    }
+    };
 
     return (
       <div className="table-container">
@@ -579,9 +640,14 @@ export default function Admin() {
     };
 
     const handleSave = (index) => {
-      const editRow = {...data[index]};
+      const editRow = { ...data[index] };
       const editId = editRow.documentId;
-      if (editId !== "" && !editedIds.some(value => {return value === editId})) {
+      if (
+        editId !== "" &&
+        !editedIds.some((value) => {
+          return value === editId;
+        })
+      ) {
         setEditedIds([...editedIds, editId]);
       }
 
@@ -592,14 +658,19 @@ export default function Admin() {
     };
 
     const handleDelete = (index) => {
-      const deleteRow = {...data[index]};
+      const deleteRow = { ...data[index] };
       const deleteId = deleteRow.documentId;
       let idInd = -1;
-      if (editedIds.some((value, index) => {idInd = index; return value === deleteId})) {
-        const newEditedIds = [...editedIds]
+      if (
+        editedIds.some((value, index) => {
+          idInd = index;
+          return value === deleteId;
+        })
+      ) {
+        const newEditedIds = [...editedIds];
         newEditedIds.splice(idInd, 1);
         setEditedIds(newEditedIds);
-      } 
+      }
 
       if (deleteId !== "") {
         setDeletedIds([...deletedIds, deleteId]);
@@ -614,14 +685,19 @@ export default function Admin() {
       const addId = data[data.length - 1].id + 1;
       const addDocId = "";
 
-      const newData = [...data, {...editedData, id: addId, documentId: addDocId}];
+      const newData = [
+        ...data,
+        { ...editedData, id: addId, documentId: addDocId },
+      ];
       setData(newData);
       setEditIndex(null);
     };
 
     const findDoc = (docId) => {
-      const docu = data.find(object => {return object.documentId === docId});
-      let newDoc = {...docu};
+      const docu = data.find((object) => {
+        return object.documentId === docId;
+      });
+      let newDoc = { ...docu };
       delete newDoc.id;
       delete newDoc.documentId;
       return newDoc;
@@ -630,17 +706,19 @@ export default function Admin() {
     const setInfo = async () => {
       try {
         for (const id in deletedIds) {
-          await deleteDoc(doc(db, selectedEventRef, deletedIds[id]))
+          await deleteDoc(doc(db, selectedEventRef, deletedIds[id]));
         }
         setDeletedIds([]);
       } catch (error) {
         console.error("Error deleting documents", error);
       }
-      
+
       try {
-        const newRows = data.filter(object => {return object.documentId === ""})
+        const newRows = data.filter((object) => {
+          return object.documentId === "";
+        });
         for (const id in newRows) {
-          let newDoc = {...newRows[id]}
+          let newDoc = { ...newRows[id] };
           delete newDoc.documentId;
           delete newDoc.id;
           await addDoc(collection(db, selectedEventRef), newDoc);
@@ -661,11 +739,11 @@ export default function Admin() {
 
       // TODO: Add visual indication of result (success/failure)
       // TODO: consider alternative setup to prevent failure's resulting progress erasure:
-      //    If success, getData() 
+      //    If success, getData()
       //    Else, record current progress for resubmission (if mid-deletedIds, adding ids, editedIds) and disallow further alterations until setInfo() is fully executed
 
       getData(selectedEventRef, "Recent Events");
-    }
+    };
 
     return (
       <div>
@@ -703,14 +781,19 @@ export default function Admin() {
                       >
                         Save
                       </button>
-                      <button onClick={() => handleCancel(setEditIndex)} className="view-button">
+                      <button
+                        onClick={() => handleCancel(setEditIndex)}
+                        className="view-button"
+                      >
                         Cancel
                       </button>
                     </>
                   ) : (
                     <>
                       <button
-                        onClick={() => handleEdit(index, data, setEditIndex, setEditedData)}
+                        onClick={() =>
+                          handleEdit(index, data, setEditIndex, setEditedData)
+                        }
                         className="view-button"
                       >
                         Edit
@@ -760,9 +843,9 @@ export default function Admin() {
           </tbody>
         </table>
         <div className="save-div">
-        <button onClick={setInfo} className="save-button">
-          Save Changes
-        </button>
+          <button onClick={setInfo} className="save-button">
+            Save Changes
+          </button>
         </div>
       </div>
     );
@@ -771,7 +854,7 @@ export default function Admin() {
   function RightView() {
     switch (currTab) {
       case "Executives":
-        const execInit = {name: "", position: "", imageID: ""}
+        const execInit = { name: "", position: "", imageID: "" };
         const execHeaders = ["Name", "Position", "Image ID (PNG/JPEG)"];
         return (
           <Table
@@ -783,7 +866,7 @@ export default function Admin() {
           />
         );
       case "Main Slideshow":
-        const slideInit = {imageID: ""}
+        const slideInit = { imageID: "" };
         const slideHeaders = ["Image ID (PNG/JPEG)"];
         return (
           <Table
@@ -795,7 +878,7 @@ export default function Admin() {
           />
         );
       case "Recent Events":
-        const recentEventsInit = {imageID: ""};
+        const recentEventsInit = { imageID: "" };
         const recentEventsHeaders = ["Image ID (PNG/JPEG)"];
 
         return (
@@ -832,7 +915,7 @@ export default function Admin() {
           imageID: "",
           altText: "",
           buildURL: "",
-        }
+        };
         const recentToysHeaders = [
           "Description",
           "Name",
@@ -856,7 +939,7 @@ export default function Admin() {
           imageID: "",
           altText: "",
           buildURL: "",
-        }
+        };
         const oldToysHeaders = [
           "Description",
           "Name",
@@ -880,7 +963,7 @@ export default function Admin() {
           totalDonated: 0,
           numDonations: "",
           description: "",
-        }
+        };
         const donationsHeaders = [
           "Image ID (PNG/JPEG)",
           "Organization",
@@ -904,7 +987,7 @@ export default function Admin() {
           title: "",
           caption: "",
           link: "",
-        }
+        };
         const mediaHeaders = [
           "Image ID (PNG/JPEG)",
           "Alternate Text",
@@ -925,58 +1008,66 @@ export default function Admin() {
         return <p>Valid Tab Name not found</p>;
     }
   }
-  console.log(auth.currentUser)
+  console.log(auth.currentUser);
 
   return (
     <div>
-    {auth.currentUser ?
-    <div className="App">
-      <div className="header">
-        <div className="left">
-          <b>CATCH Admin</b>
-        </div>
-        <div className="right">
-          {currUserName}
-          <FiLogOut onClick={logout} size={25} style={{"marginLeft": "10px", "marginTop": "-5px", "cursor": "pointer"}}/>
-        </div>
-      </div>
-
-      <div className="mobile-tabs">
-        <div className="title">Dashboard</div>
-        <button className="dropdown-button" onClick={toggleDropdown}>
-          {currTab} <FaChevronCircleDown></FaChevronCircleDown>{" "}
-        </button>
-        {isDropdownOpen && (
-          <div>
-            <Tab tabName="Executives" />
-            <Tab tabName="Main Slideshow" />
-            <Tab tabName="Recent Events" />
-            <Tab tabName="Recent Toys" />
-            <Tab tabName="Old Toys" />
-            <Tab tabName="Donations" />
-            <Tab tabName="Media" />
+      {auth.currentUser ? (
+        <div className="App">
+          <div className="header">
+            <div className="left">
+              <b>CATCH Admin</b>
+            </div>
+            <div className="right">
+              {currUserName}
+              <FiLogOut
+                onClick={logout}
+                size={25}
+                style={{
+                  marginLeft: "10px",
+                  marginTop: "-5px",
+                  cursor: "pointer",
+                }}
+              />
+            </div>
           </div>
-        )}
-      </div>
-      <div className="body">
-        <div className="left-body">
-          <div className="title">Dashboard</div>
-          <Tab tabName="Executives" />
-          <Tab tabName="Main Slideshow" />
-          <Tab tabName="Recent Events" />
-          <Tab tabName="Recent Toys" />
-          <Tab tabName="Old Toys" />
-          <Tab tabName="Donations" />
-          <Tab tabName="Media" />
+
+          <div className="mobile-tabs">
+            <div className="title">Dashboard</div>
+            <button className="dropdown-button" onClick={toggleDropdown}>
+              {currTab} <FaChevronCircleDown></FaChevronCircleDown>{" "}
+            </button>
+            {isDropdownOpen && (
+              <div>
+                <Tab tabName="Executives" />
+                <Tab tabName="Main Slideshow" />
+                <Tab tabName="Recent Events" />
+                <Tab tabName="Recent Toys" />
+                <Tab tabName="Old Toys" />
+                <Tab tabName="Donations" />
+                <Tab tabName="Media" />
+              </div>
+            )}
+          </div>
+          <div className="body">
+            <div className="left-body">
+              <div className="title">Dashboard</div>
+              <Tab tabName="Executives" />
+              <Tab tabName="Main Slideshow" />
+              <Tab tabName="Recent Events" />
+              <Tab tabName="Recent Toys" />
+              <Tab tabName="Old Toys" />
+              <Tab tabName="Donations" />
+              <Tab tabName="Media" />
+            </div>
+            <div className="right-body">
+              <RightView />
+            </div>
+          </div>
         </div>
-        <div className="right-body">
-          <RightView />
-        </div>
-      </div>
+      ) : (
+        <Login />
+      )}
     </div>
-    :
-    <Login/>
-        }
-        </div>
   );
 }

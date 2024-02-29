@@ -1,94 +1,94 @@
 h1,
 h2,
 h3 {
-    font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 * {
-    font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
 
 #gfm-form {
-    width: 50vh;
+  width: 50vh;
 }
 
 .sitesection {
-    display: flex;
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-top: 3%;
+  display: flex;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 3%;
 }
 
 #pastpartnersection {
-    display: flex;
-    flex-direction: column;
-    padding-top: 3%;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  padding-top: 3%;
+  align-items: flex-start;
 }
 
 .text-box {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    text-align: start;
-    gap: 20px;
-    align-items: flex-start;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  gap: 20px;
+  align-items: flex-start;
 }
 
 @media screen and (min-width: 1291px) {
-    .column {
-        width: 100%;
-    }
+  .column {
+    width: 100%;
+  }
 
-    .description {
-        padding-right: 15px;
-    }
+  .description {
+    padding-right: 15px;
+  }
 
-    #pastpartnersection {
-        padding-left: 10%;
-    }
+  #pastpartnersection {
+    padding-left: 10%;
+  }
 }
 
 @media screen and (max-width: 1290px) {
-    .column {
-        width: 50%;
-    }
+  .column {
+    width: 50%;
+  }
 
-    .mobile-section {
-        display: flex;
-        flex-direction: column;
-        padding: 25px;
-    }
+  .mobile-section {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+  }
 
-    .pic {
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+  .pic {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .description {
-        padding: 15px;
-        text-align: justify;
-    }
+  .description {
+    padding: 15px;
+    text-align: justify;
+  }
 
-    #pastpartnersection {
-        display: flex;
-        flex-direction: column;
-        padding-top: 3%;
-        align-items: center;
-        text-align: justify;
-    }
-    
-    .donation-forms-container {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-    }
+  #pastpartnersection {
+    display: flex;
+    flex-direction: column;
+    padding-top: 3%;
+    align-items: center;
+    text-align: justify;
+  }
 
-    .donation-form {
-        width: 100%;
-        align-items: center;
-    }
+  .donation-forms-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .donation-form {
+    width: 100%;
+    align-items: center;
+  }
 }

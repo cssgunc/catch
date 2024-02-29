@@ -1,15 +1,15 @@
 .shopping-cart-button {
-    border: transparent;
-    background-color: transparent;
-    margin: 0;
-    padding:0;
+  border: transparent;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
 }
 
 .shopping-cart {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 #shopping-quantity {
-    font-size: 5px;
+  font-size: 5px;
 }

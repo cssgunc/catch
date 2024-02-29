@@ -1,292 +1,289 @@
-
 * {
-    font-family: Poppins;
+  font-family: Poppins;
 }
 
 #catalog-subtitle {
-    font-style: italic;
-    padding: 25px;
+  font-style: italic;
+  padding: 25px;
 }
 
 #catalog {
-    padding-left: 5%;
-    padding-right: 5%;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 3rem;
+  padding-left: 5%;
+  padding-right: 5%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 3rem;
 }
 
 .catalog-picture {
-    width: 100%;
-    min-width: 100%;
-    height: 100%;
-    border-radius: 5%;
-    cursor: pointer;
-    max-width: 100%;
-    max-height: 100%;
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+  border-radius: 5%;
+  cursor: pointer;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .catalog-picture-old {
-    width: 100%;
-    min-width: 100%;
-    height: 100%;
-    border-radius: 5%;
-    max-width: 100%;
-    max-height: 100%;
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+  border-radius: 5%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .main-picture {
-    max-height:75vh;
-    object-fit: contain;
-    border-radius: 5%;
-    margin: auto;
-    /* margin-left: 10%; */
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 5%;
+  margin: auto;
+  /* margin-left: 10%; */
 }
 
 .back-button {
-    background-color: transparent;
-    border: none;
-    display:flex;
-    align-items: flex-start;
-    padding-bottom: 2rem;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: flex-start;
+  padding-bottom: 2rem;
 }
 
 .toy-text {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    width: 50%;
-    margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 50%;
+  margin: 2rem;
 }
 
 .toy-details {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    height:100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100%;
 }
 
 .toy-descriptors {
-    flex: 8
+  flex: 8;
 }
 
 .toy-title {
-    font: Montserrat;
-    font-weight: bold;
-    width:100%;
-    text-align: left;
+  font: Montserrat;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
 }
 
 .toy-description {
-    font: Montserrat;
-    width:100%;
-    text-align: left;
-    font-size: larger;
+  font: Montserrat;
+  width: 100%;
+  text-align: left;
+  font-size: larger;
 }
 
 .toy-buttons {
-    flex: 3;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    align-items: center;
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  align-items: center;
 }
 
 .add-to-cart-button {
-    flex: 1;
-    border: none;
-    min-width: 35%;
-    width: 30%;
-    background-color: rgba(243, 111, 57, 0.5);
-    border-radius: 300px;
-    font-weight: bold;
-    justify-content: center;
-    display: flex;
-    align-items: center;
+  flex: 1;
+  border: none;
+  min-width: 35%;
+  width: 30%;
+  background-color: rgba(243, 111, 57, 0.5);
+  border-radius: 300px;
+  font-weight: bold;
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
 
 .build-button {
-    flex: 1;
-    border: none;
-    min-width: 35%;
-    width: 35%;
-    /* max-height: 30%; */
-    height: 80%;
-    background-color:rgba(94, 191, 181, 0.5);
-    border-radius: 300px;
-    margin-top: 10px;
-    font-weight: bold;
-    justify-content: center;
-    display: flex;
-    align-items: center;
+  flex: 1;
+  border: none;
+  min-width: 35%;
+  width: 35%;
+  /* max-height: 30%; */
+  height: 80%;
+  background-color: rgba(94, 191, 181, 0.5);
+  border-radius: 300px;
+  margin-top: 10px;
+  font-weight: bold;
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
 
 .add-to-cart-button:hover {
-    background-color: rgba(243, 111, 57, 1);
-    color: white;
+  background-color: rgba(243, 111, 57, 1);
+  color: white;
 }
 
 .build-button:hover {
-    background-color: rgba(94, 191, 181, 1);
-    color: white;
+  background-color: rgba(94, 191, 181, 1);
+  color: white;
 }
 
 .button-holder {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .button-break {
-    flex: 2;
+  flex: 2;
 }
 
-.catch-logo { 
-    padding: 40px 0px 40px 0px;
-    width: 6%;
+.catch-logo {
+  padding: 40px 0px 40px 0px;
+  width: 6%;
 }
 
 .toy-container {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-color: white;
-    z-index: 10;
-    display:flex;
-    flex-direction: column;
-    padding: 3rem;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
 }
 
 .image-tile {
-    position: relative;
-    aspect-ratio: 1;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  position: relative;
+  aspect-ratio: 1;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 .plus-toy {
-    position: absolute;
-    width: 30px;
-    height:30px;
-    bottom: 2%;
-    right: 2%;
-    border-radius: 100%;
-    border: none;
-    background-color: rgb(243, 110, 57);
-    display: flex;
-    align-items: center;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  bottom: 2%;
+  right: 2%;
+  border-radius: 100%;
+  border: none;
+  background-color: rgb(243, 110, 57);
+  display: flex;
+  align-items: center;
 }
 
 .plus-toy:hover {
-    background-color: rgba(243, 111, 57, 1);
-    color: white;
+  background-color: rgba(243, 111, 57, 1);
+  color: white;
 }
 
 @media (max-width: 1024px) {
+  #catalog {
+    grid-template-columns: 1fr;
+  }
 
-    #catalog {
-        grid-template-columns: 1fr;
-    }
+  .toy-text {
+    width: 100%;
+  }
 
-    .toy-text {
-        width: 100%;
-    }
+  .toy-container {
+    padding: 1rem;
+  }
 
-    .toy-container {
-        padding: 1rem;
-    }
+  .main-picture {
+    width: 90%;
+    max-height: 50vh;
+    margin: 15px auto;
+  }
 
-    .main-picture {
-        width: 90%;
-        max-height: 50vh;
-        margin: 15px auto;
-    }
+  .toy-buttons {
+    padding: 0 10px;
+  }
 
-    .toy-buttons {
-        padding: 0 10px;
-    }
+  .add-to-cart-button,
+  .build-button {
+    width: 80%;
+    margin: 5px auto;
+  }
 
-    .add-to-cart-button,
-    .build-button {
-        width: 80%;
-        margin: 5px auto;
-    }
-
-    .footer {
-        display: none;
-    }
-
+  .footer {
+    display: none;
+  }
 }
 
-
 .pat {
-    margin-top: 5rem;
-    padding-left: 10%;
-    padding-right: 10%;
+  margin-top: 5rem;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .pat p {
-    text-align: justify;
+  text-align: justify;
 }
 
 .pat a {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 10px;
-    color: white;
-    background-color: #5ebfb5;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 7px;
-    display: inline-block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  color: white;
+  background-color: #5ebfb5;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 7px;
+  display: inline-block;
 }
 
 .pat .pat-images {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    max-width: 100%;
-    /* border: solid; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  max-width: 100%;
+  /* border: solid; */
 }
 
 .pat .pat-images #pat1 {
-    margin: 0;
-    padding: 0;
-    flex: 2;
-    max-width: 15%;
-    object-fit: contain;
-    /* border: solid;
+  margin: 0;
+  padding: 0;
+  flex: 2;
+  max-width: 15%;
+  object-fit: contain;
+  /* border: solid;
     border-color: red; */
 }
 
 .pat .pat-images .pat-images-col {
-    max-width: 40%;
-    flex-direction: column;
-    flex: 4;
-    margin: 0;
-    max-height: 100%;
-    /* border: solid; */
+  max-width: 40%;
+  flex-direction: column;
+  flex: 4;
+  margin: 0;
+  max-height: 100%;
+  /* border: solid; */
 }
 
-#pat2, #pat3 {
-    max-width: 100%;
-    min-height: 45%;
-    max-height: 45%;;
-    padding: 0;
-    margin:0;
-    flex: 1;
-    object-fit: cover;
-    /* border: solid; */
+#pat2,
+#pat3 {
+  max-width: 100%;
+  min-height: 45%;
+  max-height: 45%;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  object-fit: cover;
+  /* border: solid; */
 }
 
 #pat2 {
-    margin-bottom: 8%;
-    padding-bottom: 0;
+  margin-bottom: 8%;
+  padding-bottom: 0;
 }
 
 .pat .pat-images #pat4 {
-    max-width: 40%;
-    flex: 4;
+  max-width: 40%;
+  flex: 4;
 }

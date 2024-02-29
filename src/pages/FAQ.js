@@ -6,20 +6,20 @@ function FAQ({
   children,
   defaultOpen = [],
   open: openFromProps,
-  onToggle: onToggleFromProps = () => {}
+  onToggle: onToggleFromProps = () => {},
 }) {
   const isControlled = () => (openFromProps ? true : false);
   const [open, setIsOpen] = useState(defaultOpen);
   const getOpen = () => (isControlled() ? openFromProps : open);
-  const isOpen = index => {
+  const isOpen = (index) => {
     return getOpen().includes(index) ? true : false;
   };
-  const onToggle = index => {
+  const onToggle = (index) => {
     if (isControlled()) {
       onToggleFromProps(index);
     } else {
       if (getOpen().includes(index)) {
-        setIsOpen(getOpen().filter(item => item !== index));
+        setIsOpen(getOpen().filter((item) => item !== index));
       } else {
         setIsOpen([...getOpen(), index]);
       }
@@ -32,7 +32,7 @@ function FAQ({
       {React.Children.map(children, (child, index) => {
         return React.cloneElement(child, {
           isOpen: isOpen(index),
-          onToggle: () => onToggle(index)
+          onToggle: () => onToggle(index),
         });
       })}
     </dl>
@@ -56,7 +56,7 @@ function Question({ children, isOpen, answerId, onToggle }) {
 
 function Answer({ children, id, isOpen }) {
   const mergedClassname = classNames("FAQ__answer", {
-    "FAQ__answer--hidden": !isOpen
+    "FAQ__answer--hidden": !isOpen,
   });
   return (
     <dd>
@@ -71,7 +71,7 @@ function QAItem({ children, isOpen, onToggle }) {
   return React.Children.map(children, (child, index) => {
     return React.cloneElement(child, {
       isOpen: isOpen,
-      onToggle: onToggle
+      onToggle: onToggle,
     });
   });
 }

@@ -15,8 +15,8 @@ import Login from '../../pages/Login';
 import ShoppingCart from './ShoppingCart';
 import formatAndFetchString from '../../helper-functions/lowercase-and-remove-non-alph';
 
-import { db } from '../../firebase-config'; // Fixing the import path
-import { addDoc, collection, getDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore'; // importing Firestore functions
+import { db } from '../../firebase-config'; 
+import { addDoc, collection, getDoc, doc, updateDoc, serverTimestamp } from '@firebase/firestore'; 
 
 import './Navbar.css';
 
@@ -92,13 +92,13 @@ function ShoppingCartPanel(props) {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", closeShoppingCart); // add event listener
+    window.addEventListener("scroll", closeShoppingCart); 
     return () => {
-      window.removeEventListener("scroll", closeShoppingCart); // clean up
+      window.removeEventListener("scroll", closeShoppingCart); 
     }
   }, []);
   const [total, setTotal] = useState(0);
-  // function to calculate total number of items currently in cart with useEffect
+  
   useEffect(() => {
     const getTotal = () => {
       let totalQuantity = 0;
@@ -113,9 +113,9 @@ function ShoppingCartPanel(props) {
   
 
   const placeOrder = async (order) => {
-      // Convert the object representing all cart items to JSON string
+      
       const orderString = JSON.stringify(order);
-      // Store the stringified JSON object in local storage under the key 'myObject'
+      
       localStorage.setItem('cartObject', orderString);
       window.location.href = "/checkout";
   };
@@ -173,7 +173,7 @@ export default function NavBar() {
 
   const handleClick = (path) => {
     setActiveTab(path);
-    setSidebarOpen(false); // Close the sidebar
+    setSidebarOpen(false); 
   };
   const getClassName = (path) => {
     return path === activeTab ? "mx-3 nav-link-active" : "mx-3 nav-link";
@@ -211,7 +211,7 @@ export default function NavBar() {
 
   const openShoppingCart = () => {
     setShoppingCartActive(true);
-    // console.log(shoppingCartActive);
+    
   };
 
   const changeOrder = (n) => {
@@ -290,7 +290,7 @@ export const placeOrder = async (order, userData) => {
 
   const orderData = {
     completed: false,
-    orderTime: serverTimestamp(), // using Firestore server timestamp
+    orderTime: serverTimestamp(), 
     order: orderFormat,
     name: userData.name,
     email: userData.email,
@@ -300,14 +300,14 @@ export const placeOrder = async (order, userData) => {
     notes: userData.notes
   };
   try {
-    // Create new document in orders collection
+    
     const orderRef = await addDoc(collection(db, "orders"), orderData);
     const toysUpdateRef = doc(db, 'lastUpdated', 'toysLastUpdated');
-    // Update the ordered field for each toy in the "toys" collection
+    
     const toyNames = Object.keys(orderFormat)
     for (let i = 0; i < toyNames.length; i++) {
-      // const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
-      // const toyRef = doc(db, "toys", toyName);
+      
+      
       const toyRef = formatAndFetchString(toyNames[i]);
 
       const element = await getDoc(toyRef)

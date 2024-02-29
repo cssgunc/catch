@@ -1,13 +1,13 @@
-import org1Image from '../images/Donations/donation1.jpg';
-import org2Image from '../images/Donations/donation2.jpg';
-import org3Image from '../images/Donations/donation3.jpg';
-import org4Image from '../images/Donations/donation4.jpg';
-import org5Image from '../images/Donations/donation5.jpg';
-import org6Image from '../images/Donations/donation6.jpg';
-import { collection, getDocs, query, orderBy } from '@firebase/firestore';
-import { db } from '../firebase-config';
+import org1Image from "../images/Donations/donation1.jpg";
+import org2Image from "../images/Donations/donation2.jpg";
+import org3Image from "../images/Donations/donation3.jpg";
+import org4Image from "../images/Donations/donation4.jpg";
+import org5Image from "../images/Donations/donation5.jpg";
+import org6Image from "../images/Donations/donation6.jpg";
+import { collection, getDocs, query, orderBy } from "@firebase/firestore";
+import { db } from "../firebase-config";
 
-const donationsRef = collection(db, 'donations');
+const donationsRef = collection(db, "donations");
 
 // export const getDonationInfo = async () => {
 //   const donationArray = [];
@@ -24,11 +24,13 @@ const donationsRef = collection(db, 'donations');
 //   return donationArray;
 // }
 
-export const getDonationInfo = async() => {
+export const getDonationInfo = async () => {
   const donationArray = [];
 
   try {
-    const querySnapshot = await getDocs(query(donationsRef, orderBy("totalDonated")));
+    const querySnapshot = await getDocs(
+      query(donationsRef, orderBy("totalDonated"))
+    );
     querySnapshot.forEach((doc) => {
       let data = doc.data();
 
@@ -38,7 +40,7 @@ export const getDonationInfo = async() => {
         organization: data.orgName,
         total: data.totalDonated,
         donations: data.numDonations,
-        description: data.description || '', // Use an empty string if description is undefined
+        description: data.description || "", // Use an empty string if description is undefined
       };
 
       donationArray.push(transformedData);
@@ -60,6 +62,6 @@ export const donationsInfoTemp = getDonationInfo();
 //   { imagePath: org6Image, organization: 'Aversboro Elementary School', total: 10, donations: 1, description: '' }
 // ]
 
-donationsInfoTemp.then(mediaItems => {
+donationsInfoTemp.then((mediaItems) => {
   console.log(mediaItems);
 });
