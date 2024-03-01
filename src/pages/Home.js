@@ -11,6 +11,7 @@ import { Canvas, useLoader } from "@react-three/fiber";
 import { Mesh, NoToneMapping } from "three";
 import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import Slider from "react-slick";
 
 import "react-multi-carousel/lib/styles.css";
 import "./Home.css";
@@ -109,6 +110,16 @@ function MainSlideshow() {
 
 // WORKING WITH BACKEND START
 export default function Home() {
+  const settings = {
+    dots: true,
+    fade: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    waitForAnimate: false
+  };
+
   const [recentEvents1, setrecentEvents1] = useState([]);
 
   useEffect(() => {
@@ -260,7 +271,18 @@ export default function Home() {
         <h2>Recent Events</h2>
         <div className="carousel">
           <div className="carouselItemWide">
-            <Carousel
+            <Slider {...settings}>
+              {recentEvents1.map((image, index) => (
+                <div key={index}>
+                  <img
+                    className="carousel-image"
+                    src={image.imagePath}
+                    alt={`Pic ${index + 1}`}
+                  />
+                </div>
+              ))}
+            </Slider>
+            {/* <Carousel
               swipeable={true}
               draggable={false}
               showDots={false}
@@ -282,22 +304,10 @@ export default function Home() {
                   />
                 </div>
               ))}
-            </Carousel>
+            </Carousel> */}
           </div>
           <div className="carouselItemWide">
-            <Carousel
-              swipeable={true}
-              draggable={false}
-              showDots={false}
-              responsive={responsiveEvents}
-              infinite={true}
-              keyBoardControl={true}
-              customTransition="transform 300ms ease-in-out"
-              transitionDuration={500}
-              containerClass="carousel-container"
-              dotListClass="custom-dot-list-style"
-              itemClass="carousel-item-padding-40-px"
-            >
+          <Slider {...settings}>
               {recentEvents2.map((image, index) => (
                 <div key={index}>
                   <img
@@ -307,24 +317,12 @@ export default function Home() {
                   />
                 </div>
               ))}
-            </Carousel>
+            </Slider>
           </div>
         </div>
         <div className="carousel">
           <div className="carouselItemWide">
-            <Carousel
-              swipeable={true}
-              draggable={false}
-              showDots={false}
-              responsive={responsiveEvents}
-              infinite={true}
-              keyBoardControl={true}
-              customTransition="transform 300ms ease-in-out"
-              transitionDuration={500}
-              containerClass="carousel-container"
-              dotListClass="custom-dot-list-style"
-              itemClass="carousel-item-padding-40-px"
-            >
+          <Slider {...settings}>
               {recentEvents3.map((image, index) => (
                 <div key={index}>
                   <img
@@ -334,22 +332,10 @@ export default function Home() {
                   />
                 </div>
               ))}
-            </Carousel>
+            </Slider>
           </div>
           <div className="carouselItemWide">
-            <Carousel
-              swipeable={true}
-              draggable={false}
-              showDots={false}
-              responsive={responsiveEvents}
-              infinite={true}
-              keyBoardControl={true}
-              customTransition="transform 300ms ease-in-out"
-              transitionDuration={500}
-              containerClass="carousel-container"
-              dotListClass="custom-dot-list-style"
-              itemClass="carousel-item-padding-40-px"
-            >
+          <Slider {...settings}>
               {recentEvents4.map((image, index) => (
                 <div key={index}>
                   <img
@@ -359,7 +345,7 @@ export default function Home() {
                   />
                 </div>
               ))}
-            </Carousel>
+            </Slider>
           </div>
         </div>
       </div>

@@ -315,7 +315,7 @@ export default function About() {
         </FAQ>
 
         <div className="execs">
-          <h2 id="title">Our Team</h2>
+          <h2>Our Team</h2>
           <div className="exec-grid-container">
             <ExecGrid id="exec-team" />
           </div>
