@@ -110,7 +110,7 @@ function MainSlideshow() {
 }
 
 function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
+  const { onClick } = props;
   return (
     <FaChevronCircleRight
     className="custom-slider-arrow custom-next"
@@ -128,7 +128,7 @@ function SampleNextArrow(props) {
 }
 
 function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
+  const { onClick } = props;
   return (
     <FaChevronCircleLeft
     className="custom-slider-arrow custom-prev"
@@ -211,24 +211,6 @@ export default function Home() {
   };
   const goToEvents = () => {
     events.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const responsiveEvents = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 1,
-      slidesToSlide: 1, // optional, default to 1.
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 1,
-      slidesToSlide: 1, // optional, default to 1.
-    },
-    mobile: {
-      breakpoint: { max: 664, min: 0 },
-      items: 1,
-      slidesToSlide: 1, // optional, default to 1.
-    },
   };
 
   return (
@@ -321,29 +303,6 @@ export default function Home() {
                 </div>
               ))}
             </Slider>
-            {/* <Carousel
-              swipeable={true}
-              draggable={false}
-              showDots={false}
-              responsive={responsiveEvents}
-              infinite={true}
-              keyBoardControl={true}
-              customTransition="transform 300ms ease-in-out"
-              transitionDuration={500}
-              containerClass="carousel-container"
-              dotListClass="custom-dot-list-style"
-              itemClass="carousel-item-padding-40-px"
-            >
-              {recentEvents1.map((image, index) => (
-                <div key={index}>
-                  <img
-                    className="carousel-image"
-                    src={image.imagePath}
-                    alt={`Pic ${index + 1}`}
-                  />
-                </div>
-              ))}
-            </Carousel> */}
           </div>
           <div className="carouselItemWide">
           <Slider {...settings}>
