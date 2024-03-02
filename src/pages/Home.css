@@ -199,8 +199,85 @@ button {
 .slick-prev {
   left: 3% !important;
   z-index: 10;
+  /* width: 100px;
+  height: 100px; */
+  /* object-fit: contain; */
+  /* height: 100px; */
 }
+
 .slick-next {
   right: 3% !important;
   z-index: 10;
+}
+
+/* .slick-arrow {
+  height: 100px;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.custom-slider-arrow {
+  font-size: 0;
+  line-height: 0;
+
+  position: absolute;
+  top: 50%;
+
+  display: block;
+
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  transform: translate(0, -50%);
+
+  cursor: pointer;
+
+  /* color: transparent; */
+  color: rgba(255, 255, 255, 0.6);
+  border: none;
+  outline: none;
+  background: transparent;
+  z-index: 10;
+}
+
+.custom-slider-arrow:hover {
+  color: white;
+}
+
+.custom-prev {
+  left: 25px;
+}
+
+.custom-next {
+  right: 25px;
 }

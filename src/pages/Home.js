@@ -11,6 +11,7 @@ import { Canvas, useLoader } from "@react-three/fiber";
 import { Mesh, NoToneMapping } from "three";
 import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import Slider from "react-slick";
 
 import "react-multi-carousel/lib/styles.css";
@@ -108,6 +109,42 @@ function MainSlideshow() {
   );
 }
 
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <FaChevronCircleRight
+    className="custom-slider-arrow custom-next"
+      // className={className}
+      // style={{ ...style, zIndex: "500", }}
+      onClick={onClick}
+      // size={50}
+    />
+    // <div
+    //   className={className}
+    //   style={{ ...style, height: "80px" }}
+    //   onClick={onClick}
+    // />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <FaChevronCircleLeft
+    className="custom-slider-arrow custom-prev"
+      // className={className}
+      // style={{ ...style, zIndex: "500", }}
+      onClick={onClick}
+      // size={50}
+    />
+    // <div
+    //   className={className}
+    //   style={{ ...style, height: "80px" }}
+    //   onClick={onClick}
+    // />
+  );
+}
+
 // WORKING WITH BACKEND START
 export default function Home() {
   const settings = {
@@ -117,7 +154,9 @@ export default function Home() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    waitForAnimate: false
+    waitForAnimate: false,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />
   };
 
   const [recentEvents1, setrecentEvents1] = useState([]);
