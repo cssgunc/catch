@@ -67,6 +67,7 @@ const MediaCoverage = () => {
         imagePath="banner/media_coverage_banner_color.jpeg"
         title="Media Coverage"
       />
+      <ArticleGrid />
       <p style={{ paddingTop: 20, marginBottom: -40 }}>
         We are always looking to spread the word and the CATCH mission. For news
         inquiries, please contact us at{" "}
@@ -80,7 +81,6 @@ const MediaCoverage = () => {
         </a>
         .
       </p>
-      <ArticleGrid />
     </div>
   );
 };

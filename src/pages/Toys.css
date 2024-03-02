@@ -103,6 +103,14 @@
   justify-content: center;
   display: flex;
   align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.plus-toy.clicked {
+  background-color: #42a5f5 !important; /* Change this color to your desired visual cue */
+  color: #ffffff !important;
+  transform: scale(0.9) !important; 
+  /* Add any other styling you want for the clicked state */
 }
 
 .build-button {
@@ -123,6 +131,13 @@
 .add-to-cart-button:hover {
   background-color: rgba(243, 111, 57, 1);
   color: white;
+  transform: scale(1.1);
+}
+
+.add-to-cart-button.clicked {
+  background-color: #42a5f5;
+  color: #ffffff;
+  transform: scale(0.9);
 }
 
 .build-button:hover {
@@ -175,11 +190,13 @@
   background-color: rgb(243, 110, 57);
   display: flex;
   align-items: center;
+  transition: transform 0.2s ease; /* Apply transition to the transform property */
 }
 
 .plus-toy:hover {
   background-color: rgba(243, 111, 57, 1);
   color: white;
+  transform: scale(1.1); /* Increase size on hover */
 }
 
 @media (max-width: 1024px) {

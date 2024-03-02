@@ -37,7 +37,14 @@ export default function Contact() {
             <p>The University of North Carolina - Phillips Hall</p>
             <p>120 E Cameron Ave, Chapel Hill, NC 27514</p>
             <p>Room 19B (Basement)</p>
-            <p>catchUNC@gmail.com</p>
+            <a
+          href="mailto:catchUNC@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "blue" }}
+        >
+          catchUNC@gmail.com
+        </a>
           </div>
 
           <div

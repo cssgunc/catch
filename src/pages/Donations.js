@@ -181,7 +181,6 @@ export default function Donations() {
         imagePath="banner/donations_banner_color.jpeg"
         title="Donations"
       />
-      <h2>Donations</h2>
       
       <h2 style={{ paddingTop: "100px", marginBottom: "20px" }}>
         <b>Past Donation Sites</b>

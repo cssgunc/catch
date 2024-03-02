@@ -7,6 +7,7 @@ import "./Toys.css";
 function ToyPage(props) {
   const url = props.details.buildURL;
   const recent = props.details.current;
+  const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
     props.setViewToy(false);
@@ -20,6 +21,14 @@ function ToyPage(props) {
     }
     window.location.href = url;
   };
+
+  function addToyPage(setOrder, order, details) {
+    props.addToy(setOrder, order, details)
+    setIsClicked(true)
+    setTimeout(() => {
+      setIsClicked(false);
+    }, 250);
+  }
 
   return (
     <>
@@ -48,9 +57,9 @@ function ToyPage(props) {
               <div className="button-break" />
               {recent === true && (
                 <button
-                  className="add-to-cart-button"
+                  className={`add-to-cart-button ${isClicked ? 'clicked' : ''}`}
                   onClick={() =>
-                    props.addToy(props.setOrder, props.order, props.details)
+                    addToyPage(props.setOrder, props.order, props.details)
                   }
                 >
                   <div className="button-holder">
@@ -81,6 +90,7 @@ function ToyPage(props) {
 
 function Toy(props) {
   const [activeToy, setActiveToy] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
   const handleClick = () => {
     if (props.isNew) {
       props.setViewToy(true);
@@ -95,6 +105,12 @@ function Toy(props) {
   };
 
   function addToyToCart(setOrder, order, details) {
+    setIsClicked(true);
+
+    // Reset the button state after a short delay (you can adjust the delay as needed)
+    setTimeout(() => {
+      setIsClicked(false);
+    }, 350);
     let tempOrder = [...order];
     for (let i = 0; i < tempOrder.length; i++) {
       if (tempOrder[i].name === props.details.name) {
@@ -124,7 +140,7 @@ function Toy(props) {
           />
           {props.isNew && (
             <button
-              className="plus-toy"
+              className={`plus-toy ${isClicked ? 'clicked' : ''}`}
               onClick={() =>
                 addToyToCart(props.setOrder, props.order, props.details)
               }
