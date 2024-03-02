@@ -238,14 +238,6 @@ export default function Toys(props) {
         setViewToy={setViewToy}
       />
 
-      {!viewToy && <h2 id="catalog-title">Last Season's Toys</h2>}
-      <ToyGridOld
-        order={props.order}
-        setOrder={props.setOrder}
-        viewToy={viewToy}
-        setViewToy={setViewToy}
-      />
-
       <div className="pat">
         <h2 className="pat-title">Project Assistive Tech</h2>
         <p>
