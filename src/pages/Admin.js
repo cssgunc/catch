@@ -25,6 +25,7 @@ export default function Admin() {
   const toysUpdateRef = doc(db, "lastUpdated", "toysLastUpdated");
   const donateSumRef = doc(db, "totalDonated", "totalDonated");
   const currUserName = "Admin";
+  const [isClicked, setIsClicked] = useState(false);
 
   function logout() {
     signOut(auth)
@@ -360,6 +361,10 @@ export default function Admin() {
     };
 
     const setInfo = async () => {
+      setIsClicked(true)
+      setTimeout(() => {
+        setIsClicked(false);
+      }, 250);
       let changes = false;
 
       try {
@@ -567,7 +572,7 @@ export default function Admin() {
           </tbody>
         </table>
         <div className="save-div">
-          <button onClick={setInfo} className="save-button">
+          <button onClick={setInfo} className={`save-button ${isClicked ? 'clicked' : ''}`}>
             Save Changes
           </button>
         </div>
@@ -659,6 +664,10 @@ export default function Admin() {
     };
 
     const setInfo = async () => {
+      setIsClicked(true)
+      setTimeout(() => {
+        setIsClicked(false);
+      }, 250);
       try {
         for (const id in deletedIds) {
           await deleteDoc(doc(db, selectedEventRef, deletedIds[id]));
