@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "react-slideshow-image/dist/styles.css";
 import Banner from "../components/Banner";
-import { getDonationInfo } from "../components/donationInfo.js";
+import { getDonationInfo, totalDonated } from "../components/donationInfo.js";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import "./Donations.css";
@@ -29,25 +29,27 @@ function DonationBoxDesktop(props) {
         style={{
           paddingLeft: "3%",
           paddingRight: "3%",
+          position: "relative"
         }}
       >
         <h3>
           <b>{props.desktop.organization}</b>
         </h3>
 
-        {props.desktop.description !== "" && (
+        {/* {props.desktop.description !== "" && (
           <div className="description">{props.desktop.description}</div>
-        )}
+        )} */}
 
-        <div>
-          <strong>Total Toys Donated: </strong>
-          {props.desktop.total}
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", position: "absolute", top: "40%", left: "0%"}}>
+        <div style={{display: "flex", justifyContent: "space-around", width: "100%", color: "#F36F39", fontWeight: "800", fontSize: "3.5vw"}}>
+          <div>{props.desktop.total}</div>
+          <div>{props.desktop.donations}</div>
         </div>
-
-        <div>
-          <strong>Total Donation: </strong>
-          {props.desktop.donations}
+        <div style={{ display: "flex", justifyContent: "space-around", width: "100%", fontWeight: "550", fontSize: "1.5vw" }}>
+          <strong>Total Toys Donated</strong>
+          <strong>Total Donations</strong>
         </div>
+      </div>
       </div>
       <img
         src={props.desktop.imagePath}
@@ -87,16 +89,18 @@ function DonationBoxMobile(props) {
           }}
         />
       </div>
-      {props.mobile.description !== "" && (
+      {/* {props.mobile.description !== "" && (
         <div className="description">{props.mobile.description}</div>
-      )}
-      <div>
-        <strong>Total Toys Donated: </strong>
-        {props.mobile.total}
-      </div>
-      <div>
-        <strong>Total Donation: </strong>
-        {props.mobile.donations}
+      )} */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}}>
+        <div style={{display: "flex", justifyContent: "space-around", width: "100%", color: "#F36F39", fontWeight: "800", fontSize: "30px", marginTop: "4%"}}>
+          <div>{props.mobile.total}</div>
+          <div>{props.mobile.donations}</div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-around", width: "100%", fontWeight: "550", fontSize: "13px" }}>
+          <strong>Total Toys Donated</strong>
+          <strong>Total Donations</strong>
+        </div>
       </div>
     </div>
   );
@@ -175,6 +179,17 @@ export default function Donations() {
     "https://docs.google.com/forms/d/e/1FAIpQLSfOhVwyU37XieVYEo73C-MyJ1XbY_Hfcy-VB3D31d7F2Tf0Qg/viewform";
   const formUrl2 =
     "https://docs.google.com/forms/d/e/1FAIpQLSfACZzhpliXiEolrF0IDf89XFW_RHx7DaSZkDeDLLF618HE1A/viewform";
+  const [totalDonatedDisplay, settotalDonated] = useState([]);
+
+  useEffect(() => {
+    const fetchTotalDonated = async () => {
+      const donatedData = await totalDonated();
+      settotalDonated(donatedData.totalDonated);
+    };  
+    fetchTotalDonated();
+  }, []);
+  
+
   return (
     <>
       <Banner
@@ -182,9 +197,13 @@ export default function Donations() {
         title="Donations"
       />
       
-      <h2 style={{ paddingTop: "100px", marginBottom: "20px" }}>
+      <h2 style={{ paddingTop: "100px" }}>
         <b>Past Donation Sites</b>
       </h2>
+      <div>
+        <b className="totalDonatedDisplay">{totalDonatedDisplay}</b>
+        <div className="totalDonatedSubheading">Total Toys Donated</div>
+      </div>
       <DonationDisplay />
       <div id="pastpartnersection">
         <p>

@@ -1,4 +1,4 @@
-import { collection, getDocs, orderBy, query } from "@firebase/firestore";
+import { collection, getDocs, orderBy, query, getDoc, doc } from "@firebase/firestore";
 import { db } from "../firebase-config";
 
 const donationsRef = collection(db, "donations");
@@ -29,4 +29,8 @@ export const getDonationInfo = async () => {
   return donationArray;
 };
 
-export const donationsInfoTemp = getDonationInfo();
+export const totalDonated = async () => {
+  const totalDonatedDocRef = doc(db, "totalDonated", "totalDonated");
+  const totalDonatedDocSnapshot = await getDoc(totalDonatedDocRef);
+  return totalDonatedDocSnapshot.data()
+}

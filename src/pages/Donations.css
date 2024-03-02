@@ -8,6 +8,19 @@ h3 {
   font-family: "Montserrat";
 }
 
+.totalDonatedDisplay {
+  font-weight: 800;
+  color: #F36F39;
+  font-size: 5vw;
+}
+
+.totalDonatedSubheading {
+  font-weight: 800;
+  color: black;
+  font-size: 1.5vw;
+  padding-bottom: 4%;
+}
+
 #gfm-form {
   width: 50vh;
 }
@@ -88,6 +101,15 @@ h3 {
     width: 100%;
     align-items: center;
   }
+
+  .totalDonatedDisplay {
+    font-size: 50px;
+  }
+
+  .totalDonatedSubheading {
+    font-size: 20px;
+  }
+
 }
 
 .slideshow {
