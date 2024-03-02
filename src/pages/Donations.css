@@ -107,7 +107,7 @@ h3 {
   border-radius: 15px;
   border-color: gray;
   /* add drop shadow */
-  box-shadow: 2px 2px 2px 2px #b8b8b8;
+  box-shadow: 0px 0px 0px 0.5px #b8b8b8;
   position: relative;
 }
 

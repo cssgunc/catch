@@ -219,7 +219,7 @@ export default function Home() {
         <div className="tagline">
           <h1>Hi! We're CATCH!</h1>
           <p>
-            Where we strive to "catch" the children who fall through the cracks
+            We strive to "catch" children who fall through the cracks
             of the mainstream toy market.
           </p>
           <button onClick={goToIntro}>

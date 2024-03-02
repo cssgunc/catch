@@ -195,53 +195,9 @@ export default function Donations() {
       </h2>
       <DonationDisplay />
       <div id="pastpartnersection">
-        <h3>
-          <b>Past Partners</b>
-        </h3>
-        <ul>
-          <li>Autism Society of North Carolina</li>
-          <li>OT for Wake County Public Schools</li>
-        </ul>
         <p>
-          <em>Donation data collection began in Spring 2021.</em>
+          <em>* Donation data collection began in Spring 2021.</em>
         </p>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "20px",
-        }}
-      >
-        <h1 style={{ marginTop: "25px" }}>Donation Forms</h1>
-        <div
-          className="donation-forms-container"
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            gap: "50px",
-            width: "80%",
-          }}
-        >
-          <div className="donation-form" style={{ width: "80%" }}>
-            <h2 style={{ marginBottom: "15px" }}>Want to Get:</h2>
-            <iframe
-              title="Donation Form 1"
-              src={formUrl1}
-              style={{ width: "100%", height: "350px", border: "none" }}
-            />
-          </div>
-          <div className="donation-form" style={{ width: "80%" }}>
-            <h2 style={{ marginBottom: "15px" }}>Want to Give:</h2>
-            <iframe
-              title={"Donation Form 2"}
-              src={formUrl2}
-              style={{ width: "100%", height: "350px", border: "none" }}
-            />
-          </div>
-        </div>
       </div>
     </>
   );
