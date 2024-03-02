@@ -42,6 +42,14 @@ function CartItem(props) {
     setQuantity(tempOrder[props.index].quantity);
     setDisable(false);
     props.setOrder(tempOrder);
+
+    for (let i = tempOrder.length - 1; i >= 0; i--) {
+      if (tempOrder[i].quantity === 0) {
+        tempOrder.splice(i, 1);
+      }
+    }
+    const orderString = JSON.stringify(tempOrder);
+    localStorage.setItem("cartObject", orderString);
   };
 
   const removeOne = () => {
@@ -52,6 +60,14 @@ function CartItem(props) {
       setDisable(true);
     }
     props.setOrder(tempOrder);
+
+    for (let i = tempOrder.length - 1; i >= 0; i--) {
+      if (tempOrder[i].quantity === 0) {
+        tempOrder.splice(i, 1);
+      }
+    }
+    const orderString = JSON.stringify(tempOrder);
+    localStorage.setItem("cartObject", orderString);
   };
 
   const removeItem = () => {
@@ -59,6 +75,14 @@ function CartItem(props) {
     tempOrder[props.index].quantity = 0;
     setQuantity(0);
     props.setOrder(tempOrder);
+
+    for (let i = tempOrder.length - 1; i >= 0; i--) {
+      if (tempOrder[i].quantity === 0) {
+        tempOrder.splice(i, 1);
+      }
+    }
+    const orderString = JSON.stringify(tempOrder);
+    localStorage.setItem("cartObject", orderString);
   };
 
   return (
