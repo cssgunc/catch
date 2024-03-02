@@ -92,7 +92,6 @@ export default function About() {
                       className={`faq-question-content ${isOpen ? "open" : ""}`}
                       onClick={onToggle}
                     >
-                      <hr></hr>
                       <div
                         style={{
                           display: "flex",
@@ -116,7 +115,6 @@ export default function About() {
                           />
                         </svg>
                       </div>
-                      <hr></hr>
                     </div>
                   </div>
                 );
@@ -138,7 +136,6 @@ export default function About() {
                       className={`faq-question-content ${isOpen ? "open" : ""}`}
                       onClick={onToggle}
                     >
-                      <hr></hr>
                       <div
                         style={{
                           display: "flex",
@@ -162,7 +159,6 @@ export default function About() {
                           />
                         </svg>
                       </div>
-                      <hr></hr>
                     </div>
                   </>
                 );
@@ -182,7 +178,6 @@ export default function About() {
                       className={`faq-question-content ${isOpen ? "open" : ""}`}
                       onClick={onToggle}
                     >
-                      <hr></hr>
                       <div
                         style={{
                           display: "flex",
@@ -206,7 +201,6 @@ export default function About() {
                           />
                         </svg>
                       </div>
-                      <hr></hr>
                     </div>
                   </>
                 );
@@ -227,7 +221,6 @@ export default function About() {
                       className={`faq-question-content ${isOpen ? "open" : ""}`}
                       onClick={onToggle}
                     >
-                      <hr></hr>
                       <div
                         style={{
                           display: "flex",
@@ -251,7 +244,6 @@ export default function About() {
                           />
                         </svg>
                       </div>
-                      <hr></hr>
                     </div>
                   </>
                 );
@@ -272,7 +264,6 @@ export default function About() {
                       className={`faq-question-content ${isOpen ? "open" : ""}`}
                       onClick={onToggle}
                     >
-                      <hr></hr>
                       <div
                         style={{
                           display: "flex",
@@ -296,7 +287,6 @@ export default function About() {
                           />
                         </svg>
                       </div>
-                      <hr></hr>
                     </div>
                   </>
                 );

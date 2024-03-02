@@ -62,7 +62,16 @@ const MediaCoverage = () => {
       />
       <p style={{ paddingTop: 20, marginBottom: -40 }}>
         We are always looking to spread the word and the CATCH mission. For news
-        inquiries, please contact us at <a href="mailto:catchUNC@gmail.com" target="_blank" rel="noopener noreferrer" style={{color: "blue"}}>catchUNC@gmail.com</a>.
+        inquiries, please contact us at{" "}
+        <a
+          href="mailto:catchUNC@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "blue" }}
+        >
+          catchUNC@gmail.com
+        </a>
+        .
       </p>
       <ArticleGrid />
     </div>

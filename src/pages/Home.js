@@ -263,7 +263,7 @@ export default function Home() {
       </div>
 
       <div id="introduction" ref={intro}>
-        <h2>With the press of a button...</h2>
+        <h2>Changing childhoods with the press of a button...</h2>
         <p>
           Carolina Adapts Toys for Children (CATCH) strives to "catch" the
           children who fall through the cracks of the mainstream toy market.

@@ -225,7 +225,8 @@
   }
 
   .footer {
-    display: none;
+    padding-left: 20px;
+    /* display: none; */
   }
 }
 

@@ -19,13 +19,14 @@
 }
 
 .footer-row {
-  margin-top: 10px;
   font-weight: 500;
+  line-height: 2;
 }
 
 .footer-heading {
   margin-top: 25px;
   font-weight: BOLD;
+  margin-bottom: 15px;
 }
 
 .links {
@@ -46,7 +47,6 @@ a {
   margin-left: 10px;
   border-width: 5px;
   border-color: blue;
-  /* color: white; */
 }
 
 .inline-icon {

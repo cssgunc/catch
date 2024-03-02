@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  FaEnvelope,
-  FaFacebook,
-  FaHome,
-  FaInstagram,
-  FaLinkedin,
-} from "react-icons/fa";
+import { FaEnvelope, FaHome, FaInstagram } from "react-icons/fa";
 import "./Footer.css";
 
 export default function Footer() {
@@ -65,7 +59,10 @@ export default function Footer() {
         <div class="footer-col">
           <div style={{ display: "inline-block", textAlign: "left" }}>
             <div class="footer-heading">CONNECT</div>
-            <div class="footer-row">
+            <div
+              class="footer-row"
+              style={{ lineHeight: "normal", marginBottom: "6px" }}
+            >
               <div>
                 <FaHome className="inline-icon" />
                 120 E Cameron Ave
@@ -75,33 +72,26 @@ export default function Footer() {
             </div>
             <div class="footer-row">
               <FaEnvelope className="inline-icon" />
-              catchUNC@gmail.com
+              <a
+                href="mailto:catchUNC@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                catchUNC@gmail.com
+              </a>
+            </div>
+            <div class="footer-row">
+              <FaInstagram className="inline-icon" />
+              <a
+                href="https://www.instagram.com/catch_unc/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                catch_unc
+              </a>
             </div>
           </div>
         </div>
-      </div>
-      <div class="links">
-        <a
-          href="https://www.instagram.com/catch_unc/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <FaInstagram size={20} className="icon" />
-        </a>
-        <a
-          href="https://www.facebook.com/CATCHUNC/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <FaFacebook size={20} className="icon" />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/carolina-adapts-toys-for-children-0b351a220/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <FaLinkedin size={20} className="icon" />
-        </a>
       </div>
     </div>
   );
