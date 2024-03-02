@@ -26,6 +26,7 @@
     "react-scripts": "^5.0.1",
     "react-slick": "^0.30.2",
     "react-slideshow-image": "^4.3.0",
+    "react-use-scroll-direction": "^0.1.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6",
     "three": "^0.161.0",

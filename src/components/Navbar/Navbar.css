@@ -1,5 +1,5 @@
 .nav-container {
-  margin: 0;
+  margin: 3.5rem;
   padding: 0;
   width: 100%;
 }
@@ -8,11 +8,32 @@
   font-family: "Poppins";
   max-height: 3.5rem;
   z-index: 1;
+  transform: translateY(0);
+  transition: transform 0.2s ease;
 }
 
-.navbar-show {
-  transform: translateY(0);
-  transition: transform 0.3s ease-out;
+.navbar-show- {
+  background-color: #2ea397;
+}
+
+.navbar-show-about {
+  background-color: #f0564e;
+}
+
+.navbar-show-toys {
+  background-color: #5dc0b5;
+}
+
+.navbar-show-donations {
+  background-color: #0e6772;
+}
+
+.navbar-show-mediacoverage {
+  background-color: #f26f3a;
+}
+
+.navbar-show-contact {
+  background-color: #ce463a;
 }
 
 .navbar-hide {
@@ -65,7 +86,7 @@
 }
 
 .nav-link:hover {
-  color: rgb(115, 115, 115);
+  color: rgb(220, 220, 220);
   text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
 }
 
@@ -78,7 +99,7 @@
 
 .nav-link-active:hover {
   font-weight: 800;
-  color: rgb(115, 115, 115);
+  color: rgb(220, 220, 220);
   text-shadow: 0.1px 0.1px 0.1px rgba(0, 0, 0, 0.3);
 }
 
@@ -203,7 +224,8 @@
 .close-cart {
   flex: 1;
   border-bottom: solid;
-  border-color: gray;
+  border-color: rgb(186, 186, 186);
+  border-width: 1px;
 }
 
 .cart-items {
@@ -282,13 +304,13 @@
 
 .checkout-container {
   flex: 1;
-  border-top: solid;
-  border-color: gray;
 }
 
 .cart-item-container {
   height: 35%;
   border-bottom: solid;
+  border-color: rgb(186, 186, 186);
+  border-width: 1px;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -303,7 +325,6 @@
   max-width: 75%;
   max-height: 75%;
   object-fit: contain;
-  border-radius: 5%;
   margin: auto;
   flex: 4;
 }
@@ -353,7 +374,6 @@
 
 .checkout {
   width: 80%;
-  border-radius: 10px;
   background-color: rgba(243, 111, 57, 1);
   color: white;
   font-weight: bold;
@@ -362,7 +382,6 @@
 }
 .checkout:disabled {
   width: 80%;
-  border-radius: 10px;
   background-color: rgb(255, 192, 168);
   color: white;
   font-weight: bold;

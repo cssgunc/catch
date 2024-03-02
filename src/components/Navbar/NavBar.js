@@ -15,6 +15,8 @@ import MediaCoverage from "../../pages/MediaCoverage";
 import Toys from "../../pages/Toys";
 import ShoppingCart from "./ShoppingCart";
 import { FaHandHoldingHeart } from "react-icons/fa";
+import { useScrollDirection } from "react-use-scroll-direction";
+import { Slide } from "@mui/material";
 
 import {
   addDoc,
@@ -309,6 +311,23 @@ export default function NavBar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollPos]);
 
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const handleScroll = () => {
+    const position = window.scrollY;
+    setScrollPosition(position);
+    console.log(position);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const { isScrollingUp } = useScrollDirection();
+
   useEffect(() => {
     const getTotal = () => {
       setTotal(0);
@@ -334,12 +353,10 @@ export default function NavBar() {
           window.location.pathname !== "/checkout" && (
             <Container fluid className="nav-container">
               <Navbar
-                className={` navbar ${
-                  visible ? "navbar-show" : "navbar-hide"
-                } ${
-                  activeTab === "/" || activeTab === "/login"
-                    ? "home-page-navbar"
-                    : ""
+                className={`navbar fixed-top navbar-show-${window.location.pathname.slice(
+                  1
+                )} ${
+                  !isScrollingUp && scrollPosition > 20 ? "navbar-hide" : ""
                 }`}
                 expand="lg"
                 style={{ display: "flex", justifyContent: "space-between" }}
@@ -359,8 +376,13 @@ export default function NavBar() {
                       toggleSidebar();
                     }}
                   />
-                  <img className="nav-logo" src="logo.png" alt=""></img>
-                  CATCH
+                  <a
+                    href="/"
+                    style={{ color: "white", textDecoration: "none" }}
+                  >
+                    <img className="nav-logo" src="logo.png" alt=""></img>
+                    CATCH
+                  </a>
                 </Navbar.Brand>
                 {/* old nav */}
                 <div
@@ -425,9 +447,20 @@ export default function NavBar() {
                   </Nav>
                 </div>
 
-                <Nav className="ml-auto justify-content-end adjust-right-nav" style={{display: "inline", marginLeft: "0"}}>
-                  <a href="https://gofund.me/9dca4d2f" target="_blank" rel="noopener noreferrer">
-                    <FaHandHoldingHeart color={"white"} size={30} style={{marginRight: "10px"}}/>
+                <Nav
+                  className="ml-auto justify-content-end adjust-right-nav"
+                  style={{ display: "inline", marginLeft: "0" }}
+                >
+                  <a
+                    href="https://gofund.me/9dca4d2f"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaHandHoldingHeart
+                      color={"white"}
+                      size={30}
+                      style={{ marginRight: "10px" }}
+                    />
                   </a>
                   <button
                     onClick={() => openShoppingCart()}
