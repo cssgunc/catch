@@ -297,7 +297,7 @@ export default function Toys(props) {
       {!viewToy && (
         <img src="logo.png" className="catch-logo" alt="CATCH Logo" />
       )}
-      <p>Photo credits: Hieu</p>
+      <p>Photo credits: Hieu Doan</p>
     </>
   );
 }
