@@ -25,17 +25,12 @@ export default function Contact() {
               referrerpolicy: "no-referrer-when-downgrade",
             }}
           />
-
-          <iframe
-            title="address"
-            srcdoc="<div style='text-align: center; margin-top: 10px;'>
-                    <h3 style='font-family: monserrat; font-weight: normal'>The University of North Carolina - Phillips Hall</h3>
-                    <h3 style='font-family: monserrat; font-weight: normal'>120 E Cameron Ave, Chapel Hill, NC 27514</h3>
-                    <h3 style='font-family: monserrat; font-weight: normal'>Room 19B (Basement)</h3>
-                    <h3 style='font-family: monserrat; font-weight: normal'>catchUNC@gmail.com</h3>
-                    </div>"
-            style={{ width: "100%", height: "20%" }}
-          />
+          <div style={{paddingLeft: "5%", paddingRight: "5%", fontSize: "16px"}}>
+            <p>The University of North Carolina - Phillips Hall</p>
+            <p>120 E Cameron Ave, Chapel Hill, NC 27514</p>
+            <p>Room 19B (Basement)</p>
+            <p>catchUNC@gmail.com</p>
+          </div>
 
           <div
             class="socialLinks"
@@ -47,9 +42,9 @@ export default function Contact() {
               rel="noreferrer"
             >
               <img
-                src="contact/heellife.jpg"
+                src="https://identity2.sites.unc.edu/wp-content/uploads/sites/885/2019/01/Old_Well_mark.png"
                 alt="Heel Life"
-                style={{ width: "50px", height: "50px", marginRight: "20px" }}
+                style={{ width: "50px", height: "50px", marginRight: "20px", objectFit: "cover" }}
               />
             </a>
             <a
@@ -61,18 +56,6 @@ export default function Contact() {
                 src="contact/groupme.jpg"
                 alt="GroupMe"
                 style={{ width: "50px", height: "50px", marginRight: "10px" }}
-              />
-            </a>
-            <a
-              href="https://www.google.com/url?q=https%3A%2F%2Fwww.facebook.com%2FCATCHUNC%2F&sa=D&sntz=1&usg=AOvVaw2wlHCm4zIzOpXCOiUQYFP6"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaFacebook
-                size={50}
-                className="icon"
-                color="#3b5998"
-                style={{ marginRight: "10px" }}
               />
             </a>
             <a
