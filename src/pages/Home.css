@@ -98,7 +98,13 @@ h2 {
   width: 55%;
   margin: -1rem;
   background-size: contain;
+  transition: right 0.5s ease;
+  right: -200px;
 }
+
+/* .canvas-container.slide-in {
+  right: 0;
+} */
 
 button {
   background-color: transparent;
@@ -156,13 +162,6 @@ button {
     margin-top: 1rem;
     width: 100%;
     background-size: contain;
-    transition: right 0.5s ease;
-    right: -200px;
-    border: solid;
-  }
-
-  .canvas-container.slide-in {
-    right: 0;
   }
 
   .carousel {

@@ -13,6 +13,7 @@ import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import Slider from "react-slick";
+import { Slide } from "@mui/material";
 
 import "react-multi-carousel/lib/styles.css";
 import "./Home.css";
@@ -242,6 +243,8 @@ export default function Home() {
             </svg>
           </button>
         </div>
+        <Slide direction="left" in={true} mountOnEnter unmountOnExit
+        style={{ transitionDelay: "500ms" }}>
         <div className="canvas-container">
           <Canvas
             gl={{ antialias: true, toneMapping: NoToneMapping }}
@@ -256,6 +259,7 @@ export default function Home() {
             </Suspense>
           </Canvas>
         </div>
+        </Slide>
       </div>
 
       <div id="introduction" ref={intro}>
