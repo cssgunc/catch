@@ -1,5 +1,5 @@
 import React from "react";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
 import Banner from "../components/Banner";
 import "../pages/Contact.css";
 
@@ -25,7 +25,15 @@ export default function Contact() {
               referrerpolicy: "no-referrer-when-downgrade",
             }}
           />
-          <div style={{paddingLeft: "5%", paddingRight: "5%", fontSize: "16px"}}>
+          <div
+            style={{
+              paddingLeft: "5%",
+              paddingRight: "5%",
+              fontSize: "16px",
+              marginBottom: "40px",
+              marginTop: "40px",
+            }}
+          >
             <p>The University of North Carolina - Phillips Hall</p>
             <p>120 E Cameron Ave, Chapel Hill, NC 27514</p>
             <p>Room 19B (Basement)</p>
@@ -44,7 +52,12 @@ export default function Contact() {
               <img
                 src="https://identity2.sites.unc.edu/wp-content/uploads/sites/885/2019/01/Old_Well_mark.png"
                 alt="Heel Life"
-                style={{ width: "50px", height: "50px", marginRight: "20px", objectFit: "cover" }}
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  marginRight: "20px",
+                  objectFit: "cover",
+                }}
               />
             </a>
             <a
