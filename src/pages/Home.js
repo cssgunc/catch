@@ -84,29 +84,51 @@ function MainSlideshow() {
     },
   };
 
+  const mainSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    waitForAnimate: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+  };
+
   return (
-    <Carousel
-      swipeable={true}
-      draggable={false}
-      showDots={true}
-      responsive={responsive}
-      infinite={true}
-      keyBoardControl={true}
-      customTransition="transform 300ms ease-in-out"
-      transitionDuration={500}
-      containerClass="carousel-container"
-      dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-padding-40-px"
-    >
-      {mainSlideshow.map((imagePath, index) => (
-        <img
-          key={index}
-          className="carousel-image"
-          src={imagePath.imagePath}
-          alt={`Carousel pic ${index + 1}`}
-        />
-      ))}
-    </Carousel>
+        <Slider {...mainSettings}>
+          {mainSlideshow.map((image, index) => (
+            <div key={index}>
+              <img
+                className="carousel-image"
+                src={image.imagePath}
+                alt={`Pic ${index + 1}`}
+              />
+            </div>
+          ))}
+        </Slider>
+    // <Carousel
+    //   swipeable={true}
+    //   draggable={false}
+    //   showDots={true}
+    //   responsive={responsive}
+    //   infinite={true}
+    //   keyBoardControl={true}
+    //   customTransition="transform 300ms ease-in-out"
+    //   transitionDuration={500}
+    //   containerClass="carousel-container"
+    //   dotListClass="custom-dot-list-style"
+    //   itemClass="carousel-item-padding-40-px"
+    // >
+    //   {mainSlideshow.map((imagePath, index) => (
+    //     <img
+    //       key={index}
+    //       className="carousel-image"
+    //       src={imagePath.imagePath}
+    //       alt={`Carousel pic ${index + 1}`}
+    //     />
+    //   ))}
+    // </Carousel>
   );
 }
 
@@ -114,7 +136,7 @@ function SampleNextArrow(props) {
   const { onClick } = props;
   return (
     <FaChevronCircleRight
-    className="custom-slider-arrow custom-next"
+      className="custom-slider-arrow custom-next"
       // className={className}
       // style={{ ...style, zIndex: "500", }}
       onClick={onClick}
@@ -132,7 +154,7 @@ function SamplePrevArrow(props) {
   const { onClick } = props;
   return (
     <FaChevronCircleLeft
-    className="custom-slider-arrow custom-prev"
+      className="custom-slider-arrow custom-prev"
       // className={className}
       // style={{ ...style, zIndex: "500", }}
       onClick={onClick}
@@ -155,9 +177,9 @@ export default function Home() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    waitForAnimate: false,
+    waitForAnimate: true,
     nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />
+    prevArrow: <SamplePrevArrow />,
   };
 
   const [recentEvents1, setrecentEvents1] = useState([]);
@@ -220,8 +242,8 @@ export default function Home() {
         <div className="tagline">
           <h1>Hi! We're CATCH!</h1>
           <p>
-            We strive to "catch" children who fall through the cracks
-            of the mainstream toy market.
+            We strive to "catch" children who fall through the cracks of the
+            mainstream toy market.
           </p>
           <button onClick={goToIntro}>
             <svg
@@ -243,22 +265,27 @@ export default function Home() {
             </svg>
           </button>
         </div>
-        <Slide direction="left" in={true} mountOnEnter unmountOnExit
-        style={{ transitionDelay: "500ms" }}>
-        <div className="canvas-container">
-          <Canvas
-            gl={{ antialias: true, toneMapping: NoToneMapping }}
-            linear
-            className="model"
-          >
-            <ambientLight intensity={3} />
-            <pointLight position={[5, 3, 5]} intensity={20} />
-            <Suspense fallback={null}>
-              <Truck className="truck" />
-              <OrbitControls />
-            </Suspense>
-          </Canvas>
-        </div>
+        <Slide
+          direction="left"
+          in={true}
+          mountOnEnter
+          unmountOnExit
+          style={{ transitionDelay: "500ms" }}
+        >
+          <div className="canvas-container">
+            <Canvas
+              gl={{ antialias: true, toneMapping: NoToneMapping }}
+              linear
+              className="model"
+            >
+              <ambientLight intensity={3} />
+              <pointLight position={[5, 3, 5]} intensity={20} />
+              <Suspense fallback={null}>
+                <Truck className="truck" />
+                <OrbitControls />
+              </Suspense>
+            </Canvas>
+          </div>
         </Slide>
       </div>
 
@@ -309,7 +336,7 @@ export default function Home() {
             </Slider>
           </div>
           <div className="carouselItemWide">
-          <Slider {...settings}>
+            <Slider {...settings}>
               {recentEvents2.map((image, index) => (
                 <div key={index}>
                   <img
@@ -324,7 +351,7 @@ export default function Home() {
         </div>
         <div className="carousel">
           <div className="carouselItemWide">
-          <Slider {...settings}>
+            <Slider {...settings}>
               {recentEvents3.map((image, index) => (
                 <div key={index}>
                   <img
@@ -337,7 +364,7 @@ export default function Home() {
             </Slider>
           </div>
           <div className="carouselItemWide">
-          <Slider {...settings}>
+            <Slider {...settings}>
               {recentEvents4.map((image, index) => (
                 <div key={index}>
                   <img

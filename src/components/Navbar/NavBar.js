@@ -16,7 +16,6 @@ import Toys from "../../pages/Toys";
 import ShoppingCart from "./ShoppingCart";
 import { FaHandHoldingHeart } from "react-icons/fa";
 import { useScrollDirection } from "react-use-scroll-direction";
-import { Slide } from "@mui/material";
 
 import {
   addDoc,
@@ -275,6 +274,11 @@ export default function NavBar() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = "auto";
+    } else {
+      document.body.style.overflow = "hidden";
+    }
     setSidebarOpen(!isSidebarOpen);
   };
 
@@ -297,20 +301,6 @@ export default function NavBar() {
     localStorage.setItem("activeTab", activeTab);
   }, [activeTab]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      setVisible(
-        (prevScrollPos > currentScrollPos &&
-          prevScrollPos - currentScrollPos > 170) ||
-          currentScrollPos < 30
-      );
-      setPrevScrollPos(currentScrollPos);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollPos]);
-
   const [scrollPosition, setScrollPosition] = useState(0);
   const handleScroll = () => {
     const position = window.scrollY;
@@ -326,7 +316,7 @@ export default function NavBar() {
     };
   }, []);
 
-  const { isScrollingUp } = useScrollDirection();
+  const { isScrollingUp, isScrollingDown } = useScrollDirection();
 
   useEffect(() => {
     const getTotal = () => {
@@ -357,6 +347,8 @@ export default function NavBar() {
                   1
                 )} ${
                   !isScrollingUp && scrollPosition > 20 ? "navbar-hide" : ""
+                } ${
+                  isScrollingDown ? "navbar-delay" : ""
                 }`}
                 expand="lg"
                 style={{ display: "flex", justifyContent: "space-between" }}
@@ -386,7 +378,7 @@ export default function NavBar() {
                 </Navbar.Brand>
                 {/* old nav */}
                 <div
-                  className={`sidebar ${isSidebarOpen ? "sidebar-open" : ""}`}
+                  className={`sidebar ${isSidebarOpen ? "sidebar-open" : ""} ${scrollPosition > 20 ? "sidebar-delay" : ""}`}
                   style={{ marginLeft: "0px", marginRight: "0px" }}
                 >
                   <button onClick={toggleSidebar} className="closebtn">
@@ -446,29 +438,34 @@ export default function NavBar() {
                     </Nav.Link>
                   </Nav>
                 </div>
-
+                
                 <Nav
                   className="ml-auto justify-content-end adjust-right-nav"
                   style={{ display: "inline", marginLeft: "0" }}
                 >
-                  <a
-                    href="https://gofund.me/9dca4d2f"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FaHandHoldingHeart
-                      color={"white"}
-                      size={30}
-                      style={{ marginRight: "10px" }}
-                    />
-                  </a>
-                  <button
-                    onClick={() => openShoppingCart()}
-                    className="shopping-button"
-                  >
-                    <ShoppingCart quantity={total} />
-                  </button>
+                  {scrollPosition < 20 && 
+                  <>
+                    <a
+                      href="https://gofund.me/9dca4d2f"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaHandHoldingHeart
+                        color={"white"}
+                        size={30}
+                        style={{ marginRight: "10px" }}
+                      />
+                    </a>
+                    <button
+                      onClick={() => openShoppingCart()}
+                      className="shopping-button"
+                    >
+                      <ShoppingCart quantity={total} />
+                    </button>
+                    </>
+                  }
                 </Nav>
+                
               </Navbar>
             </Container>
           )}

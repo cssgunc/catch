@@ -59,7 +59,6 @@ function DonationBoxDesktop(props) {
           maxWidth: "45%",
           maxHeight: "45%",
           aspectRatio: "1",
-          borderRadius: "25px",
           objectFit: "cover",
         }}
       />
@@ -83,7 +82,6 @@ function DonationBoxMobile(props) {
             minWidth: "80%",
             minHeight: "80%",
             maxHeight: "80%",
-            borderRadius: "15px",
             aspectRatio: "1",
             objectFit: "cover",
           }}

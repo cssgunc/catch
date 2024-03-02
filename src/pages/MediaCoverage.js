@@ -8,16 +8,23 @@ import "./MediaCoverage.css";
 const ArticleCard = ({ image, title, caption, link }) => {
   return (
     <Col md={6} className="mb-4 mt-3">
-      <Card className="mx-2" style={{ minHeight: "100%" }}>
+      <Card className="mx-2" style={{ minHeight: "100%", borderRadius: "0" }}>
         <Card.Img variant="top" src={image} alt={title} />
         <Card.Body className="text-left p-3">
           <Card.Title>{title}</Card.Title>
           <Card.Text>{caption}</Card.Text>
           <a
             href={link}
-            style={{ textDecoration: "underline", color: "skyblue" }}
             target="_blank"
             rel="noreferrer"
+            style={{
+              color: "white",
+              textDecoration: "none",
+              lineHeight: "1.5",
+              backgroundColor: "skyblue",
+              padding: "5px 8px",
+              fontWeight: "bold",
+            }}
           >
             Read more
           </a>

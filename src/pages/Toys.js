@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaHammer, FaPlus, FaChevronLeft } from "react-icons/fa";
-import { getDynamicRecentToys, getDynamicOldToys } from "../components/toyInfo";
+import { getDynamicRecentToys } from "../components/toyInfo";
 import Banner from "../components/Banner";
 import "./Toys.css";
 
@@ -180,34 +180,6 @@ function ToyGridNew(props) {
           order={props.order}
           setOrder={props.setOrder}
           isNew={true}
-        />
-      ))}
-    </div>
-  );
-}
-
-function ToyGridOld(props) {
-  const [oldToys, setOldToys] = useState([]);
-
-  useEffect(() => {
-    const fetchToys = async () => {
-      const toyData = await getDynamicOldToys();
-      setOldToys(toyData);
-    };
-
-    fetchToys();
-  }, []);
-
-  return (
-    <div id="catalog">
-      {oldToys.map((toy) => (
-        <Toy
-          details={toy}
-          viewToy={props.viewToy}
-          setViewToy={props.setViewToy}
-          order={props.order}
-          setOrder={props.setOrder}
-          isNew={false}
         />
       ))}
     </div>

@@ -169,6 +169,7 @@ button {
     justify-content: center;
     align-items: center;
     min-width: 80vw;
+    margin-top: 0px;
   }
 
   .carouselItemWide {
@@ -177,9 +178,6 @@ button {
 
   .tagline {
     width: 100%;
-  }
-
-  .tagline p {
   }
 
   .get-involved button {
@@ -205,6 +203,10 @@ button {
     font-weight: 800;
     font-size: 5vw;
     line-height: 3px;
+  }
+
+  .carousel-image {
+    object-fit: contain;
   }
 }
 

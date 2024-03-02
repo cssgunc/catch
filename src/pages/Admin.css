@@ -157,7 +157,6 @@ input {
   border-color: #ef574e;
   width: 30px;
   height: 30px;
-  border-radius: 10%;
   outline: none;
 }
 
@@ -176,7 +175,6 @@ input {
 
 .dropdown-button {
   border: 2px solid #ef574e;
-  border-radius: 5px;
   background-color: white;
   color: #ef574e;
 }
@@ -201,7 +199,6 @@ input {
   padding-left: 10px;
   padding-right: 10px;
   font-weight: bold;
-  border-radius: 5%;
   outline: none;
   margin-top: 15px;
 }
