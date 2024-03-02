@@ -14,6 +14,7 @@ import Login from "../../pages/Login";
 import MediaCoverage from "../../pages/MediaCoverage";
 import Toys from "../../pages/Toys";
 import ShoppingCart from "./ShoppingCart";
+import { FaHandHoldingHeart } from "react-icons/fa";
 
 import {
   addDoc,
@@ -404,7 +405,10 @@ export default function NavBar() {
                   </Nav>
                 </div>
 
-                <Nav className="ml-auto justify-content-end adjust-right-nav">
+                <Nav className="ml-auto justify-content-end adjust-right-nav" style={{display: "inline", marginLeft: "0"}}>
+                  <a href="https://gofund.me/9dca4d2f" target="_blank" rel="noopener noreferrer">
+                    <FaHandHoldingHeart color={"white"} size={30} style={{marginRight: "10px"}}/>
+                  </a>
                   <button
                     onClick={() => openShoppingCart()}
                     className="shopping-button"

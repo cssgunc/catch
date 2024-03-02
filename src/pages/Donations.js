@@ -184,12 +184,7 @@ export default function Donations() {
         title="Donations"
       />
       <h2>Donations</h2>
-      <iframe
-        src={gofundmeform}
-        id="gfm-form"
-        title="gofundme form"
-        style={{ width: "80%", height: "676px", overflow: "scroll" }}
-      ></iframe>
+      
       <h2 style={{ paddingTop: "100px", marginBottom: "20px" }}>
         <b>Past Donation Sites</b>
       </h2>
@@ -199,6 +194,13 @@ export default function Donations() {
           <em>* Donation data collection began in Spring 2021.</em>
         </p>
       </div>
+
+      <iframe
+        src={gofundmeform}
+        id="gfm-form"
+        title="gofundme form"
+        style={{ width: "80%", height: "676px", overflow: "scroll" }}
+      ></iframe>
     </>
   );
 }
