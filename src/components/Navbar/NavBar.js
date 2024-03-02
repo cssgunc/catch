@@ -167,15 +167,10 @@ function CartItem(props) {
 
 function ShoppingCartPanel(props) {
   const closeShoppingCart = () => {
+    document.body.style.overflow = "auto";
     props.setShoppingCartActive(false);
   };
 
-  useEffect(() => {
-    window.addEventListener("scroll", closeShoppingCart);
-    return () => {
-      window.removeEventListener("scroll", closeShoppingCart);
-    };
-  }, []);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -324,6 +319,7 @@ export default function NavBar() {
   }, [order]);
 
   const openShoppingCart = () => {
+    document.body.style.overflow = "hidden";
     setShoppingCartActive(true);
   };
 
