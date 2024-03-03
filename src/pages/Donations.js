@@ -112,6 +112,8 @@ function DonationDisplay(props) {
   useEffect(() => {
     const fetchDonations = async () => {
       const donationsData = await getDonationInfo();
+      // sort donationsData (list of objects) from greatest to least by field value total
+      donationsData.sort((a, b) => (a.total > b.total) ? -1 : 1);
       setDonationsInfo(donationsData);
       setLength(donationsData.length);
     };
