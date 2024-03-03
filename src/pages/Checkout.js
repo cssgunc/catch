@@ -215,11 +215,11 @@ export default function Checkout() {
                 <Card.Body>
                   <Row>
                     <Col sm={4}>
-                      <Card.Img variant="top" src={item.imageSrc} />
+                      <Card.Img variant="top" src={item.imageSrc}  style={{height: "100%"}}/>
                     </Col>
                     <Col sm={8}>
                       <Card.Title className="text-left">{item.name}</Card.Title>
-                      <Card.Text className="text-left">
+                      <Card.Text className="text-left" style={{textAlign: "justify"}}>
                         {item.description}
                       </Card.Text>
                       <div className="text-left d-flex align-items-center">
