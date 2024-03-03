@@ -361,7 +361,7 @@ export default function Admin() {
     };
 
     const setInfo = async () => {
-      setIsClicked(true)
+      setIsClicked(true);
       setTimeout(() => {
         setIsClicked(false);
       }, 250);
@@ -444,21 +444,20 @@ export default function Admin() {
         if (currTab === "Donations") {
           const querySnapshot = await getDocs(collection(db, "donations"));
           let tempTotal = 0;
-        
+
           querySnapshot.forEach((doc) => {
             const donationValue = parseFloat(doc.data().totalDonated);
-    
+
             // Check if the conversion is successful before adding to tempTotal
             if (!isNaN(donationValue)) {
               tempTotal += donationValue;
             }
           });
-        
+
           // Update "totalDonated" field in "totalDonated" document in "totalDonated" collection with tempTotal value
           const totalDonatedDocRef = doc(db, "totalDonated", "totalDonated");
           await updateDoc(totalDonatedDocRef, { totalDonated: tempTotal });
         }
-        
       } catch (error) {
         console.error("Error editing documents", error);
       }
@@ -590,7 +589,10 @@ export default function Admin() {
           </tbody>
         </table>
         <div className="save-div">
-          <button onClick={setInfo} className={`save-button ${isClicked ? 'clicked' : ''}`}>
+          <button
+            onClick={setInfo}
+            className={`save-button ${isClicked ? "clicked" : ""}`}
+          >
             Save Changes
           </button>
         </div>

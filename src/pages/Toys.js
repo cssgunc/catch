@@ -23,8 +23,8 @@ function ToyPage(props) {
   };
 
   function addToyPage(setOrder, order, details) {
-    props.addToy(setOrder, order, details)
-    setIsClicked(true)
+    props.addToy(setOrder, order, details);
+    setIsClicked(true);
     setTimeout(() => {
       setIsClicked(false);
     }, 250);
@@ -57,7 +57,7 @@ function ToyPage(props) {
               <div className="button-break" />
               {recent === true && (
                 <button
-                  className={`add-to-cart-button ${isClicked ? 'clicked' : ''}`}
+                  className={`add-to-cart-button ${isClicked ? "clicked" : ""}`}
                   onClick={() =>
                     addToyPage(props.setOrder, props.order, props.details)
                   }
@@ -140,7 +140,7 @@ function Toy(props) {
           />
           {props.isNew && (
             <button
-              className={`plus-toy ${isClicked ? 'clicked' : ''}`}
+              className={`plus-toy ${isClicked ? "clicked" : ""}`}
               onClick={() =>
                 addToyToCart(props.setOrder, props.order, props.details)
               }

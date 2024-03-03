@@ -109,7 +109,7 @@
 .plus-toy.clicked {
   background-color: #42a5f5 !important; /* Change this color to your desired visual cue */
   color: #ffffff !important;
-  transform: scale(0.9) !important; 
+  transform: scale(0.9) !important;
   /* Add any other styling you want for the clicked state */
 }
 
@@ -215,11 +215,11 @@
   .main-picture {
     /* width: 90%; */
     width: 40%;
-  /* height: 40%; */
-  aspect-ratio: 1;
-  object-fit: cover;
-  margin-bottom: 0;
-  /* border: solid; */
+    /* height: 40%; */
+    aspect-ratio: 1;
+    object-fit: cover;
+    margin-bottom: 0;
+    /* border: solid; */
 
     /* max-height: 10vh; */
     /* margin: 15px auto; */

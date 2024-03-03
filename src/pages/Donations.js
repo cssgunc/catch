@@ -29,7 +29,7 @@ function DonationBoxDesktop(props) {
         style={{
           paddingLeft: "3%",
           paddingRight: "3%",
-          position: "relative"
+          position: "relative",
         }}
       >
         <h3>
@@ -40,16 +40,43 @@ function DonationBoxDesktop(props) {
           <div className="description">{props.desktop.description}</div>
         )} */}
 
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", position: "absolute", top: "40%", left: "0%"}}>
-        <div style={{display: "flex", justifyContent: "space-around", width: "100%", color: "#F36F39", fontWeight: "800", fontSize: "3.5vw"}}>
-          <div>{props.desktop.total}</div>
-          <div>{props.desktop.donations}</div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+            position: "absolute",
+            top: "40%",
+            left: "0%",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              width: "100%",
+              color: "#F36F39",
+              fontWeight: "800",
+              fontSize: "3.5vw",
+            }}
+          >
+            <div>{props.desktop.total}</div>
+            <div>{props.desktop.donations}</div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              width: "100%",
+              fontWeight: "550",
+              fontSize: "1.5vw",
+            }}
+          >
+            <strong>Total Toys Donated</strong>
+            <strong>Total Donations</strong>
+          </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-around", width: "100%", fontWeight: "550", fontSize: "1.5vw" }}>
-          <strong>Total Toys Donated</strong>
-          <strong>Total Donations</strong>
-        </div>
-      </div>
       </div>
       <img
         src={props.desktop.imagePath}
@@ -92,12 +119,37 @@ function DonationBoxMobile(props) {
       {/* {props.mobile.description !== "" && (
         <div className="description">{props.mobile.description}</div>
       )} */}
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%"}}>
-        <div style={{display: "flex", justifyContent: "space-around", width: "100%", color: "#F36F39", fontWeight: "800", fontSize: "30px", marginTop: "4%"}}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            width: "100%",
+            color: "#F36F39",
+            fontWeight: "800",
+            fontSize: "30px",
+            marginTop: "4%",
+          }}
+        >
           <div>{props.mobile.total}</div>
           <div>{props.mobile.donations}</div>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-around", width: "100%", fontWeight: "550", fontSize: "13px" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            width: "100%",
+            fontWeight: "550",
+            fontSize: "13px",
+          }}
+        >
           <strong>Total Toys Donated</strong>
           <strong>Total Donations</strong>
         </div>
@@ -113,7 +165,7 @@ function DonationDisplay(props) {
     const fetchDonations = async () => {
       const donationsData = await getDonationInfo();
       // sort donationsData (list of objects) from greatest to least by field value total
-      donationsData.sort((a, b) => (a.total > b.total) ? -1 : 1);
+      donationsData.sort((a, b) => (a.total > b.total ? -1 : 1));
       setDonationsInfo(donationsData);
       setLength(donationsData.length);
     };
@@ -187,10 +239,9 @@ export default function Donations() {
     const fetchTotalDonated = async () => {
       const donatedData = await totalDonated();
       settotalDonated(donatedData.totalDonated);
-    };  
+    };
     fetchTotalDonated();
   }, []);
-  
 
   return (
     <>
@@ -198,7 +249,7 @@ export default function Donations() {
         imagePath="banner/donations_banner_color.jpeg"
         title="Donations"
       />
-      
+
       <h2 style={{ paddingTop: "100px" }}>
         <b>Past Donation Sites</b>
       </h2>

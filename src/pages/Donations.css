@@ -10,7 +10,7 @@ h3 {
 
 .totalDonatedDisplay {
   font-weight: 800;
-  color: #F36F39;
+  color: #f36f39;
   font-size: 5vw;
 }
 
@@ -109,7 +109,6 @@ h3 {
   .totalDonatedSubheading {
     font-size: 20px;
   }
-
 }
 
 .slideshow {

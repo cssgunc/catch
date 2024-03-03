@@ -96,17 +96,17 @@ function MainSlideshow() {
   };
 
   return (
-        <Slider {...mainSettings}>
-          {mainSlideshow.map((image, index) => (
-            <div key={index}>
-              <img
-                className="carousel-image"
-                src={image.imagePath}
-                alt={`Pic ${index + 1}`}
-              />
-            </div>
-          ))}
-        </Slider>
+    <Slider {...mainSettings}>
+      {mainSlideshow.map((image, index) => (
+        <div key={index}>
+          <img
+            className="carousel-image"
+            src={image.imagePath}
+            alt={`Pic ${index + 1}`}
+          />
+        </div>
+      ))}
+    </Slider>
     // <Carousel
     //   swipeable={true}
     //   draggable={false}

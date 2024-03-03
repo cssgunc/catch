@@ -47,7 +47,8 @@ function ContactForm() {
           "<br/><br/><b>Email</b>: " +
           values.email +
           "<br/><br/><b><u>Message</u></b><br/>" +
-          values.message + "</div>"
+          values.message +
+          "</div>",
       },
       to: ["nithinsiva.00@gmail.com"],
     };
@@ -62,7 +63,7 @@ function ContactForm() {
 
   return (
     <div style={{ marginLeft: "10%", marginRight: "10%" }}>
-      <h1 style={{ textAlign: "justify" }}>Contact Us</h1>
+      <h1 style={{ textAlign: "justify" }}>Get in Contact!</h1>
       <Formik
         initialValues={{
           name: "",
@@ -182,6 +183,18 @@ export default function Contact() {
               style={{ display: "flex", justifyContent: "center" }}
             >
               <a
+                href="https://www.google.com/url?q=https%3A%2F%2Fwww.instagram.com%2Fcatch_unc%2F&sa=D&sntz=1&usg=AOvVaw3XypaNVTy9lqvEh0_n8R2p"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaInstagram
+                  size={50}
+                  className="icon"
+                  color="#E1306C"
+                  style={{ marginRight: "10px" }}
+                />
+              </a>
+              <a
                 href="https://www.google.com/url?q=https%3A%2F%2Fheellife.unc.edu%2Forganization%2Fcatch&sa=D&sntz=1&usg=AOvVaw1nxSQeb3m8ASiGOrObjuDm"
                 target="_blank"
                 rel="noreferrer"
@@ -206,18 +219,6 @@ export default function Contact() {
                   src="/contact/groupme.jpg"
                   alt="GroupMe"
                   style={{ width: "50px", height: "50px", marginRight: "10px" }}
-                />
-              </a>
-              <a
-                href="https://www.google.com/url?q=https%3A%2F%2Fwww.instagram.com%2Fcatch_unc%2F&sa=D&sntz=1&usg=AOvVaw3XypaNVTy9lqvEh0_n8R2p"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FaInstagram
-                  size={50}
-                  className="icon"
-                  color="#E1306C"
-                  style={{ marginRight: "10px" }}
                 />
               </a>
             </div>

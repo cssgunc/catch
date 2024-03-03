@@ -60,7 +60,8 @@ h2 {
   font-weight: bold;
 }
 
-#leftCol, #rightCol {
+#leftCol,
+#rightCol {
   flex: 1;
   /* border: solid; */
   margin-top: 5%;
@@ -80,10 +81,10 @@ h2 {
   text-align: left;
   width: 100%;
   margin-top: 20px;
-
 }
 
-#name, #email {
+#name,
+#email {
   width: 100%;
 }
 

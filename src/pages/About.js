@@ -14,7 +14,7 @@ function ExecTile({ imagePath, name, position }) {
       />
       <div className="exec-names">
         <div>{name}</div>
-        <div style={{fontWeight: "normal", fontSize:"85%"}}>{position}</div>
+        <div style={{ fontWeight: "normal", fontSize: "85%" }}>{position}</div>
       </div>
     </div>
   );
