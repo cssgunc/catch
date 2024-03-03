@@ -305,7 +305,6 @@ export default function NavBar() {
   const handleScroll = () => {
     const position = window.scrollY;
     setScrollPosition(position);
-    console.log(position);
   };
 
   useEffect(() => {
