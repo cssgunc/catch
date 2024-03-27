@@ -70,21 +70,6 @@ function CartItem(props) {
     const orderString = JSON.stringify(tempOrder);
     localStorage.setItem("cartObject", orderString);
   };
-  
-  // const removeItem = () => {
-  //   let tempOrder = [...props.order];
-  //   tempOrder[props.index].quantity = 0;
-  //   setQuantity(0);
-  //   props.setOrder(tempOrder);
-
-  //   for (let i = tempOrder.length - 1; i >= 0; i--) {
-  //     if (tempOrder[i].quantity === 0) {
-  //       tempOrder.splice(i, 1);
-  //     }
-  //   }
-  //   const orderString = JSON.stringify(tempOrder);
-  //   localStorage.setItem("cartObject", orderString);
-  // };
 
   const removeItem = () => {
     let tempOrder = [...props.order];
