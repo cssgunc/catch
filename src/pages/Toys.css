@@ -107,7 +107,7 @@
 }
 
 .plus-toy.clicked {
-  background-color: #42a5f5 !important; /* Change this color to your desired visual cue */
+  background-color: #5EBFB5 !important; /* Change this color to your desired visual cue */
   color: #ffffff !important;
   transform: scale(0.9) !important;
   /* Add any other styling you want for the clicked state */
@@ -135,7 +135,7 @@
 }
 
 .add-to-cart-button.clicked {
-  background-color: #42a5f5;
+  background-color: #5EBFB5;
   color: #ffffff;
   transform: scale(0.9);
 }

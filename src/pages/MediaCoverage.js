@@ -21,7 +21,7 @@ const ArticleCard = ({ image, title, caption, link }) => {
               color: "white",
               textDecoration: "none",
               lineHeight: "1.5",
-              backgroundColor: "skyblue",
+              backgroundColor: "#F36F39",
               padding: "5px 8px",
               fontWeight: "bold",
             }}

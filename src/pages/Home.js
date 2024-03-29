@@ -93,6 +93,7 @@ function MainSlideshow() {
     waitForAnimate: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    arrows: false
   };
 
   return (
@@ -180,6 +181,7 @@ export default function Home() {
     waitForAnimate: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    arrows: false
   };
 
   const [recentEvents1, setrecentEvents1] = useState([]);
@@ -242,7 +244,7 @@ export default function Home() {
         <div className="tagline">
           <h1>Hi! We're CATCH!</h1>
           <p>
-            We strive to "catch" children who fall through the cracks of the
+            We strive to "catch" the children who fall through the cracks of the
             mainstream toy market.
           </p>
           <button onClick={goToIntro}>
@@ -291,10 +293,6 @@ export default function Home() {
 
       <div id="introduction" ref={intro}>
         <h2>Changing childhoods with the press of a button...</h2>
-        <p>
-          Carolina Adapts Toys for Children (CATCH) strives to "catch" the
-          children who fall through the cracks of the mainstream toy market.
-        </p>
         <div className="carousel-container">
           <MainSlideshow />
         </div>
