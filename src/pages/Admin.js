@@ -831,7 +831,7 @@ export default function Admin() {
     switch (currTab) {
       case "Executives":
         const execInit = { id: "", name: "", position: "", imageID: "" };
-        const execHeaders = ["ID", "Name", "Position", "Image ID (PNG/JPEG)"];
+        const execHeaders = ["# in Order", "Name", "Position", "Image ID (PNG/JPEG)"];
         return (
           <Table
             initial_state={execInit}
