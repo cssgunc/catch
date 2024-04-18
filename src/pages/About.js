@@ -68,7 +68,7 @@ export default function About() {
             </div>
           </div>
           <div id="history">
-            <p font="font-family: Arial">
+            <p font="font-family: Arial" style={{fontSize: "20px"}}>
               <em>
                 "Founded in November 2018, CATCH works to provide adapted toys
                 to children with special needs who are unable to play with most

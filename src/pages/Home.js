@@ -273,6 +273,7 @@ export default function Home() {
           mountOnEnter
           unmountOnExit
           style={{ transitionDelay: "500ms" }}
+          timeout={1000}
         >
           <div className="canvas-container">
             <Canvas
