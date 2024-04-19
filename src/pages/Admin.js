@@ -286,9 +286,9 @@ export default function Admin() {
       ) {
         setEditedIds([...editedIds, editId]);
       }
-
+    
       const newData = [...data];
-      newData[ind] = editedData;
+      newData[ind] = { ...editedData, id: parseInt(editedData.id, 10) };
       setData(newData);
       setEditIndex(null);
     };
@@ -326,27 +326,23 @@ export default function Admin() {
     };
 
     const handleAdd = () => {
-      const addId = data[data.length - 1].id + 1;
       let addDocId = "";
       if (currTab === "Donations") {
         addDocId = editedData.orgName;
       } else if (currTab === "Executives") {
-        addDocId = editedData.position;
-        addDocId = addDocId.replace(/\s+/g, "");
-        addDocId = addDocId.charAt(0).toLowerCase() + addDocId.slice(1);
+        // Convert the manually entered ID to a number
+        const idNumber = parseInt(editedData.id, 10);
+        addDocId = `exec-${idNumber}`;
       } else if (currTab === "Recent Toys" || currTab === "Old Toys") {
         addDocId = editedData.name;
         addDocId = addDocId.replace(/\s+/g, "").toLowerCase();
       }
-
+    
       if (addDocId !== "") {
         setAddedIds([...addedIds, addDocId]);
       }
-
-      const newData = [
-        ...data,
-        { ...editedData, id: addId, documentId: addDocId },
-      ];
+    
+      const newData = [...data, { ...editedData, id: parseInt(editedData.id, 10), documentId: addDocId }];
       setData(newData);
       setEditIndex(null);
     };
@@ -399,9 +395,9 @@ export default function Admin() {
           for (const id in addedIds) {
             const newDoc = {
               ...findDoc(addedIds[id]),
-              current: currTab === "Recent Toys", // Allow this field to be edited?
+              current: currTab === "Recent Toys",
               donated: 0,
-              imageName: "", // Add this field to the Admin dashboard?
+              imageName: "",
               inventory: 0,
               ordered: 0,
             };
@@ -415,9 +411,6 @@ export default function Admin() {
         } else {
           for (const id in addedIds) {
             const newDoc = findDoc(addedIds[id]);
-            if (currTab !== "Executives") {
-              delete newDoc.id;
-            }
             await setDoc(doc(db, dataRef, addedIds[id]), newDoc);
           }
           if (addedIds.length !== 0) {
@@ -434,6 +427,9 @@ export default function Admin() {
           const newDoc = findDoc(editedIds[id]);
           if (currTab !== "Media" && currTab !== "Executives") {
             delete newDoc.id;
+          }
+          if (currTab === "Executives") {
+            newDoc.id = parseInt(newDoc.id, 10);
           }
           await updateDoc(doc(db, dataRef, editedIds[id]), newDoc);
         }
@@ -834,8 +830,8 @@ export default function Admin() {
   function RightView() {
     switch (currTab) {
       case "Executives":
-        const execInit = { name: "", position: "", imageID: "" };
-        const execHeaders = ["Name", "Position", "Image ID (PNG/JPEG)"];
+        const execInit = { id: "", name: "", position: "", imageID: "" };
+        const execHeaders = ["# in Order", "Name", "Position", "Image ID (PNG/JPEG)"];
         return (
           <Table
             initial_state={execInit}
