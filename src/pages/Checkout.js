@@ -235,7 +235,7 @@ const handleIncreaseQuantity = (itemId) => {
                 <Card.Body>
                   <Row>
                     <Col sm={4}>
-                      <Card.Img variant="top" src={item.imageSrc}  style={{height: "100%"}}/>
+                      <Card.Img src={item.imageSrc}  style={{height: "100%"}}/>
                     </Col>
                     <Col sm={8}>
                       <Card.Title className="text-left">{item.name}</Card.Title>
