@@ -27,6 +27,7 @@ h2 {
 
 .carouselItemWide {
   width: 48%;
+  margin-bottom: 2rem;
 }
 
 .landing {
@@ -150,7 +151,7 @@ button {
   .landing,
   #introduction,
   #recent-events {
-    padding: 3rem;
+    padding: 2rem;
   }
 
   .landing svg {
@@ -181,43 +182,20 @@ button {
     width: 100%;
   }
 
-  .get-involved button {
-    font-size: 5vw;
-  }
-
-  .get-involved h3 {
-    font-size: 5vw;
-  }
-
-  .get-involved h2 {
-    font-size: 5vw;
-  }
-
   .button-container p {
     font-size: 5vw;
     max-width: 80%;
   }
 
-  .get-involved button {
-    max-width: 40%;
-    height: 25px;
-    font-weight: 800;
-    font-size: 5vw;
-    line-height: 3px;
-  }
-
   .carousel-image {
-    object-fit: contain;
+    height: auto;
+    margin-bottom: 1rem;
   }
 }
 
 .slick-prev {
   left: 3% !important;
   z-index: 10;
-  /* width: 100px;
-  height: 100px; */
-  /* object-fit: contain; */
-  /* height: 100px; */
 }
 
 .slick-next {

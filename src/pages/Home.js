@@ -181,8 +181,33 @@ export default function Home() {
     waitForAnimate: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
-    arrows: false
+    arrows: false,
+    onReInit: function () {
+      adjustSliderHeight();
+    }
   };
+
+  function adjustSliderHeight() {
+    const sliders = document.querySelectorAll(".slick-slider");
+    sliders.forEach((slider) => {
+      const currentImage = slider.querySelector(".slick-current .carousel-image");
+      if (currentImage) {
+        const imageHeight = currentImage.offsetHeight;
+        slider.style.height = `${imageHeight}px`;
+      }
+    });
+  }
+
+  useEffect(() => {
+    const handleResize = () => {
+      adjustSliderHeight();
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const [recentEvents1, setrecentEvents1] = useState([]);
 
