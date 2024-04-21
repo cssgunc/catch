@@ -34,13 +34,10 @@
 }
 
 .main-picture {
-  /* border: solid; */
   width: 40%;
-  /* height: 40%; */
   aspect-ratio: 1;
   object-fit: cover;
   margin: auto;
-  /* margin-left: 10%; */
 }
 
 .back-button {
@@ -64,10 +61,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   height: 100%;
-}
-
-.toy-descriptors {
-  flex: 8;
 }
 
 .toy-title {
@@ -213,16 +206,9 @@
   }
 
   .main-picture {
-    /* width: 90%; */
-    width: 40%;
-    /* height: 40%; */
+    width: 35vh;
     aspect-ratio: 1;
     object-fit: cover;
-    margin-bottom: 0;
-    /* border: solid; */
-
-    /* max-height: 10vh; */
-    /* margin: 15px auto; */
   }
 
   .toy-buttons {
