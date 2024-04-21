@@ -19,7 +19,7 @@ function ToyPage(props) {
     if (url === "N/A") {
       return;
     }
-    window.location.href = url;
+    window.open(url, "_blank");
   };
 
   function addToyPage(setOrder, order, details) {
