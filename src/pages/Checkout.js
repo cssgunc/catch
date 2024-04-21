@@ -97,31 +97,51 @@ export default function Checkout() {
 
   // Function to handle quantity decrease
   const handleDecreaseQuantity = (itemId) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) => {
+    setCartItems((prevItems) => {
+      const updatedItems = prevItems.map((item) => {
         if (item.id === itemId && item.quantity > 1) {
           return { ...item, quantity: item.quantity - 1 };
         }
         return item;
-      })
-    );
+      });
+  
+      // Update the cart in local storage
+      const orderString = JSON.stringify(updatedItems);
+      localStorage.setItem("cartObject", orderString);
+  
+      return updatedItems;
+    });
   };
 
   // Function to handle quantity increase
-  const handleIncreaseQuantity = (itemId) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) => {
-        if (item.id === itemId) {
-          return { ...item, quantity: item.quantity + 1 };
-        }
-        return item;
-      })
-    );
-  };
+const handleIncreaseQuantity = (itemId) => {
+  setCartItems((prevItems) => {
+    const updatedItems = prevItems.map((item) => {
+      if (item.id === itemId) {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
+    });
+
+    // Update the cart in local storage
+    const orderString = JSON.stringify(updatedItems);
+    localStorage.setItem("cartObject", orderString);
+
+    return updatedItems;
+  });
+};
 
   // Function to remove an item from the cart
   const handleRemoveItem = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+    setCartItems((prevItems) => {
+      const updatedItems = prevItems.filter((item) => item.id !== itemId);
+  
+      // Update the cart in local storage
+      const orderString = JSON.stringify(updatedItems);
+      localStorage.setItem("cartObject", orderString);
+  
+      return updatedItems;
+    });
   };
 
   const placeOrder = async (order, userData) => {
