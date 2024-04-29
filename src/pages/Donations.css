@@ -34,7 +34,6 @@ h3 {
 #pastpartnersection {
   display: flex;
   flex-direction: column;
-  padding-top: 3%;
   align-items: flex-start;
 }
 
@@ -83,11 +82,7 @@ h3 {
   }
 
   #pastpartnersection {
-    display: flex;
-    flex-direction: column;
-    padding-top: 3%;
-    align-items: center;
-    text-align: justify;
+    padding: 0% 5% 2% 5%;
   }
 
   .donation-forms-container {
