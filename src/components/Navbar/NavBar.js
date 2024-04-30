@@ -268,6 +268,7 @@ export default function NavBar() {
   const handleClick = (path) => {
     setActiveTab(path);
     setSidebarOpen(false);
+    document.body.style.overflow = "auto";
   };
   const getClassName = (path) => {
     return path === activeTab ? "mx-3 nav-link-active" : "mx-3 nav-link";
