@@ -110,18 +110,7 @@ function CartItem(props) {
                 >
                   <FaTrash size={20} style={{ marginRight: "10px" }} />
                 </button>
-                <span
-                  style={{
-                    minWidth: "60%",
-                    maxWidth: "60%",
-                    alignItem: "center",
-                    backgroundColor: "#AAAAAA",
-                    padding: "5px",
-                    borderRadius: "300px",
-                    paddingLeft: "15px",
-                    paddingRight: "15px",
-                  }}
-                >
+                <span className="addRemoveSpan">
                   <button
                     style={{
                       margin: "0",
