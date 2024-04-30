@@ -299,12 +299,35 @@
   }
 }
 
+.item-description {
+  font: Montserrat;
+  width: 100%;
+  text-align: left;
+  font-size: small;
+}
+
+.item-title {
+  font: Montserrat;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+  font-size: medium;
+}
+
 /* For mobile devices */
 @media only screen and (max-width: 480px) {
   .cart-items {
     overflow: scroll;
     flex: 20;
     width: 85vw;
+  }
+
+  .item-description {
+    font-size: 80%;
+  }
+
+  .item-title {
+    font-size: 90%;
   }
 
   .empty-cart {
@@ -333,7 +356,7 @@
 }
 
 .cart-item-container {
-  height: 40%;
+  height: 35%;
   border-bottom: solid;
   border-color: rgb(186, 186, 186);
   border-width: 1px;
@@ -359,7 +382,7 @@
 
 .item-details {
   min-height: 75%;
-  max-height: 75%;
+  /* max-height: 75%; */
   min-width: 50%;
   max-width: 50%;
   margin: auto;
@@ -371,21 +394,6 @@
 
 .item-descriptors {
   flex: 8;
-}
-
-.item-title {
-  font: Montserrat;
-  font-weight: bold;
-  width: 100%;
-  text-align: left;
-  font-size: medium;
-}
-
-.item-description {
-  font: Montserrat;
-  width: 100%;
-  text-align: left;
-  font-size: small;
 }
 
 .item-buttons {
