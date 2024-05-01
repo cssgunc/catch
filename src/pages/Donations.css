@@ -88,11 +88,11 @@ h3 {
   }
 
   .left-arrow {
-    transform: translateX(-89%);
+    transform: translateX(-85%);
   }
   
   .right-arrow {
-    transform: translateX(89%);
+    transform: translateX(85%);
   }
 
   .mobile-section {
@@ -144,7 +144,7 @@ h3 {
 
 .slide {
   padding: 2%;
-  width: 80%;
+  width: 78%;
   /* height: 500px; */
   border: solid;
   border-color: gray;
