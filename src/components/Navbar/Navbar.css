@@ -279,6 +279,10 @@
     width: 65vw;
   }
 
+  .addRemoveSpan {
+    padding: 5px 15px;
+  }
+
   .empty-cart {
     display: flex;
     justify-content: center;
@@ -302,7 +306,7 @@
   font: Montserrat;
   width: 100%;
   text-align: left;
-  font-size: 70%;
+  font-size: 80%;
 }
 
 .item-title {
@@ -310,7 +314,7 @@
   font-weight: bold;
   width: 100%;
   text-align: left;
-  font-size: 80%;
+  font-size: 90%;
 }
 
 .cart-item-container {
@@ -348,7 +352,7 @@
   }
 
   .item-title {
-    font-size: 90%;
+    font-size: 100%;
   }
 
   .empty-cart {
@@ -382,10 +386,10 @@
 
 .item-picture {
   max-width: 35%;
-  max-height: 75%;
+  max-height: 60%;
   margin: auto;
-  /* width: 35%;
-  height: 50%; */
+  width: 35%;
+  height: 75%;
   object-fit: contain;
   object-position: contain;
 }
