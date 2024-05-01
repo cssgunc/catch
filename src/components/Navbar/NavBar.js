@@ -269,6 +269,7 @@ export default function NavBar() {
     setActiveTab(path);
     setSidebarOpen(false);
     document.body.style.overflow = "auto";
+    window.scrollTo(0, 0);
   };
   const getClassName = (path) => {
     return path === activeTab ? "mx-3 nav-link-active" : "mx-3 nav-link";

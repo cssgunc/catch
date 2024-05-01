@@ -88,7 +88,7 @@ function DonationBoxDesktop(props) {
           maxWidth: "45%",
           maxHeight: "45%",
           aspectRatio: "1",
-          objectFit: "cover",
+          objectFit: "contain",
         }}
       />
     </div>
@@ -107,12 +107,12 @@ function DonationBoxMobile(props) {
           className="pictures"
           alt={"Donation to " + props.mobile.organization}
           style={{
-            maxWidth: "80%",
+            maxWidth: "90%",
             minWidth: "80%",
             minHeight: "80%",
-            maxHeight: "80%",
+            maxHeight: "90%",
             aspectRatio: "1",
-            objectFit: "cover",
+            objectFit: "contain",
           }}
         />
       </div>

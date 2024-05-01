@@ -64,9 +64,35 @@ h3 {
   }
 }
 
+.left-arrow {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.right-arrow {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 2em;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 900px) {
   .column {
     width: 50%;
+  }
+
+  .left-arrow {
+    transform: translateX(-95%);
+  }
+  
+  .right-arrow {
+    transform: translateX(95%);
   }
 
   .mobile-section {
@@ -124,22 +150,4 @@ h3 {
   /* add drop shadow */
   box-shadow: 0px 0px 0px 0.5px #b8b8b8;
   position: relative;
-}
-
-.left-arrow {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  font-size: 2em;
-  cursor: pointer;
-}
-
-.right-arrow {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  font-size: 2em;
-  cursor: pointer;
 }
