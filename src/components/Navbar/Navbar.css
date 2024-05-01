@@ -254,7 +254,6 @@
   overflow: scroll;
   flex: 20;
   width: 40vw;
-  min-height: 30;
 }
 
 .empty-cart {
@@ -276,7 +275,6 @@
   .cart-items {
     overflow: scroll;
     flex: 20;
-    width: 85vw;
     width: 65vw;
   }
 
@@ -327,7 +325,7 @@
 
 @media only screen and (max-height: 550px) {
   .cart-item-container {
-    height: 40vh;
+    height: 50vh;
   }
 }
 
