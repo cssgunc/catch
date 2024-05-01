@@ -325,11 +325,17 @@
   display: flex;
 }
 
+@media only screen and (max-height: 550px) {
+  .cart-item-container {
+    height: 40vh;
+  }
+}
+
 /* For mobile devices */
 @media only screen and (max-width: 480px) {
 
   .cart-item-container {
-    height: 40%;
+    height: 30vh;
   }
 
   .cart-items {
