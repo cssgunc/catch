@@ -253,7 +253,7 @@
 .cart-items {
   overflow: scroll;
   flex: 20;
-  width: 35vw;
+  width: 40vw;
   min-height: 30;
 }
 
@@ -303,7 +303,7 @@
   font: Montserrat;
   width: 100%;
   text-align: left;
-  font-size: small;
+  font-size: 70%;
 }
 
 .item-title {
@@ -311,7 +311,7 @@
   font-weight: bold;
   width: 100%;
   text-align: left;
-  font-size: medium;
+  font-size: 80%;
 }
 
 /* For mobile devices */
@@ -374,9 +374,9 @@
   max-width: 35%;
   max-height: 75%;
   margin: auto;
-  width: 35%;
-  height: 50%;
-  object-fit: cover;
+  /* width: 35%;
+  height: 0%; */
+  object-fit:contain;
   object-position: center;
 }
 
