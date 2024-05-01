@@ -88,11 +88,11 @@ h3 {
   }
 
   .left-arrow {
-    transform: translateX(-95%);
+    transform: translateX(-89%);
   }
   
   .right-arrow {
-    transform: translateX(95%);
+    transform: translateX(89%);
   }
 
   .mobile-section {
