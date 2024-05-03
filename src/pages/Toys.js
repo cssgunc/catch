@@ -46,11 +46,6 @@ function ToyPage(props) {
             <div className="toy-descriptors">
               <h1 className="toy-title">{props.details.name}</h1>
               <br />
-              <h3
-                style={{ font: "Montserrat", width: "100%", textAlign: "left" }}
-              >
-                Description
-              </h3>
               <p className="toy-description">{props.details.description}</p>
             </div>
             <div className="toy-buttons">
