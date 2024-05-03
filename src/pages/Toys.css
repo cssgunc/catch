@@ -206,7 +206,7 @@
   }
 
   .main-picture {
-    width: 35vh;
+    width: 35dvh;
     aspect-ratio: 1;
     object-fit: cover;
   }
