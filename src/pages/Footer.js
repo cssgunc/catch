@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <div class="footer">
       <div class="footer-main">
-        <div class="footer-col">
+        <div class="footer-col" id="firstCol">
           <div style={{ display: "inline-block", textAlign: "left" }}>
             <div class="footer-heading">LEARN</div>
             <div>
@@ -88,6 +88,21 @@ export default function Footer() {
                 rel="noreferrer"
               >
                 catch_unc
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-col">
+        <div style={{ display: "inline-block", textAlign: "left" }}>
+        <div class="footer-heading">EXTRA</div>
+            <div>
+              <a href="https://forms.gle/8KDnV7uPFhHeXhJq9" class="footer-row" li>
+                Report a Bug 🐞
+              </a>
+            </div>
+            <div>
+              <a href="https://cssgunc.org/" class="footer-row">
+                Website Made by CS + SG at UNC!
               </a>
             </div>
           </div>
