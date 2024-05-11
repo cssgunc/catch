@@ -142,11 +142,6 @@ function Toy(props) {
             >
               <FaPlus
                 size={18}
-                style={{
-                  display: "flex",
-                  width: "100%",
-                  border: "transparent",
-                }}
               />
             </button>
           )}
