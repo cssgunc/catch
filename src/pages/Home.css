@@ -109,6 +109,7 @@ h2 {
 } */
 
 button {
+  color: black;
   background-color: transparent;
   border: none;
 }
