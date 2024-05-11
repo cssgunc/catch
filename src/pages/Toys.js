@@ -140,9 +140,11 @@ function Toy(props) {
                 addToyToCart(props.setOrder, props.order, props.details)
               }
             >
+              <div className='plus-icon'>
               <FaPlus
                 size={18}
               />
+              </div>
             </button>
           )}
         </div>

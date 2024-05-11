@@ -187,6 +187,12 @@
   transition: transform 0.2s ease; /* Apply transition to the transform property */
 }
 
+.plus-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .plus-toy:hover {
   background-color: rgba(243, 111, 57, 1);
   color: white;
