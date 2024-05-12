@@ -425,7 +425,7 @@ export default function NavBar() {
 
                 <Nav
                   className="ml-auto justify-content-end adjust-right-nav"
-                  style={{ display: "inline", marginLeft: "0" }}
+                  style={{ display: "inline", marginLeft: "0", padding: "0"}}
                 >
                   {scrollPosition < 20 && (
                     <>
