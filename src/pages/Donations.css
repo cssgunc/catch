@@ -34,7 +34,6 @@ h3 {
 #pastpartnersection {
   display: flex;
   flex-direction: column;
-  padding-top: 3%;
   align-items: flex-start;
 }
 
@@ -65,9 +64,35 @@ h3 {
   }
 }
 
+.left-arrow {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.right-arrow {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 2em;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 900px) {
   .column {
     width: 50%;
+  }
+
+  .left-arrow {
+    transform: translateX(-85%);
+  }
+  
+  .right-arrow {
+    transform: translateX(85%);
   }
 
   .mobile-section {
@@ -83,11 +108,7 @@ h3 {
   }
 
   #pastpartnersection {
-    display: flex;
-    flex-direction: column;
-    padding-top: 3%;
-    align-items: center;
-    text-align: justify;
+    padding: 0% 5% 2% 5%;
   }
 
   .donation-forms-container {
@@ -118,33 +139,16 @@ h3 {
   margin: 0;
   position: relative;
   max-height: 100%;
+  max-width: 100dvw;
 }
 
 .slide {
   padding: 2%;
-  width: 80%;
+  width: 78%;
   /* height: 500px; */
   border: solid;
   border-color: gray;
   /* add drop shadow */
   box-shadow: 0px 0px 0px 0.5px #b8b8b8;
   position: relative;
-}
-
-.left-arrow {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  font-size: 2em;
-  cursor: pointer;
-}
-
-.right-arrow {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  font-size: 2em;
-  cursor: pointer;
 }

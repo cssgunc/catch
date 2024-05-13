@@ -34,13 +34,10 @@
 }
 
 .main-picture {
-  /* border: solid; */
   width: 40%;
-  /* height: 40%; */
   aspect-ratio: 1;
   object-fit: cover;
   margin: auto;
-  /* margin-left: 10%; */
 }
 
 .back-button {
@@ -64,10 +61,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   height: 100%;
-}
-
-.toy-descriptors {
-  flex: 8;
 }
 
 .toy-title {
@@ -156,13 +149,13 @@
 
 .catch-logo {
   padding: 40px 0px 40px 0px;
-  width: 6%;
+  width: 9%;
 }
 
 .toy-container {
   position: absolute;
-  height: 100vh;
-  width: 100vw;
+  height: 100dvh;
+  width: 100dvw;
   top: 0;
   left: 0;
   /* border: solid;
@@ -190,55 +183,20 @@
   background-color: rgb(243, 110, 57);
   display: flex;
   align-items: center;
+  justify-content: center;
   transition: transform 0.2s ease; /* Apply transition to the transform property */
+}
+
+.plus-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .plus-toy:hover {
   background-color: rgba(243, 111, 57, 1);
   color: white;
   transform: scale(1.1); /* Increase size on hover */
-}
-
-@media (max-width: 1024px) {
-  #catalog {
-    grid-template-columns: 1fr;
-  }
-
-  .toy-text {
-    width: 100%;
-  }
-
-  .toy-container {
-    padding: 1rem;
-  }
-
-  .main-picture {
-    /* width: 90%; */
-    width: 40%;
-    /* height: 40%; */
-    aspect-ratio: 1;
-    object-fit: cover;
-    margin-bottom: 0;
-    /* border: solid; */
-
-    /* max-height: 10vh; */
-    /* margin: 15px auto; */
-  }
-
-  .toy-buttons {
-    padding: 0 10px;
-  }
-
-  .add-to-cart-button,
-  .build-button {
-    width: 80%;
-    margin: 5px auto;
-  }
-
-  .footer {
-    padding-left: 20px;
-    /* display: none; */
-  }
 }
 
 .pat {
@@ -312,4 +270,77 @@
 .pat .pat-images #pat4 {
   max-width: 40%;
   flex: 4;
+}
+
+@media (max-width: 1024px) {
+
+  .pat .pat-images {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pat .pat-images #pat1 {
+    max-width: 100%;
+    margin-bottom: 8%;
+  }
+
+  .pat .pat-images .pat-images-col {
+    max-width: 100%;
+    margin-bottom: 8%;
+  }
+
+  #pat2,
+#pat3 {
+  max-height: 100%;
+}
+
+.pat .pat-images #pat4 {
+  max-width: 100%;
+}
+
+  .catch-logo {
+    width: 100px;
+  }
+
+
+  #catalog {
+    grid-template-columns: 1fr;
+  }
+
+  .toy-text {
+    width: 100%;
+  }
+
+  .toy-title {
+    font-size: calc(1rem + 1vw)
+  }
+
+  .toy-description {
+    font-size: .95rem
+  }
+
+  .toy-container {
+    padding: 1rem;
+  }
+
+  .main-picture {
+    width: 35vh;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .toy-buttons {
+    padding: 0 10px;
+  }
+
+  .add-to-cart-button,
+  .build-button {
+    width: 80%;
+    margin: 5px auto;
+  }
+
+  .footer {
+    padding-left: 20px;
+    /* display: none; */
+  }
 }

@@ -25,42 +25,161 @@ const QuantitySelector = ({ quantity, onDecrease, onIncrease }) => {
 export default function Checkout() {
   async function addMailDocument() {
     const mailCollection = collection(db, "mail");
-
-    // Document data
+  
+    let emailItems = [];
+  
+    try {
+      const storedJsonString = localStorage.getItem("cartObject");
+      if (storedJsonString) {
+        const storedObject = JSON.parse(storedJsonString);
+        emailItems = storedObject.map((item) => ({
+          name: item.name,
+          quantity: item.quantity,
+          imageSrc: item.imagePath,
+        }));
+      }
+    } catch (error) {
+      console.error("Error retrieving data from local storage:", error);
+    }
+  
+    console.log(emailItems);
+  
+    const orderItemsHTML = emailItems.map((item) => `
+      <div>
+        <img src="${item.imageSrc}" alt="${item.name}" style="max-width: 100px;">
+        <p><strong>Name:</strong> ${item.name}</p>
+        <p><strong>Quantity:</strong> ${item.quantity}</p>
+      </div>
+    `).join('');
+  
+    const confirmData = {
+      message: {
+        subject: "Order Confirmation",
+        text: "text content",
+        html: `
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Order Confirmation</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                background-color: #f8f8f8;
+                color: #333;
+              }
+              .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+              }
+              h2 {
+                color: #007bff;
+                margin-top: 0;
+              }
+              .icon {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 10px;
+              }
+              strong {
+                color: #333;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h2><span class="icon">✅</span>Order Confirmation</h2>
+              <p>Thank you for placing your order with CATCH! We have received your order and will confirm it shortly.</p>
+              <p><strong>Organization:</strong> ${userData.organization}</p>
+              <p><strong># of buttons:</strong> ${userData.buttonQuantity}</p>
+              <p><strong>Address:</strong> ${userData.address}</p>
+              <p><strong>Notes:</strong> ${userData.notes}</p>
+              ${orderItemsHTML}
+            </div>
+          </body>
+          </html>
+        `,
+      },
+      to: [userData.email], // Send confirmation to the user who placed the order
+    };
+  
     const mailData = {
       message: {
         subject: userData.name + " just placed an order!",
         text: "text content",
-        html:
-          "Organization: " +
-          userData.organization +
-          ", # of buttons: " +
-          userData.buttonQuantity +
-          ", Address: " +
-          userData.address +
-          ", Notes: " +
-          userData.notes +
-          ", User Email: " +
-          userData.email,
+        html: `
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>New Order Notification</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                background-color: #f8f8f8;
+                color: #333;
+              }
+              .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+              }
+              h2 {
+                color: #007bff;
+                margin-top: 0;
+              }
+              .icon {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 10px;
+              }
+              strong {
+                color: #333;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h2><span class="icon">📦</span>New Order Notification</h2>
+              <p><strong>Organization:</strong> ${userData.organization}</p>
+              <p><strong># of buttons:</strong> ${userData.buttonQuantity}</p>
+              <p><strong>Address:</strong> ${userData.address}</p>
+              <p><strong>Notes:</strong> ${userData.notes}</p>
+              <p><strong>User Email:</strong> ${userData.email}</p>
+              ${orderItemsHTML}
+            </div>
+          </body>
+          </html>        
+        `,
       },
-      to: [userData.email],
-    };
-
+      to: ['catchUNC@gmail.com'],
+    };    
+  
     try {
-      const docRef = await addDoc(mailCollection, mailData);
+      const docRef1 = await addDoc(mailCollection, mailData);
+      const docRef2 = await addDoc(mailCollection, confirmData);
+      console.log("Documents added successfully!");
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error("Error adding documents: ", e);
     }
   }
 
   const [cartItems, setCartItems] = useState([]);
   const [orderSubmitted, setOrderSubmitted] = useState(false);
+  
 
   useEffect(() => {
     try {
       const storedJsonString = localStorage.getItem("cartObject");
-      // Keep for now
-      // console.log(storedJsonString);
       if (storedJsonString) {
         const storedObject = JSON.parse(storedJsonString);
         let idCounter = 1;
@@ -97,31 +216,51 @@ export default function Checkout() {
 
   // Function to handle quantity decrease
   const handleDecreaseQuantity = (itemId) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) => {
+    setCartItems((prevItems) => {
+      const updatedItems = prevItems.map((item) => {
         if (item.id === itemId && item.quantity > 1) {
           return { ...item, quantity: item.quantity - 1 };
         }
         return item;
-      })
-    );
+      });
+  
+      // Update the cart in local storage
+      const orderString = JSON.stringify(updatedItems);
+      localStorage.setItem("cartObject", orderString);
+  
+      return updatedItems;
+    });
   };
 
   // Function to handle quantity increase
-  const handleIncreaseQuantity = (itemId) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) => {
-        if (item.id === itemId) {
-          return { ...item, quantity: item.quantity + 1 };
-        }
-        return item;
-      })
-    );
-  };
+const handleIncreaseQuantity = (itemId) => {
+  setCartItems((prevItems) => {
+    const updatedItems = prevItems.map((item) => {
+      if (item.id === itemId) {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
+    });
+
+    // Update the cart in local storage
+    const orderString = JSON.stringify(updatedItems);
+    localStorage.setItem("cartObject", orderString);
+
+    return updatedItems;
+  });
+};
 
   // Function to remove an item from the cart
   const handleRemoveItem = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+    setCartItems((prevItems) => {
+      const updatedItems = prevItems.filter((item) => item.id !== itemId);
+  
+      // Update the cart in local storage
+      const orderString = JSON.stringify(updatedItems);
+      localStorage.setItem("cartObject", orderString);
+  
+      return updatedItems;
+    });
   };
 
   const placeOrder = async (order, userData) => {
@@ -215,7 +354,7 @@ export default function Checkout() {
                 <Card.Body>
                   <Row>
                     <Col sm={4}>
-                      <Card.Img variant="top" src={item.imageSrc}  style={{height: "100%"}}/>
+                      <Card.Img src={item.imageSrc}  style={{height: "100%"}}/>
                     </Col>
                     <Col sm={8}>
                       <Card.Title className="text-left">{item.name}</Card.Title>

@@ -14,8 +14,13 @@
 }
 
 .footer-col {
+  margin: 0 5px;
   flex: 1;
   text-align: center;
+}
+
+#firstCol {
+  margin: 0;
 }
 
 .footer-row {

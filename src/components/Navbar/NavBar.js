@@ -110,18 +110,7 @@ function CartItem(props) {
                 >
                   <FaTrash size={20} style={{ marginRight: "10px" }} />
                 </button>
-                <span
-                  style={{
-                    minWidth: "60%",
-                    maxWidth: "60%",
-                    alignItem: "center",
-                    backgroundColor: "#AAAAAA",
-                    padding: "5px",
-                    borderRadius: "300px",
-                    paddingLeft: "15px",
-                    paddingRight: "15px",
-                  }}
-                >
+                <span className="addRemoveSpan">
                   <button
                     style={{
                       margin: "0",
@@ -279,6 +268,8 @@ export default function NavBar() {
   const handleClick = (path) => {
     setActiveTab(path);
     setSidebarOpen(false);
+    document.body.style.overflow = "auto";
+    window.scrollTo(0, 0);
   };
   const getClassName = (path) => {
     return path === activeTab ? "mx-3 nav-link-active" : "mx-3 nav-link";
@@ -434,7 +425,7 @@ export default function NavBar() {
 
                 <Nav
                   className="ml-auto justify-content-end adjust-right-nav"
-                  style={{ display: "inline", marginLeft: "0" }}
+                  style={{ display: "inline", marginLeft: "0", padding: "0"}}
                 >
                   {scrollPosition < 20 && (
                     <>

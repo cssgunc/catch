@@ -41,17 +41,57 @@ function ContactForm() {
     const mailData = {
       message: {
         subject: values.name + " just messaged you!",
-        html:
-          "<div style='color:black'><b>Name</b>: " +
-          values.name +
-          "<br/><br/><b>Email</b>: " +
-          values.email +
-          "<br/><br/><b><u>Message</u></b><br/>" +
-          values.message +
-          "</div>",
+        html: `
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>New Message Notification</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                background-color: #f8f8f8;
+                color: #333;
+              }
+              .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+              }
+              h2 {
+                color: #007bff;
+                margin-top: 0;
+              }
+              .icon {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 10px;
+              }
+              strong {
+                color: #333;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h2><span class="icon">✉️</span>New Message Notification</h2>
+              <div style="color:black">
+                <p><b>Name:</b> ${values.name}</p>
+                <p><b>Email:</b> ${values.email}</p>
+                <p><b><u>Message</u></b></p>
+                <p>${values.message}</p>
+              </div>
+            </div>
+          </body>
+          </html>
+        `,
       },
-      to: ["nithinsiva.00@gmail.com"],
-    };
+      to: ["catchUNC@gmail.com"],
+    };    
 
     try {
       const docRef = await addDoc(mailCollection, mailData);

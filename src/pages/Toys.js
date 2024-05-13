@@ -19,7 +19,7 @@ function ToyPage(props) {
     if (url === "N/A") {
       return;
     }
-    window.location.href = url;
+    window.open(url, "_blank");
   };
 
   function addToyPage(setOrder, order, details) {
@@ -46,11 +46,6 @@ function ToyPage(props) {
             <div className="toy-descriptors">
               <h1 className="toy-title">{props.details.name}</h1>
               <br />
-              <h3
-                style={{ font: "Montserrat", width: "100%", textAlign: "left" }}
-              >
-                Description
-              </h3>
               <p className="toy-description">{props.details.description}</p>
             </div>
             <div className="toy-buttons">
@@ -145,14 +140,11 @@ function Toy(props) {
                 addToyToCart(props.setOrder, props.order, props.details)
               }
             >
+              <div className='plus-icon'>
               <FaPlus
                 size={18}
-                style={{
-                  display: "flex",
-                  width: "100%",
-                  border: "transparent",
-                }}
               />
+              </div>
             </button>
           )}
         </div>

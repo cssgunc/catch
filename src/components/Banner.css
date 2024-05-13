@@ -4,43 +4,58 @@
   text-align: center;
   z-index: -1;
   width: 100%;
+  overflow: hidden;
 }
 
 .banner-picture {
   margin-top: 0;
   width: 100%;
+  display: block;
 }
 
 .banner-text-position {
   font-weight: bolder;
   position: absolute;
-  top: calc(50% + 1rem);
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 1;
 }
 
 .banner-text {
   font-family: Montserrat;
   font-weight: bolder;
   font-size: 50px;
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 900px) {
+  .banner {
+    margin-top: -2.5rem;
+  }
   .banner-text {
     font-size: 40px;
   }
 }
 
 @media screen and (max-width: 700px) {
+  .banner {
+    margin-top: -2rem;
+  }
   .banner-text {
     font-size: 35px;
   }
 }
 
 @media screen and (max-width: 500px) {
+  .banner {
+    margin-top: -1.5rem;
+  }
   .banner-text {
-    margin-top: 1rem;
     font-size: 25px;
   }
 }

@@ -52,21 +52,19 @@ export default function About() {
       <div className="about-content">
         <div className="intro">
           <h2>Carolina Adapts Toys for Children</h2>
-          <div id="about-video">
-            <div className="video-container">
+          <div className="video-container">
               <iframe
                 title="Intro Video"
                 class="video"
-                width="750"
-                height="450"
+                width="100%"
+                height="0"
                 sandbox="allow-scripts allow-popups allow-forms allow-same-origin allow-popups-to-escape-sandbox allow-downloads allow-modals"
                 frameborder="0"
                 aria-label="YouTube Video, Making toys more accessible for kids"
                 src="https://www.youtube.com/embed/LDH36tCupQQ"
                 allowfullscreen=""
               ></iframe>
-            </div>
-          </div>
+              </div>
           <div id="history">
             <p font="font-family: Arial" style={{fontSize: "20px"}}>
               <em>
