@@ -372,7 +372,7 @@ const handleIncreaseQuantity = (itemId) => {
       <button className="return-home" onClick={() => returnHome()}>
         <FaChevronLeft size={25} />
       </button>
-      <Container>
+      <Container style={{ paddingTop: "10px" }}>
         <Row className="my-4">
           <Col md={6}>
             <h2 className="text-left">Cart</h2>
