@@ -46,7 +46,7 @@ const ArticleGrid = () => {
   }, []);
 
   return (
-    <Row className="mx-md-5 mx-6 mt-5">
+    <Row className="article-grid">
       {articles.map((article) => (
         <ArticleCard
           key={article.id}
