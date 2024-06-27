@@ -287,51 +287,81 @@ const handleIncreaseQuantity = (itemId) => {
     try {
       // Create new document in orders collection
       const orderRef = await addDoc(collection(db, "orders"), orderData);
-      const toysUpdateRef = doc(db, "lastUpdated", "toysLastUpdated");
-      // Update the ordered field for each toy in the "toys" collection
-      const toyNames = Object.keys(orderFormat);
-      for (let i = 0; i < toyNames.length; i++) {
-        // const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
-        // const toyRef = doc(db, "toys", toyName);
-        const toyRef = formatAndFetchString(toyNames[i]);
+      // const toysUpdateRef = doc(db, "lastUpdated", "toysLastUpdated");
+      // // Update the ordered field for each toy in the "toys" collection
+      // const toyNames = Object.keys(orderFormat);
+      // for (let i = 0; i < toyNames.length; i++) {
+      //   // const toyName = toyNames[i].replace(/\W/g, '').toLowerCase();
+      //   // const toyRef = doc(db, "toys", toyName);
+      //   const toyRef = formatAndFetchString(toyNames[i]);
 
-        const element = await getDoc(toyRef);
-        const toyData = { ...element.data() };
-        await updateDoc(toyRef, {
-          ordered: toyData.ordered + orderFormat[toyNames[i]],
-        });
-      }
+      //   const element = await getDoc(toyRef);
+      //   const toyData = { ...element.data() };
+      //   await updateDoc(toyRef, {
+      //     ordered: toyData.ordered + orderFormat[toyNames[i]],
+      //   });
+      // }
 
-      await updateDoc(toysUpdateRef, { toysLastUpdated: serverTimestamp() });
+      // await updateDoc(toysUpdateRef, { toysLastUpdated: serverTimestamp() });
     } catch (e) {
       console.error("Error placing order: ", e);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    placeOrder(cartItems, userData);
-    addMailDocument();
-
-    setCartItems([]);
-    // Optionally, you can clear the localStorage here as well
-    localStorage.removeItem("cartObject");
-
-    // Set orderSubmitted to true to display the success message
-    setOrderSubmitted(true);
-    // Clear user data
-    setUserData({
-      name: "",
-      email: "",
-      organization: "",
-      buttonQuantity: 0,
-      address: "",
-      notes: "",
-    });
-    window.alert(
-      "Thank You for Ordering! CATCH will review your order soon and let you know when it is confirmed!"
+  const validateForm = () => {
+    const { name, email, organization, buttonQuantity, address } = userData;
+    return (
+        name.trim() !== '' &&
+        email.trim() !== '' &&
+        organization.trim() !== '' &&
+        address.trim() !== '' &&
+        isButtonQuantityValid(buttonQuantity)
     );
+};
+
+  const isButtonQuantityValid = (quantity) => {
+      const num = parseInt(quantity, 10);
+      return !isNaN(num) && num >= 0;
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) {
+        alert("Please fill in all required fields and ensure valid inputs.");
+        return;
+    }
+    try {
+        // Await the async operations
+        await placeOrder(cartItems, userData);
+        await addMailDocument();
+
+        // Clear cart items and local storage
+        setCartItems([]);
+        localStorage.removeItem("cartObject");
+
+        // Set orderSubmitted to true to display the success message
+        setOrderSubmitted(true);
+
+        // Clear user data
+        setUserData({
+            name: "",
+            email: "",
+            organization: "",
+            buttonQuantity: 0,
+            address: "",
+            notes: "",
+        });
+
+        // Show the alert
+        alert("Thank You for Ordering! CATCH will review your order soon and let you know when it is confirmed!");
+
+        // Redirect to home after alert
+        window.location.href = '/';
+    } catch (error) {
+        console.error("Error submitting order:", error);
+        alert("There was an error processing your order. Please try again.");
+    }
+};
 
   const returnHome = () => {
     window.location.href = "/";
@@ -383,72 +413,79 @@ const handleIncreaseQuantity = (itemId) => {
             <h2 className="text-left">Enter your Information:</h2>
             <br></br>
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3 text-left" controlId="name">
+            <Form.Group className="mb-3 text-left" controlId="name">
                 <Form.Label>Name:</Form.Label>
                 <Form.Control
-                  placeholder="Enter your full name"
-                  value={userData.name}
-                  onChange={handleChange}
+                    placeholder="Enter your full name"
+                    value={userData.name}
+                    onChange={handleChange}
+                    required
                 />
-              </Form.Group>
+            </Form.Group>
 
-              <Form.Group className="mb-3 text-left" controlId="email">
+            <Form.Group className="mb-3 text-left" controlId="email">
                 <Form.Label>Email:</Form.Label>
                 <Form.Control
-                  placeholder="Enter your email"
-                  value={userData.email}
-                  onChange={handleChange}
+                    type="email"
+                    placeholder="Enter your email"
+                    value={userData.email}
+                    onChange={handleChange}
+                    required
                 />
-              </Form.Group>
+            </Form.Group>
 
-              <Form.Group className="mb-3 text-left" controlId="organization">
+            <Form.Group className="mb-3 text-left" controlId="organization">
                 <Form.Label>Organization:</Form.Label>
                 <Form.Control
-                  placeholder="Enter your organization's name"
-                  value={userData.organization}
-                  onChange={handleChange}
+                    placeholder="Enter your organization's name"
+                    value={userData.organization}
+                    onChange={handleChange}
+                    required
                 />
-              </Form.Group>
+            </Form.Group>
 
-              <Form.Group className="mb-3 text-left" controlId="buttonQuantity">
+            <Form.Group className="mb-3 text-left" controlId="buttonQuantity">
                 <Form.Label>Number of Buttons for Toys:</Form.Label>
                 <Form.Control
-                  type="number"
-                  placeholder="MAX 2 PER 3 TOYS"
-                  value={userData.buttonQuantity}
-                  onChange={handleChange}
+                    type="number"
+                    placeholder="MAX 2 PER 3 TOYS"
+                    value={userData.buttonQuantity}
+                    onChange={handleChange}
+                    required
+                    min="0"  // Ensure non-negative values
                 />
-              </Form.Group>
+            </Form.Group>
 
-              <Form.Group className="mb-3 text-left" controlId="address">
+            <Form.Group className="mb-3 text-left" controlId="address">
                 <Form.Label>Address:</Form.Label>
                 <Form.Control
-                  placeholder="Street address, City, State, Zip code"
-                  value={userData.address}
-                  onChange={handleChange}
+                    placeholder="Street address, City, State, Zip code"
+                    value={userData.address}
+                    onChange={handleChange}
+                    required
                 />
-              </Form.Group>
+            </Form.Group>
 
-              <Form.Group className="mb-3 text-left" controlId="notes">
+            <Form.Group className="mb-3 text-left" controlId="notes">
                 <Form.Label>Additional Notes:</Form.Label>
                 <Form.Control
-                  as="textarea"
-                  rows={3}
-                  placeholder="Anything else you'd like to add?"
-                  value={userData.notes}
-                  onChange={handleChange}
+                    as="textarea"
+                    rows={3}
+                    placeholder="Anything else you'd like to add?"
+                    value={userData.notes}
+                    onChange={handleChange}
                 />
-              </Form.Group>
+            </Form.Group>
 
-              <Button
+            <Button
                 variant="success"
                 type="submit"
                 size="lg"
                 className="btn-block"
-              >
+            >
                 Submit Order
-              </Button>
-            </Form>
+            </Button>
+        </Form>
           </Col>
         </Row>
       </Container>
