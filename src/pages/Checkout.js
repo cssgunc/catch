@@ -225,6 +225,7 @@ export default function Checkout() {
       });
   
       // Update the cart in local storage
+      console.log(cartItems)
       const orderString = JSON.stringify(updatedItems);
       localStorage.setItem("cartObject", orderString);
   
