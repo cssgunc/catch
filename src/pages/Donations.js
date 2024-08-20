@@ -196,7 +196,7 @@ function DonationDisplay(props) {
               total={donationsInfo[currentIndex].total}
               donations={donationsInfo[currentIndex].donations}
               description={donationsInfo[currentIndex].description}
-              imagePath={`https://imgur.com/${donationsInfo[currentIndex].imagePath}.jpg`}
+              imagePath={`https://i.imgur.com/${donationsInfo[currentIndex].imagePath}.jpg`}
             />
           </div>
         ) : (
@@ -210,7 +210,7 @@ function DonationDisplay(props) {
             total={donation.total}
             donations={donation.donations}
             description={donation.description}
-            imagePath={`https://imgur.com/${donation.imagePath}.jpg`}
+            imagePath={`https://i.imgur.com/${donation.imagePath}.jpg`}
           />
         ))
       ) : (

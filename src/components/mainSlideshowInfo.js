@@ -10,7 +10,7 @@ export const getSlideshowImages = async () => {
     const querySnapshot = await getDocs(slideRef);
     querySnapshot.forEach((doc) => {
       let data = doc.data();
-      data.imagePath = `https://imgur.com/${data.imageID}.jpg`;
+      data.imagePath = `https://i.imgur.com/${data.imageID}.jpg`;
       images.push(data);
     });
   } catch (error) {

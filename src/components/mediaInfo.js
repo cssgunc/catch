@@ -10,7 +10,7 @@ export const getMediaInfo = async () => {
     const querySnapshot = await getDocs(query(mediaRef, orderBy("id")));
     querySnapshot.forEach((doc) => {
       let data = doc.data();
-      data.image = `https://imgur.com/${data.imageID}.jpg`;
+      data.image = `https://i.imgur.com/${data.imageID}.jpg`;
       mediaArray.push(data);
     });
   } catch (error) {

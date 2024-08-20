@@ -11,7 +11,7 @@ export async function getDynamicRecentExecInfo() {
     querySnapshot.forEach((doc) => {
       if (!doc.data().current) {
         let data = doc.data();
-        data.image = `https://imgur.com/${data.imageID}.jpg`;
+        data.image = `https://i.imgur.com/${data.imageID}.jpg`;
         execs.push(data);
       }
     });
