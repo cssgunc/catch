@@ -102,7 +102,7 @@ export default function Footer() {
             </div>
             <div>
               <a href="https://cssgunc.org/" class="footer-row">
-                Website Made by CS + SG at UNC!
+                Site made by CS+SG at UNC!
               </a>
             </div>
           </div>
