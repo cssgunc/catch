@@ -69,7 +69,7 @@ export default function About() {
             <p font="font-family: Arial" style={{fontSize: "20px"}}>
               <em>
                 "Founded in November 2018, CATCH works to provide adapted toys
-                to children with special needs who are unable to play with most
+                to children with disabilities who are unable to play with most
                 commercially manufactured toys. Utilizing engineering,
                 creativity, and innovation, we give back to the community, while
                 also raising awareness about underrepresented communities and
