@@ -91,7 +91,8 @@
   border: none;
   min-width: 35%;
   width: 30%;
-  background-color: rgba(243, 111, 57, 0.5);
+  color: white;
+  background-color: rgba(243, 111, 57, 1);
   font-weight: bold;
   justify-content: center;
   display: flex;
@@ -122,7 +123,7 @@
 }
 
 .add-to-cart-button:hover {
-  background-color: rgba(243, 111, 57, 1);
+  background-color: #5EBFB5;
   color: white;
   transform: scale(1.1);
 }
@@ -176,8 +177,8 @@
   position: absolute;
   width: 30px;
   height: 30px;
-  bottom: 2%;
-  right: 2%;
+  bottom: 5%;
+  right: 5%;
   border-radius: 100%;
   border: none;
   background-color: rgb(243, 110, 57);
@@ -188,13 +189,14 @@
 }
 
 .plus-icon {
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .plus-toy:hover {
-  background-color: rgba(243, 111, 57, 1);
+  background-color: rgba(94, 191, 181, 1);
   color: white;
   transform: scale(1.1); /* Increase size on hover */
 }

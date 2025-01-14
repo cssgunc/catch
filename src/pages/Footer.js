@@ -24,19 +24,9 @@ export default function Footer() {
                 The Team
               </a>
             </div>
-          </div>
-        </div>
-        <div class="footer-col">
-          <div style={{ display: "inline-block", textAlign: "left" }}>
-            <div class="footer-heading">GET INVOLVED</div>
             <div>
-              <a href="/toys" class="footer-row">
+            <a href="/toys" class="footer-row">
                 Tutorials
-              </a>
-            </div>
-            <div>
-              <a href="/toys" class="footer-row">
-                Partner Application
               </a>
             </div>
           </div>
@@ -102,7 +92,7 @@ export default function Footer() {
             </div>
             <div>
               <a href="https://cssgunc.org/" class="footer-row">
-                Site made by CS+SG at UNC!
+                Website made by CS + SG at UNC!
               </a>
             </div>
           </div>

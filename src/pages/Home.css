@@ -18,7 +18,7 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: center
 }
 
 .carouselItem {
@@ -27,7 +27,7 @@ h2 {
 
 .carouselItemWide {
   width: 48%;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .landing {
@@ -107,6 +107,7 @@ button {
   color: black;
   background-color: transparent;
   border: none;
+  margin-top: 50px;
 }
 
 #introduction,

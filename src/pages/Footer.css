@@ -3,7 +3,6 @@
   bottom: 0%;
   width: 100%;
   margin-top: 100px;
-  margin-bottom: 100px;
   height: 100%;
 }
 
@@ -15,7 +14,7 @@
 }
 
 .footer-col {
-  margin: 0 5px;
+  margin: 0 100px;
   flex: 1;
   text-align: center;
 }
@@ -30,7 +29,7 @@
 }
 
 .footer-heading {
-  margin-top: 25px;
+  margin-top: 50px;
   font-weight: BOLD;
   margin-bottom: 15px;
 }

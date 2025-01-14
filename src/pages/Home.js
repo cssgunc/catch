@@ -85,7 +85,7 @@ function MainSlideshow() {
   };
 
   const mainSettings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
@@ -93,7 +93,7 @@ function MainSlideshow() {
     waitForAnimate: true,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
-    arrows: false
+    arrows: true
   };
 
   return (
@@ -172,7 +172,7 @@ function SamplePrevArrow(props) {
 // WORKING WITH BACKEND START
 export default function Home() {
   const settings = {
-    dots: true,
+    dots: false,
     fade: true,
     infinite: true,
     speed: 500,
