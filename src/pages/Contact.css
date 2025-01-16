@@ -1,3 +1,8 @@
+h1 {
+  font-weight: 700;
+  font-size: xx-large;
+}
+
 h2 {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -96,8 +101,14 @@ h2 {
 .message-btn {
   margin-top: 20px;
   width: 100%;
-  background-color: #ce463a;
+  background-color: rgb(243, 110, 57);
   color: white;
   font-weight: bold;
   padding: 2%;
+  border-radius: 7px;
+  transition: transform 0.2s ease;
+}
+
+.message-btn:hover {
+  background-color: #5ebfb5;
 }

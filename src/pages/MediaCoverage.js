@@ -24,6 +24,7 @@ const ArticleCard = ({ image, title, caption, link }) => {
               backgroundColor: "#F36F39",
               padding: "5px 8px",
               fontWeight: "bold",
+              borderRadius: "4px"
             }}
           >
             Read more
@@ -64,9 +65,10 @@ const MediaCoverage = () => {
   return (
     <div>
       <Banner
-        imagePath="banner/media_coverage_banner_color.jpeg"
+        imagePath="banner/media_coverage_banner_color.png"
         title="Media Coverage"
       />
+      <h2 style={{ paddingTop: "50px" }}>Recent News</h2>
       <ArticleGrid />
       <p style={{ paddingTop: 20, marginBottom: -40 }}>
         We are always looking to spread the word and the CATCH mission. For news

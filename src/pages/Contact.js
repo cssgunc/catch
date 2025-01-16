@@ -181,7 +181,7 @@ export default function Contact() {
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3231.430527919442!2d-79.05104209999999!3d35.9119606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89acc2e834da1a3d%3A0xb667aa33d3095f48!2sE%20Cameron%20Ave%2C%20Chapel%20Hill%2C%20NC%2027514%2C%20USA!5e0!3m2!1sen!2suk!4v1699371410891!5m2!1sen!2suk";
   return (
     <div>
-      <Banner imagePath="/banner/contact_banner_color.jpeg" title="Contact" />
+      <Banner imagePath="/banner/contact_banner_color.png" title="Contact" />
       <div className="info-container">
         <div id="mainContainer">
           <div id="leftCol">

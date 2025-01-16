@@ -48,10 +48,10 @@ function ExecGrid() {
 export default function About() {
   return (
     <div className="App">
-      <Banner imagePath="banner/about_banner_color.jpeg" title="About" />
+      <Banner imagePath="banner/about_banner_color.png" title="About" />
       <div className="about-content">
         <div className="intro">
-          <h2>Carolina Adapts Toys for Children</h2>
+          <h2 style={{ paddingTop: "50px" }}>Carolina Adapts Toys for Children</h2>
           <div className="video-container">
               <iframe
                 title="Intro Video"

@@ -200,12 +200,12 @@ export default function Toys(props) {
     <>
       {!viewToy && (
         <Banner
-          imagePath="banner/toy_catalog_banner_color.jpeg"
+          imagePath="banner/toy_catalog_banner_color.png"
           title="Toy Catalog"
         />
       )}
 
-      {!viewToy && <h2>Current Toys</h2>}
+      {!viewToy && <h2 style={{ paddingTop: "50px" }}>Current Toys</h2>}
 
       {!viewToy && (
         <p id="catalog-subtitle">Click the photos for more information</p>

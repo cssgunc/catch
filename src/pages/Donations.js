@@ -246,12 +246,12 @@ export default function Donations() {
   return (
     <>
       <Banner
-        imagePath="banner/donations_banner_color.jpeg"
+        imagePath="banner/donations_banner_color.png"
         title="Donations"
       />
 
-      <h2 style={{ paddingTop: "100px" }}>
-        <b>Past Donation Sites</b>
+      <h2 style={{ paddingTop: "50px" }}>
+        Past Donation Sites
       </h2>
       <div>
         <b className="totalDonatedDisplay">{totalDonatedDisplay}</b>
@@ -260,16 +260,17 @@ export default function Donations() {
       <DonationDisplay />
       <div id="pastpartnersection">
         <p>
+          <br></br>
           <em>* Donation data collection began in Spring 2021.</em>
         </p>
       </div>
 
-      <iframe
+      {/* <iframe
         src={gofundmeform}
         id="gfm-form"
         title="gofundme form"
         style={{ width: "80%", height: "676px", overflow: "scroll" }}
-      ></iframe>
+      ></iframe> */}
     </>
   );
 }
