@@ -6,8 +6,8 @@ import { getRecentEvents2Info } from "../components/recentEvents2Info.js";
 import { getRecentEvents3Info } from "../components/recentEvents3Info.js";
 import { getRecentEvents4Info } from "../components/recentEvents4Info.js";
 
-import { OrbitControls, useTexture } from "@react-three/drei";
-import { Canvas, useLoader } from "@react-three/fiber";
+import { useTexture } from "@react-three/drei";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { Mesh, NoToneMapping } from "three";
 import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
@@ -19,6 +19,7 @@ import "react-multi-carousel/lib/styles.css";
 import "./Home.css";
 
 const Truck = () => {
+  const groupRef = useRef();
   const texture = useTexture("firetruck/FireEngine.png");
   const materials = useLoader(MTLLoader, "firetruck/FireEngine.mtl");
   const obj = useLoader(OBJLoader, "firetruck/FireEngine.obj", (loader) => {
@@ -31,10 +32,17 @@ const Truck = () => {
       child.material.map = texture;
     }
   });
+
+  useFrame(() => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y += 0.01;
+    }
+  });
+
   const position = [0.5, -0.6, 0.3];
   const rotation = [0.4, -0.8, 0];
   return (
-    <group position={position} rotation={rotation}>
+    <group ref={groupRef} position={position} rotation={rotation}>
       <primitive object={obj} scale={0.65} />
     </group>
   );
@@ -310,7 +318,6 @@ export default function Home() {
               <pointLight position={[5, 3, 5]} intensity={20} />
               <Suspense fallback={null}>
                 <Truck className="truck" />
-                <OrbitControls />
               </Suspense>
             </Canvas>
           </div>
