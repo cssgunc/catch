@@ -43,7 +43,7 @@ const Truck = () => {
   const rotation = [0.4, -0.8, 0];
   return (
     <group ref={groupRef} position={position} rotation={rotation}>
-      <primitive object={obj} scale={0.65} />
+      <primitive object={obj} scale={0.45} />
     </group>
   );
 };
